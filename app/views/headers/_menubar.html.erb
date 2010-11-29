@@ -1,0 +1,44 @@
+<div id="menuBar" >
+  <div id="mainNav">
+    <ul>
+      <li> <!--TODO: add class="selected" to the current section-->
+        <%= link_to "Home", people_path %>
+        <% #link_to "Home", home_path %>
+      </li>
+      <li> <!--TODO: add class="selected" to the current section-->
+        <%= link_to "Ministry", people_path %>
+        <% #link_to "Ministry", ministries_path %>
+      </li>
+      <li> <!--TODO: add class="selected" to the current section-->
+        <%= link_to "Enter Stats", people_path %>
+        <% #link_to "Enter Stats", stats_path %>
+      </li>
+      <li> <!--TODO: add class="selected" to the current section-->
+        <%= link_to "View Reports", people_path %>
+        <% #link_to "View Reports", reports_path %>
+      </li>
+    </ul>
+  </div><!-- end mainNav -->
+
+  <div id="tab1" class="submenubar">
+    <ul>
+      <!-- TODO: Add submenu bar
+      <li class="ministry">&nbsp;</li>
+      <li id="minor_tab_<%="j"%>" class="active">
+        <a href=""></a>
+      </li>
+
+      <li class="report">&nbsp;</li>
+      <li id="minor_tab_<%="j"%>" class="active">
+        <a href=""></a>
+      </li>
+      -->
+    </ul>
+  </div>
+
+  <div id="quickSearch"> 
+    <script type="text/javascript"> 
+      $("#usual1 ul").idTabs(); 
+    </script>
+  </div>
+</div>

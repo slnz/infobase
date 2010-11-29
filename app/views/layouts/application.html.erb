@@ -1,14 +1,43 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Infobase</title>
+  <title><%= @title || "Infobase" %></title>
   <%= stylesheet_link_tag :all %>
   <%= javascript_include_tag :defaults %>
   <%= csrf_meta_tag %>
+  <style>
+    /* Banner bar background style */
+    #bannerBar {
+      background: url(/images/header_images/<%= random_banner_image %>) no-repeat;
+      height: 116px;
+      clear: both;
+      border-bottom: 3px solid #969f5e;
+    }
+  </style>
 </head>
 <body>
-
-<%= yield %>
-
+  <div id="wrapper">
+    <%= render :partial => "headers/staffsite_small" %>
+    <div id="innerwrapper">
+      <div id="logobar">
+        <div class="logoside">
+          <a href="" class="logo" alt="InfoBase Home"></a>  <!--TODO: Fix link-->
+          <div id="helpside" class="float-right">
+            <a class="help" target="_blank" href="http://wiki.uscm.org/display/NCO/Infobase+Help">
+              <img id="helpImg" src="/images/help.gif" alt="help" /> 
+              InfoBase Help
+            </a>
+          </div>
+        </div><!-- logoside -->
+      </div><!-- logobar -->
+  
+      <%= render :partial => "headers/menubar" %>
+      <div id="bannerBar"></div>
+      
+      <div id="content">
+        <%= yield %>
+      </div>
+    </div>
+  </div>
 </body>
 </html>

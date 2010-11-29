@@ -1,0 +1,525 @@
+@charset "UTF-8";
+/* CSS Document */
+
+/* Campus Staff Site InfoBase */
+
+
+#wrapper {
+  width: 966px;
+  margin: 0px auto;
+  position: relative; 
+}
+
+
+/* Logo bar styles */
+
+a.logo {
+  background: url(/images/logo_infobase.gif) no-repeat;
+  width: 185px;
+  height: 49px;
+  display: block;
+  margin: 5px 0px;
+  float: left;
+}
+
+.help {
+  font-size: 12px;
+  margin-right: 10px;
+  position: relative;
+  top: 4px;
+}
+
+#helpImg {
+  position: relative;
+  left: 86px; 
+  top: -10px;
+}
+
+#helpside {
+}
+
+#helpside a {
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 10px;
+}
+
+
+/* Menu bar styles */
+
+#menuBar {
+  background: url(/images/menubg_body.png);
+  clear: both;
+  height: 51px;
+}
+
+#menuBar ul li.selected {
+  background: url(/images/hover_over_home_enterstats_andviewreports.gif) 50% 50% no-repeat;
+}
+
+#menuBar .submenubar ul li.report {
+  margin-right: 138px;
+}
+
+#menuBar .submenubar ul li.ministry {
+  margin-right: 54px;
+}
+
+#menuBar .submenubar ul li a.active {
+  background: url(/images/subnav_hover.gif) 50% 50% repeat-x;
+}
+
+#menuBar .submenubar ul li a:hover {
+  background: url(/images/subnav_hover.gif) 50% 50% repeat-x;
+}
+
+#menu_right {
+  clear: right; 
+}
+
+#mainNav {
+  width: 500px;
+  height: 29px;
+}
+
+#mainNav ul {
+  height: 29px;
+  padding-left: 20px;
+}
+
+#mainNav ul li {
+  display: inline;
+  padding: 0 15px 0 15px;
+  height: 29px;
+}
+
+#mainNav ul li a {
+  color: #ffffff;
+  position: relative;
+  top: 6px;
+  text-decoration: none;
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 15px;
+}
+
+#mainNav ul li a:hover {
+  background: url(/images/hover_over_home_enterstats_andviewreports.gif) no-repeat center;
+  position: relative
+  top: 6px;
+}
+
+#quickSearch {
+  width: 435px;
+  position: relative;
+  left: 520px;
+  top: -26px;
+}
+
+#quickSearch select, #quickSearch input {
+  margin-right: 4px;
+}
+
+#quickSearch a {
+  color: #ffffff;
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 9px;
+}
+
+.submenubar {
+  position: absolute; 
+}
+
+.submenubar ul {
+  margin-top: 2px;
+}
+
+.submenubar ul li a {
+  color: #ffffff;
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 12px;
+  padding: 10px;
+}
+
+.submenubar ul li {
+  display: inline;
+  list-style-type: none;
+}
+
+
+/* Main content column styles */
+
+#enterStats {
+  width: 205px;
+  float: left;
+  margin-right: 130px;
+  margin-left: 30px;
+}
+
+#steps {
+  float: left;
+  font-size: 35px;
+  font-family: 'Trebuchet MS', Arial, sans-serif;
+  font-weight: bold;
+  line-height: 230px;
+  margin-top: -136px;
+  color: #0060AE;
+}
+
+#instruct {
+  margin-left: 50px;
+  width: 205px; 
+}
+
+#instruct p, #viewReports p, .formText {
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 12px;
+  line-height: 17px;
+}
+
+#search {
+  width: 285px;
+  float: left;
+  margin-right: 53px;
+}
+
+#strategy {
+  float: left;
+  width: 136px;
+}
+
+#region {
+  width: 295px; 
+}
+
+#searchInfo {
+  float: left;
+  clear: both;
+  margin-top: 12px;
+}
+
+#viewReports {
+  width: 220px;
+  float: left;
+}
+
+
+/* Footer styles */
+
+#footer {
+  clear: both;
+  background: url(/images/footer.gif) repeat-x;
+  position: relative;
+  top: 40px;
+  padding: 20px 0 20px 30px;
+}
+
+#footer a {
+  text-decoration: none;
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 12px;
+  margin-left: 30px;
+}
+
+#footer strong {
+  color: #0060AE; 
+}
+
+
+/* Header text styles */
+
+h1 {
+  color: #0060AE;
+  font-family: Corbel, Arial, sans-serif;
+  margin-bottom: -16px; 
+}
+
+h3 {
+  color: #5AB4F2;
+  font-family: Palatino, Times, serif;
+  font-weight: lighter; 
+}
+
+
+/* Class styles */
+
+.footer-text {
+  position: relative;
+  top: -2px;
+}
+
+.body-header {
+  margin-bottom: 8px; 
+}
+
+.float-left {
+  float: left;  
+}
+
+.float-right {
+  float: right; 
+}
+
+.no-border {
+  border: none; 
+}
+
+.select-divs {
+  width: 60px;
+  float: left;
+}
+
+.input-margin {
+  margin-bottom: 5px; 
+}
+
+a {
+  text-decoration: none;
+}
+
+img {
+  border: 0px;
+}
+
+/* Styles for inner pages */
+
+label {
+  color: #000000;
+  font-family: Palatino, Times, serif;
+  font-style: italic;
+  font-weight: lighter;
+  font-size: 18px;
+}
+
+#content {
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 12px;
+}
+
+.field  {
+  margin-bottom: 25px;
+}
+
+.thecolumn {
+  width: 420px;
+}
+
+#breadcrumb a {
+  margin-right: 10px;
+}
+
+#breadcrumb {
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 12px;
+  margin-top: 8px;
+  margin-right: 3px;
+}
+
+.quicksearch_open {
+  position: absolute; 
+}
+
+.quicksearch_open table {
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 12px;
+}
+
+/* Enter Stats page */
+
+table.movementheader {
+  border-collapse: collapse;
+  height: 35px;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  background-color: #8089ca;
+}
+
+.checkmark, .checkmark first_week {
+  display: inline;
+  list-style-type: none;
+  margin-right: 10px;
+}
+
+#tab_wrapper {
+  float: right;
+  height: 55px;
+  list-style-type: none;
+}
+
+.weekTab, .thisWeek {
+  display: inline;
+  float: left;
+  margin-right: 20px;
+  text-align: center;
+}
+
+li.selected {
+  list-style-type: none;
+}
+
+div.aschool h2 {
+  font-size: 14px;
+}
+
+a.edittext {
+  font-size: 10px;
+}
+
+.aschool .thecolumn {
+  float: left;
+  margin-right: 20px;
+}
+
+.schoolentry .thecolumn .field label {
+  float: right;
+  font-size: 12px;
+  font-family: Helvetica, Arial, sans-serif;
+  font-style: normal;
+  color: #000000;
+  margin-right: 12px;
+  text-align: left;
+  width: 192px;
+}
+
+.schoolentry .thecolumn .field {
+  margin-bottom: 5px;
+}
+
+.schoolentry .thecolumn .field input.totalnumber {
+  border: 1px solid silver;
+  padding: 2px;
+  width: 50px;
+}
+
+.schoolentry {
+  background-color: #A2ADFF;
+}
+
+div.aschool {
+  border-top: 1px solid silver;
+  height: 200px;
+  padding: 10px;
+}
+
+div.aschool .thecolumn {
+  width: 30%;
+}
+
+th.bookmark {
+  width: 10%;
+}
+
+table.movementheader th {
+  padding-left: 10px;
+}
+
+#enter_stat .results {
+  padding-left: 0;
+}
+
+ul.results li.selected {
+  height: auto;
+}
+
+ul.results li {
+  height: 35px;
+  margin-bottom: 3px;
+  overflow: hidden;
+}
+
+a.editfield {
+  background: url("/modules/images/icons/pencil_tiny.png") no-repeat scroll 0 50% transparent;
+  display: inline-block;
+  height: 10px;
+  margin: 0 5px;
+  width: 10px;
+}
+
+a.deletefield {background: url(../images/icons/delete_tiny.png) no-repeat 0% 50%; width: 10px; display: inline-block; height:10px; width: 10px; margin: 0 5px;}
+
+th.expand, td.expand {
+  background: url("/modules/images/expand.png") no-repeat scroll 50% 50% transparent;
+  width: 60px;
+}
+
+ul.results li.selected th.expand {
+  background: url("/modules/images/contract.png") no-repeat scroll 50% 50% transparent;
+  width: 60px;
+}
+
+li.first_week img, ul.results li.first_week img {
+  background-color: #d3d3d3;
+}
+
+a.unbookmark {
+  background: url("/modules/images/icons/bookmark.png") no-repeat scroll 0 50% transparent;
+  font-weight: normal;
+  padding-left: 20px;
+}
+
+.stats_submit_surround {
+  clear: both;
+}
+
+/* Ministry Locations page */
+
+h3.indented {
+  font-style: normal;
+  text-indent: 0.5em;
+}
+
+.strategy h3 {
+  background: none repeat scroll 0 0 #3756ab;
+  border-bottom: 1px solid #3756ab;
+  margin: 0;
+  padding: 6px;
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: bold;
+  color: #ffffff;
+}
+
+.strategy {
+  border: 1px solid #3756ab;
+  margin-bottom: 1em;
+  background-color: #a2adff;
+  padding: 6px;
+}
+
+.strategy .details .field {
+  display: inline;
+  line-height: 1.5em;
+}
+
+.strategy .details .thecolumn {
+  float: left;
+  width: 50%;
+}
+
+.strategy .details .box {
+  display: block;
+  margin-left: 100px;
+  margin-top: -18px;
+}
+
+.details .thecolumn .field label {
+  color: #000000;
+  font-size: 12px;
+  font-style: normal;
+  font-family: Helvetica, Arial, sans-serif;
+  text-align: left;
+  width: 100px;
+  line-height: 20px;
+  padding-right: 8px;
+}
+
+.strategy .details {
+}
+
+.clear {
+  clear: both;
+}
+
+div.aschool:hover {
+background-color:#B5B5B5;
+}
