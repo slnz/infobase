@@ -210,6 +210,9 @@ a.logo {
   position: relative;
   top: 40px;
   padding: 20px 0 20px 30px;
+  text-align:center;
+  font-style:italic;
+  font-size: 14px;
 }
 
 #footer a {
