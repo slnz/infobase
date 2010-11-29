@@ -9,5 +9,6 @@ class PeopleController < ApplicationController
   private
     def setup
       @menubar = "ministry"
+      @submenu = "people"
     end
 end

@@ -18,17 +18,23 @@
 
   <div id="tab1" class="submenubar">
     <ul>
-      <!-- TODO: Add submenu bar
-      <li class="ministry">&nbsp;</li>
-      <li id="minor_tab_<%="j"%>" class="active">
-        <a href=""></a>
-      </li>
-
-      <li class="report">&nbsp;</li>
-      <li id="minor_tab_<%="j"%>" class="active">
-        <a href=""></a>
-      </li>
-      -->
+      <% if @menubar == "ministry" %>
+        <li class="ministry">&nbsp;</li>
+        <li>
+          <%= link_to "Locations", people_path, :class => (@submenu == "locations" ? "active" : "") %>
+        </li>
+        <li>
+          <%= link_to "People", people_path, :class => (@submenu == "people" ? "active" : "") %>
+        </li>
+        <li>
+          <%= link_to "Teams", people_path, :class => (@submenu == "teams" ? "active" : "") %>
+        </li>
+      <% elsif @menubar == "reports" %>
+        <li class="report">&nbsp;</li>
+        <li>
+          <a href=""></a>
+        </li>
+      <% end %>
     </ul>
   </div>
 
