@@ -1,21 +1,17 @@
 <div id="menuBar" >
   <div id="mainNav">
     <ul>
-      <li> <!--TODO: add class="selected" to the current section-->
-        <%= link_to "Home", people_path %>
-        <% #link_to "Home", home_path %>
+      <li <%= @menubar == "home" ? "class='selected'" : "" %>>
+        <%= link_to "Home", root_path %>
       </li>
-      <li> <!--TODO: add class="selected" to the current section-->
+      <li <%= @menubar == "ministry" ? "class='selected'" : "" %>> <!--TODO: add class="selected" to the current section-->
         <%= link_to "Ministry", people_path %>
-        <% #link_to "Ministry", ministries_path %>
       </li>
-      <li> <!--TODO: add class="selected" to the current section-->
+      <li <%= @menubar == "stats" ? "class='selected'" : "" %>> <!--TODO: add class="selected" to the current section-->
         <%= link_to "Enter Stats", people_path %>
-        <% #link_to "Enter Stats", stats_path %>
       </li>
-      <li> <!--TODO: add class="selected" to the current section-->
+      <li <%= @menubar == "reports" ? "class='selected'" : "" %>> <!--TODO: add class="selected" to the current section-->
         <%= link_to "View Reports", people_path %>
-        <% #link_to "View Reports", reports_path %>
       </li>
     </ul>
   </div><!-- end mainNav -->

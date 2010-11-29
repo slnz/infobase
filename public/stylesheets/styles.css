@@ -53,7 +53,7 @@ a.logo {
 }
 
 #menuBar ul li.selected {
-  background: url(/images/hover_over_home_enterstats_andviewreports.gif) 50% 50% no-repeat;
+  background: url(/images/hover_over_home_enterstats_andviewreports.gif) no-repeat center;
 }
 
 #menuBar .submenubar ul li.report {
@@ -88,23 +88,20 @@ a.logo {
 
 #mainNav ul li {
   display: inline;
-  padding: 0 15px 0 15px;
+  padding: 5px 15px 5px 15px;
+  line-height: 29px;
   height: 29px;
 }
 
 #mainNav ul li a {
   color: #ffffff;
-  position: relative;
-  top: 6px;
-  text-decoration: none;
   font-family: Helvetica, Arial, sans-serif;
   font-size: 15px;
+  padding: 5px 0px 4px 0px;
 }
 
-#mainNav ul li a:hover {
+#mainNav ul li:hover {
   background: url(/images/hover_over_home_enterstats_andviewreports.gif) no-repeat center;
-  position: relative
-  top: 6px;
 }
 
 #quickSearch {
