@@ -1,0 +1,43 @@
+<br/>
+Welcome to the Person Home page. <br/>
+<br/>
+View Specialty Roles in :<br/>
+<% @regions.each do |region| %>
+     <%= link_to region.name, roles_people_path + "/" + region.abbrv %>&nbsp;&nbsp;
+<% end %>
+<br/><br/>
+If this information is incorrect, it is because the Personnel Record is incorrect. Please contact the appropriate HR representative.<br><br>
+<b>Specialty Roles in <%= Region.full_name(@region) %>:</b>
+<table>
+  <% Staff.strategy_order.each do |strategy| %>
+    <% people_sub = @people[strategy] %>
+    <% if !people_sub.empty? %>
+      <tr>
+        <td colspan="3"><h3><%= strategy %></h3></td>
+        <td class="phone">Work</td>
+        <td class="phone">Mobile</td>
+      </tr>
+      <% people_sub.each do |staff| %>
+        <tr>
+          <td>
+            <% if staff.jobTitle.upcase.include?("DIRECTOR") %><b><% end %>
+            <%= staff.jobTitle %>
+            <% if staff.jobTitle.upcase.include?("DIRECTOR") %></b><% end %>
+          </td>
+          <td>
+            <%= link_to staff.full_name, person_path(staff.person_id) %>
+          </td>
+          <td class="email">
+            <%= mail_to staff.email %>
+          </td>
+          <td class="phone">
+            <%= staff.workPhone %>
+          </td>
+          <td class="phone"> 
+            <%= staff.mobilePhone %>
+          </td>
+        </tr>
+      <% end %>
+    <% end %>
+  <% end %>
+</table>

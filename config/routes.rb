@@ -1,5 +1,10 @@
 Infobase::Application.routes.draw do
-  resources :people
+  resources :people do
+    collection do
+      get :roles
+    end
+  end
+  match 'people/roles/:region' => 'people#roles'
   match 'home' => 'home#index'
   root :to => 'home#index'
 
