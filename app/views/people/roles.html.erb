@@ -13,7 +13,7 @@ If this information is incorrect, it is because the Personnel Record is incorrec
     <% people_sub = @people[strategy] %>
     <% if !people_sub.empty? %>
       <tr>
-        <td colspan="3"><h3><%= strategy %></h3></td>
+        <td colspan="3"><h3><%= display_strategy(strategy) %></h3></td>
         <td class="phone">Work</td>
         <td class="phone">Mobile</td>
       </tr>
