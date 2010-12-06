@@ -5,7 +5,7 @@
         <%= link_to "Home", root_path %>
       </li>
       <li <%= @menubar == "ministry" ? "class='selected'" : "" %>> <!--TODO: add class="selected" to the current section-->
-        <%= link_to "Ministry", people_path %>
+        <%= link_to "Ministry", locations_path %>
       </li>
       <li <%= @menubar == "stats" ? "class='selected'" : "" %>> <!--TODO: add class="selected" to the current section-->
         <%= link_to "Enter Stats", people_path %>
@@ -21,7 +21,7 @@
       <% if @menubar == "ministry" %>
         <li class="ministry">&nbsp;</li>
         <li>
-          <%= link_to "Locations", people_path, :class => (@submenu == "locations" ? "active" : "") %>
+          <%= link_to "Locations", locations_path, :class => (@submenu == "locations" ? "active" : "") %>
         </li>
         <li>
           <%= link_to "People", people_path, :class => (@submenu == "people" ? "active" : "") %>

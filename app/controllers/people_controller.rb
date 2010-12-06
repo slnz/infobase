@@ -21,5 +21,6 @@ class PeopleController < ApplicationController
     def setup
       @menubar = "ministry"
       @submenu = "people"
+      @title = "Infobase - Person Home"
     end
 end

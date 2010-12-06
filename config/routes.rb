@@ -1,4 +1,6 @@
 Infobase::Application.routes.draw do
+  resources :locations
+
   resources :people do
     collection do
       get :roles
