@@ -6,6 +6,8 @@ class LocationsController < ApplicationController
   
   def show
     @location = TargetArea.find(params[:id])
+    @open_strategies = Activity.determine_open_strategies(@location)
+    activities = @location.activities
     @title = "Infobase - " + @location.name
   end
   

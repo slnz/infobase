@@ -1,0 +1,7 @@
+<% content_for :content do %>
+  <div id="breadcrumb">
+    <%= link_to "Locations Home", locations_path %>
+  </div>
+  <%= yield %>
+<% end %>
+<%= render :file => 'layouts/application' %>

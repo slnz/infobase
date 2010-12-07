@@ -427,22 +427,22 @@ ul.results li {
 }
 
 a.editfield {
-  background: url("/modules/images/icons/pencil_tiny.png") no-repeat scroll 0 50% transparent;
+  background: url("/images/icons/pencil_tiny.png") no-repeat scroll 0 50% transparent;
   display: inline-block;
   height: 10px;
-  margin: 0 5px;
+  margin: 0 0px;
   width: 10px;
 }
 
 a.deletefield {background: url(../images/icons/delete_tiny.png) no-repeat 0% 50%; width: 10px; display: inline-block; height:10px; width: 10px; margin: 0 5px;}
 
 th.expand, td.expand {
-  background: url("/modules/images/expand.png") no-repeat scroll 50% 50% transparent;
+  background: url("/images/expand.png") no-repeat scroll 50% 50% transparent;
   width: 60px;
 }
 
 ul.results li.selected th.expand {
-  background: url("/modules/images/contract.png") no-repeat scroll 50% 50% transparent;
+  background: url("/images/contract.png") no-repeat scroll 50% 50% transparent;
   width: 60px;
 }
 
@@ -451,7 +451,7 @@ li.first_week img, ul.results li.first_week img {
 }
 
 a.unbookmark {
-  background: url("/modules/images/icons/bookmark.png") no-repeat scroll 0 50% transparent;
+  background: url("/images/icons/bookmark.png") no-repeat scroll 0 50% transparent;
   font-weight: normal;
   padding-left: 20px;
 }

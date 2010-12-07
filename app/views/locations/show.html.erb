@@ -1,5 +1,7 @@
 <h1>
-  <%= @location.name %>
+  <%= @location.name %>&nbsp;&nbsp;
+  <%= link_to "", edit_location_path(@location), :class => "editfield" %>
+  <%= link_to "(edit)", edit_location_path(@location), :class => "edittext" %>
 </h1>
 
 <h3 class="indented">
@@ -73,3 +75,68 @@
     <div class="clear"></div>
   </div>
 </div>
+
+<% @location.activities.each do |activity| %>
+  <div class="strategy">
+    <h3>
+      <%= Activity.strategies[activity.strategy] %>&nbsp;&nbsp;
+      <%= link_to "", edit_location_movement_path(activity), :class => "editfield" %>
+      <%= link_to "(edit)", edit_location_movement_path(activity), :class => "edittext" %>
+    </h3>
+    <br/>
+    <div class="details">
+      <div class="thecolumn" style="float: left;">
+        <div class="field">
+          <label>Status:</label>
+          <%= link_to Activity.statuses[activity.status], edit_location_movement_path(activity) %>
+        </div>
+        <br/>
+
+        <div class="field">
+          <label>Contacts:</label>
+          <div class="box">
+            <% activity.contacts.each do |contact| %>
+              <%= link_to contact.full_name, person_path(contact) %><br/>
+            <% end %>
+            TODO: Add, Delete contacts
+          </div>
+        </div>
+
+        <div class="clear"></div>
+      </div>
+
+      <div class="thecolumn" style="float: right;">
+        <div class="field">
+          <label>Missional Team:</label>
+          <%= link_to activity.team.name, team_path(activity.team) %>
+        </div>
+        <br/>
+
+        <div class="field">
+          <label>Size:</label>
+          TODO!
+        </div>
+        <br/>
+
+        <div class="field">
+          <label>Facebook:</label>
+          <%= link_to activity.facebook if !activity.facebook.blank? %> 
+        </div>
+        <br/>
+
+        <div class="field">
+          <label>Website:</label>
+          <%= link_to activity.url if !activity.url.blank? %>
+        </div>
+
+        <div class="clear"></div>
+      </div>
+
+      <div class="clear"></div>
+    </div><!-- end detail -->
+  </div><!-- end strategy -->
+<% end %>
+ 
+<% @open_strategies.each do |strategy| %>
+  <%= link_to "Add " + Activity.strategies[strategy], new_location_movement_path(@location) + "/" + strategy %><br/>
+<% end %>

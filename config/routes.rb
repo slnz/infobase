@@ -1,5 +1,9 @@
 Infobase::Application.routes.draw do
-  resources :locations
+  resources :teams
+
+  resources :locations do
+    resources :movements
+  end
 
   resources :people do
     collection do
