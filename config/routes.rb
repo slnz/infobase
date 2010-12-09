@@ -3,6 +3,10 @@ Infobase::Application.routes.draw do
 
   resources :locations do
     resources :movements
+    collection do
+      get :region
+      get :ministry
+    end
   end
 
   resources :people do
@@ -11,7 +15,10 @@ Infobase::Application.routes.draw do
     end
   end
   match 'people/roles/:region' => 'people#roles'
+  
   match 'home' => 'home#index'
+  match 'home/search' => 'home#search'
+  
   root :to => 'home#index'
 
   # The priority is based upon order of creation:

@@ -1,0 +1,27 @@
+<br/>
+Welcome to the Location Home page.
+<br/>
+<br/>
+<b>Look for your Location by selecting the Region below:</b>
+<br/>
+<table>
+  <tbody>
+    <% @regions.each do |region| %>
+      <tr>
+        <td><%= link_to region.name, region_locations_path + "/" + region.abbrv %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<br/>
+<b>Or search by Ministry:</b>
+<br/>
+<table>
+  <tbody>
+    <% @strategies.keys.each do |strategy| %>
+      <tr>
+        <td><%= link_to @strategies[strategy], ministry_locations_path + "/" + strategy %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

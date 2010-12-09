@@ -2,6 +2,8 @@ class LocationsController < ApplicationController
   before_filter :setup
   
   def index
+    @regions = Region.standard_regions
+    @strategies = Activity.strategies
   end
   
   def show
