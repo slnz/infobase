@@ -1,6 +1,10 @@
 module ApplicationHelper
   def display_birthday(bday)
-    bday.month.to_s + "/" + bday.day.to_s
+    if bday
+      bday.month.to_s + "/" + bday.day.to_s
+    else
+      ""
+    end
   end
   
   def display_date(date)

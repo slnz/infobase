@@ -18,7 +18,7 @@ Welcome to the Location Home page.
 <br/>
 <table>
   <tbody>
-    <% @strategies.keys.each do |strategy| %>
+    <% @strategies.each_key do |strategy| %>
       <tr>
         <td><%= link_to @strategies[strategy], ministry_locations_path + "/" + strategy %></td>
       </tr>

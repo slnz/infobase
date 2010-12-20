@@ -17,6 +17,44 @@ class PeopleController < ApplicationController
     @people = Staff.get_roles(@region)
   end
   
+  def search
+    search_options
+  end
+  
+  def search_results
+    @people = Person.order(Person.table_name + ".lastName", Person.table_name + ".firstName").includes(:current_address).includes(:staff)
+    if !params[:name].blank?
+      query = params[:name].strip.split(' ')
+      first = query.first
+      last = query.last
+      if query.size > 1 #search both last AND first names
+        @people = @people.where(Person.table_name + ".lastName like ?", "#{last}%")
+        @people = @people.where(Person.table_name + ".firstName like ? or " + Person.table_name + ".preferredName like ?", "#{first}%", "#{first}%")
+      else #do an OR search
+        @people = @people.where(Person.table_name + ".lastName like ? or " + Person.table_name + ".firstName like ? or " + Person.table_name + ".preferredName like ?", "#{last}%", "#{first}%", "#{first}%")
+      end        
+    end
+    if !params[:city].blank?
+      @people = @people.where(Address.table_name + ".city like ?", "#{params[:city]}%")
+    end
+    if !params[:state].blank?
+      @people = @people.where(Address.table_name + ".state = ?", params[:state])
+    end
+    if !params[:country].blank?
+      @people = @people.where(Address.table_name + ".country = ?", params[:country])
+    end
+    if !params[:staff].blank?
+      @people = @people.where(Staff.table_name + ".accountNo is not null")
+    end
+    if !params[:regions].blank?
+      @people = @people.where(Person.table_name + ".region IN (?)", params[:regions])
+    end
+    if !params[:strategies].blank?
+      strategies = Activity.translate_strategies_to_PS(params[:strategies])
+      @people = @people.where(Person.table_name + ".strategy IN (?)", strategies)
+    end
+  end
+  
   private
     def setup
       @menubar = "ministry"

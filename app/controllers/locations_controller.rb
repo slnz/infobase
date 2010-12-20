@@ -13,6 +13,10 @@ class LocationsController < ApplicationController
     @title = "Infobase - " + @location.name
   end
   
+  def search
+    search_options
+  end
+  
   private
     def setup
       @menubar = "ministry"

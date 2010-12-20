@@ -13,11 +13,15 @@
       <div class="field">
         <label>Address:</label>
         <div class="box">
-          <%= @person.current_address.address1 + @person.current_address.address2 %><br/>
-          <%= @person.current_address.city + (@person.current_address.state.blank? && @person.current_address.city.blank? ? "" : ",") %>
-          <%= @person.current_address.state %><br/>
-          <%= @person.current_address.zip + (@person.current_address.country.blank? && @person.current_address.zip.blank? ? "" : ",") %>
-          <%= @person.current_address.country %>
+          <% if @person.current_address %>
+            <%= @person.current_address.address1 %>&nbsp;<%= @person.current_address.address2 %><br/>
+            <%= @person.current_address.city %><%= (@person.current_address.state.blank? || @person.current_address.city.blank? ? "" : ",") %>
+            <%= @person.current_address.state %><br/>
+            <%= @person.current_address.zip %><%= (@person.current_address.country.blank? || @person.current_address.zip.blank? ? "" : ",") %>
+            <%= @person.current_address.country %>
+          <% else %>
+            &nbsp;
+          <% end %>
         </div>
       </div>
 
@@ -29,19 +33,19 @@
 
       <div class="field">
         <label>Work Phone:</label>
-        <%= @person.current_address.work_phone %>                            
+        <%= @person.current_address.work_phone if @person.current_address %>                            
       </div>
       <br/>
 
       <div class="field">
         <label>Mobile Phone:</label>
-        <%= @person.current_address.cell_phone %>
+        <%= @person.current_address.cell_phone if @person.current_address %>
       </div>
       <br/>
 
       <div class="field">
         <label>Home Phone:</label>
-        <%= @person.current_address.home_phone %>
+        <%= @person.current_address.home_phone if @person.current_address %>
       </div>
       <br/>
 
@@ -73,31 +77,31 @@
       <% if (@person.ministry == "Campus Ministry") %>
         <div class="field">
           <label>Ministry:</label>
-          <%= @person.staff.strategy %>
+          <%= @person.staff.strategy if @person.staff %>
         </div>
         <br/>
       <% else %>
         <div class="field">
           <label>Dept. Name:</label>
-          <%= @person.staff.deptName %>
+          <%= @person.staff.deptName if @person.staff  %>
         </div>
         <br/>
         <div class="field">
           <label>Job Code:</label>
-          <%= @person.staff.jobCode %>
+          <%= @person.staff.jobCode if @person.staff  %>
         </div>
         <br/>
       <% end %>
   
       <div class="field">
         <label>Job Title:</label>
-        <%= @person.staff.jobTitle %>
+        <%= @person.staff.jobTitle if @person.staff  %>
       </div>
       <br/>
       
       <div class="field">
         <label>Job Status:</label>
-        <%= @person.staff.jobStatus %>
+        <%= @person.staff.jobStatus if @person.staff  %>
       </div>
       <br/>
   
@@ -109,7 +113,7 @@
 
       <div class="field">
         <label>Hire Date:</label>
-        <%= display_date(@person.staff.hireDate) %>
+        <%= display_date(@person.staff.hireDate) if @person.staff  %>
       </div>
       <br/>
   
@@ -121,7 +125,7 @@
       
       <div class="field">
         <label>Note:</label>
-        <%= @person.staff.note %>        
+        <%= @person.staff.note if @person.staff  %>        
       </div>  
 
       <div class="clear"></div>

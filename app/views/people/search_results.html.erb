@@ -1,0 +1,25 @@
+<h2>Search Results</h2>
+<strong>Blue</strong> means the record is <em>likely</em> a staff person, as we have a match with PeopleSoft.<br/>
+<br/>
+<table>
+  <tbody>
+    <% @people.each do |person| %>
+      <% options = {:style => "color: black;"} %>
+      <% if person.staff %>
+        <% options = {:style => "color: blue;"} %>
+      <% end %>
+      <tr>
+        <td><%= link_to person.full_name, person_path(person), options %></td>
+        <td>
+          <%= person.email %>&nbsp;
+          <% if person.current_address %>
+            <%= person.current_address.address1 %><%= "," if !person.current_address.address1.blank? %>&nbsp;
+            <%= person.current_address.city %><%= "," if !person.current_address.city.blank? %>&nbsp;
+            <%= person.current_address.state %><%= "," if !person.current_address.state.blank? %>&nbsp;
+          <% end %>
+          <%= Region.full_name(person.region()) %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

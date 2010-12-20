@@ -1,6 +1,7 @@
 <% content_for :content do %>
   <div id="breadcrumb">
-    <%= link_to "Person Home", people_path %>&nbsp;&nbsp;TODO:Advanced Search
+    <%= link_to "Person Home", people_path %>&nbsp;&nbsp;
+    <%= link_to "Advanced Person Search", search_people_path %>
   </div>
   <%= yield %>
 <% end %>

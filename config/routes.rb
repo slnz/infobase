@@ -1,9 +1,14 @@
 Infobase::Application.routes.draw do
-  resources :teams
+  resources :teams do
+    collection do
+      get :search
+    end
+  end
 
   resources :locations do
     resources :movements
     collection do
+      get :search
       get :region
       get :ministry
     end
@@ -11,6 +16,8 @@ Infobase::Application.routes.draw do
 
   resources :people do
     collection do
+      get :search
+      post :search_results
       get :roles
     end
   end
