@@ -1,0 +1,16 @@
+<h2>Search Results</h2>
+<table>
+  <tbody>
+    <% @locations.each do |location| %>
+      <tr>
+        <td><%= link_to location.name, location_path(location) %></td>
+        <td>
+          <%= location.city %><%= "," if !location.city.blank? %>
+          <%= location.state %><%= "," if !location.state.blank? %>
+          <%= Country.full_name(location.country) %><%= "," if !location.country.blank? %>
+          <%= Region.full_name(location.region()) %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
