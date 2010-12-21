@@ -7,6 +7,7 @@ class PeopleController < ApplicationController
   end
   
   def show
+    #TODO: Don't show secure people
     @person = Person.find(params[:id], :include => [:staff, :current_address])
     @title = "Infobase - " + @person.full_name
   end
@@ -22,7 +23,7 @@ class PeopleController < ApplicationController
   end
   
   def search_results
-    @people = Person.order(Person.table_name + ".lastName", Person.table_name + ".firstName").includes(:current_address).includes(:staff)
+    @people = Person.where(Person.table_name + ".isSecure != 'T' or " + Person.table_name + ".isSecure is null").order(Person.table_name + ".lastName", Person.table_name + ".firstName").includes(:current_address).includes(:staff)
     if !params[:name].blank?
       query = params[:name].strip.split(' ')
       first = query.first
