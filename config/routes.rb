@@ -9,6 +9,7 @@ Infobase::Application.routes.draw do
     resources :movements
     collection do
       get :search
+      post :search_results
       get :region
       get :ministry
     end
