@@ -1,5 +1,8 @@
 class LocationsController < ApplicationController
   before_filter :setup
+  before_filter :get_location, :only => [:show, :edit, :update]
+  before_filter :search_options, :only => [:new, :edit, :search]
+  before_filter :populate_breadcrumbs, :only => [:show, :edit]
   
   def index
     @regions = Region.standard_regions
@@ -8,8 +11,6 @@ class LocationsController < ApplicationController
   
   def show
     #TODO: Don't show non-campuses?  i.e. Summer Projects, Conferences
-    @location = TargetArea.find(params[:id])
-    populate_breadcrumbs
     @open_strategies = Activity.determine_open_strategies(@location)
     activities = @location.activities
     @title = "Infobase - " + @location.name
@@ -17,8 +18,6 @@ class LocationsController < ApplicationController
   
   def new
     @location = TargetArea.new
-    search_options
-    populate_breadcrumbs
     @name_options = {}
     @title = "Infobase - Propose New Location"
   end
@@ -31,7 +30,6 @@ class LocationsController < ApplicationController
       redirect_to locations_path, :notice => "Your request was submitted successfully."
     else
       search_options
-      populate_breadcrumbs
       @name_options = {}
       render :new
       @title = "Infobase - Propose New Location"
@@ -39,15 +37,12 @@ class LocationsController < ApplicationController
   end
   
   def edit
-    @location = TargetArea.find(params[:id])
-    search_options
     populate_breadcrumbs
     @name_options = {:readonly => true}
     @title = "Infobase - Edit " + @location.name
   end
   
   def update
-    @location = TargetArea.find(params[:id])
     @location.update_attributes(params[:target_area])
     if @location.errors.empty?
       redirect_to location_path(@location), :notice => "#{@location.name} was updated successfully."
@@ -61,7 +56,6 @@ class LocationsController < ApplicationController
   end
   
   def search
-    search_options
     @title = "Infobase - Location Search"
   end
   
@@ -137,6 +131,10 @@ class LocationsController < ApplicationController
       @country = params[:country]
       @city = params[:city]
       @title = "Infobase - Location Home"
+    end
+    
+    def get_location
+      @location = TargetArea.find(params[:id])
     end
     
     def populate_breadcrumbs
