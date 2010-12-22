@@ -7,11 +7,57 @@ class LocationsController < ApplicationController
   end
   
   def show
+    #TODO: Don't show non-campuses?  i.e. Summer Projects, Conferences
     @location = TargetArea.find(params[:id])
     populate_breadcrumbs
     @open_strategies = Activity.determine_open_strategies(@location)
     activities = @location.activities
     @title = "Infobase - " + @location.name
+  end
+  
+  def new
+    @location = TargetArea.new
+    search_options
+    populate_breadcrumbs
+    @name_options = {}
+    @title = "Infobase - Propose New Location"
+  end
+  
+  def create
+    @location = TargetArea.new
+    @location.attributes = params[:target_area]
+    if @location.valid?
+      #TODO: email Todd
+      redirect_to locations_path, :notice => "Your request was submitted successfully."
+    else
+      search_options
+      populate_breadcrumbs
+      @name_options = {}
+      render :new
+      @title = "Infobase - Propose New Location"
+    end
+  end
+  
+  def edit
+    @location = TargetArea.find(params[:id])
+    search_options
+    populate_breadcrumbs
+    @name_options = {:readonly => true}
+    @title = "Infobase - Edit " + @location.name
+  end
+  
+  def update
+    @location = TargetArea.find(params[:id])
+    @location.update_attributes(params[:target_area])
+    if @location.errors.empty?
+      redirect_to location_path(@location), :notice => "#{@location.name} was updated successfully."
+    else
+      search_options
+      populate_breadcrumbs
+      @name_options = {:readonly => true}
+      render :edit
+      @title = "Infobase - Edit" + @location.name
+    end
   end
   
   def search
@@ -56,7 +102,7 @@ class LocationsController < ApplicationController
   def ministry
     params[:strategies] = [params[:strategy]]
     search_results
-    render :action => :search_results
+    render :search_results
   end
   
   def search_results
@@ -96,13 +142,13 @@ class LocationsController < ApplicationController
     def populate_breadcrumbs
       @region = @location.region
       @state = @location.state unless @location.country != "USA"
-      @country = @location.country unless @location.country == "USA"
+      @country = @location.country unless @location.country == "USA" || @location.country.blank?
       @city = @location.city
     end
     
     def perform_search
       params[:regions] = [params[:region]]
       search_results
-      render :action => :search_results
+      render :search_results
     end
 end

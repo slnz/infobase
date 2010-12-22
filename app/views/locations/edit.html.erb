@@ -1,0 +1,5 @@
+<h2>Edit <%= @location.name %></h2>
+<%= form_for @location, :url => location_path(@location) do |f| %>
+  <%= render :partial => 'form', :locals => {:f => f} %>
+  <%= f.submit "Update Location" %>
+<% end %>

@@ -35,6 +35,7 @@
       <div id="bannerBar"></div>
       
       <div id="content">
+        <%= render :partial => 'layouts/flash', :locals => {:flash => flash} %>
         <%= content_for?(:content) ? yield(:content) : yield %>
       </div>
       

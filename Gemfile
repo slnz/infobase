@@ -8,6 +8,7 @@ gem 'rails', '~> 3.0.3'
 gem 'mysql2', '0.2.6'
 gem 'acts_as_state_machine'
 gem 'capistrano'
+gem 'dynamic_form'
 
 # Use unicorn as the web server
 # gem 'unicorn'

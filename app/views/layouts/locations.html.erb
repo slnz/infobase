@@ -7,6 +7,7 @@
     <%= link_to ">" + Country.full_name(@country), region_locations_path + "/" + @region + "/country/" + @country if @country %>
     <%= link_to ">" + @city, region_locations_path + "/" + @region + "/country/" + @country + "/city/" + @city if @country && @city %>
     <%= link_to "Advanced Location Search", search_locations_path %>
+    <%= link_to "Propose New Location", new_location_path %>
   </div>
   <%= yield %>
 <% end %>
