@@ -8,7 +8,10 @@ Welcome to the Location Home page.
   <tbody>
     <% @regions.each do |region| %>
       <tr>
-        <td><%= link_to region.name, region_locations_path + "/" + region.abbrv %></td>
+        <td>
+          <%= link_to region.name, region_locations_path + "/" + region.abbrv %>
+          <%= link_to "(all)", region_locations_path + "/" + region.abbrv + "/all" %>
+        </td>
       </tr>
     <% end %>
   </tbody>

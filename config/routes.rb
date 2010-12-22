@@ -11,9 +11,19 @@ Infobase::Application.routes.draw do
       get :search
       post :search_results
       get :region
+      get :state
       get :ministry
     end
   end
+  match 'locations/region/:region/state/:state/city/:city' => 'locations#city'
+  match 'locations/region/:region/state/:state/:all' => 'locations#state'
+  match 'locations/region/:region/state/:state' => 'locations#state'
+  match 'locations/region/:region/country/:country/city/:city' => 'locations#city'
+  match 'locations/region/:region/country/:country/:all' => 'locations#country'
+  match 'locations/region/:region/country/:country' => 'locations#country'
+  match 'locations/region/:region/:all' => 'locations#region'
+  match 'locations/region/:region' => 'locations#region'
+  match 'locations/ministry/:strategy' => 'locations#ministry'
 
   resources :people do
     collection do

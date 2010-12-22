@@ -1,6 +1,11 @@
 <% content_for :content do %>
   <div id="breadcrumb">
-    <%= link_to "Locations Home", locations_path %>&nbsp;&nbsp;TODO:Breadcrumbs&nbsp;
+    <%= link_to "Locations Home", locations_path %>&nbsp;
+    <%= link_to ">" + Region.full_name(@region), region_locations_path + "/" + @region if @region %>
+    <%= link_to ">" + State.states[@state], region_locations_path + "/" + @region + "/state/" + @state if @state %>
+    <%= link_to ">" + @city, region_locations_path + "/" + @region + "/state/" + @state + "/city/" + @city if @state && @city %>
+    <%= link_to ">" + Country.full_name(@country), region_locations_path + "/" + @region + "/country/" + @country if @country %>
+    <%= link_to ">" + @city, region_locations_path + "/" + @region + "/country/" + @country + "/city/" + @city if @country && @city %>
     <%= link_to "Advanced Location Search", search_locations_path %>
   </div>
   <%= yield %>
