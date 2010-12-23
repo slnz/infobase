@@ -1,0 +1,25 @@
+To whom it may concern, 
+   This is an automated request for a new target area.
+-----------------------------------------------------------------
+Campus Name: <%= @location.name %>
+Campus Type: <%= @location.type %>
+Campus Address 1: <%= @location.address1 %>
+Campus Address 2: <%= @location.address2 %>
+Campus City: <%= @location.city %>
+Campus State: <%= @location.state %>
+Campus ZIP: <%= @location.zip %>
+Campus Country: <%= @location.country %>
+Campus Webpage URL: <%= @location.url %>
+Campus Abbreviation: <%= @location.abbrv %>
+Campus Population: <%= @location.enrollment %>
+Campus Notes: <%= @location.note %>
+Campus Alternate Name: <%= @location.altName %>
+Semester school? <%= @location.isSemester %>
+Is this campus secure/closed? <%= @location.isSecure %>
+Campus Region: <%= @location.region %>
+Info URL: <%= @location.infoUrl %>
+-----------------------------------------------------------------
+As entered by <%= @person.full_name %>, <%= @person.email %> on <%= Time.now %>
+
+Please click or paste the following into your browser to approve/edit this proposal: 
+<%= new_location_url(:host => @host) + @request_params %>

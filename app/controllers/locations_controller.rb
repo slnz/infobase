@@ -18,6 +18,7 @@ class LocationsController < ApplicationController
   
   def new
     @location = TargetArea.new
+    @location.attributes = params[:target_area]
     @name_options = {}
     @title = "Infobase - Propose New Location"
   end
@@ -26,7 +27,9 @@ class LocationsController < ApplicationController
     @location = TargetArea.new
     @location.attributes = params[:target_area]
     if @location.valid?
-      #TODO: email Todd
+      #TODO: actually create if admin
+      host = request.host_with_port
+      ProposeMailer.propose_location(@location, Person.find(50130), host).deliver #TODO: Get real person
       redirect_to locations_path, :notice => "Your request was submitted successfully."
     else
       search_options

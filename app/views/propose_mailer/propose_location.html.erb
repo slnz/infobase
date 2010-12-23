@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+  </head>
+  <body>
+    To whom it may concern, 
+       This is an automated request for a new target area.<br/>
+    -----------------------------------------------------------------<br/>
+    Campus Name: <%= @location.name %><br/>
+    Campus Type: <%= @location.type %><br/>
+    Campus Address 1: <%= @location.address1 %><br/>
+    Campus Address 2: <%= @location.address2 %><br/>
+    Campus City: <%= @location.city %><br/>
+    Campus State: <%= @location.state %><br/>
+    Campus ZIP: <%= @location.zip %><br/>
+    Campus Country: <%= @location.country %><br/>
+    Campus Webpage URL: <%= @location.url %><br/>
+    Campus Abbreviation: <%= @location.abbrv %><br/>
+    Campus Population: <%= @location.enrollment %><br/>
+    Campus Notes: <%= @location.note %><br/>
+    Campus Alternate Name: <%= @location.altName %><br/>
+    Semester school? <%= @location.isSemester %><br/>
+    Is this campus secure/closed? <%= @location.isSecure %><br/>
+    Campus Region: <%= @location.region %><br/>
+    Campus Info URL: <%= @location.infoUrl %><br/>
+    -----------------------------------------------------------------<br/>
+    As entered by <%= @person.full_name %>, <%= @person.email %> on <%= Time.now.to_s %><br/>
+    <br/>
+    Please click or paste the following into your browser to approve/edit this proposal: <br/>
+    <%= link_to "Proposed New Team", new_location_url(:host => @host) + @request_params %>
+  </body>
+</html>
