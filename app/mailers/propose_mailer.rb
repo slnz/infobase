@@ -14,6 +14,6 @@ class ProposeMailer < ActionMailer::Base
       end
     end
     @request_params.chop!
-    mail(:subject => "New Team Proposal")
+    mail(:subject => "New Location Proposal")
   end
 end
