@@ -8,4 +8,5 @@ function changeImages() {
 
 $(function () {
   $('#search_type').bind('change', function() { window.location.pathname = $(this).val() });
+  $('#activity_periodBegin').datepicker(); 
 });

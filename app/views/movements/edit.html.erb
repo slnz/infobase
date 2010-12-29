@@ -1,0 +1,24 @@
+<h2>Edit <%= @location.name %>, <%= Activity.strategies[@movement.strategy] %></h2>
+<%= form_for @movement, :url => location_movement_path do |f| %>
+  <b>Use the radio buttons to change the status below:</b><br/>
+  <b>This Ministry Location is a(n)...</b><br/>
+  <% @statuses.each_key do |status| %>
+    <%= f.radio_button :status, status %> <%= Activity.statuses[status].upcase %> <%= Activity.strategies[@movement.strategy] %> campus.<br/>
+  <% end%>
+  <div id="definition">
+    Move your mouse pointer over a<br/>
+    capitalized word to see a short explanation.
+  </div>
+  <br/>
+  <b>What date did this status change take place?</b><br/>
+  <%= f.date_select :periodBegin %><br/> <!-- TODO: Datepicker? -->
+  <br/>
+  <b>*Missional Team:</b><br/>
+  <%= f.select :fk_teamID, options_for_select(@teams.collect {|t| [t.name, t.id]}, @movement.team.id) %><br/>
+  ** Can't find the right Missional Team? Propose one to be entered here: <%= link_to "[New Team]", new_team_path %><br/>
+  <br/>
+  <b>URL:</b><%= f.text_field :url %><br/>
+  <b>Facebook:</b><%= f.text_field :facebook %><br/>
+  <br/>
+  <%= f.submit "Update Movement" %>
+<% end %>

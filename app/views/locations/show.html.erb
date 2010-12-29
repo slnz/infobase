@@ -80,8 +80,8 @@
   <div class="strategy">
     <h3>
       <%= Activity.strategies[activity.strategy] %>&nbsp;&nbsp;
-      <%= link_to "", edit_location_movement_path(activity), :class => "editfield" %>
-      <%= link_to "(edit)", edit_location_movement_path(activity), :class => "edittext" %>
+      <%= link_to "", edit_location_movement_path(@location, activity), :class => "editfield" %>
+      <%= link_to "(edit)", edit_location_movement_path(@location, activity), :class => "edittext" %>
     </h3>
     <br/>
     <div class="details">
