@@ -38,5 +38,7 @@ module Infobase
 
     # Configure sensitive parameters which will be filtered from the log file.
     config.filter_parameters += [:password]
+    
+    config.cache_store = :dalli_store, '127.0.0.1'
   end
 end

@@ -1,4 +1,5 @@
 class ApplicationController < ActionController::Base
+  before_filter CASClient::Frameworks::Rails::Filter, AuthenticationFilter, :except => :no
   protect_from_forgery
 
   def search_options
