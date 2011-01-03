@@ -1,0 +1,7 @@
+<h2>New <%= @location.name %>, <%= Activity.strategies[@movement.strategy] %></h2>
+<%= form_for @movement, :url => location_movements_path(@location) do |f| %>
+  <%= f.hidden_field :strategy %>
+  <%= f.hidden_field :fk_targetAreaID %>
+  <%= render :partial => 'form', :locals => {:f => f} %>
+  <%= f.submit "Create Movement" %>
+<% end %>

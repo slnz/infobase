@@ -62,7 +62,7 @@
 
       <div class="field">
         <label>School Website:</label>
-        <%= link_to display_website(@location.infoUrl) %>
+        <%= link_to display_website(@location.infoUrl), display_website(@location.infoUrl) %>
       </div>
       <br/>
 
@@ -88,7 +88,7 @@
       <div class="thecolumn" style="float: left;">
         <div class="field">
           <label>Status:</label>
-          <%= link_to Activity.statuses[activity.status], edit_location_movement_path(activity) %>
+          <%= link_to Activity.statuses[activity.status], edit_location_movement_path(@location, activity) %>
         </div>
         <br/>
 
@@ -120,13 +120,13 @@
 
         <div class="field">
           <label>Facebook:</label>
-          <%= link_to activity.facebook if !activity.facebook.blank? %> 
+          <%= link_to display_website(activity.facebook), display_website(activity.facebook) if !activity.facebook.blank? %> 
         </div>
         <br/>
 
         <div class="field">
           <label>Website:</label>
-          <%= link_to activity.url if !activity.url.blank? %>
+          <%= link_to display_website(activity.url), display_website(activity.url) if !activity.url.blank? %>
         </div>
 
         <div class="clear"></div>

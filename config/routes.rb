@@ -24,6 +24,7 @@ Infobase::Application.routes.draw do
   match 'locations/region/:region/:all' => 'locations#region'
   match 'locations/region/:region' => 'locations#region'
   match 'locations/ministry/:strategy' => 'locations#ministry'
+  match 'locations/:location_id/movements/new/:strategy' => 'movements#new'
 
   resources :people do
     collection do

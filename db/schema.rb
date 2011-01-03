@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101207203409) do
+ActiveRecord::Schema.define(:version => 20101230011812) do
 
   create_table "academic_departments", :force => true do |t|
     t.string "name"
@@ -138,6 +138,17 @@ ActiveRecord::Schema.define(:version => 20101207203409) do
   end
 
   add_index "ap_signup_deprecated", ["fk_PersonID"], :name => "fk_PersonID"
+
+  create_table "authentications", :force => true do |t|
+    t.integer  "user_id"
+    t.string   "provider"
+    t.string   "uid"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "token"
+  end
+
+  add_index "authentications", ["user_id", "provider", "uid"], :name => "index_authentications_on_user_id_and_provider_and_uid", :unique => true
 
   create_table "cms_assoc_filecategory", :id => false, :force => true do |t|
     t.string  "CmsFileID",     :limit => 64,                   :null => false
@@ -3176,20 +3187,17 @@ ActiveRecord::Schema.define(:version => 20101207203409) do
   add_index "ministry_activity", ["strategy"], :name => "index5"
 
   create_table "ministry_activity_history", :force => true do |t|
-    t.integer  "activity_id",                  :null => false
-    t.string   "from_status",    :limit => 2
-    t.string   "to_status",      :limit => 2
+    t.integer  "activity_id",                          :null => false
+    t.string   "from_status_deprecated", :limit => 2
+    t.string   "status",                 :limit => 2
     t.datetime "period_begin"
-    t.datetime "period_end"
-    t.string   "trans_username", :limit => 50
-    t.string   "fromStrategy"
-    t.string   "toStrategy"
+    t.datetime "period_end_deprecated"
+    t.string   "trans_username",         :limit => 50
   end
 
   add_index "ministry_activity_history", ["activity_id"], :name => "activity_id"
   add_index "ministry_activity_history", ["period_begin"], :name => "period_begin"
-  add_index "ministry_activity_history", ["toStrategy"], :name => "toStrategy"
-  add_index "ministry_activity_history", ["to_status"], :name => "to_status"
+  add_index "ministry_activity_history", ["status"], :name => "to_status"
 
   create_table "ministry_address", :primary_key => "AddressID", :force => true do |t|
     t.datetime "startdate"
@@ -4816,7 +4824,6 @@ ActiveRecord::Schema.define(:version => 20101207203409) do
   create_table "simplesecuritymanager_user", :primary_key => "userID", :force => true do |t|
     t.string   "globallyUniqueID",          :limit => 80
     t.string   "username",                  :limit => 80,                     :null => false
-    t.string   "email_deprecated",          :limit => 64
     t.string   "password",                  :limit => 80
     t.string   "passwordQuestion",          :limit => 200
     t.string   "passwordAnswer",            :limit => 200
@@ -4832,6 +4839,7 @@ ActiveRecord::Schema.define(:version => 20101207203409) do
     t.string   "facebook_username"
     t.integer  "fb_user_id",                :limit => 8
     t.string   "password_plain"
+    t.string   "password_reset_key"
   end
 
   add_index "simplesecuritymanager_user", ["fb_user_id"], :name => "index_simplesecuritymanager_user_on_fb_user_id"
