@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101230011812) do
+ActiveRecord::Schema.define(:version => 20110106203556) do
 
   create_table "academic_departments", :force => true do |t|
     t.string "name"
@@ -3065,6 +3065,14 @@ ActiveRecord::Schema.define(:version => 20101230011812) do
   end
 
   add_index "hr_si_users", ["fk_ssmUserID"], :name => "IX_hr_si_Users_fk_ssmUserID"
+
+  create_table "infobase_users", :force => true do |t|
+    t.integer  "user_id"
+    t.string   "type",       :default => "InfobaseAdminUser"
+    t.integer  "created_by"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "lat_long_by_zip_code", :force => true do |t|
     t.string  "zip"
