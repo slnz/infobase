@@ -19,6 +19,9 @@ gem 'capistrano'
 # To use debugger
 # gem 'ruby-debug'
 
+gem 'activerecord-oracle_enhanced-adapter'
+gem 'ruby-oci8'
+
 # Bundle the extra gems:
 # gem 'bj'
 # gem 'nokogiri', '1.4.1'

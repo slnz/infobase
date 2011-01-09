@@ -1,3 +1,4 @@
+require 'bundler/capistrano'
 
 # This defines a deployment "recipe" that you can feed to capistrano
 # (http://manuals.rubyonrails.com/read/book/17). It allows you to automate
@@ -79,10 +80,7 @@ after 'deploy:update_code', 'local_changes'
 desc "Add linked files after deploy and set permissions"
 task :local_changes, :roles => :app do
   run <<-CMD
-    ln -s #{shared_path}/bundle #{release_path}/vendor/bundle &&
-    cd #{release_path} && bundle install --deployment --without development &&
     ln -s #{shared_path}/config/database.yml #{release_path}/config/database.yml &&
-    ln -s #{shared_path}/config/initializers/email.rb #{release_path}/config/initializers/email.rb &&
     
     mkdir -p -m 770 #{shared_path}/tmp/{cache,sessions,sockets,pids} &&
     rm -Rf #{release_path}/tmp && 
@@ -113,17 +111,5 @@ task :after_deploy, :roles => :app do
   deploy.cleanup
 end
 
-namespace :deploy do
-  desc 'Bundle and minify the JS and CSS files'
-  task :precache_assets, :roles => :app do
-    root_path = File.expand_path(File.dirname(__FILE__) + '/..')
-    assets_path = "#{root_path}/public/packages"
-    gem_path = ENV['GEM_PATH']
-    run_locally "jammit"
-    top.upload assets_path, "#{current_release}/public", :via => :scp, :recursive => true
-  end
-end
-after 'deploy:symlink', 'deploy:precache_assets'
-
 # require 'config/boot'
-require 'hoptoad_notifier/capistrano'
+#require 'hoptoad_notifier/capistrano'
