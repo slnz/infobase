@@ -13,7 +13,7 @@ class ApplicationController < ActionController::Base
       elsif session[:info_user_type]
         @info_user = Kernel.const_get(session[:info_user_type]).new
       else
-        @info_user = InfobaseUser.determine_infobase_user(current_user())
+        @info_user = InfobaseUser.determine_infobase_user(current_user(), session[:cas_emplid])
         if @info_user && @info_user.id
           session[:info_user_id] = @info_user.id
         elsif @info_user
