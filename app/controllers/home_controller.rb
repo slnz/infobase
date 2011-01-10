@@ -5,6 +5,9 @@ class HomeController < ApplicationController
     redirect_to search_people_path
   end
   
+  def no
+  end
+  
   private
     def setup
       @menubar = "home"
