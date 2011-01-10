@@ -1,5 +1,3 @@
-require 'bundler/capistrano'
-
 # This defines a deployment "recipe" that you can feed to capistrano
 # (http://manuals.rubyonrails.com/read/book/17). It allows you to automate
 # (among other things) the deployment of your application.
@@ -80,6 +78,9 @@ after 'deploy:update_code', 'local_changes'
 desc "Add linked files after deploy and set permissions"
 task :local_changes, :roles => :app do
   run <<-CMD
+    ln -s #{shared_path}/bundle #{release_path}/vendor/bundle &&
+    export LD_LIBRARY_PATH=/opt/oracle/instantclient_10_2 &&
+    cd #{release_path} && bundle install --deployment --without development &&
     ln -s #{shared_path}/config/database.yml #{release_path}/config/database.yml &&
     
     mkdir -p -m 770 #{shared_path}/tmp/{cache,sessions,sockets,pids} &&
