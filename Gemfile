@@ -9,6 +9,7 @@ gem 'mysql2', '0.2.6'
 gem 'acts_as_state_machine'
 gem 'dynamic_form'
 gem 'dalli'
+gem 'paperclip'
 
 # Use unicorn as the web server
 # gem 'unicorn'

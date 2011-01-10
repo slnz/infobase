@@ -59,6 +59,9 @@ GEM
     net-ssh (2.0.23)
     net-ssh-gateway (1.0.1)
       net-ssh (>= 1.99.1)
+    paperclip (2.3.5)
+      activerecord
+      activesupport
     polyglot (0.3.1)
     rack (1.2.1)
     rack-mount (0.6.13)
@@ -95,5 +98,6 @@ DEPENDENCIES
   dalli
   dynamic_form
   mysql2 (= 0.2.6)
+  paperclip
   rails (~> 3.0.3)
   ruby-oci8
