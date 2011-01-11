@@ -65,39 +65,52 @@ class MovementsController < ApplicationController
   
   def search_contacts_results
     @last_name = params[:last_name]
-    @results = Person.not_secure.where("lastName like ?", @last_name + '%').
-      includes(:current_address).where(Address.table_name + ".email is not null").
-      order(:lastName).order(:firstName)
-    render :search_contacts
+    if !@last_name.blank? && @last_name.size > 1
+      @results = Person.not_secure.where("lastName like ?", @last_name + '%').
+        includes(:current_address).where(Address.table_name + ".email is not null").
+        order(:lastName).order(:firstName)
+      render :search_contacts
+    else
+      flash.now[:notice] = "You must type at least 2 letters."
+      render :search_contacts
+    end
   end
   
   def new_contact
-    @person = Person.new
-    @person.current_address = Address.new
+    if @info_user.can_add_contacts?
+      @person = Person.new
+      @person.current_address = Address.new
+    else
+      redirect_to location_path(@location), :notice => "You do not have permission to add contacts."
+    end
   end
   
   def create_contact
-    @person = Person.new
-    @person.current_address = Address.new
-    @person.current_address.addressType = "current"
-    @person.current_address.attributes = params[:person][:address]
-    params[:person].delete(:address)
-    @person.attributes = params[:person]
-    if @person.current_address.valid? && @person.valid? && !@person.lastName.blank? && !@person.email.blank? && !@person.phone.blank?
-      @person.save
-      params[:id] = @person.personID
-      add_contact
+    if @info_user.can_add_contacts?
+      @person = Person.new
+      @person.current_address = Address.new
+      @person.current_address.addressType = "current"
+      @person.current_address.attributes = params[:person][:address]
+      params[:person].delete(:address)
+      @person.attributes = params[:person]
+      if @person.current_address.valid? && @person.valid? && !@person.lastName.blank? && !@person.email.blank? && !@person.phone.blank?
+        @person.save
+        params[:id] = @person.personID
+        add_contact
+      else
+        if @person.lastName.blank?
+          @person.errors.add(:last_name, "can't be blank")
+        end
+        if @person.email.blank?
+          @person.errors.add(:email, "can't be blank")
+        end
+        if @person.phone.blank?
+          @person.errors.add(:phone, "can't be blank")
+        end
+        render :new_contact
+      end
     else
-      if @person.lastName.blank?
-        @person.errors.add(:last_name, "can't be blank")
-      end
-      if @person.email.blank?
-        @person.errors.add(:email, "can't be blank")
-      end
-      if @person.phone.blank?
-        @person.errors.add(:phone, "can't be blank")
-      end
-      render :new_contact
+      redirect_to location_path(@location), :notice => "You do not have permission to add contacts."
     end
   end
   
