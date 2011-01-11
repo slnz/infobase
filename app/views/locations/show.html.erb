@@ -96,9 +96,18 @@
           <label>Contacts:</label>
           <div class="box">
             <% activity.contacts.each do |contact| %>
-              <%= link_to contact.full_name, person_path(contact) %><br/>
+              <%= link_to contact.full_name, person_path(contact) %>
+              <% if @info_user.can_delete_contacts? || current_user.person.personID == contact.personID %> <!--TODO: Test current user-->
+                <%= link_to "", movement_remove_contact_path(@location, activity) + "/" + contact.personID.to_s, :method => :delete, :confirm => "Are you sure?", :class => "deletefield" %>
+              <% end %>
+              <br/>
             <% end %>
-            TODO: Add, Delete contacts
+            <% if !activity.contacts.include?(@current_user.person) %>
+              <%= link_to "Become a Contact for this Movement", movement_add_contact_path(@location, activity) + "/" + @current_user.person.personID.to_s, :method => :post %><br/>
+            <% end %>
+            <% if @info_user.can_add_contacts? %>
+              <%= link_to "Add Contact", movement_search_contacts_path(@location, activity) %>
+            <% end %>
           </div>
         </div>
 

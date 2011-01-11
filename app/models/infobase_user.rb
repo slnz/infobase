@@ -1,6 +1,9 @@
 class InfobaseUser < ActiveRecord::Base
   belongs_to :user
   
+  def can_add_contacts?() false; end 
+  def can_delete_contacts?() false; end 
+  
   def self.determine_infobase_user(user, emplid)
     info_user = nil
     if user

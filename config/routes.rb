@@ -6,7 +6,14 @@ Infobase::Application.routes.draw do
   end
 
   resources :locations do
-    resources :movements
+    resources :movements do
+      post :add_contact
+      delete :remove_contact
+      get :search_contacts
+      post :search_contacts_results
+      get :new_contact
+      post :create_contact
+    end
     collection do
       get :search
       post :search_results
@@ -25,7 +32,9 @@ Infobase::Application.routes.draw do
   match 'locations/region/:region' => 'locations#region'
   match 'locations/ministry/:strategy' => 'locations#ministry'
   match 'locations/:location_id/movements/new/:strategy' => 'movements#new'
-
+  match 'locations/:location_id/movements/:movement_id/remove_contact/:id' => 'movements#remove_contact', :via => :delete
+  match 'locations/:location_id/movements/:movement_id/add_contact/:id' => 'movements#add_contact', :via => :post
+  
   resources :people do
     collection do
       get :search

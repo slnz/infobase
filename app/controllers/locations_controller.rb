@@ -12,7 +12,6 @@ class LocationsController < ApplicationController
   def show
     #TODO: Don't show non-campuses?  i.e. Summer Projects, Conferences
     @open_strategies = Activity.determine_open_strategies(@location)
-    activities = @location.activities
     @title = "Infobase - " + @location.name
   end
   

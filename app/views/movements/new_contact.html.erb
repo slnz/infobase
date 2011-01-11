@@ -1,0 +1,39 @@
+<h2>Add a Contact for <%= @location.name %>, <%= Activity.strategies[@movement.strategy] %></h2>
+
+<%= form_for @person, :url => movement_create_contact_path do |f| %>
+  <% if @person.errors.any? || @person.current_address.errors.any? %>
+    <div class="errors">
+    <% @person.errors.full_messages.each do |msg| %>
+      <div><%= msg.html_safe %></div>
+    <% end %>
+    <% @person.current_address.errors.full_messages.each do |msg| %>
+      <div>
+      <%- if msg.is_a?(Hash) && person = msg[:email_exists] -%>
+        <%= link_to "Person #{person_gender_email(person)} already exists in the system.  Click here to add them as a reviewer.".html_safe, review_reviewers_url(@review.id, "reviewer[person_id]" => person.id, :close_person_dialog => true), :method => :post, :remote => true %>
+      <%- else -%>
+        <%= msg %>
+      <%- end -%>
+      </div>
+    <% end %>
+    </div>
+  <% end %>
+
+  First Name: <%= f.text_field(:firstName) %><br/>
+  Last Name: <%= f.text_field(:lastName) %><br/>
+
+  <%= f.fields_for @person.current_address do |af| %>
+    Email: <%= af.text_field(:email) %>
+  <%- end -%>
+  <br/>
+
+  Gender:  <%= f.radio_button :gender, '1' %> Male 
+    <%= f.radio_button :gender, '0' %> Female 
+  <br/>
+
+  <%= f.fields_for @person.current_address do |af| %>
+    Phone: <%= af.text_field(:homePhone) %>
+  <%- end -%>
+  <br/>
+  
+  <%= f.submit "Add Contact" %>
+<% end %>
