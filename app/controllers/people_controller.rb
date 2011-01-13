@@ -7,8 +7,7 @@ class PeopleController < ApplicationController
   end
   
   def show
-    #TODO: Don't show secure people
-    @person = Person.find(params[:id], :include => [:staff, :current_address])
+    @person = Person.not_secure.find(params[:id], :include => [:staff, :current_address])
     @title = "Infobase - " + @person.full_name
   end
   
@@ -23,6 +22,13 @@ class PeopleController < ApplicationController
   end
   
   def search_results
+    if params[:name].blank? && params[:city].blank? && params[:state].blank? && params[:country].blank? && params[:regions].blank? && params[:strategies].blank? && params[:staff].blank?
+      redirect_to search_people_path, :notice => "You must fill in at least one search option."
+    end
+    if !params[:name].blank? && params[:name].size < 3
+      redirect_to search_people_path, :notice => "You must fill in at least three letters of the name."
+    end
+
     @people = Person.where(Person.table_name + ".isSecure != 'T' or " + Person.table_name + ".isSecure is null").order(Person.table_name + ".lastName", Person.table_name + ".firstName").includes(:current_address).includes(:staff)
     if !params[:name].blank?
       query = params[:name].strip.split(' ')

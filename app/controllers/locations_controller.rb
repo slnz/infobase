@@ -26,10 +26,14 @@ class LocationsController < ApplicationController
     @location = TargetArea.new
     @location.attributes = params[:target_area]
     if @location.valid?
-      #TODO: actually create if admin
-      host = request.host_with_port
-      ProposeMailer.propose_location(@location, Person.find(50130), host).deliver #TODO: Get real person
-      redirect_to locations_path, :notice => "Your request was submitted successfully."
+      if @info_user.can_create_locations?
+        @location.save!
+        redirect_to location_path(@location), :notice => "Location was created successfully."
+      else
+        host = request.host_with_port
+        ProposeMailer.propose_location(@location, Person.find(50130), host).deliver #TODO: Get real person
+        redirect_to locations_path, :notice => "Your request was submitted successfully."
+      end
     else
       search_options
       @name_options = {}
@@ -102,6 +106,13 @@ class LocationsController < ApplicationController
   end
   
   def search_results
+    if params[:name].blank? && params[:city].blank? && params[:state].blank? && params[:country].blank? && params[:regions].blank? && params[:strategies].blank?
+      redirect_to search_locations_path, :notice => "You must fill in at least one search option."
+    end
+    if !params[:name].blank? && params[:name].size < 3
+      redirect_to search_locations_path, :notice => "You must fill in at least three letters of the name."
+    end
+    
     @locations = TargetArea.where("isClosed is null or isClosed <> 'T'").where("eventType is null or eventType <=> ''").includes(:activities).order(:name)
     if !params[:name].blank?
       @locations = @locations.where("name like ?", "%#{params[:name]}%")

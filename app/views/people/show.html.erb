@@ -63,7 +63,9 @@
       <div class="field">
         <label>Missional Teams:</label>
         <div class="box">
-          <% #@person.teams %>
+          <% @person.teams.each do |team| %>
+            <%= link_to team.name, team_path(team) %><br/>
+          <% end %>
         </div>
       </div>
       <br/>
@@ -76,7 +78,7 @@
 
       <% if (@person.ministry == "Campus Ministry") %>
         <div class="field">
-          <label>Ministry:</label>
+          <label>Ministry Type:</label>
           <%= @person.staff.strategy if @person.staff %>
         </div>
         <br/>
@@ -133,3 +135,30 @@
   </div>
   <div class="clear"></div>  
 </div><!-- righthand -->
+<% if !@person.activities.empty? %>
+  <div class="lefthand">
+    <h3 class="indented">
+      This person is responsible for the following movements:
+    </h3>
+    <table class="movements">
+      <tbody>
+        <tr>
+          <th>Location</th>
+          <th>Ministry</th>
+          <th>Status</th>
+          <th>Size</th>
+          <th>&nbsp;</th>
+        </tr>
+        <% @person.activities.each do |activity| %>
+          <tr>
+            <td><%= link_to activity.target_area.name, location_path(activity.target_area) %></td>
+            <td><%= Activity.strategies[activity.strategy] %></td>
+            <td><%= Activity.statuses[activity.status] %></td>
+            <td><!-- #TODO: size --></td>
+            <td><!-- #TODO: enter stats --></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+<% end %>

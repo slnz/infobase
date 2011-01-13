@@ -17,7 +17,7 @@
             <%= person.current_address.city %><%= "," if !person.current_address.city.blank? %>&nbsp;
             <%= person.current_address.state %><%= "," if !person.current_address.state.blank? %>&nbsp;
           <% end %>
-          <%= Region.full_name(person.region()) %>
+          <%= Region.full_name(person.region(false)) %>
         </td>
       </tr>
     <% end %>

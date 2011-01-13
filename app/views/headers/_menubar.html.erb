@@ -4,13 +4,13 @@
       <li <%= @menubar == "home" ? "class='selected'" : "" %>>
         <%= link_to "Home", root_path %>
       </li>
-      <li <%= @menubar == "ministry" ? "class='selected'" : "" %>> <!--TODO: add class="selected" to the current section-->
+      <li <%= @menubar == "ministry" ? "class='selected'" : "" %>>
         <%= link_to "Ministry", locations_path %>
       </li>
-      <li <%= @menubar == "stats" ? "class='selected'" : "" %>> <!--TODO: add class="selected" to the current section-->
+      <li <%= @menubar == "stats" ? "class='selected'" : "" %>>
         <%= link_to "Enter Stats", people_path %>
       </li>
-      <li <%= @menubar == "reports" ? "class='selected'" : "" %>> <!--TODO: add class="selected" to the current section-->
+      <li <%= @menubar == "reports" ? "class='selected'" : "" %>>
         <%= link_to "View Reports", people_path %>
       </li>
     </ul>
