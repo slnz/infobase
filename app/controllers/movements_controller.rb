@@ -1,5 +1,5 @@
 class MovementsController < ApplicationController
-  before_filter :get_location
+  before_filter :setup, :get_location
   before_filter :get_movement, :except => [:new, :create]
   before_filter :populate_select_options, :only => [:edit]
   
@@ -130,5 +130,11 @@ class MovementsController < ApplicationController
     @statuses = Activity.visible_statuses
     @teams = Team.from_region(@location.region)
     @team_id = @movement.team.id if @movement.team
+  end
+
+  def setup
+    @menubar = "ministry"
+    @submenu = "locations"
+    @title = "Infobase - Location Home"
   end
 end

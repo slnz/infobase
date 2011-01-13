@@ -15,4 +15,12 @@ module ApplicationHelper
     num = SecureRandom.random_number(11)
     num.to_s + ".jpg"
   end
+  
+  def display_website(website)
+    if !website.blank?
+      website.include?("http://") ? website : "http://" + website
+    else
+      ""
+    end
+  end
 end

@@ -6,6 +6,19 @@ function changeImages() {
   }
 } 
 
+lastOpen="";
+function show(personID){
+  hide();
+  document.getElementById(personID+"_leader_status").style.display='inline';
+  lastOpen=personID;
+}
+
+function hide(){
+  if (lastOpen!==""){
+  document.getElementById(lastOpen+"_leader_status").style.display='none';
+  }
+}
+
 $(function () {
   $('#search_type').bind('change', function() { window.location.pathname = $(this).val() });
   $('#activity_periodBegin').datepicker(); 

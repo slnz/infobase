@@ -1,0 +1,112 @@
+<h1>
+  <%= @team.name %>&nbsp;&nbsp;
+  <%= link_to "", edit_team_path(@team), :class => "editfield" %>
+  <%= link_to "(edit)", edit_team_path(@team), :class => "edittext" %>
+</h1>
+
+<h3 class="indented">
+  Details about this Team
+</h3>
+
+<div class="strategy">
+  <div class="details">
+    <div class="thecolumn">
+      <div class="field">
+        <label>Address:</label>
+        <div class="box">
+          <%= @team.address1 %>&nbsp;<%= @team.address2 %><br>
+          <%= @team.city %><%= (@team.state.blank? || @team.city.blank? ? "" : ",") %>
+          <%= @team.state %><br>
+          <%= @team.zip %><%= (@team.country.blank? || @team.zip.blank? ? "" : ",") %>
+          <%= @team.country %><br>
+        </div>
+      </div>
+                        
+      <div class="field">
+        <label>Region:</label>
+        <%= Region.full_name(@team.region) %>
+      </div>
+      <br/>
+      
+      <div class="field">
+        <label>Phone:</label>
+        <%= @team.phone %>                            
+      </div>
+      <br/>
+  
+      <div class="field">
+        <label>Email:</label>
+        <%= @team.email %>                            
+      </div>
+      <br/>
+      
+      <!-- TODO: SV sent team -->
+      
+      <div class="field">
+        <label>Ministry:</label>
+        <%= Activity.strategies[@team.lane] %>                            
+      </div>
+      <br/>
+      
+      <div class="field">
+        <label>Team Website:</label>
+        <%= link_to display_website(@team.url), display_website(@team.url) %>                            
+      </div>      
+    </div>
+  </div>
+  <div class="clear"></div>
+</div>
+
+<h3 >Team Members</h3>
+<ul style="list-style:none;background:none;height:auto;">
+  <% @team.team_members.each do |member| %>
+    <% if person = member.person %>
+      <li>
+        <%= link_to person.full_name, person_path(person) %>
+        <% if address = person.current_address %>
+          <%= address.city %><%= (address.state.blank? || address.city.blank? ? "" : ", ") %><%= address.state %>
+        <% end %>
+        <% if member.is_leader %>
+          <%= image_tag "/images/leader.gif", :alt => "Missional Team Leader", :onmouseover => "show('" + person.personID.to_s + "');", :id => person.personID.to_s + "_leader_hover" %>
+          <div id="<%= person.personID %>_leader_status" style="display: none;">
+            Team Leader
+          </div>
+        <% else %>
+          <%= image_tag "/images/member.gif", :alt => "Missional Team Member", :onmouseover => "show('" + person.personID.to_s + "');", :id => person.personID.to_s + "_leader_hover" %>
+          <div id="<%= person.personID %>_leader_status" style="display: none;">
+            Team Member
+          </div>
+        <% end %>
+        <br/>
+      </li>
+    <% end %>
+  <% end %>
+</ul>
+
+<% if !@team.activities.empty? %>
+  <div class="lefthand">
+    <h3 class="indented">
+      This team is responsible for the following movements:
+    </h3>
+    <table class="movements">
+      <tbody>
+        <tr>
+          <th>Location</th>
+          <th>Ministry</th>
+          <th>Status</th>
+          <th>Size</th>
+          <th>&nbsp;</th>
+        </tr>
+        <% @team.activities.each do |activity| %>
+          <tr>
+            <td><%= link_to activity.target_area.name, location_path(activity.target_area) %></td>
+            <td><%= Activity.strategies[activity.strategy] %></td>
+            <td><%= Activity.statuses[activity.status] %></td>
+            <td><!-- #TODO: size --></td>
+            <td><!-- #TODO: enter stats --></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+<% end %>

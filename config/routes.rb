@@ -1,4 +1,6 @@
 Infobase::Application.routes.draw do
+  resources :teams
+
   resources :teams do
     collection do
       get :search
