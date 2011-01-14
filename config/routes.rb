@@ -1,11 +1,22 @@
 Infobase::Application.routes.draw do
-  resources :teams
-
   resources :teams do
     collection do
       get :search
+      post :search_results
+      get :region
+      get :state
+      get :ministry
     end
   end
+  match 'teams/region/:region/state/:state/city/:city' => 'teams#city'
+  match 'teams/region/:region/state/:state/:all' => 'teams#state'
+  match 'teams/region/:region/state/:state' => 'teams#state'
+  match 'teams/region/:region/country/:country/city/:city' => 'teams#city'
+  match 'teams/region/:region/country/:country/:all' => 'teams#country'
+  match 'teams/region/:region/country/:country' => 'teams#country'
+  match 'teams/region/:region/:all' => 'teams#region'
+  match 'teams/region/:region' => 'teams#region'
+  match 'teams/ministry/:strategy' => 'teams#ministry'
 
   resources :locations do
     resources :movements do

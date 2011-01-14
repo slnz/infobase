@@ -1,9 +1,7 @@
-<br/>
-Welcome to the Person Home page. <br/>
-<br/>
+<h2>Welcome to the Person Home page.</h2>
 View Specialty Roles in :<br/>
 <% @regions.each do |region| %>
-     <%= link_to region.name, roles_people_path + "/" + region.abbrv %>&nbsp;&nbsp;
+  <%= link_to region.name, roles_people_path + "/" + region.abbrv %>&nbsp;&nbsp;
 <% end %>
 <br/><br/>
 If this information is incorrect, it is because the Personnel Record is incorrect. Please contact the appropriate HR representative.<br><br>
