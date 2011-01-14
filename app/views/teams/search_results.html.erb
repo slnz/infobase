@@ -1,0 +1,16 @@
+<h2>Search Results</h2>
+<table>
+  <tbody>
+    <% @teams.each do |team| %>
+      <tr>
+        <td><%= link_to team.name, team_path(team) %></td>
+        <td>
+          <%= team.city %><%= "," if !team.city.blank? %>
+          <%= team.state %><%= "," if !team.state.blank? %>
+          <%= Country.full_name(team.country) %><%= "," if !team.country.blank? %>
+          <%= Region.full_name(team.region()) %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

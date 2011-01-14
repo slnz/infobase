@@ -1,0 +1,27 @@
+<h2>Welcome to the Team Home page.</h2>
+<b>Look for your Team by selecting the Region below:</b>
+<br/>
+<table>
+  <tbody>
+    <% @regions.each do |region| %>
+      <tr>
+        <td>
+          <%= link_to region.name, region_teams_path + "/" + region.abbrv %>
+          <%= link_to "(all)", region_teams_path + "/" + region.abbrv + "/all" %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<br/>
+<b>Or search by Ministry:</b>
+<br/>
+<table>
+  <tbody>
+    <% @strategies.each_key do |strategy| %>
+      <tr>
+        <td><%= link_to @strategies[strategy], ministry_teams_path + "/" + strategy %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
