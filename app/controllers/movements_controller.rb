@@ -69,6 +69,7 @@ class MovementsController < ApplicationController
       @results = Person.not_secure.where("lastName like ?", @last_name + '%').
         includes(:current_address).where(Address.table_name + ".email is not null").
         order(:lastName).order(:firstName)
+      @results = @results - @movement.contacts
       render :search_contacts
     else
       flash.now[:notice] = "You must type at least 2 letters."
