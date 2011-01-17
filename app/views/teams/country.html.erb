@@ -1,0 +1,5 @@
+<h2><%= Region.full_name(@region) + ", " + Country.full_name(@country) %></h2>
+<b>Look for your Team by selecting the City below:</b><br/>
+<% @cities.each do |ta| %>
+  <%= link_to ta.city, region_teams_path + "/" + @region + "/country/" + @country + "/city/" + ta.city %><br/>
+<% end %>
