@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+  </head>
+  <body>
+    To whom it may concern, 
+       This is an automated request for a new team.<br/>
+    -----------------------------------------------------------------<br/>
+    Team Name: <%= @team.name %><br/>
+    Team Lane: <%= @team.lane %><br/>
+    Team Region: <%= @team.region %><br/>
+    Team Address 1: <%= @team.address1 %><br/>
+    Team Address 2: <%= @team.address2 %><br/>
+    Team City: <%= @team.city %><br/>
+    Team State: <%= @team.state %><br/>
+    Team ZIP: <%= @team.zip %><br/>
+    Team Country: <%= @team.country %><br/>
+    Team Phone: <%= @team.phone %><br/>
+    Team Fax: <%= @team.fax %><br/>
+    Team Email: <%= @team.email %><br/>
+    Team Webpage URL: <%= @team.url %><br/>
+    Is this Team Active? <%= @team.isActive %><br/>
+    Note: <%= @team.note %><br/>
+    -----------------------------------------------------------------<br/>
+    As entered by <%= @person.full_name %>, <%= @person.email %> on <%= Time.now.to_s %><br/>
+    <br/>
+    Please click or paste the following into your browser to approve/edit this proposal: <br/>
+    <%= link_to "Proposed New Team", new_team_url(:host => @host) + @request_params %>
+  </body>
+</html>

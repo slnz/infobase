@@ -1,23 +1,68 @@
 class TeamsController < ApplicationController
   before_filter :setup
   before_filter :get_team, :only => [:show, :edit, :update]
-  before_filter :search_options, :only => [:search]
+  before_filter :search_options, :only => [:new, :edit, :search]
   before_filter :populate_breadcrumbs, :only => [:show]
   
   def index
-    @regions = Region.standard_regions
+    @regions = Region.campus_regions
     @strategies = Activity.visible_team_strategies
   end
 
   def show
   end
+  
+  def new
+    @team = Team.new
+    @team.attributes = params[:team]
+    @name_options = {}
+    @title = "Infobase - Propose New Team"
+  end
 
+  def create
+    @team = Team.new
+    @team.attributes = params[:team]
+    if @team.valid?
+      if @info_user.can_create_teams?
+        @team.save!
+        redirect_to team_path(@team), :notice => "Team was created successfully."
+      else
+        host = request.host_with_port
+        ProposeMailer.propose_team(@team, current_user.person, host).deliver
+        redirect_to teams_path, :notice => "Your request was submitted successfully."
+      end
+    else
+      search_options
+      @name_options = {}
+      render :new
+      @title = "Infobase - Propose New Team"
+    end
+  end
+  
+  def edit
+    @name_options = {:readonly => true}
+    @title = "Infobase - Edit " + @team.name
+  end
+
+  def update
+    @team.update_attributes(params[:team])
+    if @team.errors.empty?
+      redirect_to team_path(@team), :notice => "#{@team.name} was updated successfully."
+    else
+      search_options
+      populate_breadcrumbs
+      @name_options = {:readonly => true}
+      render :edit
+      @title = "Infobase - Edit" + @team.name
+    end
+  end
+  
   def region
     if params[:all]
       perform_search
     else
-      @states = Team.select("distinct state").where("region = ?", @region).where("state is not null and state != ''").order(:state)
-      @countries = Team.select("distinct country").where("region = ?", @region).where("country is not null and country != ''").order(:country)
+      @states = Team.active.select("distinct state").where("region = ?", @region).where("state is not null and state != ''").order(:state)
+      @countries = Team.active.select("distinct country").where("region = ?", @region).where("country is not null and country != ''").order(:country)
       @title = "Infobase - Teams in " + Region.full_name(@region)
     end
   end
@@ -26,7 +71,7 @@ class TeamsController < ApplicationController
     if params[:all]
       perform_search
     else
-      @cities = Team.select("distinct city").where("region = ?", @region).where("state = ?", @state).where("city is not null and city != ''").order(:city)
+      @cities = Team.active.select("distinct city").where("region = ?", @region).where("state = ?", @state).where("city is not null and city != ''").order(:city)
       @title = "Infobase - Teams in " + State.states[@state]
     end
   end
@@ -37,7 +82,7 @@ class TeamsController < ApplicationController
     else
       @region = params[:region]
       @country = params[:country]
-      @cities = Team.select("distinct city").where("region = ?", @region).where("country = ?", @country).where("city is not null and city != ''").order(:city)
+      @cities = Team.active.select("distinct city").where("region = ?", @region).where("country = ?", @country).where("city is not null and city != ''").order(:city)
       @title = "Infobase - Teams in " + Country.full_name(@country)
     end
   end
@@ -60,7 +105,7 @@ class TeamsController < ApplicationController
       redirect_to search_teams_path, :notice => "You must fill in at least three letters of the name."
     end
     
-    @teams = Team.where("isActive = 'T'").order(:name)
+    @teams = Team.active.order(:name)
     if !params[:name].blank?
       @teams = @teams.where("name like ?", "%#{params[:name]}%")
     end
@@ -90,6 +135,7 @@ class TeamsController < ApplicationController
       @state = params[:state]
       @country = params[:country]
       @city = params[:city]
+      @strategies = Activity.visible_team_strategies
       @title = "Infobase - Team Home"
     end
     

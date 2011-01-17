@@ -31,7 +31,7 @@ class LocationsController < ApplicationController
         redirect_to location_path(@location), :notice => "Location was created successfully."
       else
         host = request.host_with_port
-        ProposeMailer.propose_location(@location, Person.find(50130), host).deliver #TODO: Get real person
+        ProposeMailer.propose_location(@location, current_user.person, host).deliver
         redirect_to locations_path, :notice => "Your request was submitted successfully."
       end
     else
@@ -43,7 +43,6 @@ class LocationsController < ApplicationController
   end
   
   def edit
-    populate_breadcrumbs
     @name_options = {:readonly => true}
     @title = "Infobase - Edit " + @location.name
   end

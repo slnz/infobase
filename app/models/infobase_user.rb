@@ -4,6 +4,7 @@ class InfobaseUser < ActiveRecord::Base
   def can_add_contacts?() false; end 
   def can_delete_contacts?() false; end
   def can_create_locations?() false; end
+  def can_create_teams?() false; end
   
   def self.determine_infobase_user(user, emplid)
     info_user = nil

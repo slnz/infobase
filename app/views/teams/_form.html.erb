@@ -1,0 +1,20 @@
+<%= f.error_messages %>
+(* = required field)<br/>
+*Name: <%= f.text_field :name, @name_options %><br/>
+*Ministry: <%= f.select :lane, options_for_select(@strategies.invert, @team.lane) %><br/>
+*Region: <%= f.select :region, options_for_select(@regions.collect {|r| [r.name, r.region]}, @team.region) %><br/>
+Address 1: <%= f.text_field :address1 %><br/>
+Address 2: <%= f.text_field :address2 %><br/>
+City: <%= f.text_field :city %><br/>
+State: <%= f.select :state, options_for_select(@states, @team.state) %><br/>
+Zip: <%= f.text_field :zip %><br/>
+*Country: <%= f.select :country, options_for_select(@countries, @team.country) %><br/>
+Phone: <%= f.text_field :phone %><br/>
+Fax: <%= f.text_field :fax %><br/>
+Email: <%= f.text_field :email %><br/>
+CCC Webpage: <%= f.text_field :url %><br/>
+<% if @team.can_deactivate? %>
+  Is this Team Active? <%= f.radio_button :isActive, "T" %>Yes
+    <%= f.radio_button :isActive, "F" %>No<br/>
+<% end %>
+Note: <%= f.text_area :note %><br/>

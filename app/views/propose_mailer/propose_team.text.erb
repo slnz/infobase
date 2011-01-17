@@ -1,0 +1,23 @@
+To whom it may concern, 
+   This is an automated request for a new team.
+-----------------------------------------------------------------
+Team Name: <%= @team.name %>
+Team Lane: <%= @team.lane %>
+Team Region: <%= @team.region %>
+Team Address 1: <%= @team.address1 %>
+Team Address 2: <%= @team.address2 %>
+Team City: <%= @team.city %>
+Team State: <%= @team.state %>
+Team ZIP: <%= @team.zip %>
+Team Country: <%= @team.country %>
+Team Phone: <%= @team.phone %>
+Team Fax: <%= @team.fax %>
+Team Email: <%= @team.email %>
+Team Webpage URL: <%= @team.url %>
+Is this Team Active? <%= @team.isActive %>
+Note: <%= @team.note %>
+-----------------------------------------------------------------
+As entered by <%= @person.full_name %>, <%= @person.email %> on <%= Time.now.to_s %>
+
+Please click or paste the following into your browser to approve/edit this proposal: 
+<%= new_team_url(:host => @host) + @request_params %>

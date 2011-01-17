@@ -83,7 +83,7 @@
   <% end %>
 </ul>
 
-<% if !@team.activities.empty? %>
+<% if !@team.activities.active.empty? %>
   <div class="lefthand">
     <h3 class="indented">
       This team is responsible for the following movements:
@@ -97,7 +97,7 @@
           <th>Size</th>
           <th>&nbsp;</th>
         </tr>
-        <% @team.activities.each do |activity| %>
+        <% @team.activities.active.each do |activity| %>
           <tr>
             <td><%= link_to activity.target_area.name, location_path(activity.target_area) %></td>
             <td><%= Activity.strategies[activity.strategy] %></td>
