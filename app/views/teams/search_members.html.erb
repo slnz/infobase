@@ -1,6 +1,6 @@
 <div class="associate">
-  <h2>Add a Contact for <%= @location.name %>, <%= Activity.strategies[@movement.strategy] %></h2>
-  <%= form_tag search_contacts_results_location_movement_path(@location, @movement) do %>
+  <h2>Add a Team Member for <%= @team.name %></h2>
+  <%= form_tag search_members_results_team_path(@team) do %>
     Search by <i>Last Name</i>.  If the person you wish to add is not in the list below, check the spelling of his or her last name and try again.<br/>
     <%= text_field_tag :last_name, @last_name %>
     <%= submit_tag "Search" %>
@@ -9,13 +9,13 @@
   <% if @results %>
     Here is a list of people in the Campus Ministry system.<br/>
     Select which one you want to add as a Movement Contact.<br/>
-    <%= form_tag add_contact_location_movement_path(@location, @movement) do %>
+    <%= form_tag add_member_team_path(@team) do %>
       <%= select_tag :person_id, options_for_select(@results.collect {|r| [r.full_name + " (" + r.email + ")", r.personID]}) %>
-      <%= submit_tag "Add Contact" %>
+      <%= submit_tag "Add Team Member" %>
     <% end %>
     <br/>
     If you still cannot find him or her,
-    <%= link_to "click here.", new_contact_location_movement_path(@location, @movement) %><br/>
+    <%= link_to "click here.", new_member_team_path(@team) %><br/>
   <% end %>
-  <%= link_to "Cancel", location_path(@location) %>
+  <%= link_to "Cancel", team_path(@team) %>
 </div>

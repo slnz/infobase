@@ -1,6 +1,6 @@
-<h2>Add a Contact for <%= @location.name %>, <%= Activity.strategies[@movement.strategy] %></h2>
+<h2>Add a Team Member for <%= @team.name %></h2>
 
-<%= form_for @person, :url => create_contact_location_movement_path(@location, @movement) do |f| %>
+<%= form_for @person, :url => create_member_team_path(@team) do |f| %>
   <% if @person.errors.any? || @person.current_address.errors.any? %>
     <div class="errors">
     <% @person.errors.full_messages.each do |msg| %>

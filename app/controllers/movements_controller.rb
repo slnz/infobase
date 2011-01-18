@@ -39,7 +39,7 @@ class MovementsController < ApplicationController
   end
   
   def add_contact
-    @contact = Person.find(params[:id])
+    @contact = Person.not_secure.find(params[:person_id])
     if @info_user.can_add_contacts? || @current_user.person == @contact
       if !@movement.contacts.include?(@contact)
         @movement.contacts << @contact
@@ -51,7 +51,7 @@ class MovementsController < ApplicationController
   end
   
   def remove_contact
-    @contact = Person.find(params[:id])
+    @contact = Person.find(params[:person_id])
     if @info_user.can_delete_contacts? || @current_user.person == @contact
       @movement.contacts.delete(@contact)
       redirect_to location_path(@location), :notice => "Contact was successfully removed."
@@ -96,7 +96,7 @@ class MovementsController < ApplicationController
       @person.attributes = params[:person]
       if @person.current_address.valid? && @person.valid? && !@person.lastName.blank? && !@person.email.blank? && !@person.phone.blank?
         @person.save
-        params[:id] = @person.personID
+        params[:person_id] = @person.personID
         add_contact
       else
         if @person.lastName.blank?
@@ -122,8 +122,7 @@ class MovementsController < ApplicationController
   end
   
   def get_movement
-    @movement = Activity.find(params[:movement_id]) if params[:movement_id]
-    @movement ||= Activity.find(params[:id])
+    @movement = Activity.find(params[:id])
     @location = @movement.target_area
   end
   

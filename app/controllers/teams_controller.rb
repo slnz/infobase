@@ -1,8 +1,8 @@
 class TeamsController < ApplicationController
   before_filter :setup
-  before_filter :get_team, :only => [:show, :edit, :update]
+  before_filter :get_team, :only => [:show, :edit, :update, :add_member, :remove_member, :search_members, :search_members_results, :new_member, :create_member, :add_leader, :remove_leader]
   before_filter :search_options, :only => [:new, :edit, :search]
-  before_filter :populate_breadcrumbs, :only => [:show]
+  before_filter :populate_breadcrumbs, :only => [:show, :edit, :add_member, :remove_member, :search_members, :search_members_results, :new_member]
   
   def index
     @regions = Region.campus_regions
@@ -54,6 +54,106 @@ class TeamsController < ApplicationController
       @name_options = {:readonly => true}
       render :edit
       @title = "Infobase - Edit" + @team.name
+    end
+  end
+  
+  def add_member
+    member = Person.not_secure.find(params[:person_id])
+    if @info_user.can_add_team_members? || @current_user.person == member || @team.is_leader?(@current_user.person)
+      if !@team.people.include?(member)
+        @team.people << member
+      end
+      redirect_to team_path(@team), :notice => "Team Member was successfully added."
+    else
+      redirect_to team_path(@team), :notice => "You do not have permission to add this team member."
+    end
+  end
+  
+  def remove_member
+    member = Person.find(params[:person_id])
+    if @info_user.can_remove_team_members? || @current_user.person == member || @team.is_leader?(@current_user.person)
+      @team.people.delete(member)
+      redirect_to team_path(@team), :notice => "Team Member was successfully removed."
+    else
+      redirect_to team_path(@team), :notice => "You do not have permission to remove this team member."
+    end
+  end
+  
+  def search_members_results
+    @last_name = params[:last_name]
+    if !@last_name.blank? && @last_name.size > 1
+      @results = Person.not_secure.where("lastName like ?", @last_name + '%').
+        includes(:current_address).where(Address.table_name + ".email is not null").
+        order(:lastName).order(:firstName)
+      @results = @results - @team.people
+      render :search_members
+    else
+      flash.now[:notice] = "You must type at least 2 letters."
+      render :search_members
+    end
+  end
+  
+  def new_member
+    if @info_user.can_add_team_members? || @team.is_leader(@current_user.person)
+      @person = Person.new
+      @person.current_address = Address.new
+    else
+      redirect_to team_path(@team), :notice => "You do not have permission to add team members."
+    end
+  end
+  
+  def create_member
+    if @info_user.can_add_team_members? || @team.is_leader(@current_user.person)
+      @person = Person.new
+      @person.current_address = Address.new
+      @person.current_address.addressType = "current"
+      @person.current_address.attributes = params[:person][:address]
+      params[:person].delete(:address)
+      @person.attributes = params[:person]
+      if @person.current_address.valid? && @person.valid? && !@person.lastName.blank? && !@person.email.blank? && !@person.phone.blank?
+        @person.save
+        params[:person_id] = @person.personID
+        add_member
+      else
+        if @person.lastName.blank?
+          @person.errors.add(:last_name, "can't be blank")
+        end
+        if @person.email.blank?
+          @person.errors.add(:email, "can't be blank")
+        end
+        if @person.phone.blank?
+          @person.errors.add(:phone, "can't be blank")
+        end
+        render :new_member
+      end
+    else
+      redirect_to team_path(@team), :notice => "You do not have permission to add team members."
+    end
+  end
+  
+  def add_leader
+    if @info_user.can_add_team_leaders? || @team.is_leader?(@current_user.person)
+      person = Person.find(params[:person_id])
+      if @team.add_leader(person)
+        redirect_to team_path(@team), :notice => "Team Leader was successfully added."
+      else
+        redirect_to team_path(@team), :notice => "Team doesn't contain that Team Member."
+      end
+    else
+      redirect_to team_path(@team), :notice => "You do not have permission to add team leaders."
+    end
+  end
+  
+  def remove_leader
+    if @info_user.can_add_team_leaders? || @team.is_leader?(@current_user.person)
+      person = Person.find(params[:person_id])
+      if @team.remove_leader(person)
+        redirect_to team_path(@team), :notice => "Team Leader was successfully removed."
+      else
+        redirect_to team_path(@team), :notice => "Team doesn't contain that Team Member."
+      end
+    else
+      redirect_to team_path(@team), :notice => "You do not have permission to remove team leaders."
     end
   end
   

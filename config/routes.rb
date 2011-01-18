@@ -7,6 +7,16 @@ Infobase::Application.routes.draw do
       get :state
       get :ministry
     end
+    member do
+      post :add_member
+      delete :remove_member
+      get :search_members
+      post :search_members_results
+      get :new_member
+      post :create_member
+      post :add_leader
+      post :remove_leader
+    end
   end
   match 'teams/region/:region/state/:state/city/:city' => 'teams#city'
   match 'teams/region/:region/state/:state/:all' => 'teams#state'
@@ -17,15 +27,21 @@ Infobase::Application.routes.draw do
   match 'teams/region/:region/:all' => 'teams#region'
   match 'teams/region/:region' => 'teams#region'
   match 'teams/ministry/:strategy' => 'teams#ministry'
+  match 'teams/:id/add_member/:person_id' => 'teams#add_member', :via => :post
+  match 'teams/:id/remove_member/:person_id' => 'teams#remove_member', :via => :delete
+  match 'teams/:id/add_leader/:person_id' => 'teams#add_leader', :via => :post
+  match 'teams/:id/remove_leader/:person_id' => 'teams#remove_leader', :via => :post
 
   resources :locations do
     resources :movements do
-      post :add_contact
-      delete :remove_contact
-      get :search_contacts
-      post :search_contacts_results
-      get :new_contact
-      post :create_contact
+      member do
+        post :add_contact
+        delete :remove_contact
+        get :search_contacts
+        post :search_contacts_results
+        get :new_contact
+        post :create_contact
+      end
     end
     collection do
       get :search
@@ -45,8 +61,8 @@ Infobase::Application.routes.draw do
   match 'locations/region/:region' => 'locations#region'
   match 'locations/ministry/:strategy' => 'locations#ministry'
   match 'locations/:location_id/movements/new/:strategy' => 'movements#new'
-  match 'locations/:location_id/movements/:movement_id/remove_contact/:id' => 'movements#remove_contact', :via => :delete
-  match 'locations/:location_id/movements/:movement_id/add_contact/:id' => 'movements#add_contact', :via => :post
+  match 'locations/:location_id/movements/:id/remove_contact/:person_id' => 'movements#remove_contact', :via => :delete
+  match 'locations/:location_id/movements/:id/add_contact/:person_id' => 'movements#add_contact', :via => :post
   
   resources :people do
     collection do

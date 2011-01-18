@@ -62,6 +62,9 @@
   <% @team.team_members.each do |member| %>
     <% if person = member.person %>
       <li>
+        <% if @info_user.can_remove_team_members? || @current_user.person == person || @team.is_leader?(@current_user.person) %>
+          <%= link_to "", remove_member_team_path(@team) + "/" + person.personID.to_s, :method => :delete, :class => "deletefield" %>
+        <% end %>
         <%= link_to person.full_name, person_path(person) %>
         <% if address = person.current_address %>
           <%= address.city %><%= (address.state.blank? || address.city.blank? ? "" : ", ") %><%= address.state %>
@@ -69,12 +72,22 @@
         <% if member.is_leader %>
           <%= image_tag "/images/leader.gif", :alt => "Missional Team Leader", :onmouseover => "show('" + person.personID.to_s + "');", :id => person.personID.to_s + "_leader_hover" %>
           <div id="<%= person.personID %>_leader_status" style="display: none;">
-            Team Leader
+            <i>
+              Team Leader
+              <% if @info_user.can_add_team_leaders? || @team.is_leader?(@current_user.person) %>
+                :&nbsp;<%= link_to "Change to Member", remove_leader_team_path(@team) + "/" + person.personID.to_s, :method => :post %>
+              <% end %>
+            </i>
           </div>
         <% else %>
           <%= image_tag "/images/member.gif", :alt => "Missional Team Member", :onmouseover => "show('" + person.personID.to_s + "');", :id => person.personID.to_s + "_leader_hover" %>
           <div id="<%= person.personID %>_leader_status" style="display: none;">
-            Team Member
+            <i>
+              Team Member
+              <% if @info_user.can_add_team_leaders? || @team.is_leader?(@current_user.person) %>
+                :&nbsp;<%= link_to "Change to Leader", add_leader_team_path(@team) + "/" + person.personID.to_s, :method => :post %>
+              <% end %>
+            </i>
           </div>
         <% end %>
         <br/>
@@ -82,6 +95,12 @@
     <% end %>
   <% end %>
 </ul>
+<% if @info_user.can_add_team_members? || @team.is_leader?(@current_user.person) %>
+  <%= link_to "Add a Missional Team Member", search_members_team_path(@team) %><br/>
+<% end %>
+<% if !@team.people.include?(@current_user.person) %>
+  <%= link_to "Join This Missional Team", add_member_team_path(@team) + "/" + current_user.person.personID.to_s, :method => :post %>
+<% end %>
 
 <% if !@team.activities.active.empty? %>
   <div class="lefthand">
