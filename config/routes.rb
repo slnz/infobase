@@ -2,6 +2,7 @@ Infobase::Application.routes.draw do
   resources :teams do
     collection do
       get :search
+      get :search_results
       post :search_results
       get :region
       get :state
@@ -45,6 +46,7 @@ Infobase::Application.routes.draw do
     end
     collection do
       get :search
+      get :search_results
       post :search_results
       get :region
       get :state
@@ -67,6 +69,7 @@ Infobase::Application.routes.draw do
   resources :people do
     collection do
       get :search
+      get :search_results
       post :search_results
       get :roles
     end
@@ -74,7 +77,7 @@ Infobase::Application.routes.draw do
   match 'people/roles/:region' => 'people#roles'
   
   match 'home' => 'home#index'
-  match 'home/search' => 'home#search'
+  match 'home/search' => 'home#search', :via => :post
   match 'home/no' => 'home#no'
   
   root :to => 'home#index'

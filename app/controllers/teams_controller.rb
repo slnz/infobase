@@ -198,14 +198,17 @@ class TeamsController < ApplicationController
   end
   
   def search_results
-    if params[:name].blank? && params[:city].blank? && params[:state].blank? && params[:country].blank? && params[:regions].blank? && params[:strategies].blank?
+    if params[:namecity].blank? && params[:name].blank? && params[:city].blank? && params[:state].blank? && params[:country].blank? && params[:regions].blank? && params[:strategies].blank?
       redirect_to search_teams_path, :notice => "You must fill in at least one search option."
     end
-    if !params[:name].blank? && params[:name].size < 3
+    if (!params[:name].blank? && params[:name].size < 3) || (!params[:namecity].blank? && params[:namecity].size < 3)
       redirect_to search_teams_path, :notice => "You must fill in at least three letters of the name."
     end
     
     @teams = Team.active.order(:name)
+    if !params[:namecity].blank?
+      @teams = @teams.where("name like ? OR city like ?", "%#{params[:namecity]}%", "#{params[:namecity]}%")
+    end
     if !params[:name].blank?
       @teams = @teams.where("name like ?", "%#{params[:name]}%")
     end

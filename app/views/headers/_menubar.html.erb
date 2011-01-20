@@ -38,7 +38,12 @@
     </ul>
   </div>
 
-  <div id="quickSearch"> 
+  <div id="quickSearch">
+    <%= form_tag ('/home/search') do %>
+      <%= select_tag :type, options_for_select({"Find a Person:" => "people", "Find a Location:" => "locations", "Find a Team:" => "teams"}, @submenu) %>
+      <%= text_field_tag :name %>
+      <%= submit_tag "Search" %>
+    <% end %>
     <%= link_to "Advanced Search", search_people_path, :class => "open_close" %>
   </div>
 </div>
