@@ -66,6 +66,14 @@ Infobase::Application.routes.draw do
   match 'locations/:location_id/movements/:id/remove_contact/:person_id' => 'movements#remove_contact', :via => :delete
   match 'locations/:location_id/movements/:id/add_contact/:person_id' => 'movements#add_contact', :via => :post
   
+  resources :stats do
+    collection do
+      get :location
+      put :update
+    end
+  end
+  match 'locations/:location_id/movements/:movement_id/stats' => 'stats#location'
+
   resources :people do
     collection do
       get :search

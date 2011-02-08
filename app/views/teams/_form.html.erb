@@ -1,6 +1,6 @@
 <%= f.error_messages %>
 (* = required field)<br/>
-*Name: <%= f.text_field :name, @name_options %><br/>
+*Team Name: <%= f.text_field :name, @name_options %><br/>
 *Ministry: <%= f.select :lane, options_for_select(@strategies.invert, @team.lane) %><br/>
 *Region: <%= f.select :region, options_for_select(@regions.collect {|r| [r.name, r.region]}, @team.region) %><br/>
 Address 1: <%= f.text_field :address1 %><br/>

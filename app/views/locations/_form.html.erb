@@ -1,7 +1,7 @@
 <%= f.error_messages %>
 (* = required field)<br/>
 *Region: <%= f.select :region, options_for_select(@regions.collect {|r| [r.name, r.region]}, @location.region) %><br/>
-*Name: <%= f.text_field :name, @name_options %><br/>
+*Location Name: <%= f.text_field :name, @name_options %><br/>
 Alternate Name: <%= f.text_field :altName %><br/>
 Abbreviation: <%= f.text_field :abbrv %><br/>
 Address 1: <%= f.text_field :address1 %><br/>
