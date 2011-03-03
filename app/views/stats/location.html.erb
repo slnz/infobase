@@ -1,20 +1,236 @@
 <!-- TODO: hover help boxes -->
 <h1>Enter Stats</h1>
 <div class="enter_stat" id="enter_stat">
+  <!-- Dates on top -->
   <div style="float:right;">
     <ul id="tab_wrapper">
       <% 14.downto(0) do |week_ago| %>
         <% sunday = @current_week - week_ago.weeks %>
         <li class="weekTab" style="<%= first_week(sunday) ? "background:#D3D3D3" : "" %>">
           <!-- TODO: link to each week -->
-          <%= display_birthday(sunday) %><br/>to<br/><%= display_birthday(sunday + 6.days) %>
+          <%= display_date_short(sunday) %><br/>to<br/><%= display_date_short(sunday + 6.days) %>
         </li>
       <% end %>
     </ul>
   </div>
+  
   <div style="clear:both"></div>
   
   <%= form_tag stats_path, :method => :put, :name => "fast_ll_stat", :id => "fast_ll_stat" do %>
-    <%= image_submit_tag "/images/submit_bon.gif" %>
+    <ul class="results">
+      <li id="<%= "1" %>" class="">
+        <a name="a<%= @movement.ActivityID %>" ></a>
+        
+        <!-- School name and Red X's and Green Checks -->
+        <table class="movementheader">
+          <tr onClick="javascript:$('#1').toggleClass('selected');">
+            <th class="expand"></th>
+            <th class="schoolname" style="width: 87%;">
+              <span style="float:left;padding-right:10px"><%= @location.name %></span>
+              <ul style="display:inline;float:right;">
+                <% 14.downto(0) do |week_ago| %>
+                  <% sunday = @current_week - week_ago.weeks %>
+    	      	    <li class="checkmark <%= first_week(sunday) ? "first_week" : "" %>">
+    	      	      <!-- TODO: link to each week -->
+    	      	      <% if @stats.exists?({:periodBegin => sunday}) %>
+    	      	        <%= image_tag "/images/greendot.gif" %>
+    	      	      <% else %>
+    	      	        <%= image_tag "/images/reddot.gif" %>
+    	      	      <% end%>
+    	      	    </li>
+          	    <% end %>
+              </ul>
+            </th>
+            <th class="bookmark"><a href="" class="unbookmark">Unbookmark</a></th>
+          </tr>
+        </table>
+        
+        <div class="schoolentry">
+          <div class="aschool">
+            <h2>
+              <%= Activity.strategies[@stat.activity.strategy] %>&nbsp;<!-- TODO: people group -->&nbsp;&nbsp;
+              <%= link_to "", edit_location_movement_path(@location, @movement), :class => "editfield" %>
+              <%= link_to "(edit)", edit_location_movement_path(@location, @movement), :class => "edittext" %>
+            </h2>
+            <div class="thecolumn">
+              <b>Weekly Stats</b>
+              <div class="field">
+                <label onMouseOver="infoBox('<%= "" %>','personal_evangelism',200);" onMouseOut="infoBoxClear('<%= "" %>');" >Personal Evangelism</label>
+                <%= text_field_tag "evangelisticOneOnOne", @stat.evangelisticOneOnOne, :id => "week 1", :class => "totalnumber" %>
+              </div>
+              
+              <div class="field">
+                <label onMouseOver="infoBox('<%= "" %>','personal_evangelism',200);" onMouseOut="infoBoxClear('<%= "" %>');" >Group Evangelism</label>
+                <%= text_field_tag "evangelisticGroup", @stat.evangelisticGroup, :id => "week 1", :class => "totalnumber" %>
+              </div>
+              
+              <div class="field">
+                <label onMouseOver="infoBox('<%= "" %>','personal_evangelism',200);" onMouseOut="infoBoxClear('<%= "" %>');" >Media Exposures</label>
+                <%= text_field_tag "exposuresViaMedia", @stat.exposuresViaMedia, :id => "week 1", :class => "totalnumber" %>
+              </div>
+              
+              <div class="field">
+                <label onMouseOver="infoBox('<%= "" %>','personal_evangelism',200);" onMouseOut="infoBoxClear('<%= "" %>');" >Holy Spirit Presentations</label>
+                <%= text_field_tag "holySpiritConversations", @stat.holySpiritConversations, :id => "week 1", :class => "totalnumber" %>
+              </div>
+            </div>
+            
+            <div class="thecolumn">
+              <b>&nbsp;</b>
+              <div class="field">
+                <label onMouseOver="infoBox('<%= "" %>','personal_evangelism',200);" onMouseOut="infoBoxClear('<%= "" %>');" >Personal Evangelism Decisions</label>
+                <%= text_field_tag "decisionsHelpedByOneOnOne", @stat.decisionsHelpedByOneOnOne, :id => "week 1", :class => "totalnumber" %>
+              </div>
+              
+              <div class="field">
+                <label onMouseOver="infoBox('<%= "" %>','personal_evangelism',200);" onMouseOut="infoBoxClear('<%= "" %>');" >Group Evangelism Decisions</label>
+                <%= text_field_tag "decisionsHelpedByGroup", @stat.decisionsHelpedByGroup, :id => "week 1", :class => "totalnumber" %>
+              </div>
+              
+              <div class="field">
+                <label onMouseOver="infoBox('<%= "" %>','personal_evangelism',200);" onMouseOut="infoBoxClear('<%= "" %>');" >Media Exposures Decisions</label>
+                <%= text_field_tag "decisionsHelpedByMedia", @stat.decisionsHelpedByMedia, :id => "week 1", :class => "totalnumber" %>
+              </div>
+              
+              <div class="field">
+                <label onMouseOver="infoBox('<%= "" %>','personal_evangelism',200);" onMouseOut="infoBoxClear('<%= "" %>');" >Laborers Sent</label>
+                <%= text_field_tag "laborersSent", @stat.laborersSent, :id => "week 1", :class => "totalnumber" %>
+              </div>
+            </div>
+
+            <div class="thecolumn">
+              <b>Semester/Quarter Stats</b><br/>
+              The following are prefilled with the most recently entered stats.  If these numbers have changed, please update them below.
+              <div class="field">
+                <label onMouseOver="infoBox('<%= "" %>','personal_evangelism',200);" onMouseOut="infoBoxClear('<%= "" %>');" >Multipliers</label>
+                <%= text_field_tag "multipliers", @stat.multipliers, :id => "week 1", :class => "totalnumber" %>
+              </div>
+              
+              <div class="field">
+                <label onMouseOver="infoBox('<%= "" %>','personal_evangelism',200);" onMouseOut="infoBoxClear('<%= "" %>');" >Student Leaders</label>
+                <%= text_field_tag "studentLeaders", @stat.studentLeaders, :id => "week 1", :class => "totalnumber" %>
+              </div>
+              
+              <div class="field">
+                <label onMouseOver="infoBox('<%= "" %>','personal_evangelism',200);" onMouseOut="infoBoxClear('<%= "" %>');" >Involved Students</label>
+                <%= text_field_tag "invldStudents", @stat.invldStudents, :id => "week 1", :class => "totalnumber" %>
+              </div>
+              
+              <!-- TODO: Seekers Stat for Bridges -->
+
+            </div>
+          </div>
+        </div>
+      </li>
+    </ul>
+    
+    <center>
+      <div class="stats_submit_surround">
+        <%= image_submit_tag "/images/submit_bon.gif" %>
+      </div>
+    </center>
   <% end %>
 </div>
+
+<script type="text/javascript" language="javascript">
+  $('#1').toggleClass('selected');
+</script>
+
+<noscript>
+  <style type="text/css">
+    ul.results li{
+      height: auto;
+    }
+  </style>
+</noscript>
+
+<div class="stats_input_key" id="input_key">
+  <h4>Input Key</h4>
+  <h5 style="margin:0px;margin-top:10px;">Personal Evangelism</h5>
+  <div style="display:block" id="personal_evangelism_info_box">
+    How many people have heard the gospel through personal evangelism? <br>
+    (Includes both staff and student evangelism
+     and personal internet evangelism.)
+  </div>
+  <h5 style="margin:0px;margin-top:10px;">Group Evangelism</h5>
+  <div style="display:block" id="group_evangelism_info_box">
+    
+    What was the total number of people who heard the gospel through group evangelism? 
+    <br>(For instance: team meetings; evangelistic presentations; etc.)
+    
+  </div>
+  
+  <h5 style="margin:0px;margin-top:10px;">Media Exposures</h5>
+  <div style="display:block" id="media_exposures_info_box">
+    
+    How many people have been exposed to significant gospel content with opportunities 
+    to respond in the last month through media exposures? 
+    <br>(For instance: myeverystudent.com/ES.com, FSKs; Bible, book or magazine giveaways; etc.)
+    
+  </div>
+  <h5 style="margin:0px;margin-top:10px;">Personal Evangelism Decisions</h5>
+  <div style="display:block" id="decisions_personal_info_box">
+    
+    How many people have indicated a decision to receive Christ as their Savior and Lord through Personal Evangelism?
+    
+  </div>
+  <h5 style="margin:0px;margin-top:10px;">Group Evangelism Decisions</h5>
+  <div style="display:block" id="decisions_group_info_box">
+    
+    How many people have indicated a decision to receive Christ as their Savior and Lord through Group Evangelism?
+    
+  </div>
+  <h5 style="margin:0px;margin-top:10px;">Media Exposure Decisions</h5>
+  <div style="display:block" id="decisions_media_info_box">
+    
+    How many people have indicated a decision to receive Christ as their Savior and Lord through Media Exposures?
+    
+  </div>
+  <h5 style="margin:0px;margin-top:10px;">Involved Students</h5>
+  <div style="display:block" id="involved_students_info_box">
+    
+    How many students are regularly involved in Campus Crusade for Christ?<br>
+    (Should be updated quarterly).
+    
+  </div>
+  <h5 style="margin:0px;margin-top:10px;">Student Leaders</h5>
+  <div style="display:block" id="student_leaders_info_box">
+    
+    How many student leaders are leading small groups of Win, Build, Send ministry? 
+    <br>(For instance:  groups focused on reaching target audiences, launching movements, etc)
+    
+  </div>
+  <h5 style="margin:0px;margin-top:10px;">Multipliers</h5>
+  <div style="display:block" id="multipliers_info_box">
+    
+    How many students are currently involved in spiritual multiplication at the most organic level? 
+    <br>That is: (a) seeking to grow in Christ; and (b) seeking to share their faith 
+    and pass on to others the foundational concepts of the Christian living 
+    they are receiving?
+    
+  </div>
+  <h5 style="margin:0px;margin-top:10px;">Laborers Sent</h5>
+  <div style="display:block" id="laborers_sent_info_box">
+    
+    A graduated Christ-centered laborer (non-staff) is someone who is growing in his/her faith, 
+    is multiplying his/her life, and has been sent with a personal strategy to help fulfill the 
+    Great Commission.
+    
+  </div>
+  <h5 style="margin:0px;margin-top:10px;">Holy Spirit Presentations</h5>
+  <div style="display:block" id="holy_spirit_conversations_info_box">
+    
+    How many people have heard a presentation of the ministry of the Holy Spirit
+    with the opportunity to respond?
+    
+  </div>
+  <h5 style="margin:0px;margin-top:10px;">Seekers</h5>
+  <div style="display:block" id="seekers_info_box">
+    
+    This statistic is for Bridges movements only.
+    
+  </div>
+</div>
+<script type="text/javascript" language="javascript">
+  document.getElementById("input_key").style.display="none";
+</script>

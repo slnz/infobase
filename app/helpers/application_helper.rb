@@ -1,5 +1,5 @@
 module ApplicationHelper
-  def display_birthday(bday)
+  def display_date_short(bday)
     if bday
       bday.month.to_s + "/" + bday.day.to_s
     else
@@ -8,7 +8,7 @@ module ApplicationHelper
   end
   
   def display_date(date)
-    display_birthday(date) + "/" + date.year.to_s
+    display_date_short(date) + "/" + date.year.to_s
   end
   
   def random_banner_image
