@@ -8,6 +8,7 @@ class HomeController < ApplicationController
     params[:search][:strategies] = params[:strategies]
     case type
     when "people"
+      params[:search][:name] = params[:search][:namecity]
       redirect_to search_results_people_path(params[:search])
     when "locations"
       redirect_to search_results_locations_path(params[:search])

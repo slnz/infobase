@@ -114,7 +114,7 @@ class LocationsController < ApplicationController
     
     @locations = TargetArea.where("isClosed is null or isClosed <> 'T'").where("eventType is null or eventType <=> ''").includes(:activities).order(:name)
     if !params[:namecity].blank?
-      @locations = @locations.where("name like ? OR city like ?", "%#{params[:namecity]}%", "#{params[:namecity]}%")
+      @locations = @locations.where("name like ? OR city like ? OR infoUrl like ?", "%#{params[:namecity]}%", "#{params[:namecity]}%", "%#{params[:namecity]}%")
     end
     if !params[:name].blank?
       @locations = @locations.where("name like ?", "%#{params[:name]}%")

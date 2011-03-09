@@ -68,11 +68,11 @@ Infobase::Application.routes.draw do
   
   resources :stats do
     collection do
-      get :location
+      get :movement
       put :update
     end
   end
-  match 'locations/:location_id/movements/:movement_id/stats' => 'stats#location'
+  match 'locations/:location_id/movements/:movement_id/stats' => 'stats#movement'
 
   resources :people do
     collection do
