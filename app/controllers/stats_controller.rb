@@ -1,9 +1,14 @@
 class StatsController < ApplicationController
+  def index
+    @current_week = Time.now.traditional_beginning_of_week
+    @movements = current_user.activities
+    render :movement
+  end
+  
+  # TODO: Should compare with Java version to make sure I didn't miss anything...
   def movement
     @current_week = Time.now.traditional_beginning_of_week
-    @movement = Activity.find(params[:movement_id])
-    @location = TargetArea.find(params[:location_id])
-    @stats = [@movement.get_stat_for(@current_week)]
+    @movements = [Activity.find(params[:movement_id])]
   end
   
   def update

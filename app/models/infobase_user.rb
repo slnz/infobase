@@ -20,10 +20,12 @@ class InfobaseUser < ActiveRecord::Base
           info_user = new()
         end
         
-        # If they're HR or a "Director" they have admin access
+        # If they're HR or a "Director" they have admin access, only HR Directors can make Team Leaders
         staff = user.person.staff
-        if info_user && staff && (staff.is_hr? || staff.is_director?)
+        if info_user && staff && staff.is_hr_director?
           info_user = InfobaseAdminUser.new()
+        elsif info_user && staff && (staff.is_hr? || staff.is_director?)
+          info_user = InfobaseHrUser.new()
         end
       end
     end
