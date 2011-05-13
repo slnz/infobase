@@ -6,9 +6,11 @@
   <table class="movementheader">
     <tr onClick="javascript:$('#<%= counter %>').toggleClass('selected');">
       <th class="expand"></th>
-      <th class="schoolname" style="width: 87%;">
-        <span style="float:left;padding-right:10px"><%= stat.activity.target_area.name %> - <%= Activity.strategies[stat.activity.strategy] %></span>
-        <ul style="display:inline;float:right;">
+      <th class="schoolname" style="width:300px">
+        <span style="display:inline;float:left;padding-right:10px;text-align:left"><%= stat.activity.target_area.name %> - <%= Activity.strategies[stat.activity.strategy] %></span>
+      </th>
+      <th class="schoolname">
+        <ul class="checkmarks" style="display:inline;float:right;">
           <% 14.downto(0) do |week_ago| %>
             <% sunday = current_week - week_ago.weeks %>
             <li class="checkmark <%= first_week(sunday) ? "first_week" : "" %>">

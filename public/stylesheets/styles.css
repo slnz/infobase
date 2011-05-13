@@ -421,9 +421,15 @@ ul.results li.selected {
 }
 
 ul.results li {
+  display: inline-block;
   height: 35px;
   margin-bottom: 3px;
-  overflow: hidden;
+  overflow: hidden; 
+}
+
+ul.checkmarks li.checkmark {
+  height: auto;
+  margin-bottom: 0px;
 }
 
 a.editfield {

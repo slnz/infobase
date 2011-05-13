@@ -5,7 +5,7 @@ gem 'rails', '~> 3.0.0'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
-gem 'mysql2'
+gem 'mysql2', '~> 0.2.0'
 gem 'acts_as_state_machine'
 gem 'dynamic_form'
 gem 'dalli'
