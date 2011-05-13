@@ -1,0 +1,11 @@
+<% if stat.instance_of?(Array) && stat.first.activity.strategy == "BR" %>
+  <%= render :partial => "stat_bar", :locals => {:stat => stat.first, :current_week => @current_week, :counter => counter} %>
+  <% stat.each do |br_stat| %>
+    <%= render :partial => "stat_form", :locals => {:stat => br_stat, :current_week => @current_week, :counter => counter} %>
+  <% end %>
+  </li>
+<% else %>
+  <%= render :partial => "stat_bar", :locals => {:stat => stat, :current_week => @current_week, :counter => counter} %>
+  <%= render :partial => "stat_form", :locals => {:stat => stat, :current_week => @current_week, :counter => counter} %>
+  </li>
+<% end %>

@@ -35,20 +35,17 @@
   <%= form_tag stats_path, :method => :put, :name => "fast_ll_stat", :id => "fast_ll_stat" do %>
     <% javascript_counter = 0 %>
     <ul class="results">
-      <% @movements.each do |movement| %>
-        <% stat = movement.get_stat_for(@current_week) %>
-        <% if stat.instance_of?(Array) && stat.first.activity.strategy == "BR" %>
-          <%= render :partial => "stat_bar", :locals => {:stat => stat.first, :current_week => @current_week, :counter => javascript_counter} %>
-          <% stat.each do |br_stat| %>
-            <%= render :partial => "stat_form", :locals => {:stat => br_stat, :current_week => @current_week, :counter => javascript_counter} %>
-          <% end %>
-          </li>
-        <% else %>
-          <%= render :partial => "stat_bar", :locals => {:stat => stat, :current_week => @current_week, :counter => javascript_counter} %>
-          <%= render :partial => "stat_form", :locals => {:stat => stat, :current_week => @current_week, :counter => javascript_counter} %>
-          </li>
+      <% if @stats %> <!-- There were errors from saving -->
+        <% @stats.each do |stat| %>
+          <%= render :partial => "stat_entry", :locals => {:stat => stat, :current_week => @current_week, :counter => javascript_counter} %>
+          <% javascript_counter += 1 %>
         <% end %>
-        <% javascript_counter += 1 %>
+      <% else %>
+        <% @movements.each do |movement| %>
+          <% stat = movement.get_stat_for(@current_week) %>
+          <%= render :partial => "stat_entry", :locals => {:stat => stat, :current_week => @current_week, :counter => javascript_counter} %>
+          <% javascript_counter += 1 %>
+        <% end %>
       <% end %>
     </ul>
     
