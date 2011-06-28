@@ -1,6 +1,8 @@
 class StatsController < ApplicationController
   def index
     @current_week = Time.now.traditional_beginning_of_week
+    @requested_week = Time.parse(params[:date]).traditional_beginning_of_week if params[:date]
+    @requested_week ||= @current_week
     @movements = current_user.activities
     render :movement
   end
@@ -12,6 +14,7 @@ class StatsController < ApplicationController
   end
   
   def update
+    @requested_week = Time.parse(params[:date]).traditional_beginning_of_week if params[:date]
     @stats = []
     params[:stat].each_key do |key|
       stats = params[:stat][key]
@@ -25,7 +28,8 @@ class StatsController < ApplicationController
       end
     end
     if @stats.empty?
-      redirect_to stats_path, :notice => "Your stats have been saved successfully."
+      date = "?date=" + @requested_week.to_s if @requested_week
+      redirect_to stats_path + date.to_s, :notice => "Your stats have been saved successfully."
     else
       render :movement
     end

@@ -14,12 +14,13 @@
           <% 14.downto(0) do |week_ago| %>
             <% sunday = current_week - week_ago.weeks %>
             <li class="checkmark <%= first_week(sunday) ? "first_week" : "" %>">
-              <!-- TODO: link to each week -->
-              <% if stat.activity.last_fifteen_stats.exists?({:periodBegin => sunday}) %>
-                <%= image_tag "/images/greendot.gif" %>
-              <% else %>
-                <%= image_tag "/images/reddot.gif" %>
-              <% end%>
+              <%= link_to (stats_path + "?date=" + display_date_dash(sunday)) do %><!-- TODO: Hover gives dates? -->
+                <% if stat.activity.last_fifteen_stats.exists?({:periodBegin => sunday}) %>
+                  <%= image_tag "/images/greendot.gif" %>
+                <% else %>
+                  <%= image_tag "/images/reddot.gif" %>
+                <% end%>
+              <% end %>
             </li>
           <% end %>
         </ul>

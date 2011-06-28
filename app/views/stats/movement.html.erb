@@ -15,16 +15,17 @@
   }
 </script>
 
-<h1>Enter Stats for <%= display_date(@current_week) %> to <%= display_date(@current_week + 6.days) %></h1>
+<h1>Enter Stats for <%= display_date(@requested_week) %> to <%= display_date(@requested_week + 6.days) %></h1>
 <div class="enter_stat" id="enter_stat">
   <!-- Dates on top -->
   <div style="float:right;">
     <ul id="tab_wrapper">
       <% 14.downto(0) do |week_ago| %>
         <% sunday = @current_week - week_ago.weeks %>
-        <li class="weekTab" style="<%= first_week(sunday) ? "background:#D3D3D3" : "" %>">
-          <!-- TODO: link to each week -->
-          <%= display_date_short(sunday) %><br/>to<br/><%= display_date_short(sunday + 6.days) %>
+        <li class="weekTab" style="<%= sunday == @requested_week ? "font-weight:bold;" : "" %><%= first_week(sunday) ? "background:#D3D3D3;" : "" %>">
+          <%= link_to (stats_path + "?date=" + display_date_dash(sunday)) do %>
+            <%= display_date_short(sunday) %><br/>to<br/><%= display_date_short(sunday + 6.days) %>
+          <% end %>
         </li>
       <% end %>
     </ul>
@@ -33,6 +34,7 @@
   <div style="clear:both"></div>
   
   <%= form_tag stats_path, :method => :put, :name => "fast_ll_stat", :id => "fast_ll_stat" do %>
+    <%= hidden_field_tag "date", @requested_week %>
     <% javascript_counter = 0 %>
     <ul class="results">
       <% if @stats %> <!-- There were errors from saving -->
@@ -42,7 +44,7 @@
         <% end %>
       <% else %>
         <% @movements.each do |movement| %>
-          <% stat = movement.get_stat_for(@current_week) %>
+          <% stat = movement.get_stat_for(@requested_week) %>
           <%= render :partial => "stat_entry", :locals => {:stat => stat, :current_week => @current_week, :counter => javascript_counter} %>
           <% javascript_counter += 1 %>
         <% end %>
