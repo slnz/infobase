@@ -115,6 +115,16 @@ class MovementsController < ApplicationController
     end
   end
   
+  def unbookmark
+    @bookmark = @movement.get_bookmark_for(current_user)
+    @bookmark.destroy
+    if @bookmark.destroyed?
+      redirect_to stats_path, :notice => "Bookmark successfully deleted."
+    else
+      redirect_to stats_path, :notice => "Unable to delete bookmark."
+    end
+  end
+  
   private
   
   def get_location

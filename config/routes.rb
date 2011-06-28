@@ -42,6 +42,7 @@ Infobase::Application.routes.draw do
         post :search_contacts_results
         get :new_contact
         post :create_contact
+        delete :unbookmark
       end
     end
     collection do
