@@ -1,0 +1,80 @@
+<!-- TODO: various javascipt things with checkboxes -->
+<%= form_tag do_report_path, :name => "reportCriteria" do %><!-- TODO: form validations -->
+  <div class="strategy">
+    <div class="details">  
+      <div class="thecolumn" style="float: left;">
+        <div class="field">
+          <br/><br/>
+          <label>Ministries:</label>
+
+          <div class="box"><!-- TODO: Use strategies list from Activity class -->
+            <ul id="boxes" style="list-style:none;background:none;height:auto;text-alogn:left;" >
+              <li><%= image_tag "/images/checkAll.gif", :id => "checkAllButton" %></li>
+              <li><%= check_box_tag "strategies", "FS" %>Campus Field Ministry</li>
+              <li><%= check_box_tag "strategies", "II" %>EFM-Impact</li>
+              <li><%= check_box_tag "strategies", "IE" %>EFM-Epic</li>
+              <li><%= check_box_tag "strategies", "ID" %>EFM-Destino</li>
+              <li><%= check_box_tag "strategies", "IN" %>EFM-Nations</li>
+              <li><%= check_box_tag "strategies", "BR" %>Bridges</li>
+              <li><%= check_box_tag "strategies", "WS" %>WSN Local Teams</li>
+              <li><%= check_box_tag "strategies", "AA" %>Athletes In Action</li>
+              <li><%= check_box_tag "strategies", "FC" %>Faculty Commons</li>
+              <li><%= check_box_tag "strategies", "SV" %>Student Venture</li>
+              <li><%= check_box_tag "strategies", "KC" %>Korean CCC</li>
+              <li><%= check_box_tag "strategies", "GK" %>Greek</li>
+              <li><%= check_box_tag "strategies", "VL" %>Valor</li>
+              <li><%= check_box_tag "strategies", "OT" %>Other</li>
+              <li><%= check_box_tag "strategies", "EV" %>Projects and Conferences without a specified Ministry</li>
+            </ul>
+          </div>
+        </div><!-- end field -->
+        <div class="clear"></div>
+      </div>
+
+      <div class="thecolumn" style="float: right; margin-top: 30px;">
+        <div class="field">
+          <label>Type:</label>
+
+          <div class="box">
+            <ul style="list-style:none;background:none;height:auto;">
+              <li><%= check_box_tag "strategies", "CM", true %>Campus Report (traditional Success Criteria report)</li>
+              <li><%= check_box_tag "strategies", "C2" %>Conference Stats</li>
+              <li><%= check_box_tag "strategies", "SP" %>Summer Project Stats</li>
+            </ul>
+          </div>
+        </div>
+     
+        <div class="field">
+          <label>Date Range:</label>
+
+          <div class="box">
+            <ul style="list-style:none;background:none;height:auto;">
+              <li>From:&nbsp;
+                <%= date_select nil, "from", :discard_day => true, :default => Time.now - 1.year %><!-- TODO: Default to prior August -->
+              </li>
+              <li >To:&nbsp;
+                <%= date_select nil, "to", :discard_day => true %>
+              </li>
+            </ul>
+          </div>
+        </div>
+    
+        <div class="field">
+        </div>
+    
+        <div class="field">
+          Report will cover from the first of the "from" month through the end of the "to" month.<br/>
+          For a particular school year or range of school years, choose August for From and To months and the appropriate From/To years.<br/> 
+        </div>
+        
+        <div class="field"> 
+          <input type="submit" value="Make My Report">
+        </div>
+  
+        <div class="clear"></div> 
+      </div>
+      <div class="clear"></div>
+    </div>
+    <div class="clear"></div>
+  </div>
+<% end %>

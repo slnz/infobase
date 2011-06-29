@@ -85,6 +85,9 @@ Infobase::Application.routes.draw do
   end
   match 'people/roles/:region' => 'people#roles'
   
+  match 'reports' => 'reports#create_report', :as => :create_report
+  match 'reports/results' => 'reports#do_report', :via => :post, :as => :do_report
+  
   match 'home' => 'home#index'
   match 'home/search' => 'home#search', :via => :post
   match 'home/no' => 'home#no'
