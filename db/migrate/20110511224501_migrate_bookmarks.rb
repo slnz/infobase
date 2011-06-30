@@ -4,7 +4,7 @@ class MigrateBookmarks < ActiveRecord::Migration
     old_bookmarks.each do |bookmark|
       profile = StaffsiteProfile.find_by_StaffSiteProfileID(bookmark.fk_StaffSiteProfile) if bookmark.fk_StaffSiteProfile
       user = User.find_by_username(profile.userName) if profile
-      InfobaseBookmark.create(:user_id => user.userID, :name => bookmark.name, :value => bookmark.value) if user
+      Bookmark.create(:user_id => user.userID, :name => bookmark.name, :value => bookmark.value) if user
     end
     
     execute "update infobase_bookmarks set name = 'activity' where name = 'STATISTIC'"
