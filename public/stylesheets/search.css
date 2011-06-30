@@ -115,3 +115,36 @@ display:block;
 width:110px;
 margin-bottom:10px;
 }
+
+div#advanceSearch .field {
+  margin-bottom: 0.5em;
+}
+
+div#advanceSearch label {
+  font-weight: bold;
+}
+
+div#advanceSearch #fieldset_ministry, div#advanceSearch #fieldset_region {
+  width: 46%;
+  margin-bottom: 1em;
+}
+div#advanceSearch fieldset label {
+  font-weight: normal;
+}
+
+div#advanceSearch legend {
+  font-size: 1.3em;
+}
+
+fieldset#fieldset_ministry {
+  float: left;
+}
+
+fieldset#fieldset_region {
+  float: right;
+}
+
+div#advanceSearch input[type=submit] {
+  display: block;
+  clear: both;
+}

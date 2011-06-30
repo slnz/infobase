@@ -281,14 +281,6 @@ img {
 
 /* Styles for inner pages */
 
-label {
-  color: #000000;
-  font-family: Palatino, Times, serif;
-  font-style: italic;
-  font-weight: lighter;
-  font-size: 18px;
-}
-
 #content {
   font-family: Helvetica, Arial, sans-serif;
   font-size: 12px;

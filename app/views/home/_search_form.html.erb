@@ -1,52 +1,52 @@
-<h2>Advanced Search</h2>
-<%= form_tag("search_results") do %>
-  <div class="field">
-    <label>Type of Information:</label>
-    <%= select_tag :search_type, options_for_select(@search_types, search_type), :class => "drop" %>
-  </div>
-  <div class="field">
-    <label>Name:</label>
-    <%= text_field_tag "name", nil, :class => "name" %>
-  </div>
-  <div class="field">
-    <label>City:</label>
-    <%= text_field_tag "city", nil, :class => "name" %>
-  </div>
-  <div class="field">
-    <label>State:</label>
-    <%= select_tag "state", options_for_select(@states), :class => "drop" %>
-  </div>
-  <div class="field">
-    <label>Country:</label>
-    <%= select_tag "country", options_for_select(@countries), :class => "drop" %>
-  </div>
-  <div class="field">
-    <label>Search Staff Only (for Person search):</label>
-    <%= check_box_tag "staff", "staff" %>
-  </div>
-  <div class="field">
-    <div class="thecolumn" style="float: left;">
-      <div class="field">
-        <label>Ministry:</label>
-      </div>
+<div id="advanceSearch">
+  <h2>Advanced Search</h2>
+  <%= form_tag("search_results") do %>
+    <div class="field">
+      <label for="search_type">Type of Information:</label>
+      <%= select_tag :search_type, options_for_select(@search_types, search_type), :class => "drop" %>
+    </div>
+    <div class="field">
+      <label for="name">Name:</label>
+      <%= text_field_tag "name", nil, :class => "name" %>
+    </div>
+    <div class="field">
+      <label for="city">City:</label>
+      <%= text_field_tag "city", nil, :class => "name" %>
+    </div>
+    <div class="field">
+      <label for="state">State:</label>
+      <%= select_tag "state", options_for_select(@states), :class => "drop" %>
+    </div>
+    <div class="field">
+      <label for="country">Country:</label>
+      <%= select_tag "country", options_for_select(@countries), :class => "drop" %>
+    </div>
+    <div class="field">
+      <label for="staff">Search Staff Only (for Person search):</label>
+      <%= check_box_tag "staff", "staff" %>
+    </div>
+    <fieldset id="fieldset_ministry">
+      <legend>Ministries</legend>
       <% @strategies.each_key do |strategy| %>
-        <label><%= @strategies[strategy] %></label>
-        <%= check_box_tag("strategies[]", strategy) %>
-        <br/>
+        <div class="field">
+          <label>
+            <%= check_box_tag("strategies[]", strategy) %>
+            <%= @strategies[strategy] %>
+          </label>
+        </div>
       <% end %>
-    </div>
-    <div class="thecolumn" style="float: right;">
-      <div class="field">
-        <label>Region:</label>
-      </div>
+    </fieldset>
+    <fieldset id="fieldset_region">
+      <legend>Region</legend>
       <% @regions.each do |region| %>
-        <label for="regions[]"><%= region.name %></label>
-        <%= check_box_tag("regions[]", region.abbrv) %>
-        <br/>
+        <div class="field">
+          <label>
+            <%= check_box_tag("regions[]", region.abbrv) %>
+            <%= region.name %>
+          </label>
+        </div>
       <% end %>
-    </div>
-  </div>
-  <div class="clear"></div>
-  <br/>
-  <div><%= submit_tag "Search Infobase" %></div>
-<% end %>
+    </fieldset>
+    <%= submit_tag "Search Infobase" %>
+  <% end %>
+</div>
