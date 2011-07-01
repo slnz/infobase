@@ -1,29 +1,29 @@
 <div id="advanceSearch">
   <h2>Advanced Search</h2>
-  <%= form_tag("search_results") do %>
+  <%= form_tag advanced_search_results_path do %>
     <div class="field">
       <label for="search_type">Type of Information:</label>
-      <%= select_tag :search_type, options_for_select(@search_types, search_type), :class => "drop" %>
+      <%= select_tag :type, options_for_select(@search_types, search_type), :class => "drop" %>
     </div>
     <div class="field">
       <label for="name">Name:</label>
-      <%= text_field_tag "name", nil, :class => "name" %>
+      <%= text_field_tag "search[name]", nil, :class => "name" %>
     </div>
     <div class="field">
       <label for="city">City:</label>
-      <%= text_field_tag "city", nil, :class => "name" %>
+      <%= text_field_tag "search[city]", nil, :class => "name" %>
     </div>
     <div class="field">
       <label for="state">State:</label>
-      <%= select_tag "state", options_for_select(@states), :class => "drop" %>
+      <%= select_tag "search[state]", options_for_select(@states), :class => "drop" %>
     </div>
     <div class="field">
       <label for="country">Country:</label>
-      <%= select_tag "country", options_for_select(@countries), :class => "drop" %>
+      <%= select_tag "search[country]", options_for_select(@countries), :class => "drop" %>
     </div>
     <div class="field">
       <label for="staff">Search Staff Only (for Person search):</label>
-      <%= check_box_tag "staff", "staff" %>
+      <%= check_box_tag "search[staff]", "staff" %>
     </div>
     <fieldset id="fieldset_ministry">
       <legend>Ministries</legend>

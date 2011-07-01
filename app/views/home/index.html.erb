@@ -21,7 +21,7 @@
   <h1>Search</h1>
   <h3>Search for a Location, Person, or Team.</h3>
   <h3 class="body-header">Type of Information:</h3>   
-  <%= form_tag '/home/search' do %>
+  <%= form_tag advanced_search_results_path do %>
     <div class="formText">
       <%= radio_button_tag :type, "people" %>&nbsp;&nbsp;Person<br/>
       <%= radio_button_tag :type, "locations" %>&nbsp;&nbsp;Location<br/>
