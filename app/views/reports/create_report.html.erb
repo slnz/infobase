@@ -1,4 +1,5 @@
 <!-- TODO: various javascipt things with checkboxes -->
+<h1>Success Criteria Report</h1>
 <%= form_tag do_report_path, :name => "reportCriteria" do %><!-- TODO: form validations -->
   <div class="strategy">
     <div class="details">  
@@ -10,21 +11,21 @@
           <div class="box"><!-- TODO: Use strategies list from Activity class -->
             <ul id="boxes" style="list-style:none;background:none;height:auto;text-alogn:left;" >
               <li><%= image_tag "/images/checkAll.gif", :id => "checkAllButton" %></li>
-              <li><%= check_box_tag "strategies", "FS" %>Campus Field Ministry</li>
-              <li><%= check_box_tag "strategies", "II" %>EFM-Impact</li>
-              <li><%= check_box_tag "strategies", "IE" %>EFM-Epic</li>
-              <li><%= check_box_tag "strategies", "ID" %>EFM-Destino</li>
-              <li><%= check_box_tag "strategies", "IN" %>EFM-Nations</li>
-              <li><%= check_box_tag "strategies", "BR" %>Bridges</li>
-              <li><%= check_box_tag "strategies", "WS" %>WSN Local Teams</li>
-              <li><%= check_box_tag "strategies", "AA" %>Athletes In Action</li>
-              <li><%= check_box_tag "strategies", "FC" %>Faculty Commons</li>
-              <li><%= check_box_tag "strategies", "SV" %>Student Venture</li>
-              <li><%= check_box_tag "strategies", "KC" %>Korean CCC</li>
-              <li><%= check_box_tag "strategies", "GK" %>Greek</li>
-              <li><%= check_box_tag "strategies", "VL" %>Valor</li>
-              <li><%= check_box_tag "strategies", "OT" %>Other</li>
-              <li><%= check_box_tag "strategies", "EV" %>Projects and Conferences without a specified Ministry</li>
+              <li><%= check_box_tag "strategies[]", "FS" %>Campus Field Ministry</li>
+              <li><%= check_box_tag "strategies[]", "II" %>EFM-Impact</li>
+              <li><%= check_box_tag "strategies[]", "IE" %>EFM-Epic</li>
+              <li><%= check_box_tag "strategies[]", "ID" %>EFM-Destino</li>
+              <li><%= check_box_tag "strategies[]", "IN" %>EFM-Nations</li>
+              <li><%= check_box_tag "strategies[]", "BR" %>Bridges</li>
+              <li><%= check_box_tag "strategies[]", "WS" %>WSN Local Teams</li>
+              <li><%= check_box_tag "strategies[]", "AA" %>Athletes In Action</li>
+              <li><%= check_box_tag "strategies[]", "FC" %>Faculty Commons</li>
+              <li><%= check_box_tag "strategies[]", "SV" %>Student Venture</li>
+              <li><%= check_box_tag "strategies[]", "KC" %>Korean CCC</li>
+              <li><%= check_box_tag "strategies[]", "GK" %>Greek</li>
+              <li><%= check_box_tag "strategies[]", "VL" %>Valor</li>
+              <li><%= check_box_tag "strategies[]", "OT" %>Other</li>
+              <li><%= check_box_tag "strategies[]", "EV" %>Projects and Conferences without a specified Ministry</li>
             </ul>
           </div>
         </div><!-- end field -->
@@ -37,9 +38,9 @@
 
           <div class="box">
             <ul style="list-style:none;background:none;height:auto;">
-              <li><%= check_box_tag "strategies", "CM", true %>Campus Report (traditional Success Criteria report)</li>
-              <li><%= check_box_tag "strategies", "C2" %>Conference Stats</li>
-              <li><%= check_box_tag "strategies", "SP" %>Summer Project Stats</li>
+              <li><%= radio_button_tag "event_type", "CM", true %>Campus Report (traditional Success Criteria report)</li>
+              <li><%= radio_button_tag "event_type", "C2" %>Conference Stats</li>
+              <li><%= radio_button_tag "event_type", "SP" %>Summer Project Stats</li>
             </ul>
           </div>
         </div>

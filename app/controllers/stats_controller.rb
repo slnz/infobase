@@ -1,4 +1,5 @@
 class StatsController < ApplicationController
+  #TODO: Refactor some before_filters
   def index
     @current_week = Time.now.traditional_beginning_of_week
     @requested_week = Time.parse(params[:date]).traditional_beginning_of_week if params[:date]

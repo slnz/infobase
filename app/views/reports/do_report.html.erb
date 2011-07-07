@@ -1,0 +1,60 @@
+<h1>Success Criteria Report</h1>
+
+<div id="innercontent">
+  <div id="stat_report">
+    <p class="report_top">
+      <br/>
+      <b><%= @report_type %> Report</b><br/>
+      For dates: <%= @from_date %> up to but not including <%= @to_date %><br>
+      Including strategies: <%= @strategies_list %>   
+    </p>
+
+    <%= render :partial => 'report_header_bar', :locals => { :row_type => @row_type } %>
+
+    <% @rows.each do |row| %>
+      <div class="regular">
+        <table class="row_short">
+          <tr>
+            <td class="label">
+              <%= row.name %> <!-- TODO: Link if appropriate -->
+            </td>
+            <td class="report_light"><<%= row.personal_exposures %></td>
+            <td class="report_darker"><%= row.personal_decisions %></td>
+            <td class="report_light"><%= row.group_exposures %></td>
+            <td class="report_darker"><%= row.group_decisions %></td>
+            <td class="report_light"><%= row.media_exposures %></td>
+            <td class="report_darker"><%= row.media_decisions %></td>
+            <td class="report_light"><%= row.holy_spirit_presentations %></td>
+            <td class="report_darker"><%= row.laborers_sent %></td>
+            <td class="report_light"><%= row.students_involved %></td>
+            <td class="report_darker"><%= row.multipliers %></td>
+            <td class="report_light"><%= row.student_leaders %></td>
+            <td class="report_darker"><i><%= row.seekers %></i></td>
+          </tr>
+        </table>
+      </div>
+    <% end %>
+
+    <%= render :partial => 'report_header_bar', :locals => { :row_type => @row_type } %>
+
+    <div class="regular">
+      <table class="row">
+        <tr>
+          <td class="report_header_label"><center> Totals </center></td>
+          <td class="report_header"><%= @totals.personal_exposures %></td>
+          <td class="report_header"><%= @totals.personal_decisions %></td>
+          <td class="report_header"><%= @totals.group_exposures %></td>
+          <td class="report_header"><%= @totals.group_decisions %></td>
+          <td class="report_header"><%= @totals.media_exposures %></td>
+          <td class="report_header"><%= @totals.media_decisions %></td>
+          <td class="report_header"><%= @totals.holy_spirit_presentations %></td>
+          <td class="report_header"><%= @totals.laborers_sent %></td>
+          <td class="report_header"><%= @totals.students_involved %></td>
+          <td class="report_header"><%= @totals.multipliers %></td>
+          <td class="report_header"><%= @totals.student_leaders %></td>
+          <td class="report_header"><i><%= @totals.seekers %></i></td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>
