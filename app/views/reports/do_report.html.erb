@@ -5,8 +5,13 @@
     <p class="report_top">
       <br/>
       <b><%= @report_type %> Report</b><br/>
-      For dates: <%= @from_date %> up to but not including <%= @to_date %><br>
-      Including strategies: <%= @strategies_list %>   
+      For dates: <%= display_date(@from_date) %> up to but not including <%= display_date(@to_date) %><br>
+      
+      <% strategies = "" %>
+      <% @strategies_list.each do |strategy| %>
+        <% strategies += Activity.strategies[strategy] + ", " %>
+      <% end %>
+      Including strategies: <%= strategies.chop.chop %> 
     </p>
 
     <%= render :partial => 'report_header_bar', :locals => { :row_type => @row_type } %>
@@ -18,7 +23,7 @@
             <td class="label">
               <%= row.name %> <!-- TODO: Link if appropriate -->
             </td>
-            <td class="report_light"><<%= row.personal_exposures %></td>
+            <td class="report_light"><%= row.personal_exposures %></td>
             <td class="report_darker"><%= row.personal_decisions %></td>
             <td class="report_light"><%= row.group_exposures %></td>
             <td class="report_darker"><%= row.group_decisions %></td>
