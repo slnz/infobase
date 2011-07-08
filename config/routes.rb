@@ -87,6 +87,7 @@ Infobase::Application.routes.draw do
   
   match 'reports' => 'reports#create_report', :as => :create_report
   match 'reports/results' => 'reports#do_report', :via => :post, :as => :do_report
+  match 'reports/national' => 'reports#national_report', :as => :national_report
   
   match 'home' => 'home#index'
   match 'home/search' => 'home#search', :via => :post, :as => :advanced_search_results
