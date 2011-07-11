@@ -5,7 +5,7 @@
     <p class="report_top">
       <br/>
       <b><%= @report_type %> Report</b><br/>
-      For dates: <%= display_date(@from_date) %> up to but not including <%= display_date(@to_date) %><br>
+      For dates: <%= display_date(@from_date) %> up to but not including <%= display_date(@to_date) %><br><!-- TODO: change to *real* dates -->
       
       <% strategies = "" %>
       <% @strategies_list.each do |strategy| %>
@@ -23,18 +23,15 @@
             <td class="label">
               <%= row.name %> <!-- TODO: Link if appropriate -->
             </td>
-            <td class="report_light"><%= row.personal_exposures %></td>
-            <td class="report_darker"><%= row.personal_decisions %></td>
-            <td class="report_light"><%= row.group_exposures %></td>
-            <td class="report_darker"><%= row.group_decisions %></td>
-            <td class="report_light"><%= row.media_exposures %></td>
-            <td class="report_darker"><%= row.media_decisions %></td>
-            <td class="report_light"><%= row.holy_spirit_presentations %></td>
-            <td class="report_darker"><%= row.laborers_sent %></td>
-            <td class="report_light"><%= row.students_involved %></td>
-            <td class="report_darker"><%= row.multipliers %></td>
-            <td class="report_light"><%= row.student_leaders %></td>
-            <td class="report_darker"><i><%= row.seekers %></i></td>
+            <% light = true %>
+            <% Statistic.weekly_stats.each do |stat| %>
+              <td class="<%= light ? "report_light" : "report_darker"%>"><%= row.send(stat) %></td>
+              <% light = !light %>
+            <% end %>
+            <% Statistic.semester_stats.each do |stat| %>
+              <td class="<%= light ? "report_light" : "report_darker"%>"><%= row.send(stat) %></td>
+              <% light = !light %>
+            <% end %>
           </tr>
         </table>
       </div>
@@ -46,18 +43,12 @@
       <table class="row">
         <tr>
           <td class="report_header_label"><center> Totals </center></td>
-          <td class="report_header"><%= @totals.personal_exposures %></td>
-          <td class="report_header"><%= @totals.personal_decisions %></td>
-          <td class="report_header"><%= @totals.group_exposures %></td>
-          <td class="report_header"><%= @totals.group_decisions %></td>
-          <td class="report_header"><%= @totals.media_exposures %></td>
-          <td class="report_header"><%= @totals.media_decisions %></td>
-          <td class="report_header"><%= @totals.holy_spirit_presentations %></td>
-          <td class="report_header"><%= @totals.laborers_sent %></td>
-          <td class="report_header"><%= @totals.students_involved %></td>
-          <td class="report_header"><%= @totals.multipliers %></td>
-          <td class="report_header"><%= @totals.student_leaders %></td>
-          <td class="report_header"><i><%= @totals.seekers %></i></td>
+          <% Statistic.weekly_stats.each do |stat| %>
+            <td class="report_header"><%= @totals.send(stat) %></td>
+          <% end %>
+          <% Statistic.semester_stats.each do |stat| %>
+            <td class="report_header"><%= @totals.send(stat) %></td>
+          <% end %>
         </tr>
       </table>
     </div>
