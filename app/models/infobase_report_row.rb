@@ -1,5 +1,6 @@
 class InfobaseReportRow
   attr_accessor :name
+  attr_accessor :key
   Statistic.weekly_stats.each do |stat_type|
     attr_accessor stat_type.to_sym
   end
@@ -7,10 +8,11 @@ class InfobaseReportRow
     attr_accessor stat_type.to_sym
   end
   
-  def initialize(name = "Totals", stats = nil, last_stats = [])
+  def initialize(name = "Totals", stats = nil, last_stats = [], key = nil)
     @name = name
     @stats = stats
     @last_stats = last_stats
+    @key = key
     set_stats
   end
   

@@ -43,7 +43,32 @@ class InfobaseReport
         Statistic.semester_stats.each do |stat|
           last_stats = last_stats.select("SUM(#{stat}) AS #{stat}")
         end
-      rows << InfobaseReportRow.new(Region.full_name(region), stats.first, last_stats)
+      rows << InfobaseReportRow.new(Region.full_name(region), stats.first, last_stats, region)
+    end
+    InfobaseReport.new(rows)
+  end
+
+  def self.create_regional_report(region, from_date, to_date, strategies)
+    rows = []
+    teams = Team.active.where("region = ?", region).order(:name)
+    teams.each do |team|
+      stats = Statistic.where(Statistic.table_name + ".periodBegin > ?", from_date).where(Statistic.table_name + ".periodEnd < ?", to_date).
+        joins(:activity => :target_area).where(Activity.table_name + ".strategy IN (?)", strategies).
+        where(TargetArea.table_name + ".region = ?", region).
+        where(Activity.table_name + ".fk_teamID = ?", team.id).
+        group(TargetArea.table_name + ".region")
+        Statistic.weekly_stats.each do |stat|
+          stats = stats.select("SUM(#{stat}) AS #{stat}")
+        end
+      last_stats = Statistic.where(Statistic.table_name + ".periodBegin > ?", from_date).where(Statistic.table_name + ".periodEnd < ?", to_date).
+        joins(:activity => :target_area).where(Activity.table_name + ".strategy IN (?)", strategies).
+        where(TargetArea.table_name + ".region = ?", region).
+        where(Activity.table_name + ".fk_teamID = ?", team.id).
+        group(Statistic.table_name + ".fk_Activity").having("max(" + Statistic.table_name + ".periodEnd)")
+        Statistic.semester_stats.each do |stat|
+          last_stats = last_stats.select("SUM(#{stat}) AS #{stat}")
+        end
+      rows << InfobaseReportRow.new(team.name, stats.first, last_stats, team.id)
     end
     InfobaseReport.new(rows)
   end
