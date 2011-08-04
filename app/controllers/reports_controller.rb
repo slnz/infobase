@@ -30,8 +30,25 @@ class ReportsController < ApplicationController
       @from_date = Date.parse(params[:from])
       @to_date = Date.parse(params[:to])
       @strategies_list = params[:strategies]
-      @row_type = ""
+      @row_type = "Team"
       @report = InfobaseReport.create_regional_report(@region, @from_date, @to_date, @strategies_list)
+      @rows = @report.rows
+      @totals = @report.get_totals
+      render :report
+    end
+  end
+
+  def team_report
+    if params[:from].blank? || params[:to].blank? || params[:strategies].blank?
+      redirect_to create_report_path, :notice => "You must set the dates for the report and have at least one strategy checked."
+    else
+      @report_type = "Missional Team"
+      @team = Team.find(params[:team_id])
+      @from_date = Date.parse(params[:from])
+      @to_date = Date.parse(params[:to])
+      @strategies_list = params[:strategies]
+      @row_type = "Ministry Location"
+      @report = InfobaseReport.create_team_report(@team, @from_date, @to_date, @strategies_list)
       @rows = @report.rows
       @totals = @report.get_totals
       render :report

@@ -21,7 +21,7 @@
         <table class="row_short">
           <tr>
             <td class="label">
-              <%= link_to row.name, create_zoom_in_link(row, @row_type, @from_date, @to_date, @strategies_list) %> <!-- TODO: Link if appropriate -->
+              <%= link_to (row.name.to_s + "<br/><i>" + row.subname.to_s + "</i>").html_safe, create_zoom_in_link(row, @row_type, @from_date, @to_date, @strategies_list) %> <!-- TODO: Link if appropriate -->
             </td>
             <% light = true %>
             <% Statistic.weekly_stats.each do |stat| %>
