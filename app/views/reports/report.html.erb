@@ -11,46 +11,51 @@
       <% @strategies_list.each do |strategy| %>
         <% strategies += Activity.strategies[strategy] + ", " %>
       <% end %>
-      Including strategies: <%= strategies.chop.chop %> 
+      <% if !strategies.blank? %>
+        Including strategies: <%= strategies.chop.chop %>
+      <% end %>
     </p>
 
-    <%= render :partial => 'report_header_bar', :locals => { :row_type => @row_type } %>
-
-    <% @rows.each do |row| %>
+    <% @reports.each do |report| %>
+      <%= render :partial => 'report_header_bar', :locals => { :row_type => report.row_type } %>
+  
+      <% report.rows.each do |row| %>
+        <div class="regular">
+          <table class="row_short">
+            <tr>
+              <td class="label">
+                <%= link_to (row.name.to_s + "<br/><i>" + row.subname.to_s + "</i>").html_safe, create_zoom_in_link(row, report.row_type, @from_date, @to_date, @strategies_list) %> <!-- TODO: Link if appropriate -->
+              </td>
+              <% light = true %>
+              <% Statistic.weekly_stats.each do |stat| %>
+                <td class="<%= light ? "report_light" : "report_darker"%>"><%= row.send(stat) %></td>
+                <% light = !light %>
+              <% end %>
+              <% Statistic.semester_stats.each do |stat| %>
+                <td class="<%= light ? "report_light" : "report_darker"%>"><%= row.send(stat) %></td>
+                <% light = !light %>
+              <% end %>
+            </tr>
+          </table>
+        </div>
+     <% end %>
+  
+      <%= render :partial => 'report_header_bar', :locals => { :row_type => report.row_type } %>
+  
       <div class="regular">
-        <table class="row_short">
+        <table class="row">
           <tr>
-            <td class="label">
-              <%= link_to (row.name.to_s + "<br/><i>" + row.subname.to_s + "</i>").html_safe, create_zoom_in_link(row, @row_type, @from_date, @to_date, @strategies_list) %> <!-- TODO: Link if appropriate -->
-            </td>
-            <% light = true %>
+            <td class="report_header_label"><center> Totals </center></td>
             <% Statistic.weekly_stats.each do |stat| %>
-              <td class="<%= light ? "report_light" : "report_darker"%>"><%= row.send(stat) %></td>
-              <% light = !light %>
+              <td class="report_header"><%= report.get_totals.send(stat) %></td>
             <% end %>
             <% Statistic.semester_stats.each do |stat| %>
-              <td class="<%= light ? "report_light" : "report_darker"%>"><%= row.send(stat) %></td>
-              <% light = !light %>
+              <td class="report_header"><%= report.get_totals.send(stat) %></td>
             <% end %>
           </tr>
         </table>
       </div>
+      <br/>
     <% end %>
-
-    <%= render :partial => 'report_header_bar', :locals => { :row_type => @row_type } %>
-
-    <div class="regular">
-      <table class="row">
-        <tr>
-          <td class="report_header_label"><center> Totals </center></td>
-          <% Statistic.weekly_stats.each do |stat| %>
-            <td class="report_header"><%= @totals.send(stat) %></td>
-          <% end %>
-          <% Statistic.semester_stats.each do |stat| %>
-            <td class="report_header"><%= @totals.send(stat) %></td>
-          <% end %>
-        </tr>
-      </table>
-    </div>
   </div>
 </div>

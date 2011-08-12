@@ -90,6 +90,7 @@ Infobase::Application.routes.draw do
   match 'reports/national' => 'reports#national_report', :as => :national_report
   match 'reports/:region' => 'reports#regional_report', :as => :regional_report
   match 'reports/team/:team_id' => 'reports#team_report', :as => :team_report
+  match 'reports/location/:location_id' => 'reports#location_report', :as => :location_report
   
   match 'home' => 'home#index'
   match 'home/search' => 'home#search', :via => :post, :as => :advanced_search_results
