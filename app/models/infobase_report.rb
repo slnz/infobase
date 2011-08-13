@@ -21,6 +21,7 @@ class InfobaseReport
         @totals.send(stat_type + "=", total)
       end
 
+      # When displaying weekly stats records for a single activity we just want to grab the most recent stats
       if !InfobaseReport.reports_to_add_semester_stats.include?(@row_type)
         Statistic.semester_stats.each do |stat_type|
           total = 0
@@ -36,18 +37,14 @@ class InfobaseReport
   def self.create_national_report(from_date, to_date, strategies)
     rows = []
     Region.standard_region_codes.each do |region|
-      stats = start_stats_query(from_date, to_date, strategies).
-        where(TargetArea.table_name + ".region = ?", region).
+      stats = start_national_query(from_date, to_date, strategies, region).
         group(TargetArea.table_name + ".region")
-        Statistic.weekly_stats.each do |stat|
-          stats = stats.select("SUM(#{stat}) AS #{stat}")
-        end
-      last_stats = start_stats_query(from_date, to_date, strategies).
-        where(TargetArea.table_name + ".region = ?", region).
+      stats = sum_weekly_stats(stats)
+      
+      last_stats = start_national_query(from_date, to_date, strategies, region).
         group(Statistic.table_name + ".fk_Activity").having("max(" + Statistic.table_name + ".periodEnd)")
-        Statistic.semester_stats.each do |stat|
-          last_stats = last_stats.select("SUM(#{stat}) AS #{stat}")
-        end
+      last_stats = sum_semester_stats(stats)
+      
       rows << InfobaseReportRow.new(Region.full_name(region), stats.first, last_stats, region)
     end
     InfobaseReport.new(rows, "Region")
@@ -57,20 +54,14 @@ class InfobaseReport
     rows = []
     teams = Team.active.where("region = ?", region).order(:name)
     teams.each do |team|
-      stats = start_stats_query(from_date, to_date, strategies).
-        where(TargetArea.table_name + ".region = ?", region).
-        where(Activity.table_name + ".fk_teamID = ?", team.id).
-        group(TargetArea.table_name + ".region")
-        Statistic.weekly_stats.each do |stat|
-          stats = stats.select("SUM(#{stat}) AS #{stat}")
-        end
-      last_stats = start_stats_query(from_date, to_date, strategies).
-        where(TargetArea.table_name + ".region = ?", region).
-        where(Activity.table_name + ".fk_teamID = ?", team.id).
+      stats = start_regional_query(from_date, to_date, strategies, region, team).
+        group(Activity.table_name + ".fk_teamID")
+      stats = sum_weekly_stats(stats)
+      
+      last_stats = start_regional_query(from_date, to_date, strategies, region, team).
         group(Statistic.table_name + ".fk_Activity").having("max(" + Statistic.table_name + ".periodEnd)")
-        Statistic.semester_stats.each do |stat|
-          last_stats = last_stats.select("SUM(#{stat}) AS #{stat}")
-        end
+      last_stats = sum_semester_stats(stats)
+      
       rows << InfobaseReportRow.new(team.name, stats.first, last_stats, team.id)
     end
     InfobaseReport.new(rows, "Team")
@@ -78,22 +69,16 @@ class InfobaseReport
   
   def self.create_team_report(team, from_date, to_date, strategies)
     rows = []
-    activities = Activity.active.where("fk_teamID = ?", team.id).
-      where(Activity.table_name + ".strategy IN (?)", strategies).
-      includes(:target_area).order(TargetArea.table_name + ".name")
+    activities = team.get_activities_for_strategies(strategies)
     activities.each do |activity|
-      stats = start_stats_query(from_date, to_date, strategies).
-        where(Activity.table_name + ".ActivityId = ?", activity.id).
+      stats = start_team_query(from_date, to_date, strategies, activity).
         group(Activity.table_name + ".ActivityId")
-        Statistic.weekly_stats.each do |stat|
-          stats = stats.select("SUM(#{stat}) AS #{stat}")
-        end
-      last_stats = start_stats_query(from_date, to_date, strategies).
-        where(Activity.table_name + ".ActivityId = ?", activity.id).
+      stats = sum_weekly_stats(stats)
+      
+      last_stats = start_team_query(from_date, to_date, strategies, activity).
         group(Statistic.table_name + ".fk_Activity").having("max(" + Statistic.table_name + ".periodEnd)")
-        Statistic.semester_stats.each do |stat|
-          last_stats = last_stats.select("SUM(#{stat}) AS #{stat}")
-        end
+      last_stats = sum_semester_stats(stats)
+      
       rows << InfobaseReportRow.new(activity.target_area.name, stats.first, last_stats, activity.target_area.id, Activity.strategies[activity.strategy])
     end
     InfobaseReport.new(rows, "Ministry Location")
@@ -101,10 +86,10 @@ class InfobaseReport
   
   def self.create_location_reports(location, from_date, to_date, strategies)
     reports = []
-    activities = location.activities.where(Activity.table_name + ".strategy IN (?)", strategies) # TODO: include inactive activities that have stats between from and to dates
+    activities = location.get_activities_for_strategies(strategies) # TODO: include inactive activities that have stats between from and to dates
     activities.each do |activity|
       rows = []
-      stats = activity.statistics.where(Statistic.table_name + ".periodBegin > ?", from_date).where(Statistic.table_name + ".periodEnd < ?", to_date)
+      stats = activity.statistics.between_dates(from_date, to_date)
       stats.each do |stat|
         rows << InfobaseReportRow.new(stat.periodBegin.to_s + " - " + stat.periodEnd.to_s, stat, [stat], nil, nil)
       end
@@ -115,8 +100,63 @@ class InfobaseReport
   
   private
   
-  def self.start_stats_query(from_date, to_date, strategies)
-    Statistic.where(Statistic.table_name + ".periodBegin > ?", from_date).where(Statistic.table_name + ".periodEnd < ?", to_date).
-        joins(:activity => :target_area).where(Activity.table_name + ".strategy IN (?)", strategies)
+  def self.sum_weekly_stats(stats)
+    Statistic.weekly_stats.each do |stat|
+      stats = stats.select("SUM(#{stat}) AS #{stat}")
+    end
+    stats
+  end
+  
+  def self.sum_semester_stats(stats)
+    Statistic.semester_stats.each do |stat|
+      stats = stats.select("SUM(#{stat}) AS #{stat}")
+    end
+    stats
+  end
+  
+  def self.start_national_query(from_date, to_date, strategies, region)
+    stats = start_stats_query(from_date, to_date)
+    stats = add_strategies_clause(stats, strategies)
+    stats = add_region_clause(stats, region)
+    stats = add_joins(stats)
+    stats
+  end
+  
+  def self.start_regional_query(from_date, to_date, strategies, region, team)
+    stats = start_national_query(from_date, to_date, strategies, region)
+    stats = add_team_clause(stats, team)
+    stats
+  end
+  
+  def self.start_team_query(from_date, to_date, strategies, activity)
+    stats = start_stats_query(from_date, to_date)
+    stats = add_strategies_clause(stats, strategies)
+    stats = add_activity_clause(stats, activity)
+    stats = add_joins(stats)
+    stats
+  end
+  
+  def self.start_stats_query(from_date, to_date)
+    Statistic.between_dates(from_date, to_date)
+  end
+  
+  def self.add_joins(relation)
+    relation.joins(:activity => :target_area)
+  end
+  
+  def self.add_strategies_clause(relation, strategies)
+    relation.where(Activity.table_name + ".strategy IN (?)", strategies)
+  end
+  
+  def self.add_region_clause(relation, region)
+    relation.where(TargetArea.table_name + ".region = ?", region)
+  end
+  
+  def self.add_team_clause(relation, team)
+    relation.where(Activity.table_name + ".fk_teamID = ?", team.id)
+  end
+  
+  def self.add_activity_clause(relation, activity)
+    relation.where(Activity.table_name + ".ActivityId = ?", activity.id)
   end
 end
