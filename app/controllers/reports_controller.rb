@@ -31,7 +31,8 @@ class ReportsController < ApplicationController
   def location_report
     @report_type = "Ministry Location"
     @location = TargetArea.find(params[:location_id])
-    @reports = InfobaseReport.create_location_reports(@location, @from_date, @to_date, @strategies_list)
+    @team = Team.find(params[:team_id]) if params[:team_id]
+    @reports = InfobaseReport.create_location_reports(@location, @from_date, @to_date, @strategies_list, @team)
     render :report
   end
   

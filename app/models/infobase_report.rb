@@ -84,7 +84,7 @@ class InfobaseReport
     InfobaseReport.new(rows, "Ministry Location")
   end
   
-  def self.create_location_reports(location, from_date, to_date, strategies)
+  def self.create_location_reports(location, from_date, to_date, strategies, team = nil)
     reports = []
     activities = location.get_activities_for_strategies(strategies) # TODO: include inactive activities that have stats between from and to dates
     activities.each do |activity|
@@ -93,7 +93,11 @@ class InfobaseReport
       stats.each do |stat|
         rows << InfobaseReportRow.new(stat.periodBegin.to_s + " - " + stat.periodEnd.to_s, stat, [stat], nil, nil)
       end
-      reports << InfobaseReport.new(rows, activity.target_area.name + " - <br/>" + Activity.strategies[activity.strategy])
+      report_header = activity.target_area.name + " - <br/>" + Activity.strategies[activity.strategy]
+      if team && activity.team != team
+        report_header += "<br/><font color='red'>(Belongs to another Team: #{activity.team.name})</font>"
+      end
+      reports << InfobaseReport.new(rows, report_header)
     end
     reports
   end
