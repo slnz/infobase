@@ -70,7 +70,7 @@
           <%= address.city %><%= (address.state.blank? || address.city.blank? ? "" : ", ") %><%= address.state %>
         <% end %>
         <% if member.is_leader %>
-          <%= image_tag "/images/leader.gif", :alt => "Missional Team Leader", :onmouseover => "show('" + person.personID.to_s + "');", :id => person.personID.to_s + "_leader_hover" %>
+          <%= image_tag "leader.gif", :alt => "Missional Team Leader", :onmouseover => "show('" + person.personID.to_s + "');", :id => person.personID.to_s + "_leader_hover" %>
           <div id="<%= person.personID %>_leader_status" style="display: none;">
             <i>
               Team Leader
@@ -80,7 +80,7 @@
             </i>
           </div>
         <% else %>
-          <%= image_tag "/images/member.gif", :alt => "Missional Team Member", :onmouseover => "show('" + person.personID.to_s + "');", :id => person.personID.to_s + "_leader_hover" %>
+          <%= image_tag "member.gif", :alt => "Missional Team Member", :onmouseover => "show('" + person.personID.to_s + "');", :id => person.personID.to_s + "_leader_hover" %>
           <div id="<%= person.personID %>_leader_status" style="display: none;">
             <i>
               Team Member

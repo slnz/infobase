@@ -1,3 +1,6 @@
+//= require jquery
+//= require_tree .
+
 function changeImages() {
   if (document.images) {
     for (var i=0; i<changeImages.arguments.length; i+=2) {

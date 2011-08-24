@@ -1,11 +1,11 @@
 source 'http://rubygems.org'
 
-gem 'rails', '~> 3.0.0'
+gem 'rails', '~> 3.1.0.rc6'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
-gem 'mysql2', '~> 0.2.0'
+gem 'mysql2'#, '~> 0.2.0'
 gem 'acts_as_state_machine'
 gem 'dynamic_form'
 gem 'dalli'
@@ -20,7 +20,7 @@ gem 'capistrano'
 # To use debugger
 # gem 'ruby-debug'
 
-gem 'activerecord-oracle_enhanced-adapter'
+gem 'activerecord-oracle_enhanced-adapter', '1.3.2' #1.4.0 doesn't work, see: https://github.com/rsim/oracle-enhanced/issues/85
 gem 'ruby-oci8'
 
 # Bundle the extra gems:

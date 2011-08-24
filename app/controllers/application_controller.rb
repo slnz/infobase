@@ -1,7 +1,7 @@
 require 'authenticated_system'
 class ApplicationController < ActionController::Base
   include AuthenticatedSystem
-  before_filter CASClient::Frameworks::Rails::Filter, AuthenticationFilter, :check_user, :current_user, :except => [:no, :destroy]
+  before_filter CASClient::Frameworks::Rails3::Filter, AuthenticationFilter, :check_user, :current_user, :except => [:no, :destroy]
   protect_from_forgery
   
   protected

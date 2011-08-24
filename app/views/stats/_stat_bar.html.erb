@@ -16,9 +16,9 @@
             <li class="checkmark <%= first_week(sunday) ? "first_week" : "" %>">
               <%= link_to (stats_path + "?date=" + display_date_dash(sunday)) do %><!-- TODO: Hover gives dates? -->
                 <% if stat.activity.last_fifteen_stats.exists?({:periodBegin => sunday}) %>
-                  <%= image_tag "/images/greendot.gif" %>
+                  <%= image_tag "greendot.gif" %>
                 <% else %>
-                  <%= image_tag "/images/reddot.gif" %>
+                  <%= image_tag "reddot.gif" %>
                 <% end%>
               <% end %>
             </li>
