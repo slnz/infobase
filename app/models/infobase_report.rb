@@ -52,7 +52,7 @@ class InfobaseReport
 
   def self.create_regional_report(region, from_date, to_date, strategies)
     rows = []
-    teams = Team.active.where("region = ?", region).order(:name)
+    teams = Team.where("region = ?", region).order(:name)
     teams.each do |team|
       stats = start_regional_query(from_date, to_date, strategies, region, team).
         group(Activity.table_name + ".fk_teamID")
@@ -62,7 +62,11 @@ class InfobaseReport
         group(Statistic.table_name + ".fk_Activity").having("max(" + Statistic.table_name + ".periodEnd)")
       last_stats = sum_semester_stats(stats)
       
-      rows << InfobaseReportRow.new(team.name, stats.first, last_stats, team.id)
+      if team.is_active? || !stats.empty?
+        row_header = team.name.to_s
+        row_header += "<font color='red'> - Inactive Team</font>" unless team.is_active?
+        rows << InfobaseReportRow.new(row_header, stats.first, last_stats, team.id)
+      end
     end
     InfobaseReport.new(rows, "Team")
   end
@@ -79,25 +83,33 @@ class InfobaseReport
         group(Statistic.table_name + ".fk_Activity").having("max(" + Statistic.table_name + ".periodEnd)")
       last_stats = sum_semester_stats(stats)
       
-      rows << InfobaseReportRow.new(activity.target_area.name, stats.first, last_stats, activity.target_area.id, Activity.strategies[activity.strategy])
+      if activity.is_active? || !stats.empty?
+        row_header = activity.target_area.name.to_s + "<br/><i>" + Activity.strategies[activity.strategy].to_s + "</i>"
+        row_header += "<br/><font color='red'>Inactive Movement</font>" unless activity.is_active?
+        rows << InfobaseReportRow.new(row_header, stats.first, last_stats, activity.target_area.id)
+      end
     end
     InfobaseReport.new(rows, "Ministry Location")
   end
   
   def self.create_location_reports(location, from_date, to_date, strategies, team = nil)
     reports = []
-    activities = location.get_activities_for_strategies(strategies) # TODO: include inactive activities that have stats between from and to dates
+    activities = location.get_activities_for_strategies(strategies)
     activities.each do |activity|
       rows = []
       stats = activity.statistics.between_dates(from_date, to_date)
       stats.each do |stat|
         rows << InfobaseReportRow.new(stat.periodBegin.to_s + " - " + stat.periodEnd.to_s, stat, [stat], nil, nil)
       end
-      report_header = activity.target_area.name + " - <br/>" + Activity.strategies[activity.strategy]
-      if team && activity.team != team
-        report_header += "<br/><font color='red'>(Belongs to another Team: #{activity.team.name})</font>"
+      
+      if activity.is_active? || !rows.empty?
+        report_header = activity.target_area.name.to_s + " - <br/>" + Activity.strategies[activity.strategy].to_s
+        report_header += "<br/><font color='red'>Inactive Movement</font>" unless activity.is_active?
+        if team && activity.team != team
+          report_header += "<br/><font color='red'>(Belongs to another Team: #{activity.team.name})</font>"
+        end
+        reports << InfobaseReport.new(rows, report_header)
       end
-      reports << InfobaseReport.new(rows, report_header)
     end
     reports
   end
