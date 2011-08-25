@@ -58,5 +58,9 @@
       </div>
       <br/>
     <% end %>
+    
+    <%= link_to "[Zoom Out to Team]<br/>".html_safe, team_report_path(@team.id, {:from => @from_date, :to => @to_date, :strategies => @strategies_list}) if @location %>
+    <%= link_to "[Zoom Out to Regional]<br/>".html_safe, regional_report_path(@region, {:from => @from_date, :to => @to_date, :strategies => @strategies_list}) if @team %>
+    <%= link_to "[Zoom Out to National]<br/>".html_safe, national_report_path({:from => @from_date, :to => @to_date, :strategies => @strategies_list}) if @region %>
   </div>
 </div>

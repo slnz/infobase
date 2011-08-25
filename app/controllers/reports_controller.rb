@@ -24,6 +24,7 @@ class ReportsController < ApplicationController
   def team_report
     @report_type = "Missional Team"
     @team = Team.find(params[:team_id])
+    @region = @team.region
     @reports = [InfobaseReport.create_team_report(@team, @from_date, @to_date, @strategies_list)]
     render :report
   end
@@ -32,6 +33,7 @@ class ReportsController < ApplicationController
     @report_type = "Ministry Location"
     @location = TargetArea.find(params[:location_id])
     @team = Team.find(params[:team_id]) if params[:team_id]
+    @region = @team.region
     @reports = InfobaseReport.create_location_reports(@location, @from_date, @to_date, @strategies_list, @team)
     render :report
   end
