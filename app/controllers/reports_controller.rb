@@ -15,25 +15,25 @@ class ReportsController < ApplicationController
   end
   
   def regional_report
-    @report_type = "Regional"
     @region = params[:region]
+    @report_type = Region.full_name(@region).to_s + " Regional"
     @reports = [InfobaseReport.create_regional_report(@region, @from_date, @to_date, @strategies_list)]
     render :report
   end
 
   def team_report
-    @report_type = "Missional Team"
     @team = Team.find(params[:team_id])
     @region = @team.region
+    @report_type = @team.name.to_s + " Missional Team"
     @reports = [InfobaseReport.create_team_report(@team, @from_date, @to_date, @strategies_list)]
     render :report
   end
   
   def location_report
-    @report_type = "Ministry Location"
     @location = TargetArea.find(params[:location_id])
     @team = Team.find(params[:team_id]) if params[:team_id]
     @region = @team.region
+    @report_type = @location.name.to_s + " Ministry Location"
     @reports = InfobaseReport.create_location_reports(@location, @from_date, @to_date, @strategies_list, @team)
     render :report
   end
