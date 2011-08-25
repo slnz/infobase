@@ -84,7 +84,9 @@ class InfobaseReport
       last_stats = sum_semester_stats(stats)
       
       if activity.is_active? || !stats.empty?
-        row_header = activity.target_area.name.to_s + "<br/><i>" + Activity.strategies[activity.strategy].to_s + "</i>"
+        row_header = activity.target_area.name.to_s 
+        row_header += "<br/>(" + activity.target_area.enrollment.to_s + " enrolled)" if !activity.target_area.enrollment.blank?
+        row_header += "<br/><i>" + Activity.strategies[activity.strategy].to_s + "</i>"
         row_header += "<br/><font color='red'>Inactive Movement</font>" unless activity.is_active?
         rows << InfobaseReportRow.new(row_header, stats.first, last_stats, activity.target_area.id)
       end
