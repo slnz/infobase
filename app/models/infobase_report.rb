@@ -65,7 +65,7 @@ class InfobaseReport
       if team.is_active? || !stats.empty?
         row_header = team.name.to_s
         row_header += "<font color='red'> - Inactive Team</font>" unless team.is_active?
-        rows << InfobaseReportRow.new(row_header, stats.first, last_stats, team.id)
+        rows << InfobaseReportRow.new(row_header.html_safe, stats.first, last_stats, team.id)
       end
     end
     InfobaseReport.new(rows, "Team")
@@ -83,12 +83,16 @@ class InfobaseReport
         group(Statistic.table_name + ".fk_Activity").having("max(" + Statistic.table_name + ".periodEnd)")
       last_stats = sum_semester_stats(stats)
       
+      if activity.is_bridges?
+        bridges_rows = get_bridges_rows(from_date, to_date, activity)
+      end
+      
       if activity.is_active? || !stats.empty?
         row_header = activity.target_area.name.to_s 
         row_header += "<br/>(" + activity.target_area.enrollment.to_s + " enrolled)" if !activity.target_area.enrollment.blank?
         row_header += "<br/><i>" + Activity.strategies[activity.strategy].to_s + "</i>"
         row_header += "<br/><font color='red'>Inactive Movement</font>" unless activity.is_active?
-        rows << InfobaseReportRow.new(row_header, stats.first, last_stats, activity.target_area.id)
+        rows << InfobaseReportRow.new(row_header.html_safe, stats.first, last_stats, activity.target_area.id, bridges_rows)
       end
     end
     InfobaseReport.new(rows, "Ministry Location")
@@ -101,7 +105,7 @@ class InfobaseReport
       rows = []
       stats = activity.statistics.between_dates(from_date, to_date)
       stats.each do |stat|
-        rows << InfobaseReportRow.new(stat.periodBegin.to_s + " - " + stat.periodEnd.to_s, stat, [stat], nil, nil)
+        rows << InfobaseReportRow.new(stat.periodBegin.to_s + " - " + stat.periodEnd.to_s, stat, [stat], nil)
       end
       
       if activity.is_active? || !rows.empty?
@@ -154,6 +158,24 @@ class InfobaseReport
     stats
   end
   
+  def self.get_bridges_rows(from_date, to_date, activity)
+    rows = []
+    Statistic.people_groups.each do |group|
+      stats = start_team_query(from_date, to_date, [Activity.bridges], activity).
+        group(Activity.table_name + ".ActivityId")
+      stats = add_group_clause(stats, group)
+      stats = sum_weekly_stats(stats)
+      
+      last_stats = start_team_query(from_date, to_date, [Activity.bridges], activity).
+        group(Statistic.table_name + ".fk_Activity").having("max(" + Statistic.table_name + ".periodEnd)")
+      last_stats = add_group_clause(last_stats, group)
+      last_stats = sum_semester_stats(stats)
+      
+      rows << InfobaseReportRow.new(group.to_s, stats.first, last_stats, activity.target_area.id)
+    end
+    rows
+  end
+  
   def self.start_stats_query(from_date, to_date)
     Statistic.between_dates(from_date, to_date)
   end
@@ -176,5 +198,9 @@ class InfobaseReport
   
   def self.add_activity_clause(relation, activity)
     relation.where(Activity.table_name + ".ActivityId = ?", activity.id)
+  end
+  
+  def self.add_group_clause(relation, group)
+    relation.where(Statistic.table_name + ".peopleGroup = ?", group)
   end
 end

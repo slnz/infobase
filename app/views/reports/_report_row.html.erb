@@ -1,0 +1,20 @@
+<table class="row_short">
+  <tr>
+    <td class="label">
+      <% @team ||= nil %>
+      <% bridges ||= nil %>
+      <%= link_to row.name.to_s, create_zoom_in_link(row, report.row_type, @from_date, @to_date, @strategies_list, @team) %> <!-- TODO: Link if appropriate -->
+      <%= link_to "(+)", "javascript:toggle(" + row.key.to_s + ");" if (bridges && bridges == "sum") %>
+      <%= link_to "(-)", "javascript:untoggle(" + row.key.to_s + ");" if (bridges && bridges == "split") %>
+    </td>
+    <% light = true %>
+    <% Statistic.weekly_stats.each do |stat| %>
+      <td class="<%= light ? "report_light" : "report_darker"%>"><%= row.send(stat) %></td>
+      <% light = !light %>
+    <% end %>
+    <% Statistic.semester_stats.each do |stat| %>
+      <td class="<%= light ? "report_light" : "report_darker"%>"><%= row.send(stat) %></td>
+      <% light = !light %>
+    <% end %>
+  </tr>
+</table>

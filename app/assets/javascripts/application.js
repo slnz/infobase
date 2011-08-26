@@ -22,6 +22,16 @@ function hide(){
   }
 }
 
+function toggle(x) {
+  document.getElementById("start_"+x).style.display="block";
+  document.getElementById("end_"+x).style.display="none";
+}
+
+function untoggle(x) {
+  document.getElementById("start_"+x).style.display="none";
+  document.getElementById("end_"+x).style.display="block";
+}
+
 $(function () {
   $('#activity_periodBegin').datepicker(); 
 });

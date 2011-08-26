@@ -21,25 +21,13 @@
   
       <% report.rows.each do |row| %>
         <div class="regular">
-          <table class="row_short">
-            <tr>
-              <td class="label">
-                <% @team ||= nil %>
-                <%= link_to (row.name.to_s + "<br/><i>" + row.subname.to_s + "</i>").html_safe, create_zoom_in_link(row, report.row_type, @from_date, @to_date, @strategies_list, @team) %> <!-- TODO: Link if appropriate -->
-              </td>
-              <% light = true %>
-              <% Statistic.weekly_stats.each do |stat| %>
-                <td class="<%= light ? "report_light" : "report_darker"%>"><%= row.send(stat) %></td>
-                <% light = !light %>
-              <% end %>
-              <% Statistic.semester_stats.each do |stat| %>
-                <td class="<%= light ? "report_light" : "report_darker"%>"><%= row.send(stat) %></td>
-                <% light = !light %>
-              <% end %>
-            </tr>
-          </table>
+          <% if row.is_bridges? %>
+            <%= render :partial => 'bridges_report_row', :locals => { :report => report, :row => row } %>
+          <% else %>
+            <%= render :partial => 'report_row', :locals => { :report => report, :row => row } %>
+          <% end %>
         </div>
-     <% end %>
+      <% end %>
   
       <%= render :partial => 'report_header_bar', :locals => { :row_type => report.row_type } %>
   
