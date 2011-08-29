@@ -115,7 +115,7 @@ class InfobaseReport
           bridges_rows = get_bridges_rows(stat.periodBegin, stat.periodEnd, activity)
         end
                 
-        rows << InfobaseReportRow.new(stat.periodBegin.to_s + " - " + stat.periodEnd.to_s, stat, [stat], stat.statisticID, bridges_rows)
+        rows << InfobaseReportRow.new(stat.periodBegin.to_s + " - " + stat.periodEnd.to_s, stat, [stat], stat.statisticID.to_s, bridges_rows, true)
       end
       
       if activity.is_active? || !rows.empty?
@@ -187,7 +187,7 @@ class InfobaseReport
       last_stats = add_group_clause(last_stats, group)
       last_stats = sum_semester_stats(stats)
       
-      rows << InfobaseReportRow.new(group.to_s, stats.first, last_stats, activity.target_area.id)
+      rows << InfobaseReportRow.new(group.to_s, stats.first, last_stats, activity.target_area.id, nil, true)
     end
     rows
   end
