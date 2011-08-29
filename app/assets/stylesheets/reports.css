@@ -13,7 +13,10 @@ td.report_light,td.report_darker,td.label,td.split {
   color:black;
   font-size:10px;
   overflow:hidden;
-  border:solid 1px #cdcdcd;
+  border-top:solid 2px #cdcdcd;
+  border-bottom:solid 2px #cdcdcd;
+  border-left:solid 1px #cdcdcd;
+  border-right:solid 1px #cdcdcd;
 }
 
 td.report_light, td.report_darker,td.split {
@@ -24,8 +27,8 @@ td.report_light, td.report_darker,td.split {
 }
 
 div.bridges_split td.report_light, div.bridges_split td.report_darker, div.bridges_split td.label {
-	border-top:none;
-	border-bottom:none;
+  border-top:solid 1px #cdcdcd;
+  border-bottom:solid 1px #cdcdcd;
 }
 
 td.label {
