@@ -1,0 +1,99 @@
+<!-- TODO: javascript -->
+<h1>Movement Tracker Report</h1>
+<%= form_tag do_movement_report_path, :name => "reportCriteria" do %>
+  <div class="strategy">
+    <div class="details">  
+      <div class="thecolumn">
+        <div class="field">
+          <label>What do you want to count?</label>
+
+          <div class="box">
+            <ul style="list-style:none;background:none;height:auto;">
+              <li><%= radio_button_tag "type", "movement", true, :onClick => "setSortOrder('movement');" %>Movements</li>
+              <li><%= radio_button_tag "type", "location", false, :onClick => "setSortOrder('location');" %>Ministry Locations</li>
+              <li><%= radio_button_tag "type", "teamorg", false, :onClick => "setSortOrder('team');" %>Missional Teams Coached By Selected Region</li>
+              <li><%= radio_button_tag "type", "teamgeo", false, :onClick => "setSortOrder('team');" %>Missional Teams Active In Selected Region</li>
+            </ul>
+          </div>
+        </div>
+        
+        <div class="field">
+          <label>Region:</label>
+          <%= select_tag "region", options_for_select(@regions) %>
+        </div>        
+        <br/>
+        
+        <div class="field">
+          <label>Ministry:</label>
+          <div id="boxes" class="box">
+            <ul style="list-style:none;background:none;height:auto;">
+              <li><%= image_tag "checkAll.gif", :id=>"checkAllButton", :onClick=>"check();" %>
+              <% @strategies.each_key do |strategy| %>
+                <li>
+                  <%= check_box_tag("strategies[]", strategy) %>
+                  <%= @strategies[strategy] %>
+                </li>
+              <% end %>
+            </ul>
+          </div>
+        </div>
+  
+        <div class="clear"></div>
+      </div>
+
+      <div class="thecolumn">
+        <div class="field" >
+          <label>Sort By:</label>
+
+          <div class="box" style="display:block;width:150px;">
+            <div id="option[-2]">
+              <%= select_tag "order[a]", options_for_select(movement_sort_options), :id => "order[a]"%>
+            </div>
+    
+            <div id="option[-1]">
+              <%= select_tag "order[b]", options_for_select({"" => ""}.merge(movement_sort_options)), :id => "order[b]"%>
+            </div>
+    
+            <div id="option[0]">
+              <%= select_tag "order[c]", options_for_select({"" => ""}.merge(movement_sort_options)), :id => "order[c]"%>
+            </div>
+    
+            <div id="option[1]">
+              <%= select_tag "order[d]", options_for_select({"" => ""}.merge(movement_sort_options)), :id => "order[d]"%>
+            </div>
+    
+            <div id="option[2]" style="display:none;">
+              <%= select_tag "order[e]", options_for_select({"" => ""}.merge(coached_sort_options)), :id => "order[e]"%>
+            </div>
+   
+            <div id="option[3]" style="display:none;">
+              <%= select_tag "order[f]", options_for_select({"" => ""}.merge(coached_sort_options)), :id => "order[f]"%>
+            </div>
+     
+            <div id="option[4]" style="display:none;">
+              <%= select_tag "order[g]", options_for_select({"" => ""}.merge(active_sort_options)), :id => "order[g]"%>
+            </div>
+
+            <div id="option[5]" style="display:none;">
+              <%= select_tag "order[h]", options_for_select({"" => ""}.merge(active_sort_options)), :id => "order[h]"%>
+            </div>
+          </div>
+        </div>
+        
+        <div class="field">
+          <label>Date :</label>
+          <%= date_select nil, "date", :discard_day => true %>
+        </div>
+        <br/>
+  
+        <div class="field">
+          <%= submit_tag "Make My Report", :id => "conditionalSubmit" %>
+        </div>
+
+        <div class="clear"></div>
+      </div>
+      <div class="clear"></div>
+    </div>
+    <div class="clear"></div>
+  </div>
+<% end %>

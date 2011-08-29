@@ -32,7 +32,10 @@
       <% elsif @menubar == "reports" %> <!-- TODO -->
         <li class="report">&nbsp;</li>
         <li>
-          <a href=""></a>
+          <%= link_to "Success Criteria", create_report_path, :class => (@submenu == "reports" ? "active" : "") %>
+        </li>
+        <li>
+          <%= link_to "Movement Tracker", create_movement_report_path, :class => (@submenu == "movements" ? "active" : "") %>
         </li>
       <% end %>
     </ul>

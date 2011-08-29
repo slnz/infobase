@@ -1,4 +1,5 @@
 class ReportsController < ApplicationController
+  before_filter :setup
   before_filter :check_params, :except => [:create_report, :do_report]
   before_filter :get_dates_strategies, :except => [:create_report, :do_report]
   
@@ -39,6 +40,11 @@ class ReportsController < ApplicationController
   end
   
   private
+  
+  def setup
+    @menubar = "reports"
+    @submenu = "reports"
+  end
   
   def check_params
     if params[:from].blank? || params[:to].blank? || params[:strategies].blank?
