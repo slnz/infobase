@@ -103,9 +103,19 @@ class InfobaseReport
     activities = location.get_activities_for_strategies(strategies)
     activities.each do |activity|
       rows = []
-      stats = activity.statistics.between_dates(from_date, to_date)
+      stats = activity.statistics.between_dates(from_date, to_date).
+        group(Statistic.table_name + ".periodBegin").
+        select(Statistic.table_name + ".periodBegin").
+        select(Statistic.table_name + ".periodEnd").
+        select(Statistic.table_name + ".statisticID")
+      stats = sum_all_stats(stats)
+      
       stats.each do |stat|
-        rows << InfobaseReportRow.new(stat.periodBegin.to_s + " - " + stat.periodEnd.to_s, stat, [stat], nil)
+        if activity.is_bridges?
+          bridges_rows = get_bridges_rows(stat.periodBegin, stat.periodEnd, activity)
+        end
+                
+        rows << InfobaseReportRow.new(stat.periodBegin.to_s + " - " + stat.periodEnd.to_s, stat, [stat], stat.statisticID, bridges_rows)
       end
       
       if activity.is_active? || !rows.empty?
@@ -133,6 +143,12 @@ class InfobaseReport
     Statistic.semester_stats.each do |stat|
       stats = stats.select("SUM(#{stat}) AS #{stat}")
     end
+    stats
+  end
+  
+  def self.sum_all_stats(stats)
+    stats = sum_weekly_stats(stats)
+    stats = sum_semester_stats(stats)
     stats
   end
   
