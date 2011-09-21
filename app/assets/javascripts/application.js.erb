@@ -1,0 +1,130 @@
+//= require jquery
+//= require_tree .
+
+function changeImages() {
+  if (document.images) {
+    for (var i=0; i<changeImages.arguments.length; i+=2) {
+      document[changeImages.arguments[i]].src = changeImages.arguments[i+1];
+    }
+  }
+} 
+
+lastOpen="";
+function show(personID){
+  hide();
+  document.getElementById(personID+"_leader_status").style.display='inline';
+  lastOpen=personID;
+}
+
+function hide(){
+  if (lastOpen!==""){
+  document.getElementById(lastOpen+"_leader_status").style.display='none';
+  }
+}
+
+function toggle(x) {
+  document.getElementById("start_"+x).style.display="block";
+  document.getElementById("end_"+x).style.display="none";
+}
+
+function untoggle(x) {
+  document.getElementById("start_"+x).style.display="none";
+  document.getElementById("end_"+x).style.display="block";
+}
+
+var checked=false;
+function check(){
+  table = document.getElementById('boxes');
+  inputs = table.getElementsByTagName('input');
+    for (i=0;i<inputs.length;i++){
+      inputs[i].checked=!checked;
+    }
+  checked =! checked;
+  document.getElementById('checkAllButton').src=(checked ? '<%= asset_path 'unCheckAll.gif' %>' : '<%= asset_path 'checkAll.gif' %>');
+}
+
+function setSortOrder(type) {
+  var tdWidth="200px";
+  if(type=="movement") {
+    document.getElementById('order[a]').value="campus";
+    document.getElementById('order[b]').value="strategy";
+    document.getElementById('order[c]').value="";
+    document.getElementById('order[d]').value="";
+    document.getElementById('order[e]').value="";
+    document.getElementById('order[f]').value="";
+    document.getElementById('order[g]').value="";
+    document.getElementById('order[h]').value="";
+    document.getElementById('option[-1]').style.display="inline";
+    document.getElementById('option[-2]').style.display="inline";
+    document.getElementById('option[0]').style.display="inline";
+    document.getElementById('option[1]').style.display="inline";
+    document.getElementById('option[2]').style.display="none";
+    document.getElementById('option[3]').style.display="none";
+    document.getElementById('option[4]').style.display="none";
+    document.getElementById('option[5]').style.display="none";
+    document.getElementById('optionLabel[0]').style.display="inline";
+    document.getElementById('optionLabel[1]').style.display="inline";
+    document.getElementById('blankCell[0]').style.display="none";
+    document.getElementById('blankCell[1]').style.display="none";
+    document.getElementById('blankLabelCell[0]').style.display="none";
+    document.getElementById('blankLabelCell[1]').style.display="none";
+  } else if(type=="location") {
+    document.getElementById('order[a]').value="";
+    document.getElementById('order[b]').value="";
+    document.getElementById('order[c]').value="";
+    document.getElementById('order[d]').value="";
+    document.getElementById('order[e]').value="campus";
+    document.getElementById('order[f]').value="";
+    document.getElementById('order[g]').value="";
+    document.getElementById('order[h]').value="";
+    document.getElementById('option[0]').style.display="none";
+    document.getElementById('option[1]').style.display="none";
+    document.getElementById('option[-1]').style.display="none";
+    document.getElementById('option[-2]').style.display="none";
+    document.getElementById('option[2]').style.display="inline";
+    document.getElementById('option[3]').style.display="inline";
+    document.getElementById('option[4]').style.display="none";
+    document.getElementById('option[5]').style.display="none";
+    document.getElementById('optionLabel[0]').style.display="none";
+    document.getElementById('optionLabel[1]').style.display="none";
+    document.getElementById('blankCell[0]').style.width=tdWidth;
+    document.getElementById('blankCell[1]').style.width=tdWidth;
+    document.getElementById('blankLabelCell[0]').style.width=tdWidth;
+    document.getElementById('blankLabelCell[1]').style.width=tdWidth;
+    document.getElementById('blankCell[0]').style.display="inline";
+    document.getElementById('blankCell[1]').style.display="inline";
+    document.getElementById('blankLabelCell[0]').style.display="inline";
+    document.getElementById('blankLabelCell[1]').style.display="inline";
+  } else if(type=="team") {
+    document.getElementById('order[a]').value="";
+    document.getElementById('order[b]').value="";
+    document.getElementById('order[c]').value="";
+    document.getElementById('order[d]').value="";
+    document.getElementById('order[e]').value="";
+    document.getElementById('order[f]').value="";
+    document.getElementById('order[g]').value="team";
+    document.getElementById('order[h]').value="";
+    document.getElementById('option[0]').style.display="none";
+    document.getElementById('option[1]').style.display="none";
+    document.getElementById('option[-1]').style.display="none";
+    document.getElementById('option[-2]').style.display="none";
+    document.getElementById('option[2]').style.display="none";
+    document.getElementById('option[3]').style.display="none";
+    document.getElementById('option[4]').style.display="inline";
+    document.getElementById('option[5]').style.display="inline";
+    document.getElementById('optionLabel[0]').style.display="none";
+    document.getElementById('optionLabel[1]').style.display="none";
+    document.getElementById('blankCell[0]').style.width=tdWidth;
+    document.getElementById('blankCell[1]').style.width=tdWidth;
+    document.getElementById('blankLabelCell[0]').style.width=tdWidth;
+    document.getElementById('blankLabelCell[1]').style.width=tdWidth;
+    document.getElementById('blankCell[0]').style.display="inline";
+    document.getElementById('blankCell[1]').style.display="inline";
+    document.getElementById('blankLabelCell[0]').style.display="inline";
+    document.getElementById('blankLabelCell[1]').style.display="inline";
+  }
+}
+
+$(function () {
+  $('#activity_periodBegin').datepicker(); 
+});
