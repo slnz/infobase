@@ -1,10 +1,13 @@
-<!-- TODO: Handle secure locations -->
+<% klass = row.target_area.isSecure != "F" ? "sensitive" : "muster_cell"%>
 <tr>
-  <td class="muster_label_light"><%= row.target_area.name %></td>
-  <td class="muster_light"><%= row.strategy %></td>
-  <td class="muster_darker"><%= row.target_area.region %></td>
-  <td class="muster_light"><%= row.target_area.city %></td>
-  <td class="muster_darker"><%= row.target_area.state %></td>
-  <td class="muster_light"><%= row.target_area.country %></td>
-  <td class="muster_darker"><%= row.team.name %></td>
+  <td class="<%= klass %>">
+    <%= link_to row.target_area.name, location_path(row.target_area) %>
+    <%= " (sensitive)" if row.target_area.isSecure != "F" %>
+  </td>
+  <td class="<%= klass %>"><%= Activity.strategies[row.strategy] %></td>
+  <td class="<%= klass %>"><%= Region.full_name(row.target_area.region) %></td>
+  <td class="<%= klass %>"><%= row.target_area.city %></td>
+  <td class="<%= klass %>"><%= row.target_area.state %></td>
+  <td class="<%= klass %>"><%= row.target_area.country %></td>
+  <td class="<%= klass %>"><%= link_to row.team.name, team_path(row.team) %></td>
 </tr>

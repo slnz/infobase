@@ -36,6 +36,10 @@ td.label {
   width:228px;
 }
 
+td.sensitive {
+  font-style:italic;
+}
+
 table.row, table.row_tall,table.row_short {
 	border-collapse:collapse;
 	padding:0px;
