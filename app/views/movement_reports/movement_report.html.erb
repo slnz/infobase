@@ -1,0 +1,40 @@
+<% if @type == "movement" %>
+  <style type="text/css">
+    div#muster_report  td.label_darker_blue {
+      width:352px;
+    }
+  </style>
+<% end %>
+
+<h1>Movement Tracker Report</h1>
+<div id="muster_report">
+  <p>
+    <b><%= @report_title %></b><br/> 
+    <% strategies = "" %>
+    <% @strategies_list.each do |strategy| %>
+      <% strategies += Activity.strategies[strategy] + ", " %>
+    <% end %>
+    <% if !strategies.blank? %>
+      Including strategies: <%= strategies.chop.chop %>
+    <% end %>
+    <br/>
+
+    <% order = "" %>
+    <% @order.each_key do |key| %>
+      <% order += @order[key].capitalize + ", " if !@order[key].blank?%>
+    <% end %>
+    <% if !order.blank? %>
+      Sorted By: <%= order.chop.chop %>
+    <% end %>
+  </p>
+
+  <table id="muster_report">
+
+    <%= render :partial => 'report_header', :locals => {:type => @type} %>
+    <% @rows.each do |row| %>
+      <%= render :partial => 'report_row', :locals => {:type => @type, :row => row} %>
+    <% end %>
+    <%= render :partial => 'report_footer', :locals => {:type => @type, :rows => @rows} %>
+
+  </table>
+</div>

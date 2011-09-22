@@ -1,0 +1,8 @@
+<tr>
+  <td <%= "colspan='2'" if type == "movement" %> class="muster_cap_label"><%= expand_type(type) %></td>
+  <td class="muster_cap">Region</td>
+  <td class="muster_cap">City</td>
+  <td class="muster_cap">State</td>
+  <td class="muster_cap">Country</td>
+  <%= extra_column_header(type) %>
+</tr>

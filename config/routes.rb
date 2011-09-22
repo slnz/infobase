@@ -94,6 +94,7 @@ Infobase::Application.routes.draw do
   
   match 'movement_reports' => 'movement_reports#create_report', :as => :create_movement_report
   match 'movement_reports/results' => 'movement_reports#do_report', :via => :post, :as => :do_movement_report
+  match 'movement_reports/movements' => 'movement_reports#movement_report', :as => :movement_report
   
   match 'home' => 'home#index'
   match 'home/search' => 'home#search', :via => :post, :as => :advanced_search_results
