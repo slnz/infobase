@@ -47,7 +47,7 @@
 
           <div class="box" style="display:block;width:150px;">
             <div id="option[-2]">
-              <%= select_tag "order[a]", options_for_select(movement_sort_options, "campus"), :id => "order[a]"%>
+              <%= select_tag "order[a]", options_for_select({"" => ""}.merge(movement_sort_options), "campus"), :id => "order[a]"%>
             </div>
     
             <div id="option[-1]">

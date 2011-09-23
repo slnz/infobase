@@ -21,12 +21,12 @@ module MovementReportsHelper
     end
   end
   
-  def extra_column_header(type)
+  def extra_column_header(type, enrollment = 0)
     result = ""
     if type == "movement"
       result = "<td colspan='2' class='muster_cap'>Missional Team</td>".html_safe
     elsif type == "location"
-      result = "<td class='muster_cap'>Enrollment</td>".html_safe
+      result = "<td class='muster_cap'>Enrollment<br/>(".html_safe + number_with_delimiter(enrollment) + " total)</td>".html_safe
     end
   end
   

@@ -21,8 +21,9 @@ class MovementReportsController < ApplicationController
     if @region == "National"
       @region = Region.campus_region_codes
     end
-    @report_title = "Count of Movements"
+    @report_title = title(@type)
     @rows = InfobaseMovementReport.report(@type, @region, @date, @strategies_list, @order)
+    @enrollment_total = sum_enrollment(@rows, @type)
   end
 
   private
@@ -37,5 +38,30 @@ class MovementReportsController < ApplicationController
       redirect_to create_movement_report_path, :notice => "You must set the date for the report and have at least one strategy checked."
       return false;
     end
+  end
+  
+  def title(type)
+    result = ""
+    case type
+    when "movement"
+      result = "Count of Movements"
+    when "location"
+      result = "Count of Ministry Locations"
+    when "teamorg"
+      result = "Count of Missional Teams Coached"
+    when "teamgeo"
+      result = "Count of Missional Teams With Movements"
+    end
+    result
+  end
+  
+  def sum_enrollment(rows, type)
+    result = 0
+    if (type == "location")
+      rows.each do |row|
+        result += row.target_area.enrollment.to_i
+      end
+    end
+    result
   end
 end

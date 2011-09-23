@@ -30,11 +30,18 @@
 
   <table id="muster_report">
 
-    <%= render :partial => 'report_header', :locals => {:type => @type} %>
+    <%= render :partial => 'report_header', :locals => {:type => @type, :enrollment => @enrollment_total} %>
     <% @rows.each do |row| %>
-      <%= render :partial => 'report_row', :locals => {:type => @type, :row => row} %>
+      <% case @type %>
+      <% when "movement" %>
+        <%= render :partial => 'report_row_movement', :locals => {:type => @type, :row => row} %>
+      <% when "location" %>
+        <%= render :partial => 'report_row_location', :locals => {:type => @type, :row => row} %>
+      <% else %>
+        <%= render :partial => 'report_row_team', :locals => {:type => @type, :row => row} %>
+      <% end %>
     <% end %>
-    <%= render :partial => 'report_footer', :locals => {:type => @type, :rows => @rows} %>
+    <%= render :partial => 'report_footer', :locals => {:type => @type, :rows => @rows, :enrollment => @enrollment_total} %>
 
   </table>
 </div>
