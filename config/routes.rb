@@ -70,6 +70,7 @@ Infobase::Application.routes.draw do
   resources :stats do
     collection do
       get :movement
+      get :sp
       put :update
     end
   end

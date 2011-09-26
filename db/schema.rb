@@ -1,3 +1,4 @@
+# encoding: UTF-8
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -10,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110324192541) do
+ActiveRecord::Schema.define(:version => 20110926190602) do
 
   create_table "academic_departments", :force => true do |t|
     t.string "name"
@@ -27,22 +28,22 @@ ActiveRecord::Schema.define(:version => 20110324192541) do
   end
 
 # Could not dump table "am_group_links" because of following NoMethodError
-#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::IndexDefinition:0x000000062862b0>
+#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::Mysql2IndexDefinition:0x000000052675c8>
 
 # Could not dump table "am_group_links_deprecated" because of following NoMethodError
-#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::IndexDefinition:0x00000006277260>
+#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::Mysql2IndexDefinition:0x0000000525b2c8>
 
 # Could not dump table "am_group_messages" because of following NoMethodError
-#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::IndexDefinition:0x00000006266f50>
+#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::Mysql2IndexDefinition:0x00000005238318>
 
 # Could not dump table "am_group_messages_deprecated" because of following NoMethodError
-#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::IndexDefinition:0x00000006257be0>
+#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::Mysql2IndexDefinition:0x0000000520e108>
 
 # Could not dump table "am_groups" because of following NoMethodError
-#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::IndexDefinition:0x0000000624a8c8>
+#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::Mysql2IndexDefinition:0x00000005201160>
 
 # Could not dump table "am_groups_deprecated" because of following NoMethodError
-#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::IndexDefinition:0x000000062439b0>
+#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::Mysql2IndexDefinition:0x000000051f7958>
 
   create_table "am_groups_people", :id => false, :force => true do |t|
     t.integer  "person_id",  :default => 0, :null => false
@@ -57,23 +58,23 @@ ActiveRecord::Schema.define(:version => 20110324192541) do
   end
 
 # Could not dump table "am_personal_links" because of following NoMethodError
-#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::IndexDefinition:0x0000000621d828>
+#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::Mysql2IndexDefinition:0x000000051da628>
 
 # Could not dump table "am_personal_links_deprecated" because of following NoMethodError
-#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::IndexDefinition:0x0000000620dd88>
+#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::Mysql2IndexDefinition:0x000000051d0c40>
 
   create_table "aoas", :force => true do |t|
     t.string "name"
   end
 
 # Could not dump table "ap_signup" because of following NoMethodError
-#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::IndexDefinition:0x00000006204828>
+#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::Mysql2IndexDefinition:0x00000005170390>
 
 # Could not dump table "ap_signup_deprecated" because of following NoMethodError
-#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::IndexDefinition:0x000000061f7e48>
+#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::Mysql2IndexDefinition:0x0000000514d7a0>
 
 # Could not dump table "authentications" because of following NoMethodError
-#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::IndexDefinition:0x000000061e7d68>
+#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::Mysql2IndexDefinition:0x0000000512f778>
 
   create_table "cms_assoc_filecategory", :id => false, :force => true do |t|
     t.string  "CmsFileID",     :limit => 64,                   :null => false
@@ -82,10 +83,10 @@ ActiveRecord::Schema.define(:version => 20110324192541) do
   end
 
 # Could not dump table "cms_cmscategory" because of following NoMethodError
-#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::IndexDefinition:0x000000061ceb38>
+#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::Mysql2IndexDefinition:0x000000050f97b8>
 
 # Could not dump table "cms_cmsfile" because of following NoMethodError
-#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::IndexDefinition:0x000000061abdb8>
+#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::Mysql2IndexDefinition:0x000000050aabb8>
 
   create_table "cms_viewcategoryidfiles", :id => false, :force => true do |t|
     t.integer  "CmsFileID",                     :default => 0, :null => false
@@ -153,7 +154,7 @@ ActiveRecord::Schema.define(:version => 20110324192541) do
   end
 
 # Could not dump table "counties" because of following NoMethodError
-#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::IndexDefinition:0x00000006143d80>
+#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::Mysql2IndexDefinition:0x00000004fa1bb8>
 
   create_table "countries", :force => true do |t|
     t.string  "country",  :limit => 100
@@ -163,34 +164,34 @@ ActiveRecord::Schema.define(:version => 20110324192541) do
   end
 
 # Could not dump table "crs2_additional_expenses_item" because of following NoMethodError
-#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::IndexDefinition:0x00000006124890>
+#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::Mysql2IndexDefinition:0x00000004e6c428>
 
 # Could not dump table "crs2_additional_info_item" because of following NoMethodError
-#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::IndexDefinition:0x00000006112aa0>
+#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::Mysql2IndexDefinition:0x00000004e2a1e0>
 
 # Could not dump table "crs2_answer" because of following NoMethodError
-#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::IndexDefinition:0x000000060ff860>
+#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::Mysql2IndexDefinition:0x00000004dd36d8>
 
 # Could not dump table "crs2_conference" because of following NoMethodError
-#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::IndexDefinition:0x000000060c31d0>
+#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::Mysql2IndexDefinition:0x00000004ca0ea0>
 
 # Could not dump table "crs2_configuration" because of following NoMethodError
-#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::IndexDefinition:0x000000060bbf48>
+#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::Mysql2IndexDefinition:0x00000004c4a500>
 
 # Could not dump table "crs2_custom_questions_item" because of following NoMethodError
-#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::IndexDefinition:0x000000060b1cf0>
+#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::Mysql2IndexDefinition:0x00000004bd6600>
 
 # Could not dump table "crs2_custom_stylesheet" because of following NoMethodError
-#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::IndexDefinition:0x000000060a1328>
+#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::Mysql2IndexDefinition:0x00000004ba35e8>
 
 # Could not dump table "crs2_expense" because of following NoMethodError
-#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::IndexDefinition:0x0000000607a548>
+#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::Mysql2IndexDefinition:0x00000004b3b600>
 
 # Could not dump table "crs2_expense_selection" because of following NoMethodError
-#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::IndexDefinition:0x000000060648d8>
+#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::Mysql2IndexDefinition:0x00000004b0a488>
 
 # Could not dump table "crs2_module_usage" because of following NoMethodError
-#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::IndexDefinition:0x0000000604ee48>
+#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::Mysql2IndexDefinition:0x00000004acd1f0>
 
   create_table "crs2_person", :force => true do |t|
     t.datetime "created_at"
@@ -226,28 +227,28 @@ ActiveRecord::Schema.define(:version => 20110324192541) do
   end
 
 # Could not dump table "crs2_profile" because of following NoMethodError
-#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::IndexDefinition:0x00000005fedcb0>
+#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::Mysql2IndexDefinition:0x000000049fb560>
 
 # Could not dump table "crs2_profile_question" because of following NoMethodError
-#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::IndexDefinition:0x00000005fcf850>
+#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::Mysql2IndexDefinition:0x000000049b88a0>
 
 # Could not dump table "crs2_question" because of following NoMethodError
-#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::IndexDefinition:0x00000005fb6dc8>
+#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::Mysql2IndexDefinition:0x0000000499df78>
 
 # Could not dump table "crs2_question_option" because of following NoMethodError
-#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::IndexDefinition:0x00000005f9a560>
+#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::Mysql2IndexDefinition:0x0000000497e538>
 
 # Could not dump table "crs2_registrant" because of following NoMethodError
-#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::IndexDefinition:0x00000005f664e0>
+#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::Mysql2IndexDefinition:0x0000000493bee0>
 
 # Could not dump table "crs2_registrant_type" because of following NoMethodError
-#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::IndexDefinition:0x00000005ef7090>
+#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::Mysql2IndexDefinition:0x000000048643a0>
 
 # Could not dump table "crs2_registration" because of following NoMethodError
-#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::IndexDefinition:0x00000005edaeb8>
+#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::Mysql2IndexDefinition:0x0000000481eb98>
 
 # Could not dump table "crs2_transaction" because of following NoMethodError
-#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::IndexDefinition:0x00000005e88d98>
+#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::Mysql2IndexDefinition:0x000000047c4e40>
 
   create_table "crs2_url_base", :force => true do |t|
     t.datetime "created_at"
@@ -265,13 +266,13 @@ ActiveRecord::Schema.define(:version => 20110324192541) do
   end
 
 # Could not dump table "crs2_user_role" because of following NoMethodError
-#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::IndexDefinition:0x00000005e54098>
+#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::Mysql2IndexDefinition:0x000000052751a0>
 
 # Could not dump table "crs_answer" because of following NoMethodError
-#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::IndexDefinition:0x00000005e35f80>
+#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::Mysql2IndexDefinition:0x00000005614a68>
 
 # Could not dump table "crs_childregistration" because of following NoMethodError
-#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::IndexDefinition:0x00000005e24640>
+#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::Mysql2IndexDefinition:0x000000058ba240>
 
   create_table "crs_conference", :primary_key => "conferenceID", :force => true do |t|
     t.datetime "createDate"
@@ -350,10 +351,10 @@ ActiveRecord::Schema.define(:version => 20110324192541) do
   end
 
 # Could not dump table "crs_customitem" because of following NoMethodError
-#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::IndexDefinition:0x00000005d1b398>
+#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::Mysql2IndexDefinition:0x00000005daaa70>
 
 # Could not dump table "crs_merchandise" because of following NoMethodError
-#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::IndexDefinition:0x00000005cc7270>
+#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::Mysql2IndexDefinition:0x00000005d9b3b8>
 
   create_table "crs_merchandisechoice", :id => false, :force => true do |t|
     t.integer "fk_MerchandiseID",  :null => false
@@ -361,10 +362,10 @@ ActiveRecord::Schema.define(:version => 20110324192541) do
   end
 
 # Could not dump table "crs_payment" because of following NoMethodError
-#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::IndexDefinition:0x00000005c63108>
+#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::Mysql2IndexDefinition:0x00000005d7e858>
 
 # Could not dump table "crs_question" because of following NoMethodError
-#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::IndexDefinition:0x00000005c5bcf0>
+#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::Mysql2IndexDefinition:0x00000005d70eb0>
 
   create_table "crs_questiontext", :primary_key => "questionTextID", :force => true do |t|
     t.string  "body",       :limit => 7000
@@ -374,10 +375,10 @@ ActiveRecord::Schema.define(:version => 20110324192541) do
   end
 
 # Could not dump table "crs_registration" because of following NoMethodError
-#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::IndexDefinition:0x00000005bf6198>
+#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::Mysql2IndexDefinition:0x00000005d54288>
 
 # Could not dump table "crs_registrationtype" because of following NoMethodError
-#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::IndexDefinition:0x00000005b353a8>
+#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::Mysql2IndexDefinition:0x00000005d27940>
 
   create_table "crs_report", :primary_key => "reportID", :force => true do |t|
     t.string  "query",       :limit => 1000
@@ -573,14 +574,14 @@ ActiveRecord::Schema.define(:version => 20110324192541) do
   end
 
 # Could not dump table "fsk_allocations" because of following NoMethodError
-#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::IndexDefinition:0x00000006900870>
+#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::Mysql2IndexDefinition:0x00000005c1d220>
 
   create_table "fsk_fields", :force => true do |t|
     t.string "name", :limit => 50
   end
 
 # Could not dump table "fsk_fields_roles" because of following NoMethodError
-#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::IndexDefinition:0x000000068f7a90>
+#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::Mysql2IndexDefinition:0x00000005c0d898>
 
   create_table "fsk_kit_categories", :force => true do |t|
     t.string   "name",         :limit => 50,                  :null => false
@@ -591,29 +592,29 @@ ActiveRecord::Schema.define(:version => 20110324192541) do
   end
 
 # Could not dump table "fsk_line_items" because of following NoMethodError
-#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::IndexDefinition:0x000000068d4130>
+#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::Mysql2IndexDefinition:0x00000005bfafb8>
 
 # Could not dump table "fsk_orders" because of following NoMethodError
-#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::IndexDefinition:0x000000068a9868>
+#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::Mysql2IndexDefinition:0x00000005bccf28>
 
 # Could not dump table "fsk_products" because of following NoMethodError
-#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::IndexDefinition:0x0000000688c8d0>
+#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::Mysql2IndexDefinition:0x00000005bb8460>
 
   create_table "fsk_roles", :force => true do |t|
     t.string "name", :limit => 50
   end
 
 # Could not dump table "fsk_users" because of following NoMethodError
-#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::IndexDefinition:0x0000000687cd68>
+#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::Mysql2IndexDefinition:0x00000005ba8c18>
 
 # Could not dump table "hr_ms_payment" because of following NoMethodError
-#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::IndexDefinition:0x00000006860190>
+#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::Mysql2IndexDefinition:0x00000005b93638>
 
 # Could not dump table "hr_review360_review360" because of following NoMethodError
-#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::IndexDefinition:0x0000000680b6e0>
+#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::Mysql2IndexDefinition:0x00000005b4b108>
 
 # Could not dump table "hr_review360_review360light" because of following NoMethodError
-#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::IndexDefinition:0x000000067ec358>
+#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::Mysql2IndexDefinition:0x00000005b2dc48>
 
   create_table "hr_review360_reviewsession", :primary_key => "ReviewSessionID", :force => true do |t|
     t.string   "name",            :limit => 80
@@ -636,22 +637,22 @@ ActiveRecord::Schema.define(:version => 20110324192541) do
   end
 
 # Could not dump table "hr_si_application_2003_deprecated" because of following NoMethodError
-#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::IndexDefinition:0x000000066cc1d0>
+#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::Mysql2IndexDefinition:0x00000005a372d0>
 
 # Could not dump table "hr_si_application_2004_deprecated" because of following NoMethodError
-#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::IndexDefinition:0x000000065dd418>
+#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::Mysql2IndexDefinition:0x00000005968ea8>
 
 # Could not dump table "hr_si_application_2005_deprecated" because of following NoMethodError
-#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::IndexDefinition:0x000000064e3ee0>
+#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::Mysql2IndexDefinition:0x00000005898460>
 
 # Could not dump table "hr_si_application_2006_deprecated" because of following NoMethodError
-#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::IndexDefinition:0x000000063eef08>
+#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::Mysql2IndexDefinition:0x000000057c0010>
 
 # Could not dump table "hr_si_applications" because of following NoMethodError
-#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::IndexDefinition:0x000000062f2a50>
+#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::Mysql2IndexDefinition:0x000000056d2680>
 
 # Could not dump table "hr_si_payment" because of following NoMethodError
-#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::IndexDefinition:0x000000062d3920>
+#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::Mysql2IndexDefinition:0x000000056bc060>
 
   create_table "hr_si_project", :primary_key => "SIProjectID", :force => true do |t|
     t.string   "name"
@@ -741,25 +742,25 @@ ActiveRecord::Schema.define(:version => 20110324192541) do
   end
 
 # Could not dump table "hr_si_reference" because of following NoMethodError
-#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::IndexDefinition:0x000000061a8938>
+#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::Mysql2IndexDefinition:0x0000000557ce20>
 
 # Could not dump table "hr_si_reference_2003_deprecated" because of following NoMethodError
-#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::IndexDefinition:0x000000060fa4f0>
+#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::Mysql2IndexDefinition:0x000000054c8510>
 
 # Could not dump table "hr_si_reference_2004_deprecated" because of following NoMethodError
-#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::IndexDefinition:0x00000006022f00>
+#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::Mysql2IndexDefinition:0x000000052388e0>
 
 # Could not dump table "hr_si_reference_2005_deprecated" because of following NoMethodError
-#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::IndexDefinition:0x00000005f136f0>
+#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::Mysql2IndexDefinition:0x000000050c2b78>
 
 # Could not dump table "hr_si_reference_2006_deprecated" because of following NoMethodError
-#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::IndexDefinition:0x00000005e206a8>
+#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::Mysql2IndexDefinition:0x00000005b2a250>
 
 # Could not dump table "hr_si_users" because of following NoMethodError
-#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::IndexDefinition:0x00000005e0fa10>
+#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::Mysql2IndexDefinition:0x00000005de5c10>
 
 # Could not dump table "infobase_bookmarks" because of following NoMethodError
-#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::IndexDefinition:0x00000005dfb3d0>
+#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::Mysql2IndexDefinition:0x00000005ddd880>
 
   create_table "infobase_users", :force => true do |t|
     t.integer  "user_id"
@@ -816,10 +817,10 @@ ActiveRecord::Schema.define(:version => 20110324192541) do
   end
 
 # Could not dump table "mail_groups" because of following NoMethodError
-#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::IndexDefinition:0x00000005cf1a98>
+#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::Mysql2IndexDefinition:0x00000005d85608>
 
 # Could not dump table "mail_members" because of following NoMethodError
-#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::IndexDefinition:0x00000005c77b30>
+#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::Mysql2IndexDefinition:0x00000005d77288>
 
   create_table "mail_owners", :force => true do |t|
     t.integer  "group_id"
@@ -830,17 +831,17 @@ ActiveRecord::Schema.define(:version => 20110324192541) do
   end
 
 # Could not dump table "mail_users" because of following NoMethodError
-#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::IndexDefinition:0x00000005c63ab8>
+#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::Mysql2IndexDefinition:0x00000005d60d58>
 
   create_table "ministries", :force => true do |t|
     t.string "name"
   end
 
 # Could not dump table "ministry_activity" because of following NoMethodError
-#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::IndexDefinition:0x00000005c45090>
+#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::Mysql2IndexDefinition:0x00000005d49888>
 
 # Could not dump table "ministry_activity_history" because of following NoMethodError
-#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::IndexDefinition:0x00000005c355a0>
+#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::Mysql2IndexDefinition:0x00000005d3b670>
 
   create_table "ministry_address", :primary_key => "AddressID", :force => true do |t|
     t.datetime "startdate"
@@ -862,7 +863,7 @@ ActiveRecord::Schema.define(:version => 20110324192541) do
   end
 
 # Could not dump table "ministry_assoc_dependents" because of following NoMethodError
-#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::IndexDefinition:0x00000005c0e040>
+#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::Mysql2IndexDefinition:0x00000005d199d0>
 
   create_table "ministry_assoc_otherministries", :id => false, :force => true do |t|
     t.string  "NonCccMinID",  :limit => 64,                   :null => false
@@ -871,10 +872,10 @@ ActiveRecord::Schema.define(:version => 20110324192541) do
   end
 
 # Could not dump table "ministry_authorization" because of following NoMethodError
-#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::IndexDefinition:0x00000005bf5b30>
+#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::Mysql2IndexDefinition:0x00000005d02190>
 
 # Could not dump table "ministry_changerequest" because of following NoMethodError
-#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::IndexDefinition:0x00000005be5ed8>
+#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::Mysql2IndexDefinition:0x00000005cf4680>
 
   create_table "ministry_dependent", :primary_key => "DependentID", :force => true do |t|
     t.string   "firstName",  :limit => 80
@@ -929,13 +930,13 @@ ActiveRecord::Schema.define(:version => 20110324192541) do
   end
 
 # Could not dump table "ministry_movement_contact" because of following NoMethodError
-#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::IndexDefinition:0x00000005b8d0a8>
+#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::Mysql2IndexDefinition:0x00000005caf648>
 
 # Could not dump table "ministry_newaddress" because of following NoMethodError
-#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::IndexDefinition:0x00000005b42d50>
+#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::Mysql2IndexDefinition:0x00000005c81388>
 
 # Could not dump table "ministry_newaddress_restore" because of following NoMethodError
-#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::IndexDefinition:0x00000005aef1c8>
+#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::Mysql2IndexDefinition:0x00000005c546a8>
 
   create_table "ministry_noncccmin", :primary_key => "NonCccMinID", :force => true do |t|
     t.string "ministry",    :limit => 50
@@ -967,13 +968,13 @@ ActiveRecord::Schema.define(:version => 20110324192541) do
   end
 
 # Could not dump table "ministry_person" because of following NoMethodError
-#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::IndexDefinition:0x000000068dcfd8>
+#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::Mysql2IndexDefinition:0x00000005bee6f0>
 
 # Could not dump table "ministry_person_aug1" because of following NoMethodError
-#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::IndexDefinition:0x0000000689c168>
+#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::Mysql2IndexDefinition:0x00000005bb7808>
 
 # Could not dump table "ministry_regionalstat" because of following NoMethodError
-#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::IndexDefinition:0x0000000687ec58>
+#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::Mysql2IndexDefinition:0x00000005b9d4d0>
 
   create_table "ministry_regionalteam", :primary_key => "teamID", :force => true do |t|
     t.string   "name",      :limit => 100
@@ -999,14 +1000,14 @@ ActiveRecord::Schema.define(:version => 20110324192541) do
   end
 
 # Could not dump table "ministry_staff" because of following NoMethodError
-#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::IndexDefinition:0x000000067c4d80>
+#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::Mysql2IndexDefinition:0x00000005b00388>
 
   create_table "ministry_staffchangerequest", :primary_key => "ChangeRequestID", :force => true do |t|
     t.string "updateStaff", :limit => 64
   end
 
 # Could not dump table "ministry_statistic" because of following NoMethodError
-#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::IndexDefinition:0x0000000678fd88>
+#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::Mysql2IndexDefinition:0x00000005ad3158>
 
   create_table "ministry_strategy", :primary_key => "strategyID", :force => true do |t|
     t.string "name"
@@ -1014,10 +1015,10 @@ ActiveRecord::Schema.define(:version => 20110324192541) do
   end
 
 # Could not dump table "ministry_targetarea" because of following NoMethodError
-#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::IndexDefinition:0x0000000673fb08>
+#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::Mysql2IndexDefinition:0x00000005a8ba10>
 
 # Could not dump table "ministry_targetarea_2009" because of following NoMethodError
-#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::IndexDefinition:0x000000066f2088>
+#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::Mysql2IndexDefinition:0x00000005a49a48>
 
   create_table "ministry_viewdependentsstaff", :id => false, :force => true do |t|
     t.string   "accountNo",                :limit => 11,                    :null => false
@@ -1183,13 +1184,13 @@ ActiveRecord::Schema.define(:version => 20110324192541) do
   end
 
 # Could not dump table "mpd_contact_actions" because of following NoMethodError
-#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::IndexDefinition:0x000000065ec648>
+#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::Mysql2IndexDefinition:0x00000005968f98>
 
 # Could not dump table "mpd_contacts" because of following NoMethodError
-#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::IndexDefinition:0x000000065cecb0>
+#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::Mysql2IndexDefinition:0x0000000594f638>
 
 # Could not dump table "mpd_events" because of following NoMethodError
-#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::IndexDefinition:0x000000065bda00>
+#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::Mysql2IndexDefinition:0x00000005940750>
 
   create_table "mpd_expense_types", :force => true do |t|
     t.string "name",                            :null => false
@@ -1197,10 +1198,10 @@ ActiveRecord::Schema.define(:version => 20110324192541) do
   end
 
 # Could not dump table "mpd_expenses" because of following NoMethodError
-#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::IndexDefinition:0x000000065a6e40>
+#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::Mysql2IndexDefinition:0x0000000592ea50>
 
 # Could not dump table "mpd_letter_images" because of following NoMethodError
-#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::IndexDefinition:0x00000006592ee0>
+#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::Mysql2IndexDefinition:0x0000000591ba40>
 
   create_table "mpd_letter_templates", :force => true do |t|
     t.string  "name",                                 :null => false
@@ -1211,23 +1212,23 @@ ActiveRecord::Schema.define(:version => 20110324192541) do
   end
 
 # Could not dump table "mpd_letters" because of following NoMethodError
-#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::IndexDefinition:0x000000065710b0>
+#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::Mysql2IndexDefinition:0x000000058fe378>
 
 # Could not dump table "mpd_priorities" because of following NoMethodError
-#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::IndexDefinition:0x00000006563d70>
+#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::Mysql2IndexDefinition:0x000000058f0688>
 
   create_table "mpd_roles", :force => true do |t|
     t.string "name"
   end
 
 # Could not dump table "mpd_roles_users" because of following NoMethodError
-#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::IndexDefinition:0x000000065542d0>
+#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::Mysql2IndexDefinition:0x000000058e2f10>
 
 # Could not dump table "mpd_sessions" because of following NoMethodError
-#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::IndexDefinition:0x0000000654e510>
+#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::Mysql2IndexDefinition:0x000000058d6fd0>
 
 # Could not dump table "mpd_users" because of following NoMethodError
-#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::IndexDefinition:0x00000006537298>
+#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::Mysql2IndexDefinition:0x000000058c70f8>
 
   create_table "nag_users", :force => true do |t|
     t.integer  "ssm_id",                    :null => false
@@ -1250,7 +1251,7 @@ ActiveRecord::Schema.define(:version => 20110324192541) do
   end
 
 # Could not dump table "old_wsn_sp_wsnapplication" because of following NoMethodError
-#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::IndexDefinition:0x000000063dfa30>
+#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::Mysql2IndexDefinition:0x000000057a3528>
 
   create_table "oncampus_orders", :force => true do |t|
     t.integer  "person_id"
@@ -1313,7 +1314,7 @@ ActiveRecord::Schema.define(:version => 20110324192541) do
   end
 
 # Could not dump table "pr_answers" because of following NoMethodError
-#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::IndexDefinition:0x0000000637dab0>
+#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::Mysql2IndexDefinition:0x000000057436f0>
 
   create_table "pr_conditions", :force => true do |t|
     t.integer "question_sheet_id", :null => false
@@ -1324,10 +1325,10 @@ ActiveRecord::Schema.define(:version => 20110324192541) do
   end
 
 # Could not dump table "pr_elements" because of following NoMethodError
-#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::IndexDefinition:0x00000006343bd0>
+#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::Mysql2IndexDefinition:0x0000000571abb0>
 
 # Could not dump table "pr_email_templates" because of following NoMethodError
-#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::IndexDefinition:0x000000063344a0>
+#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::Mysql2IndexDefinition:0x0000000570b980>
 
   create_table "pr_page_elements", :force => true do |t|
     t.integer  "page_id"
@@ -1441,7 +1442,7 @@ ActiveRecord::Schema.define(:version => 20110324192541) do
   end
 
 # Could not dump table "profile_pictures" because of following NoMethodError
-#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::IndexDefinition:0x00000006289528>
+#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::Mysql2IndexDefinition:0x00000005624940>
 
   create_table "questionnaires", :force => true do |t|
     t.string   "title",      :limit => 200
@@ -1458,10 +1459,10 @@ ActiveRecord::Schema.define(:version => 20110324192541) do
   end
 
 # Could not dump table "rideshare_event" because of following NoMethodError
-#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::IndexDefinition:0x00000006271bf8>
+#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::Mysql2IndexDefinition:0x00000005609dc0>
 
 # Could not dump table "rideshare_ride" because of following NoMethodError
-#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::IndexDefinition:0x00000006249810>
+#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::Mysql2IndexDefinition:0x000000055edf30>
 
   create_table "school_years", :force => true do |t|
     t.string   "name"
@@ -1472,25 +1473,25 @@ ActiveRecord::Schema.define(:version => 20110324192541) do
   end
 
 # Could not dump table "si_answer_sheets" because of following NoMethodError
-#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::IndexDefinition:0x00000006235e00>
+#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::Mysql2IndexDefinition:0x000000055d8400>
 
 # Could not dump table "si_answers" because of following NoMethodError
-#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::IndexDefinition:0x0000000621e840>
+#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::Mysql2IndexDefinition:0x000000055c7538>
 
 # Could not dump table "si_applies" because of following NoMethodError
-#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::IndexDefinition:0x0000000620eb70>
+#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::Mysql2IndexDefinition:0x000000055bdad8>
 
 # Could not dump table "si_apply_sheets" because of following NoMethodError
-#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::IndexDefinition:0x00000006208018>
+#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::Mysql2IndexDefinition:0x000000055b2ac0>
 
 # Could not dump table "si_character_references" because of following NoMethodError
-#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::IndexDefinition:0x000000061f4310>
+#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::Mysql2IndexDefinition:0x0000000559e890>
 
 # Could not dump table "si_conditions" because of following NoMethodError
-#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::IndexDefinition:0x000000061e0130>
+#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::Mysql2IndexDefinition:0x00000005590268>
 
 # Could not dump table "si_elements" because of following NoMethodError
-#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::IndexDefinition:0x000000061c7630>
+#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::Mysql2IndexDefinition:0x00000005576958>
 
   create_table "si_email_templates", :force => true do |t|
     t.string  "name",    :limit => 60, :null => false
@@ -1500,10 +1501,10 @@ ActiveRecord::Schema.define(:version => 20110324192541) do
   end
 
 # Could not dump table "si_pages" because of following NoMethodError
-#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::IndexDefinition:0x000000061a98d8>
+#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::Mysql2IndexDefinition:0x000000055618a0>
 
 # Could not dump table "si_payments" because of following NoMethodError
-#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::IndexDefinition:0x000000061995a0>
+#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::Mysql2IndexDefinition:0x00000005551d88>
 
   create_table "si_question_sheets", :force => true do |t|
     t.string "label", :limit => 60, :null => false
@@ -1522,19 +1523,19 @@ ActiveRecord::Schema.define(:version => 20110324192541) do
   end
 
 # Could not dump table "si_sleeves" because of following NoMethodError
-#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::IndexDefinition:0x000000061793e0>
+#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::Mysql2IndexDefinition:0x000000055321e0>
 
 # Could not dump table "si_users" because of following NoMethodError
-#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::IndexDefinition:0x000000061694b8>
+#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::Mysql2IndexDefinition:0x00000005528de8>
 
 # Could not dump table "simplesecuritymanager_user" because of following NoMethodError
-#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::IndexDefinition:0x00000006149e38>
+#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::Mysql2IndexDefinition:0x0000000550cd78>
 
 # Could not dump table "sitrack_application_all_deprecated" because of following NoMethodError
-#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::IndexDefinition:0x000000060448d0>
+#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::Mysql2IndexDefinition:0x00000005215c50>
 
 # Could not dump table "sitrack_children" because of following NoMethodError
-#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::IndexDefinition:0x0000000602f7f0>
+#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::Mysql2IndexDefinition:0x00000005207290>
 
   create_table "sitrack_columns", :force => true do |t|
     t.string   "name",              :limit => 30,                  :null => false
@@ -1551,10 +1552,10 @@ ActiveRecord::Schema.define(:version => 20110324192541) do
   end
 
 # Could not dump table "sitrack_enum_values" because of following NoMethodError
-#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::IndexDefinition:0x00000005ff9b78>
+#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::Mysql2IndexDefinition:0x000000051ebe28>
 
 # Could not dump table "sitrack_feeds" because of following NoMethodError
-#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::IndexDefinition:0x00000005fe5f88>
+#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::Mysql2IndexDefinition:0x000000051e4358>
 
   create_table "sitrack_forms", :force => true do |t|
     t.integer  "approver_id",                                     :null => false
@@ -1598,34 +1599,34 @@ ActiveRecord::Schema.define(:version => 20110324192541) do
   end
 
 # Could not dump table "sitrack_mpd" because of following NoMethodError
-#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::IndexDefinition:0x00000005f6ef28>
+#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::Mysql2IndexDefinition:0x000000051011c0>
 
 # Could not dump table "sitrack_queries" because of following NoMethodError
-#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::IndexDefinition:0x00000005f59d80>
+#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::Mysql2IndexDefinition:0x000000050e1de8>
 
 # Could not dump table "sitrack_saved_criteria" because of following NoMethodError
-#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::IndexDefinition:0x00000005f3c690>
+#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::Mysql2IndexDefinition:0x000000053d4ed8>
 
 # Could not dump table "sitrack_session_values" because of following NoMethodError
-#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::IndexDefinition:0x00000005f30278>
+#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::Mysql2IndexDefinition:0x0000000574cea8>
 
 # Could not dump table "sitrack_sessions" because of following NoMethodError
-#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::IndexDefinition:0x00000005f1de70>
+#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::Mysql2IndexDefinition:0x00000005afdb10>
 
 # Could not dump table "sitrack_tracking" because of following NoMethodError
-#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::IndexDefinition:0x00000005e900c0>
+#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::Mysql2IndexDefinition:0x00000005d99a90>
 
 # Could not dump table "sitrack_users" because of following NoMethodError
-#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::IndexDefinition:0x00000005e86160>
+#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::Mysql2IndexDefinition:0x00000005d8b648>
 
 # Could not dump table "sitrack_view_columns" because of following NoMethodError
-#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::IndexDefinition:0x00000005e7c660>
+#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::Mysql2IndexDefinition:0x00000005d832b8>
 
 # Could not dump table "sitrack_views" because of following NoMethodError
-#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::IndexDefinition:0x00000005e63fe8>
+#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::Mysql2IndexDefinition:0x00000005d76ef0>
 
 # Could not dump table "sn_campus_involvements" because of following NoMethodError
-#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::IndexDefinition:0x00000005e55768>
+#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::Mysql2IndexDefinition:0x00000005d68440>
 
   create_table "sn_columns", :force => true do |t|
     t.string   "title"
@@ -1654,13 +1655,13 @@ ActiveRecord::Schema.define(:version => 20110324192541) do
   end
 
 # Could not dump table "sn_correspondences" because of following NoMethodError
-#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::IndexDefinition:0x00000005dfc000>
+#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::Mysql2IndexDefinition:0x00000005d3a7e8>
 
 # Could not dump table "sn_custom_attributes" because of following NoMethodError
-#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::IndexDefinition:0x00000005deafa8>
+#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::Mysql2IndexDefinition:0x00000005d2de80>
 
 # Could not dump table "sn_custom_values" because of following NoMethodError
-#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::IndexDefinition:0x00000005d5e5f8>
+#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::Mysql2IndexDefinition:0x00000005d26720>
 
   create_table "sn_delayed_jobs", :force => true do |t|
     t.integer  "priority",   :default => 0
@@ -1676,7 +1677,7 @@ ActiveRecord::Schema.define(:version => 20110324192541) do
   end
 
 # Could not dump table "sn_dorms" because of following NoMethodError
-#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::IndexDefinition:0x00000005d34bb8>
+#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::Mysql2IndexDefinition:0x00000005d0e9e0>
 
   create_table "sn_email_templates", :force => true do |t|
     t.integer  "correspondence_type_id"
@@ -1714,7 +1715,7 @@ ActiveRecord::Schema.define(:version => 20110324192541) do
   end
 
 # Could not dump table "sn_group_involvements" because of following NoMethodError
-#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::IndexDefinition:0x00000005cc8058>
+#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::Mysql2IndexDefinition:0x00000005cdcf80>
 
   create_table "sn_group_types", :force => true do |t|
     t.integer  "ministry_id"
@@ -1729,7 +1730,7 @@ ActiveRecord::Schema.define(:version => 20110324192541) do
   end
 
 # Could not dump table "sn_groups" because of following NoMethodError
-#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::IndexDefinition:0x00000005c5f350>
+#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::Mysql2IndexDefinition:0x00000005cb6b28>
 
   create_table "sn_imports", :force => true do |t|
     t.integer  "person_id"
@@ -1760,13 +1761,13 @@ ActiveRecord::Schema.define(:version => 20110324192541) do
   end
 
 # Could not dump table "sn_ministries" because of following NoMethodError
-#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::IndexDefinition:0x00000005c1d338>
+#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::Mysql2IndexDefinition:0x00000005c872d8>
 
 # Could not dump table "sn_ministry_campuses" because of following NoMethodError
-#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::IndexDefinition:0x00000005c13b58>
+#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::Mysql2IndexDefinition:0x00000005c7d6c0>
 
 # Could not dump table "sn_ministry_involvements" because of following NoMethodError
-#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::IndexDefinition:0x00000005c00058>
+#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::Mysql2IndexDefinition:0x00000005c6e0d0>
 
   create_table "sn_ministry_role_permissions", :force => true do |t|
     t.integer "permission_id"
@@ -1775,7 +1776,7 @@ ActiveRecord::Schema.define(:version => 20110324192541) do
   end
 
 # Could not dump table "sn_ministry_roles" because of following NoMethodError
-#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::IndexDefinition:0x00000005be7af8>
+#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::Mysql2IndexDefinition:0x00000005c57c40>
 
   create_table "sn_permissions", :force => true do |t|
     t.string "description"
@@ -1797,16 +1798,16 @@ ActiveRecord::Schema.define(:version => 20110324192541) do
   end
 
 # Could not dump table "sn_sessions" because of following NoMethodError
-#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::IndexDefinition:0x00000005bbb098>
+#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::Mysql2IndexDefinition:0x00000005c38700>
 
 # Could not dump table "sn_timetables" because of following NoMethodError
-#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::IndexDefinition:0x00000005bae460>
+#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::Mysql2IndexDefinition:0x00000005c30a50>
 
 # Could not dump table "sn_training_answers" because of following NoMethodError
-#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::IndexDefinition:0x00000005ba3d30>
+#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::Mysql2IndexDefinition:0x00000005c293b8>
 
 # Could not dump table "sn_training_categories" because of following NoMethodError
-#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::IndexDefinition:0x00000005b95f00>
+#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::Mysql2IndexDefinition:0x00000005c16ec0>
 
   create_table "sn_training_question_activations", :force => true do |t|
     t.integer  "ministry_id"
@@ -1817,7 +1818,7 @@ ActiveRecord::Schema.define(:version => 20110324192541) do
   end
 
 # Could not dump table "sn_training_questions" because of following NoMethodError
-#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::IndexDefinition:0x000000062d4348>
+#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::Mysql2IndexDefinition:0x00000005c05df0>
 
   create_table "sn_user_group_permissions", :force => true do |t|
     t.integer "permission_id"
@@ -1838,19 +1839,19 @@ ActiveRecord::Schema.define(:version => 20110324192541) do
   end
 
 # Could not dump table "sn_view_columns" because of following NoMethodError
-#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::IndexDefinition:0x000000069011d0>
+#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::Mysql2IndexDefinition:0x00000005be53e8>
 
 # Could not dump table "sn_views" because of following NoMethodError
-#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::IndexDefinition:0x000000068f99a8>
+#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::Mysql2IndexDefinition:0x00000005bd9200>
 
 # Could not dump table "sp_answers" because of following NoMethodError
-#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::IndexDefinition:0x000000068ec898>
+#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::Mysql2IndexDefinition:0x00000005bd25b8>
 
 # Could not dump table "sp_applications" because of following NoMethodError
-#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::IndexDefinition:0x000000068c42d0>
+#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::Mysql2IndexDefinition:0x00000005bb0170>
 
 # Could not dump table "sp_donations" because of following NoMethodError
-#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::IndexDefinition:0x000000068bcaa8>
+#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::Mysql2IndexDefinition:0x00000005ba84c0>
 
   create_table "sp_elements", :force => true do |t|
     t.integer  "parent_id"
@@ -1927,10 +1928,10 @@ ActiveRecord::Schema.define(:version => 20110324192541) do
   end
 
 # Could not dump table "sp_project_versions" because of following NoMethodError
-#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::IndexDefinition:0x000000067eae18>
+#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::Mysql2IndexDefinition:0x00000005af0618>
 
 # Could not dump table "sp_projects" because of following NoMethodError
-#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::IndexDefinition:0x00000006776bf8>
+#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::Mysql2IndexDefinition:0x00000005a917a8>
 
   create_table "sp_question_options", :force => true do |t|
     t.integer  "question_id"
@@ -1949,7 +1950,7 @@ ActiveRecord::Schema.define(:version => 20110324192541) do
   end
 
 # Could not dump table "sp_references" because of following NoMethodError
-#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::IndexDefinition:0x00000006744a90>
+#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::Mysql2IndexDefinition:0x00000005a63240>
 
   create_table "sp_roles", :force => true do |t|
     t.string "role",       :limit => 50
@@ -1957,7 +1958,7 @@ ActiveRecord::Schema.define(:version => 20110324192541) do
   end
 
 # Could not dump table "sp_staff" because of following NoMethodError
-#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::IndexDefinition:0x0000000672f758>
+#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::Mysql2IndexDefinition:0x00000005a510e0>
 
   create_table "sp_stats", :force => true do |t|
     t.integer  "project_id"
@@ -1986,13 +1987,13 @@ ActiveRecord::Schema.define(:version => 20110324192541) do
   end
 
 # Could not dump table "sp_users" because of following NoMethodError
-#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::IndexDefinition:0x00000006705f70>
+#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::Mysql2IndexDefinition:0x00000005a299f0>
 
 # Could not dump table "staffsite_staffsitepref" because of following NoMethodError
-#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::IndexDefinition:0x000000066f7128>
+#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::Mysql2IndexDefinition:0x00000005a20238>
 
 # Could not dump table "staffsite_staffsiteprofile" because of following NoMethodError
-#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::IndexDefinition:0x000000066e0568>
+#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::Mysql2IndexDefinition:0x00000005a0ccb0>
 
   create_table "states", :force => true do |t|
     t.string "state", :limit => 100
@@ -2007,16 +2008,16 @@ ActiveRecord::Schema.define(:version => 20110324192541) do
   end
 
 # Could not dump table "wsn_sp_answer" because of following NoMethodError
-#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::IndexDefinition:0x000000066c9b10>
+#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::Mysql2IndexDefinition:0x000000059f7770>
 
 # Could not dump table "wsn_sp_answer_deprecated" because of following NoMethodError
-#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::IndexDefinition:0x000000066bb7b8>
+#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::Mysql2IndexDefinition:0x000000059ed810>
 
 # Could not dump table "wsn_sp_question" because of following NoMethodError
-#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::IndexDefinition:0x000000066b14c0>
+#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::Mysql2IndexDefinition:0x000000059e4468>
 
 # Could not dump table "wsn_sp_question_deprecated" because of following NoMethodError
-#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::IndexDefinition:0x000000066a2a60>
+#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::Mysql2IndexDefinition:0x000000059d9388>
 
   create_table "wsn_sp_questiontext", :primary_key => "questionTextID", :force => true do |t|
     t.string "body",       :limit => 250
@@ -2031,10 +2032,10 @@ ActiveRecord::Schema.define(:version => 20110324192541) do
   end
 
 # Could not dump table "wsn_sp_reference" because of following NoMethodError
-#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::IndexDefinition:0x00000006649a28>
+#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::Mysql2IndexDefinition:0x00000005986638>
 
 # Could not dump table "wsn_sp_reference_deprecated" because of following NoMethodError
-#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::IndexDefinition:0x000000065f4758>
+#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::Mysql2IndexDefinition:0x00000005940818>
 
   create_table "wsn_sp_viewapplication", :id => false, :force => true do |t|
     t.integer  "personID",                                     :default => 0,     :null => false
@@ -2480,33 +2481,33 @@ ActiveRecord::Schema.define(:version => 20110324192541) do
   end
 
 # Could not dump table "wsn_sp_wsnapplication" because of following NoMethodError
-#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::IndexDefinition:0x000000062a57c8>
+#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::Mysql2IndexDefinition:0x00000005616458>
 
 # Could not dump table "wsn_sp_wsnapplication_deprecated" because of following NoMethodError
-#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::IndexDefinition:0x000000061bbe48>
+#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::Mysql2IndexDefinition:0x0000000554d350>
 
 # Could not dump table "wsn_sp_wsndonations" because of following NoMethodError
-#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::IndexDefinition:0x000000061b5e80>
+#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::Mysql2IndexDefinition:0x00000005544638>
 
 # Could not dump table "wsn_sp_wsndonations_deprecated" because of following NoMethodError
-#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::IndexDefinition:0x000000061a3b68>
+#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::Mysql2IndexDefinition:0x0000000553d4a0>
 
 # Could not dump table "wsn_sp_wsnevaluation" because of following NoMethodError
-#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::IndexDefinition:0x000000061810e0>
+#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::Mysql2IndexDefinition:0x0000000551a658>
 
 # Could not dump table "wsn_sp_wsnevaluation_deprecated" because of following NoMethodError
-#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::IndexDefinition:0x0000000615ae40>
+#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::Mysql2IndexDefinition:0x000000054e39a0>
 
 # Could not dump table "wsn_sp_wsnproject" because of following NoMethodError
-#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::IndexDefinition:0x000000060d39b8>
+#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::Mysql2IndexDefinition:0x00000005295900>
 
 # Could not dump table "wsn_sp_wsnproject_deprecated" because of following NoMethodError
-#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::IndexDefinition:0x00000006025228>
+#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::Mysql2IndexDefinition:0x000000051e08e8>
 
 # Could not dump table "wsn_sp_wsnusers" because of following NoMethodError
-#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::IndexDefinition:0x000000060101e8>
+#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::Mysql2IndexDefinition:0x000000051d82b0>
 
 # Could not dump table "wsn_sp_wsnusers_deprecated" because of following NoMethodError
-#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::IndexDefinition:0x00000006002ed0>
+#   undefined method `type' for #<ActiveRecord::ConnectionAdapters::Mysql2IndexDefinition:0x000000051d06c8>
 
 end

@@ -1,0 +1,12 @@
+<li id="<%= counter %>" class="">
+  <a name="a<%= stat.activity.ActivityID %>" ></a>
+  
+  <!-- School name and Red X's and Green Checks -->
+  <table class="movementheader">
+    <tr onClick="javascript:$('#<%= counter %>').toggleClass('selected');">
+      <th style="width:60px" class="expand"></th>
+      <th class="schoolname">
+        <span style="display:inline;float:left;padding-right:10px;text-align:left"><%= stat.activity.target_area.name %></span>
+      </th>
+    </tr>
+  </table>
