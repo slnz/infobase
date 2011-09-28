@@ -15,7 +15,7 @@
   }
 </script>
 
-<h1>Enter Stats for <%= @year %><%= " " + @project_name %></h1>
+<h1>Enter Stats for <%= @year.to_s + " " if @year %><%= @name %></h1>
 <div class="enter_stat" id="enter_stat">
   <div style="clear:both"></div>
   
@@ -29,10 +29,21 @@
     
     <% javascript_counter = 0 %>
     <ul class="results">
-      <% @movements.each do |movement| %>
-        <% stat = movement.get_sp_stat_for(@year, @period_begin, @period_end) %>
-        <%= render :partial => "stat_entry", :locals => {:stat => stat, :year => @year, :counter => javascript_counter} %>
-        <% javascript_counter += 1 %>
+      <% if @stats %> <!-- There were errors from saving -->
+        <% @stats.each do |stat| %>
+          <%= render :partial => "stat_entry", :locals => {:stat => stat, :year => @year, :counter => javascript_counter} %>
+          <% javascript_counter += 1 %>
+        <% end %>
+      <% else %>
+        <% @movements.each do |movement| %>
+          <% if @type == "SP" %>
+            <% stat = movement.get_sp_stat_for(@year, @period_begin, @period_end) %>
+          <% elsif @type == "C2" %>
+            <% stat = movement.get_crs_stat_for(@period_begin, @period_end) %>
+          <% end %>
+          <%= render :partial => "stat_entry", :locals => {:stat => stat, :year => @year, :counter => javascript_counter} %>
+          <% javascript_counter += 1 %>
+        <% end %>
       <% end %>
     </ul>
     
@@ -102,7 +113,7 @@
   <h5 style="margin:0px;margin-top:10px;">Involved Students</h5>
   <div style="display:block" id="involved_students_info_box">
     
-    How many students attended the project?
+    How many students attended the event?
     
   </div>
   <h5 style="margin:0px;margin-top:10px;">Dollars Raised</h5>

@@ -10,7 +10,7 @@
     <%= render :partial => "stat_bar", :locals => {:stat => stat, :current_week => current_week, :counter => counter} %>
     <%= render :partial => "stat_form", :locals => {:stat => stat} %>
   <% else %>
-    <%= render :partial => "sp_stat_bar", :locals => {:stat => stat, :year => year, :counter => counter} %>
-    <%= render :partial => "sp_stat_form", :locals => {:stat => stat} %>
+    <%= render :partial => "event_stat_bar", :locals => {:stat => stat, :counter => counter} %>
+    <%= render :partial => "event_stat_form", :locals => {:stat => stat} %>
   <% end %>
 <% end %>

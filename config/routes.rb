@@ -71,6 +71,7 @@ Infobase::Application.routes.draw do
     collection do
       get :movement
       get :sp
+      get :crs
       put :update
     end
   end

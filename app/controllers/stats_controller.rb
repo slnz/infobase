@@ -1,5 +1,8 @@
 class StatsController < ApplicationController
   #TODO: Refactor some before_filters
+  
+  before_filter :get_event_params, :only => [:sp, :crs]
+  
   def index
     @current_week = Time.now.traditional_beginning_of_week
     @requested_week = Time.parse(params[:date]).traditional_beginning_of_week if params[:date]
@@ -18,22 +21,25 @@ class StatsController < ApplicationController
   end
   
   def sp
-    @project_name = params[:name]
-    region = params[:region] if Region.campus_region_codes.include?(params[:region])
-    strategy = params[:strategy]
-    project_email = params[:email]
-    is_secure = params[:isSecure] == 'T'
-    @period_begin = Date.parse(params[:periodBegin])
-    @period_end = Date.parse(params[:periodEnd])
     @year = params[:year]
     @year ||= @period_begin.year # if year didn't come through params
-    @redirect = params[:redirect]
-    sp_project_id = params[:eventKeyID]
-    @strategies = {"" => ""}.merge(Activity.visible_strategies.invert)
     
-    ta = TargetArea.target_area_for_sp(sp_project_id, @project_name, region, is_secure, project_email)
-    activity = Activity.movement_for_sp(ta, strategy)
+    ta = TargetArea.target_area_for_event("SP", @event_id, @name, @region, @is_secure, @email)
+    activity = Activity.movement_for_event(ta, @period_begin, @strategy)
     @movements = [activity]
+    @strategies = {"" => ""}.merge(Activity.event_strategies.invert)
+    @type = "SP"
+    render :event
+  end
+  
+  def crs
+    @strategy = Activity.interpret_strategy_from_crs(@strategy)
+    ta = TargetArea.target_area_for_event("C2", @event_id, @name, @region, @is_secure, @email)
+    activity = Activity.movement_for_event(ta, @period_begin, @strategy)
+    @movements = [activity]
+    @strategies = {"" => ""}.merge(Activity.event_strategies.invert)
+    @type = "C2"
+    render :event
   end
 
   def update
@@ -65,7 +71,27 @@ class StatsController < ApplicationController
       date = "?date=" + @requested_week.to_s if @requested_week
       redirect_to stats_path + date.to_s, :notice => "Your stats have been saved successfully."
     else
-      render :movement
+      if @redirect
+        @strategies = {"" => ""}.merge(Activity.event_strategies.invert)
+        @movements = [@stats.first.activity]
+        render :event
+      else
+        render :movement
+      end
     end
+  end
+  
+  private
+  
+  def get_event_params
+    @name = params[:name]
+    @region = params[:region] if Region.campus_region_codes.include?(params[:region])
+    @strategy = params[:strategy]
+    @email = params[:email]
+    @event_id = params[:eventKeyID]
+    @is_secure = params[:isSecure].to_s == 'T'
+    @period_begin = Date.parse(params[:periodBegin])
+    @period_end = Date.parse(params[:periodEnd])
+    @redirect = params[:redirect]
   end
 end
