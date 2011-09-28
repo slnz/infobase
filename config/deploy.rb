@@ -1,3 +1,4 @@
+require 'hoptoad_notifier/capistrano'
 require 'capistrano_colors'
 
 # This defines a deployment "recipe" that you can feed to capistrano
@@ -113,6 +114,3 @@ desc "Automatically run cleanup"
 task :after_deploy, :roles => :app do
   deploy.cleanup
 end
-
-# require 'config/boot'
-#require 'hoptoad_notifier/capistrano'

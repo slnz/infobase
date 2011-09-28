@@ -21,6 +21,7 @@ gem 'capistrano_colors'
 # To use debugger
 # gem 'ruby-debug'
 
+gem 'hoptoad_notifier'
 gem 'activerecord-oracle_enhanced-adapter', '1.3.2' #1.4.0 doesn't work, see: https://github.com/rsim/oracle-enhanced/issues/85
 gem 'ruby-oci8'
 
