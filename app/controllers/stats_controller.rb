@@ -1,21 +1,14 @@
 class StatsController < ApplicationController
-  #TODO: Refactor some before_filters
-  
+  before_filter :get_date_params, :only => [:index, :movement]  
   before_filter :get_event_params, :only => [:sp, :crs]
   
   def index
-    @current_week = Time.now.traditional_beginning_of_week
-    @requested_week = Time.parse(params[:date]).traditional_beginning_of_week if params[:date]
-    @requested_week ||= @current_week
     @movements = current_user.activities
     render :movement
   end
   
   # TODO: Should compare with Java version to make sure I didn't miss anything...
   def movement
-    @current_week = Time.now.traditional_beginning_of_week
-    @requested_week = Time.parse(params[:date]).traditional_beginning_of_week if params[:date]
-    @requested_week ||= @current_week
     @movements = [Activity.find(params[:movement_id])]
     @movements.first.add_bookmark_for(current_user)
   end
@@ -82,6 +75,12 @@ class StatsController < ApplicationController
   end
   
   private
+  
+  def get_date_params
+    @current_week = Time.now.traditional_beginning_of_week
+    @requested_week = Time.parse(params[:date]).traditional_beginning_of_week if params[:date]
+    @requested_week ||= @current_week
+  end
   
   def get_event_params
     @name = params[:name]
