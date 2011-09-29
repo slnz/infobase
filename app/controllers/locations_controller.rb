@@ -10,7 +10,10 @@ class LocationsController < ApplicationController
   end
   
   def show
-    #TODO: Don't show non-campuses?  i.e. Summer Projects, Conferences
+    if @location.blank? || @location.type == "Event"
+      redirect_to locations_path
+      return
+    end
     @open_strategies = Activity.determine_open_strategies(@location)
     @title = "Infobase - " + @location.name
   end
@@ -149,14 +152,20 @@ class LocationsController < ApplicationController
     end
     
     def get_location
-      @location = TargetArea.find(params[:id])
+      begin
+        @location = TargetArea.find(params[:id])
+      rescue
+        @location = nil
+      end
     end
     
     def populate_breadcrumbs
-      @region = @location.region
-      @state = @location.state unless @location.country != "USA"
-      @country = @location.country unless @location.country == "USA" || @location.country.blank?
-      @city = @location.city
+      if @location
+        @region = @location.region
+        @state = @location.state unless @location.country != "USA"
+        @country = @location.country unless @location.country == "USA" || @location.country.blank?
+        @city = @location.city
+      end
     end
     
     def perform_search
