@@ -7,7 +7,6 @@ class StatsController < ApplicationController
     render :movement
   end
   
-  # TODO: Should compare with Java version to make sure I didn't miss anything...
   def movement
     @movements = [Activity.find(params[:movement_id])]
     @movements.first.add_bookmark_for(current_user)
