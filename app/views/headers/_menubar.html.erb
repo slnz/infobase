@@ -29,7 +29,7 @@
         <li>
           <%= link_to "Teams", teams_path, :class => (@submenu == "teams" ? "active" : "") %>
         </li>
-      <% elsif @menubar == "reports" %> <!-- TODO -->
+      <% elsif @menubar == "reports" %>
         <li class="report">&nbsp;</li>
         <li>
           <%= link_to "Success Criteria", create_report_path, :class => (@submenu == "reports" ? "active" : "") %>

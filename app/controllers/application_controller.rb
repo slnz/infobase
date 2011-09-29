@@ -59,4 +59,14 @@ class ApplicationController < ActionController::Base
     @regions = Region.campus_regions
     @title = "Infobase - Advanced Search"
   end
+
+  def last_august
+    d = Date.today
+    year = d.year
+    if d.month <= 8
+      year = d.year - 1
+    end
+    result = Date.parse("#{year}-08-01")
+    result
+  end
 end
