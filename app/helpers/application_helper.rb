@@ -27,4 +27,12 @@ module ApplicationHelper
       ""
     end
   end
+  
+  def activity_size(activity)
+    result = "N/A"
+    if activity.is_active? && activity.statistics.last 
+      result = activity.statistics.last.invldStudents
+    end
+    result
+  end
 end
