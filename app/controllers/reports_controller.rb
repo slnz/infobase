@@ -9,7 +9,7 @@ class ReportsController < ApplicationController
   
   def do_report
     from_date = Date.civil(params["from(1i)"].to_i, params["from(2i)"].to_i, params["from(3i)"].to_i)
-    to_date = Date.civil(params["to(1i)"].to_i, params["to(2i)"].to_i, params["to(3i)"].to_i)
+    to_date = Date.civil(params["to(1i)"].to_i, params["to(2i)"].to_i, params["to(3i)"].to_i) + 1.month - 1.day
     redirect_to national_report_path({:from => from_date, :to => to_date, :strategies => params[:strategies]})
   end
   

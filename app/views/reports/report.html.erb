@@ -5,7 +5,8 @@
     <p class="report_top">
       <br/>
       <b><%= @report_type %> Report</b><br/>
-      For dates: <%= display_date(@from_date) %> up to but not including <%= display_date(@to_date) %><br><!-- TODO: change to *real* dates -->
+      For dates: <%= display_date(@from_date) %> up to and including <%= display_date(@to_date) %><br/>
+      (may overlap to some days in the previous month and the next month slightly depending on how the beginning and end of each week falls)<br/><br/>
       
       <% strategies = "" %>
       <% @strategies_list.each do |strategy| %>
