@@ -43,6 +43,16 @@ function check(){
   document.getElementById('checkAllButton').src=(checked ? '<%= asset_path 'unCheckAll.gif' %>' : '<%= asset_path 'checkAll.gif' %>');
 }
 
+function checkAll(){
+  table=document.getElementById('boxes');
+  inputs = table.getElementsByTagName('input');
+  for (i=0;i<inputs.length;i++){
+    inputs[i].checked=true;
+  }
+  checked=true;
+  document.getElementById('checkAllButton').src='<%= asset_path 'unCheckAll.gif' %>';
+}
+
 function setSortOrder(type) {
   var tdWidth="200px";
   if(type=="movement") {

@@ -3,6 +3,10 @@ class ReportsController < ApplicationController
   before_filter :check_params, :except => [:create_report, :do_report]
   before_filter :get_dates_strategies, :except => [:create_report, :do_report]
   
+  def create_report
+    @strategies = Activity.event_strategies
+  end
+  
   def do_report
     from_date = Date.civil(params["from(1i)"].to_i, params["from(2i)"].to_i, params["from(3i)"].to_i)
     to_date = Date.civil(params["to(1i)"].to_i, params["to(2i)"].to_i, params["to(3i)"].to_i)
