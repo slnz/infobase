@@ -34,7 +34,7 @@
     <% @rows.each do |row| %>
       <% case @type %>
       <% when "movement" %>
-        <%= render :partial => 'report_row_movement', :locals => {:type => @type, :row => row} %>
+        <%= render :partial => 'report_row_movement', :locals => {:type => @type, :row => row, :date => @date} %>
       <% when "location" %>
         <%= render :partial => 'report_row_location', :locals => {:type => @type, :row => row} %>
       <% else %>

@@ -3,7 +3,7 @@ class MovementReportsController < ApplicationController
   before_filter :check_params, :except => [:create_report, :do_report]
   
   def create_report
-    @regions = {"All (will take a minute or two)" => "National"}.merge(Region.standard_regions_hash)
+    @regions = {"All" => "National"}.merge(Region.standard_regions_hash)
     @strategies = Activity.visible_strategies
   end
 
