@@ -121,8 +121,8 @@
             <td><%= link_to activity.target_area.name, location_path(activity.target_area) %></td>
             <td><%= Activity.strategies[activity.strategy] %></td>
             <td><%= Activity.statuses[activity.status] %></td>
-            <td><!-- #TODO: size --></td>
-            <td><!-- #TODO: enter stats --></td>
+            <td><%= activity_size(activity) %></td>
+            <td><%= link_to "Enter Stats", location_movement_path(activity.target_area, activity) + "/stats" %></td>
           </tr>
         <% end %>
       </tbody>
