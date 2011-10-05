@@ -46,7 +46,7 @@
       <%= select_tag :type, options_for_select({"Find a Person:" => "people", "Find a Location:" => "locations", "Find a Team:" => "teams"}, @submenu) %>
       <%= text_field_tag "search[namecity]" %>
       <%= submit_tag "Search" %>
+      <%= link_to "Advanced Search", search_people_path, :class => "open_close" %>
     <% end %>
-    <%= link_to "Advanced Search", search_people_path, :class => "open_close" %>
   </div>
 </div>
