@@ -15,43 +15,43 @@
   }
 </script>
 
-<div id="breadcrumb">
-  <%= link_to "Enter Digital Stats", digital_stats_path %>
-</div>
-
-<h1>Enter Stats for <%= display_date(@requested_week) %> to <%= display_date(@requested_week + 6.days) %></h1>
+<h1>Enter Stats for <%= @year.to_s + " " if @year %><%= @name %></h1>
 <div class="enter_stat" id="enter_stat">
-  <!-- Dates on top -->
-  <div style="float:right;">
-    <ul id="tab_wrapper">
-      <% 14.downto(0) do |week_ago| %>
-        <% sunday = @current_week - week_ago.weeks %>
-        <li class="weekTab" style="<%= sunday == @requested_week ? "font-weight:bold;" : "" %><%= first_week(sunday) ? "background:#D3D3D3;" : "" %>">
-          <%= link_to (stats_path + "?date=" + display_date_dash(sunday)) do %>
-            <%= display_date_short(sunday) %><br/>to<br/><%= display_date_short(sunday + 6.days) %>
-          <% end %>
-        </li>
-      <% end %>
-    </ul>
-  </div>
-  
   <div style="clear:both"></div>
   
-  <%= form_tag stats_path, :method => :put, :name => "fast_ll_stat", :id => "fast_ll_stat" do %>
-    <%= hidden_field_tag "date", @requested_week %>
+  <%= form_tag create_digital_stats_path, :method => :put, :name => "fast_ll_stat", :id => "fast_ll_stat" do %>
+    <%= hidden_field_tag 'redirect', @redirect %>
+    
+    <div class="field">
+      <label>Event</label>
+      <%= select_tag 'event', options_for_select(@events) %>
+    </div>
+    
+    <div class="field">
+      <label>Name of One-Time Event</label>
+      <%= text_field_tag 'name' %>
+    </div>
+    
+    <div class="field">
+      <label>Date of Stats</label>
+      <%= date_select nil, 'date' %>
+    </div>
+    
+    <div class="field">
+      <label>Strategy these stats will be associated with for reports</label>
+      <%= select_tag 'strategy', options_for_select(@strategies) %>
+    </div>
+    
     <% javascript_counter = 0 %>
     <ul class="results">
       <% if @stats %> <!-- There were errors from saving -->
         <% @stats.each do |stat| %>
-          <%= render :partial => "stat_entry", :locals => {:stat => stat, :current_week => @current_week, :counter => javascript_counter} %>
+          <%= render :partial => "stat_entry", :locals => {:stat => stat, :year => @year, :counter => javascript_counter} %>
           <% javascript_counter += 1 %>
         <% end %>
       <% else %>
-        <% @movements.each do |movement| %>
-          <% stat = movement.get_stat_for(@requested_week) %>
-          <%= render :partial => "stat_entry", :locals => {:stat => stat, :current_week => @current_week, :counter => javascript_counter} %>
-          <% javascript_counter += 1 %>
-        <% end %>
+        <%= render :partial => "stat_entry", :locals => {:stat => @stat, :year => @year, :counter => javascript_counter} %>
+        <% javascript_counter += 1 %>
       <% end %>
     </ul>
     
@@ -87,7 +87,7 @@
   <div style="display:block" id="group_evangelism_info_box">
     
     <b>What was the total number of people who heard the gospel through group evangelism? 
-    <br/>(For instance: team meetings; evangelistic presentations; etc.)
+    <br/>(For instance: team meetings; evangelistic presentations; etc.)</b>
     
   </div>
   
@@ -96,7 +96,7 @@
     
     <b>How many people have been exposed to significant gospel content with opportunities 
     to respond in the last month through media exposures? 
-    <br/>(For instance: myeverystudent.com/ES.com, FSKs; Bible, book or magazine giveaways; etc.)</b>
+    <br>(For instance: myeverystudent.com/ES.com, FSKs; Bible, book or magazine giveaways; etc.)</b>
     
   </div>
   <h5 style="margin:0px;margin-top:10px;">Personal Evangelism Decisions</h5>
@@ -120,8 +120,13 @@
   <h5 style="margin:0px;margin-top:10px;">Involved Students</h5>
   <div style="display:block" id="involved_students_info_box">
     
-    <b>How many students are regularly involved in Campus Crusade for Christ?<br/>
-    (Should be updated quarterly).</b>
+    <b>How many students attended the event?</b>
+    
+  </div>
+  <h5 style="margin:0px;margin-top:10px;">Dollars Raised</h5>
+  <div style="display:block" id="dollars_raised_info_box">
+    
+    <b>How much in whole U.S. dollars was donated by attendees (not including conference fees and gear)?</b>
     
   </div>
   <h5 style="margin:0px;margin-top:10px;">Student Leaders</h5>

@@ -1,5 +1,7 @@
 <%= error_messages_for stat %><!-- TODO: Make more user-friendly messages -->
-<%= hidden_field_tag "stat[" + unique_name(stat) + "[fk_Activity]]", stat.activity.ActivityID %>
+<% if stat.activity %>
+  <%= hidden_field_tag "stat[" + unique_name(stat) + "[fk_Activity]]", stat.activity.ActivityID %>
+<% end %>
 <%= hidden_field_tag "stat[" + unique_name(stat) + "[periodBegin]]", stat.periodBegin %>
 <%= hidden_field_tag "stat[" + unique_name(stat) + "[periodEnd]]", stat.periodEnd %>
 <%= hidden_field_tag "stat[" + unique_name(stat) + "[peopleGroup]]", stat.peopleGroup %>

@@ -5,6 +5,10 @@ module StatsHelper
   end
   
   def unique_name(stat)
-    stat.activity.ActivityID.to_s + stat.peopleGroup.to_s
+    result = "stat"
+    if stat.activity
+      result = stat.activity.ActivityID.to_s + stat.peopleGroup.to_s
+    end
+    result
   end
 end

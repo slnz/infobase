@@ -72,7 +72,9 @@ Infobase::Application.routes.draw do
       get :movement
       get :sp
       get :crs
+      get :digital
       put :update
+      put :create_digital
     end
   end
   match 'locations/:location_id/movements/:movement_id/stats' => 'stats#movement'

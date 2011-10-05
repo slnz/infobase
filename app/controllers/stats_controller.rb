@@ -33,6 +33,12 @@ class StatsController < ApplicationController
     @type = "C2"
     render :event
   end
+  
+  def digital
+    @strategies = {"" => ""}.merge(Activity.event_strategies.invert)
+    @events = {}
+    @stat = Statistic.new
+  end
 
   def update
     @requested_week = Time.parse(params[:date]).traditional_beginning_of_week if params[:date]
