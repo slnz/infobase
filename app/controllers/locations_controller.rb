@@ -112,8 +112,8 @@ class LocationsController < ApplicationController
     if params[:namecity].blank? && params[:name].blank? && params[:city].blank? && params[:state].blank? && params[:country].blank? && params[:regions].blank? && params[:strategies].blank?
       redirect_to search_locations_path, :notice => "You must fill in at least one search option."
     end
-    if (!params[:name].blank? && params[:name].size < 3) || (!params[:namecity].blank? && params[:namecity].size < 3)
-      redirect_to search_locations_path, :notice => "You must fill in at least three letters of the name."
+    if (!params[:name].blank? && params[:name].size < 2) || (!params[:namecity].blank? && params[:namecity].size < 2)
+      redirect_to search_locations_path, :notice => "You must fill in at least two letters of the name."
     end
     
     @locations = TargetArea.where("isClosed is null or isClosed <> 'T'").where("eventType is null or eventType <=> ''").includes(:activities).order(:name)
