@@ -2,6 +2,10 @@ class HomeController < ApplicationController
   before_filter :setup
   before_filter :search_options, :only => :index
   
+  def index
+    @title = "Infobase"
+  end
+  
   def search
     type = params[:type]
     params[:search][:regions] = params[:regions]
