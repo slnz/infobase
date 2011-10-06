@@ -8,11 +8,19 @@ module ApplicationHelper
   end
   
   def display_date(date)
-    display_date_short(date) + "/" + date.year.to_s
+    if date
+      display_date_short(date) + "/" + date.year.to_s
+    else
+      ""
+    end
   end
   
   def display_date_dash(date)
-    date.year.to_s + "-" + date.month.to_s + "-" + date.day.to_s
+    if date
+      date.year.to_s + "-" + date.month.to_s + "-" + date.day.to_s
+    else
+      ""
+    end
   end
   
   def random_banner_image
