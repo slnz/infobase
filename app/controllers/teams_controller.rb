@@ -87,7 +87,7 @@ class TeamsController < ApplicationController
       last = query.last
       @results = Person.not_secure.includes(:current_address).where(Address.table_name + ".email is not null").
         order(:lastName).order(:firstName)
-      if query.size > 1 #search both last AND first names
+      if query.size > 1 #search both last AND first names, TODO: refactor into Person class
         @results = @results.where(Person.table_name + ".lastName like ?", "#{last}%")
         @results = @results.where(Person.table_name + ".firstName like ? or " + Person.table_name + ".preferredName like ?", "#{first}%", "#{first}%")
       else

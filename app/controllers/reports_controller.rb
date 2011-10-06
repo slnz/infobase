@@ -54,7 +54,10 @@ class ReportsController < ApplicationController
     if params[:from].blank? || params[:to].blank? || params[:strategies].blank?
       redirect_to create_report_path, :notice => "You must set the dates for the report and have at least one strategy checked."
       return false;
-    end
+    elsif params[:from] > params[:to]
+      redirect_to create_report_path, :notice => "From date cannot be after To date."
+      return false;
+   end
   end
   
   def get_dates_strategies
