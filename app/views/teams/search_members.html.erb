@@ -1,8 +1,8 @@
 <div class="associate">
   <h2>Add a Team Member for <%= @team.name %></h2>
   <%= form_tag search_members_results_team_path(@team) do %>
-    Search by <i>Last Name</i>.  If the person you wish to add is not in the list below, check the spelling of his or her last name and try again.<br/>
-    <%= text_field_tag :last_name, @last_name %>
+    Search by name.  If the person you wish to add is not in the list below, check the spelling of his or her name and try again.<br/>
+    <%= text_field_tag :name, @name %>
     <%= submit_tag "Search" %>
   <% end %>
   <br/>

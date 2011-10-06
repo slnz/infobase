@@ -80,11 +80,19 @@ class TeamsController < ApplicationController
   end
   
   def search_members_results
-    @last_name = params[:last_name]
-    if !@last_name.blank? && @last_name.size > 1
-      @results = Person.not_secure.where("lastName like ?", @last_name + '%').
-        includes(:current_address).where(Address.table_name + ".email is not null").
+    @name = params[:name]
+    if !@name.blank? && @name.size > 1
+      query = @name.strip.split(' ')
+      first = query.first
+      last = query.last
+      @results = Person.not_secure.includes(:current_address).where(Address.table_name + ".email is not null").
         order(:lastName).order(:firstName)
+      if query.size > 1 #search both last AND first names
+        @results = @results.where(Person.table_name + ".lastName like ?", "#{last}%")
+        @results = @results.where(Person.table_name + ".firstName like ? or " + Person.table_name + ".preferredName like ?", "#{first}%", "#{first}%")
+      else
+        @results = @results.where(Person.table_name + ".lastName like ? or " + Person.table_name + ".firstName like ? or " + Person.table_name + ".preferredName like ?", "#{last}%", "#{first}%", "#{first}%")
+      end
       @results = @results - @team.people
       render :search_members
     else
