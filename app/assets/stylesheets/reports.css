@@ -3,6 +3,10 @@ div#stat_report {
 	overflow:hidden;
 }
 
+td.muster_cap {
+  font-weight: bold;
+}
+
 td.report_light,td.report_darker,td.label,td.split {
 	float:left;
 	margin:0px;
