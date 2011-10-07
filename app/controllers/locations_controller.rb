@@ -72,8 +72,8 @@ class LocationsController < ApplicationController
     if params[:all]
       perform_search
     else
-      @states = TargetArea.select("distinct state").where("region = ?", @region).where("state is not null and state != ''").order(:state)
-      @countries = TargetArea.select("distinct country").where("region = ?", @region).where("country is not null and country != ''").order(:country)
+      @states = TargetArea.open_school.select("distinct state").where("region = ?", @region).where("state is not null and state != ''").order(:state)
+      @countries = TargetArea.open_school.select("distinct country").where("region = ?", @region).where("country is not null and country != ''").order(:country)
       @title = "Infobase - Locations in " + Region.full_name(@region)
     end
   end
@@ -82,7 +82,7 @@ class LocationsController < ApplicationController
     if params[:all]
       perform_search
     else
-      @cities = TargetArea.select("distinct city").where("region = ?", @region).where("state = ?", @state).where("city is not null and city != ''").order(:city)
+      @cities = TargetArea.open_school.select("distinct city").where("region = ?", @region).where("state = ?", @state).where("city is not null and city != ''").order(:city)
       @title = "Infobase - Locations in " + State.states[@state]
     end
   end
@@ -93,7 +93,7 @@ class LocationsController < ApplicationController
     else
       @region = params[:region]
       @country = params[:country]
-      @cities = TargetArea.select("distinct city").where("region = ?", @region).where("country = ?", @country).where("city is not null and city != ''").order(:city)
+      @cities = TargetArea.open_school.select("distinct city").where("region = ?", @region).where("country = ?", @country).where("city is not null and city != ''").order(:city)
       @title = "Infobase - Locations in " + Country.full_name(@country)
     end
   end
@@ -116,7 +116,7 @@ class LocationsController < ApplicationController
       redirect_to search_locations_path, :notice => "You must fill in at least two letters of the name."
     end
     
-    @locations = TargetArea.where("isClosed is null or isClosed <> 'T'").where("eventType is null or eventType <=> ''").includes(:activities).order(:name)
+    @locations = TargetArea.open_school.includes(:activities).order(:name)
     if !params[:namecity].blank?
       @locations = @locations.where("name like ? OR city like ? OR infoUrl like ?", "%#{params[:namecity]}%", "#{params[:namecity]}%", "%#{params[:namecity]}%")
     end
