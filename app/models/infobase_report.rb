@@ -62,7 +62,7 @@ class InfobaseReport
         group(Statistic.table_name + ".fk_Activity").having("max(" + Statistic.table_name + ".periodEnd)")
       last_stats = sum_semester_stats(stats)
       
-      if team.is_active? || !stats.empty?
+      if (team.is_active? && team.is_responsible_for_strategies?(strategies)) || !stats.empty?
         row_header = team.name.to_s
         row_header += "<font color='red'> - Inactive Team</font>" unless team.is_active?
         rows << InfobaseReportRow.new(row_header.html_safe, stats.first, last_stats, team.id)
