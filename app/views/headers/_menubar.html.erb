@@ -29,6 +29,14 @@
         <li>
           <%= link_to "Teams", teams_path, :class => (@submenu == "teams" ? "active" : "") %>
         </li>
+      <% elsif @menubar == "stats" %>
+        <li class="report">&nbsp;</li>
+        <li>
+          <%= link_to "Campus Stats", stats_path, :class => (@submenu == "stats" ? "active" : "") %>
+        </li>
+        <li>
+          <%= link_to "Special Events", digital_stats_path, :class => (@submenu == "events" ? "active" : "") %>
+        </li>
       <% elsif @menubar == "reports" %>
         <li class="report">&nbsp;</li>
         <li>

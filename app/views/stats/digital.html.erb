@@ -15,32 +15,36 @@
   }
 </script>
 
-<h1>Enter Stats for <%= @year.to_s + " " if @year %><%= @name %></h1>
+<h1>Enter Stats for Special Event</h1>
+<h2>Important:<br/>Do NOT enter stats here if they are tied to a particular ministry location, summer project, or conference.</h2>
 <div class="enter_stat" id="enter_stat">
   <div style="clear:both"></div>
   
   <%= form_tag create_digital_stats_path, :method => :put, :name => "fast_ll_stat", :id => "fast_ll_stat" do %>
     <%= hidden_field_tag 'redirect', @redirect %>
     
-    <div class="field">
-      <label>Event</label>
-      <%= select_tag 'event', options_for_select(@events) %>
-    </div>
+    <fieldset id="fieldset_ministry">
+      <legend>Event Name</legend>
+      <label>Ongoing Event:</label>
+      <%= select_tag 'event', options_for_select(@events, @event) %>
+      
+      <h4 class="thin">OR</h4>
+      
+      <label>One-Time Event:</label>
+      <%= text_field_tag 'name', @name %>
+    </fieldset>
     
-    <div class="field">
-      <label>Name of One-Time Event</label>
-      <%= text_field_tag 'name' %>
-    </div>
-    
-    <div class="field">
-      <label>Date of Stats</label>
-      <%= date_select nil, 'date' %>
-    </div>
-    
-    <div class="field">
-      <label>Strategy these stats will be associated with for reports</label>
-      <%= select_tag 'strategy', options_for_select(@strategies) %>
-    </div>
+    <div style="clear:both"></div>
+    <br/>
+
+    <label>Date of Stats:</label>
+    <%= date_select nil, 'date', :default => @date %><br/>
+
+    <label>Region (if applicable):</label>
+    <%= select_tag 'region', options_for_select(@regions, @region) %><br/>
+
+    <label>Strategy these stats will be associated with for reports:</label>
+    <%= select_tag 'strategy', options_for_select(@strategies, @strategy), :id => "str" %><br/>
     
     <% javascript_counter = 0 %>
     <ul class="results">

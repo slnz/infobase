@@ -2,7 +2,7 @@
 <b>Use the radio buttons to change the status below:</b><br/>
 <b>This Ministry Location is a(n)...</b><br/>
 <% @statuses.each_key do |status| %>
-  <%= f.radio_button :status, status %> <%= Activity.statuses[status].upcase %> <%= Activity.strategies[@movement.strategy] %> campus.<br/>
+  <%= f.radio_button :status, status %> <%= f.label :status, Activity.statuses[status].to_s.upcase + " " + Activity.strategies[@movement.strategy].to_s + " campus." %><br/>
 <% end%>
 <div id="definition">
   Move your mouse pointer over a<br/>

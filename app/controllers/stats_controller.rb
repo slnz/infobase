@@ -1,4 +1,5 @@
 class StatsController < ApplicationController
+  before_filter :setup
   before_filter :get_date_params, :only => [:index, :movement]  
   before_filter :get_event_params, :only => [:sp, :crs]
   
@@ -13,6 +14,7 @@ class StatsController < ApplicationController
   end
   
   def sp
+    @submenu = "events"
     @year = params[:year]
     @year ||= @period_begin.year # if year didn't come through params
     
@@ -25,6 +27,7 @@ class StatsController < ApplicationController
   end
   
   def crs
+    @submenu = "events"
     @strategy = Activity.interpret_strategy_from_crs(@strategy)
     ta = TargetArea.target_area_for_event("C2", @event_id, @name, @region, @is_secure, @email)
     activity = Activity.movement_for_event(ta, @period_begin, @strategy)
@@ -35,9 +38,53 @@ class StatsController < ApplicationController
   end
   
   def digital
+    @submenu = "events"
     @strategies = {"" => ""}.merge(Activity.event_strategies.invert)
-    @events = {}
+    @events = {"Other" => ""}.merge(TargetArea.special_events_hash)
+    @regions = {"" => ""}.merge(Region.standard_regions_hash)
     @stat = Statistic.new
+  end
+  
+  def create_digital
+    if check_digital_params
+      ta = nil
+      if !@event.blank?
+        ta = TargetArea.find(@event)
+      end
+      @region = params[:region]
+      unless ta
+        ta = TargetArea.where("type = 'Event'").where("eventType = 'DO'").where("name = ?", @name).first
+        unless ta
+          ta = TargetArea.create!(:name => @name, :region => @region, :type => "Event", :eventType => "DO", :isSecure => "F")
+        end
+      end
+      activity = ta.all_activities.first
+      unless activity
+        if @strategy.blank?
+          activity = Activity.movement_for_event(ta, @date)
+        else
+          activity = Activity.movement_for_event(ta, @date, @strategy)
+        end
+      end
+      @stats = []
+      stats = params[:stat][:stat]
+      stat = activity.get_event_stat_for(@date)
+      stat.add_stats(stats)
+      stat.updated_by = @username
+      stat.save
+      if !stat.errors.empty?
+        @stats << stat
+      end
+      if @stats.empty?
+        redirect_to digital_stats_path, :notice => "Your stats have been saved successfully."
+      else
+        digital
+        render :digital
+      end
+    else # Bad params
+      digital
+      render :digital
+    end
   end
 
   def update
@@ -50,8 +97,10 @@ class StatsController < ApplicationController
       stats = params[:stat][key]
       @movement = Activity.find(stats[:fk_Activity])
       @movement.update_attribute(:strategy, @strategy) if @strategy
-      if stats[:sp_year]
+      if !stats[:sp_year].blank?
         stat = @movement.get_sp_stat_for(stats[:sp_year], Date.parse(stats[:periodBegin]), Date.parse(stats[:periodEnd]), stats[:peopleGroup])
+      elsif @redirect
+        stat = @movement.get_crs_stat_for(Date.parse(stats[:periodBegin]), Date.parse(stats[:periodEnd]), stats[:peopleGroup])
       else
         stat = @movement.get_stat_for(Date.parse(stats[:periodBegin]), stats[:peopleGroup])
       end
@@ -81,6 +130,11 @@ class StatsController < ApplicationController
   
   private
   
+  def setup
+    @menubar = "stats"
+    @submenu = "stats"
+  end
+  
   def get_date_params
     @current_week = Time.now.traditional_beginning_of_week
     @requested_week = Time.parse(params[:date]).traditional_beginning_of_week if params[:date]
@@ -97,5 +151,39 @@ class StatsController < ApplicationController
     @period_begin = Date.parse(params[:periodBegin])
     @period_end = Date.parse(params[:periodEnd])
     @redirect = params[:redirect]
+  end
+  
+  def check_digital_params
+    result = true
+    @event = params[:event]
+    @name = params[:name]
+    @strategy = params[:strategy]
+    @date = Date.civil(params["date(1i)"].to_i, params["date(2i)"].to_i, params["date(3i)"].to_i)
+    @username = current_user.username
+    if @event.blank? && @name.blank?
+      flash.now[:notice] = "You must select an event or type in a name."
+      result = false
+    end
+    if result # check to make sure stats have been entered
+      result = false
+      stat = params[:stat][:stat]
+      stat.each_key do |key|
+        if !stat[key].blank?
+          result = true
+        end
+      end
+      unless result
+        flash.now[:notice] = "You must enter at least one stat."
+      end
+    end
+    if result # check to make sure stats are valid
+      stats = params[:stat][:stat]
+      stat = Statistic.new(stat)
+      if !stat.valid?
+        @stats = [stat]
+        result = false
+      end
+    end
+    result
   end
 end
