@@ -75,6 +75,7 @@ Infobase::Application.routes.draw do
       get :digital
       put :update
       put :create_digital
+      put :confirm_digital
     end
   end
   match 'locations/:location_id/movements/:movement_id/stats' => 'stats#movement'

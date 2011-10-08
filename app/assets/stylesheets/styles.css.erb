@@ -141,6 +141,10 @@ a.logo {
   list-style-type: none;
 }
 
+#flash_notice, #flash_error {
+  color: red;
+  font-size: 14px;
+}
 
 /* Main content column styles */
 
@@ -352,7 +356,7 @@ li.selected {
   list-style-type: none;
 }
 
-div.aschool h2 {
+div.aschool, div.aschool_thin h2 {
   font-size: 14px;
 }
 
@@ -360,7 +364,7 @@ a.edittext {
   font-size: 10px;
 }
 
-.aschool .thecolumn {
+.aschool .thecolumn, .aschool_thin .thecolumn {
   float: left;
   margin-right: 20px;
 }
@@ -396,7 +400,13 @@ div.aschool {
   padding: 10px;
 }
 
-div.aschool .thecolumn {
+div.aschool_thin {
+  border-top: 1px solid silver;
+  height: 100px;
+  padding: 10px;
+}
+
+div.aschool .thecolumn, div.aschool_thin .thecolumn {
   width: 31%;
 }
 
@@ -529,6 +539,6 @@ h3.indented {
   clear: both;
 }
 
-div.aschool:hover {
+div.aschool:hover, div.aschool_thin:hover {
 background-color:#B5B5B5;
 }

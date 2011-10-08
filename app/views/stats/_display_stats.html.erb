@@ -1,0 +1,60 @@
+<div class="schoolentry">
+  <div class="aschool_thin">
+    <div class="thecolumn">
+      <div class="field">
+        <label>Student Attendees</label>
+        <%= stat["invldStudents"] || 0 %>
+      </div>
+      
+      <div class="field">
+        <label>Dollars Raised</label>
+        <%= stat["dollars_raised"] || 0 %>
+      </div>
+    </div>
+
+    <div class="thecolumn">
+      <div class="field">
+        <label>Personal Evangelism</label>
+        <%= stat["evangelisticOneOnOne"] || 0 %>
+      </div>
+      
+      <div class="field">
+        <label>Group Evangelism</label>
+        <%= stat["evangelisticGroup"] || 0 %>
+      </div>
+      
+      <div class="field">
+        <label>Media Exposures</label>
+        <%= stat["exposuresViaMedia"] || 0 %>
+      </div>
+      
+      <div class="field">
+        <label>Holy Spirit Presentations</label>
+        <%= stat["holySpiritConversations"] || 0 %>
+      </div>
+    </div>
+    
+    <div class="thecolumn">
+      <div class="field">
+        <label>Personal Evangelism Decisions</label>
+        <%= stat["decisionsHelpedByOneOnOne"] || 0 %>
+      </div>
+      
+      <div class="field">
+        <label>Group Evangelism Decisions</label>
+        <%= stat["decisionsHelpedByGroup"] || 0 %>
+      </div>
+      
+      <div class="field">
+        <label>Media Exposures Decisions</label>
+        <%= stat["decisionsHelpedByMedia"] || 0 %>
+      </div>
+    </div>
+
+    <div style="clear:both"></div>
+    <div class="stats_info_surround">
+      <div id="<%= unique_name(stat) %>_info_box" class="stats_info_box" >
+      </div>
+    </div>
+  </div>
+</div>

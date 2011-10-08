@@ -6,7 +6,7 @@ module StatsHelper
   
   def unique_name(stat)
     result = "stat"
-    if stat.activity
+    if !stat.kind_of?(Hash) && stat.activity
       result = stat.activity.ActivityID.to_s + stat.peopleGroup.to_s
     end
     result

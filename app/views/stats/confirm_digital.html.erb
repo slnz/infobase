@@ -20,54 +20,28 @@
 <div class="enter_stat" id="enter_stat">
   <div style="clear:both"></div>
   
-  <%= form_tag create_digital_stats_path, :method => :put, :name => "fast_ll_stat", :id => "fast_ll_stat" do %>
+  <div id="flash_notice">Warning: There are already stats in the database for the event and date you specified.</div>
+  <%= form_tag confirm_digital_stats_path, :method => :put, :name => "fast_ll_stat", :id => "fast_ll_stat" do %>
     <%= hidden_field_tag 'redirect', @redirect %>
+    <%= hidden_field_tag 'old_stat', @old_stat.id %>
+    <%= hidden_field_tag 'periodBegin', @from_date %>
+    <%= hidden_field_tag 'periodEnd', @to_date %>
     
-    <fieldset id="fieldset_ministry">
-      <legend>Event Name</legend>
-      <label>Ongoing Event:</label>
-      <%= select_tag 'event', options_for_select(@events, @event) %>
-      
-      <h4 class="thin">OR</h4>
-      
-      <label>One-Time Event Type:</label>
-      <%= select_tag 'type', options_for_select(@types, @type) %>
-      <br/>
-      <label>One-Time Event Name:</label>
-      <%= text_field_tag 'name', @name %>
-    </fieldset>
+    <%= render :partial => "display_stats", :locals => {:stat => @old_stat}%>
     
-    <div style="clear:both"></div>
     <br/>
-
-    <label>Start Date:</label>
-    <%= date_select nil, 'from_date', :default => @from_date %><br/>
-    
-    <label>End Date:</label>
-    <%= date_select nil, 'to_date', :default => @to_date %><br/>
-
-    <label>Region (if applicable):</label>
-    <%= select_tag 'region', options_for_select(@regions, @region) %><br/>
-
-    <label>Strategy these stats will be associated with for reports:</label>
-    <%= select_tag 'strategy', options_for_select(@strategies, @strategy), :id => "str" %><br/>
+    <div id="flash_notice">Do you want to *add* your new stats (below) to the stats already in the database (above)?</div>
+    <div id="flash_notice">If you have any questions or concerns, please email <%= mail_to "help@campuscrusadeforchrist.com" %></div>
     
     <% javascript_counter = 0 %>
     <ul class="results">
-      <% if @stats %> <!-- There were errors from saving -->
-        <% @stats.each do |stat| %>
-          <%= render :partial => "stat_entry", :locals => {:stat => stat, :year => @year, :counter => javascript_counter} %>
-          <% javascript_counter += 1 %>
-        <% end %>
-      <% else %>
-        <%= render :partial => "stat_entry", :locals => {:stat => @stat, :year => @year, :counter => javascript_counter} %>
-        <% javascript_counter += 1 %>
-      <% end %>
+      <%= render :partial => "stat_entry", :locals => {:stat => @new_stat, :year => @year, :counter => javascript_counter} %>
+      <% javascript_counter += 1 %>
     </ul>
     
     <center>
       <div class="stats_submit_surround">
-        <%= image_submit_tag "submit_bon.gif" %>
+        <%= submit_tag "Add Stats" %>
       </div>
     </center>
   <% end %>

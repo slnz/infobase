@@ -40,35 +40,26 @@ class StatsController < ApplicationController
   def digital
     @submenu = "events"
     @strategies = {"" => ""}.merge(Activity.event_strategies.invert)
-    @events = {"Other" => ""}.merge(TargetArea.special_events_hash)
+    @strategy ||= "EV" #default strategy
+    @events = {"" => ""}.merge(TargetArea.special_events_hash)
+    @types = {"Conference (that isn't in CRS)" => TargetArea.other_conference, "Website" => TargetArea.website, "Other" => TargetArea.other}
     @regions = {"" => ""}.merge(Region.standard_regions_hash)
     @stat = Statistic.new
   end
   
   def create_digital
     if check_digital_params
-      ta = nil
-      if !@event.blank?
-        ta = TargetArea.find(@event)
-      end
-      @region = params[:region]
-      unless ta
-        ta = TargetArea.where("type = 'Event'").where("eventType = 'DO'").where("name = ?", @name).first
-        unless ta
-          ta = TargetArea.create!(:name => @name, :region => @region, :type => "Event", :eventType => "DO", :isSecure => "F")
-        end
-      end
-      activity = ta.all_activities.first
-      unless activity
-        if @strategy.blank?
-          activity = Activity.movement_for_event(ta, @date)
-        else
-          activity = Activity.movement_for_event(ta, @date, @strategy)
-        end
-      end
+      ta = TargetArea.target_area_for_event(@type, nil, @name, @region, "F", nil, @event)
+      activity = ta.get_event_activity(@from_date, @strategy)
       @stats = []
       stats = params[:stat][:stat]
-      stat = activity.get_event_stat_for(@date)
+      stat = activity.get_event_stat_for(@from_date, @to_date)
+      if stat.id # stat record already exists
+        @old_stat = stat
+        @new_stat = stats
+        render :confirm_digital
+        return
+      end
       stat.add_stats(stats)
       stat.updated_by = @username
       stat.save
@@ -82,6 +73,31 @@ class StatsController < ApplicationController
         render :digital
       end
     else # Bad params
+      digital
+      render :digital
+    end
+  end
+  
+  def confirm_digital
+    old_stat_id = params[:old_stat]
+    old_stat = Statistic.find(old_stat_id)
+    new_stat = params[:stat][:stat]
+    old_stat.add_stats(new_stat)
+    if old_stat.periodBegin > Date.parse(params["periodBegin"])
+      old_stat.periodBegin = Date.parse(params["periodBegin"])
+    end
+    if old_stat.periodEnd < Date.parse(params["periodEnd"])
+      old_stat.periodEnd = Date.parse(params["periodEnd"])
+    end
+    old_stat.updated_by = current_user.username
+    old_stat.save
+    @stats = []
+    if !old_stat.errors.empty?
+      @stats << old_stat
+    end
+    if @stats.empty?
+      redirect_to digital_stats_path, :notice => "Your stats have been saved successfully."
+    else
       digital
       render :digital
     end
@@ -154,14 +170,22 @@ class StatsController < ApplicationController
   end
   
   def check_digital_params
-    result = true
     @event = params[:event]
+    @type = params[:type]
     @name = params[:name]
+    @region = params[:region]
     @strategy = params[:strategy]
-    @date = Date.civil(params["date(1i)"].to_i, params["date(2i)"].to_i, params["date(3i)"].to_i)
+    @from_date = Date.civil(params["from_date(1i)"].to_i, params["from_date(2i)"].to_i, params["from_date(3i)"].to_i)
+    @to_date = Date.civil(params["to_date(1i)"].to_i, params["to_date(2i)"].to_i, params["to_date(3i)"].to_i)
     @username = current_user.username
+
+    result = true
     if @event.blank? && @name.blank?
-      flash.now[:notice] = "You must select an event or type in a name."
+      flash.now[:notice] = "You must select an ongoing event or type in an event name."
+      result = false
+    end
+    if result && @strategy.blank?
+      flash.now[:notice] = "You must select a strategy."
       result = false
     end
     if result # check to make sure stats have been entered
