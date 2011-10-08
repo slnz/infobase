@@ -1,7 +1,7 @@
 <li id="<%= counter %>" class="">
   <table class="movementheader">
-    <tr onClick="javascript:$('#<%= counter %>').toggleClass('selected');">
-      <th class="schoolname">
+    <tr>
+      <th class="schoolname" style="width:966px;">
         <span style="display:inline;float:left;padding-right:10px;text-align:left"><%= stat.activity.target_area.name if (!stat.kind_of?(Hash) && stat.activity) %></span>
       </th>
     </tr>

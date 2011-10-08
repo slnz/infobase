@@ -31,10 +31,9 @@
     
     <br/>
     <div id="flash_notice">Do you want to *add* your new stats (below) to the stats already in the database (above)?</div>
-    <div id="flash_notice">If you have any questions or concerns, please email <%= mail_to "help@campuscrusadeforchrist.com" %></div>
     
     <% javascript_counter = 0 %>
-    <ul class="results">
+    <ul class="results" style="height: 337px;>
       <%= render :partial => "stat_entry", :locals => {:stat => @new_stat, :year => @year, :counter => javascript_counter} %>
       <% javascript_counter += 1 %>
     </ul>
@@ -42,6 +41,7 @@
     <center>
       <div class="stats_submit_surround">
         <%= submit_tag "Add Stats" %>
+        <%= link_to "Cancel", digital_stats_path %>
       </div>
     </center>
   <% end %>
