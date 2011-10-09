@@ -1,5 +1,6 @@
 require 'hoptoad_notifier/capistrano'
 require 'capistrano_colors'
+load 'deploy/assets'
 
 # This defines a deployment "recipe" that you can feed to capistrano
 # (http://manuals.rubyonrails.com/read/book/17). It allows you to automate
