@@ -183,8 +183,10 @@ class InfobaseReport
       stats = add_group_clause(stats, group)
       stats = sum_weekly_stats(stats)
       
+      max_end_date = activity.statistics.between_dates(from_date, to_date).
+        where(Statistic.table_name + ".peopleGroup = ?", group).maximum(Statistic.table_name + ".periodEnd")
       last_stats = start_team_query(from_date, to_date, [Activity.bridges], activity).
-        group(Statistic.table_name + ".fk_Activity").having("max(" + Statistic.table_name + ".periodEnd)")
+        where(Statistic.table_name + ".periodEnd = ?", max_end_date)
       last_stats = add_group_clause(last_stats, group)
       last_stats = sum_semester_stats(stats)
       
