@@ -52,7 +52,7 @@ class InfobaseReport
 
   def self.create_regional_report(region, from_date, to_date, strategies)
     rows = []
-    teams = Team.where("region = ?", region).order(:name)
+    teams = Team.where("region = ?", region).includes(:activities).order(:name)
     teams.each do |team|
       stats = start_regional_query(from_date, to_date, strategies, region, team).
         group(Activity.table_name + ".fk_teamID")
@@ -60,7 +60,7 @@ class InfobaseReport
       
       last_stats = start_regional_query(from_date, to_date, strategies, region, team).
         group(Statistic.table_name + ".fk_Activity").having("max(" + Statistic.table_name + ".periodEnd)")
-      last_stats = sum_semester_stats(stats)
+      last_stats = sum_semester_stats(last_stats)
       
       if (team.is_active? && team.is_responsible_for_strategies?(strategies)) || !stats.empty?
         row_header = team.name.to_s
@@ -79,9 +79,10 @@ class InfobaseReport
         group(Activity.table_name + ".ActivityId")
       stats = sum_weekly_stats(stats)
       
+      max_end_date = activity.statistics.between_dates(from_date, to_date).maximum(Statistic.table_name + ".periodEnd")
       last_stats = start_team_query(from_date, to_date, strategies, activity).
-        group(Statistic.table_name + ".fk_Activity").having("max(" + Statistic.table_name + ".periodEnd)")
-      last_stats = sum_semester_stats(stats)
+        where(Statistic.table_name + ".periodEnd = ?", max_end_date)
+      last_stats = sum_semester_stats(last_stats)
       
       if activity.is_bridges?
         bridges_rows = get_bridges_rows(from_date, to_date, activity)
