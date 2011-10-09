@@ -78,7 +78,6 @@ set :git_enable_submodules, true
 # narrow the set of servers to a subset of a role by specifying options, which
 # must match the options given for the servers to select (like :primary => true)
 
-after 'deploy:update_code', 'local_changes'
 desc "Add linked files after deploy and set permissions"
 task :local_changes, :roles => :app do
   run <<-CMD
@@ -92,7 +91,7 @@ task :local_changes, :roles => :app do
     ln -s #{shared_path}/tmp #{release_path}/tmp 
   CMD
 end
-
+before "deploy:assets:precompile", 'local_changes'
 
 # You can use "transaction" to indicate that if any of the tasks within it fail,
 # all should be rolled back (for each task that specifies an on_rollback
