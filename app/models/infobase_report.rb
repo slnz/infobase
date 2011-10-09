@@ -188,7 +188,7 @@ class InfobaseReport
       last_stats = start_team_query(from_date, to_date, [Activity.bridges], activity).
         where(Statistic.table_name + ".periodEnd = ?", max_end_date)
       last_stats = add_group_clause(last_stats, group)
-      last_stats = sum_semester_stats(stats)
+      last_stats = sum_semester_stats(last_stats)
       
       rows << InfobaseReportRow.new(group.to_s, stats.first, last_stats, activity.target_area.id, nil, true)
     end
