@@ -41,9 +41,10 @@ class InfobaseReport
         group(TargetArea.table_name + ".region")
       stats = sum_weekly_stats(stats)
       
+      last_end_date_ids = get_last_end_date_ids(from_date, to_date)
       last_stats = start_national_query(from_date, to_date, strategies, region).
-        group(Statistic.table_name + ".fk_Activity").having("max(" + Statistic.table_name + ".periodEnd)")
-      last_stats = sum_semester_stats(stats)
+        where(Statistic.table_name + ".statisticID IN (?)", last_end_date_ids.collect(&:statisticID))
+      last_stats = sum_semester_stats(last_stats)
       
       rows << InfobaseReportRow.new(Region.full_name(region), stats.first, last_stats, region)
     end
@@ -58,8 +59,9 @@ class InfobaseReport
         group(Activity.table_name + ".fk_teamID")
       stats = sum_weekly_stats(stats)
       
+      last_end_date_ids = get_last_end_date_ids(from_date, to_date)
       last_stats = start_regional_query(from_date, to_date, strategies, region, team).
-        group(Statistic.table_name + ".fk_Activity").having("max(" + Statistic.table_name + ".periodEnd)")
+        where(Statistic.table_name + ".statisticID IN (?)", last_end_date_ids.collect(&:statisticID))
       last_stats = sum_semester_stats(last_stats)
       
       if (team.is_active? && team.is_responsible_for_strategies?(strategies)) || !stats.empty?
@@ -221,5 +223,17 @@ class InfobaseReport
   
   def self.add_group_clause(relation, group)
     relation.where(Statistic.table_name + ".peopleGroup = ?", group)
+  end
+  
+  def self.get_last_end_date_ids(from_date, to_date)
+    # This query finds the latest date for each statistic that was before the given date
+    max_dates_query = Statistic.between_dates(from_date, to_date).
+      select(Statistic.table_name + ".peopleGroup").select(Statistic.table_name + ".fk_Activity").
+      select("MAX(" + Statistic.table_name + ".periodEnd) as periodEnd").
+      group(Statistic.table_name + ".fk_Activity").group(Statistic.table_name + ".peopleGroup")
+    # This query finds the list of statistic ids that go along with the above query
+    stats_ids_query = Statistic.select(Statistic.table_name + ".statisticID").
+      joins("INNER JOIN (" + max_dates_query.to_sql + " ) last_dates ON " + Statistic.table_name + ".fk_activity = last_dates.fk_activity AND " + Statistic.table_name + ".periodEnd = last_dates.periodEnd AND (((ministry_statistic.peopleGroup is null) and (last_dates.peopleGroup is null))  or (ministry_statistic.peopleGroup = last_dates.peopleGroup))")
+    stats_ids_query
   end
 end
