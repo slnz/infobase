@@ -106,7 +106,7 @@ GEM
     sprockets (2.0.2)
       hike (~> 1.2)
       rack (~> 1.0)
-      tilt (!= 1.3.0, ~> 1.1)
+      tilt (~> 1.1, != 1.3.0)
     therubyracer (0.9.8)
       libv8 (~> 3.3.10)
     thor (0.14.6)
@@ -130,6 +130,7 @@ DEPENDENCIES
   dalli
   dynamic_form
   hoptoad_notifier
+  multi_json
   mysql2
   paperclip
   rails (~> 3.1.0)
