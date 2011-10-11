@@ -4,11 +4,11 @@ class ApplicationController < ActionController::Base
   before_filter CASClient::Frameworks::Rails3::Filter, AuthenticationFilter, :check_user, :current_user, :except => [:no, :destroy]
   protect_from_forgery
   
-  protected
-  
   def self.application_name
     "Infobase"
   end
+  
+  protected
   
   def check_user
     unless @info_user
