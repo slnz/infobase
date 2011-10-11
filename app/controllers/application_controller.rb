@@ -13,7 +13,7 @@ class ApplicationController < ActionController::Base
   def check_user
     unless @info_user
       if session[:info_user_id]
-        @info_user = InfobaseAdminUser.find(session[:info_user_id])
+        @info_user = InfobaseUser.find(session[:info_user_id])
       elsif session[:info_user_type]
         @info_user = Kernel.const_get(session[:info_user_type]).new
       else
