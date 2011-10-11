@@ -51,11 +51,19 @@
       <% end %>
     </ul>
     
-    <center>
-      <div class="stats_submit_surround">
-        <%= image_submit_tag "submit_bon.gif" %>
-      </div>
-    </center>
+    <% if !@stats.blank? || !@movements.blank? %>
+      <center>
+        <div class="stats_submit_surround">
+          <%= image_submit_tag "submit_bon.gif" %>
+        </div>
+      </center>
+    <% else %>
+      <center>
+        <div class="field">
+          You have no activities bookmarked to enter stats for.  You need to search for a location to enter stats for before you can use this feature.
+        </div>
+      </center>
+    <% end %>
   <% end %>
 </div>
 
