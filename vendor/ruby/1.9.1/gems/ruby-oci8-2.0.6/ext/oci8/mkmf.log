@@ -1,0 +1,1510 @@
+"/usr/bin/gcc-4.2 -o conftest -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/x86_64-darwin11.0.0 -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/ruby/backward -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1 -I. -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE    -O3 -ggdb -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wshorten-64-to-32 -Wimplicit-function-declaration  -fno-common -pipe conftest.c  -L. -L/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/lib -L. -L/usr/local/lib     -lruby.1.9.1-static  -lpthread -ldl -lobjc "
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: int main() {return 0;}
+/* end */
+
+"/usr/bin/gcc-4.2 -o conftest -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/x86_64-darwin11.0.0 -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/ruby/backward -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1 -I. -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE    -O3 -ggdb -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wshorten-64-to-32 -Wimplicit-function-declaration  -fno-common -pipe conftest.c  -L. -L/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/lib -L. -L/usr/local/lib     -lruby.1.9.1-static  -lpthread -ldl -lobjc "
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: int main() { return 0; }
+/* end */
+
+./conftest
+"/usr/bin/gcc-4.2 -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/x86_64-darwin11.0.0 -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/ruby/backward -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1 -I. -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE    -O3 -ggdb -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wshorten-64-to-32 -Wimplicit-function-declaration  -fno-common -pipe   -c conftest.c"
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: /*top*/
+4: #ifndef __GNUC__
+5: # error
+6: >>>>>> __GNUC__ undefined <<<<<<
+7: #endif
+/* end */
+
+"/usr/bin/gcc-4.2 -o conftest -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/x86_64-darwin11.0.0 -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/ruby/backward -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1 -I. -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE    -O3 -ggdb -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wshorten-64-to-32 -Wimplicit-function-declaration  -fno-common -pipe conftest.c  -L. -L/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/lib -L. -L/usr/local/lib     -lruby.1.9.1-static  -lpthread -ldl -lobjc "
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: int main() { return sizeof(long) == 8 ? 0 : 1; }
+/* end */
+
+./conftest
+have_func: checking for OCIInitialize() in oci.h... -------------------- yes
+
+"/usr/bin/gcc-4.2 -o conftest -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/x86_64-darwin11.0.0 -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/ruby/backward -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1 -I. -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE    -O3 -ggdb -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wshorten-64-to-32 -Wimplicit-function-declaration  -fno-common -pipe -I/opt/oracle/instantclient_10_2/sdk/include conftest.c  -L. -L/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/lib -L. -L/usr/local/lib     -L/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/lib  -L/opt/oracle/instantclient_10_2 -lclntsh  -lruby.1.9.1-static  -L/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/lib  -L/opt/oracle/instantclient_10_2 -lclntsh  -lpthread -ldl -lobjc "
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: #include <oci.h>
+4: 
+5: /*top*/
+6: int main() {return 0;}
+7: int t() { void ((*volatile p)()); p = (void ((*)()))OCIInitialize; return 0; }
+/* end */
+
+--------------------
+
+"/usr/bin/gcc-4.2 -o conftest -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/x86_64-darwin11.0.0 -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/ruby/backward -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1 -I. -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE    -O3 -ggdb -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wshorten-64-to-32 -Wimplicit-function-declaration  -fno-common -pipe -I/opt/oracle/instantclient_10_2/sdk/include conftest.c  -L. -L/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/lib -L. -L/usr/local/lib     -lruby.1.9.1-static  -lpthread -ldl -lobjc "
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: #include <oci.h>
+4: 
+5: #include <stdio.h>
+6: /*top*/
+7: int conftest_const = (int)(OCI_MAJOR_VERSION);
+8: int main() {printf("%d\n", conftest_const); return 0;}
+/* end */
+
+./conftest |
+"/usr/bin/gcc-4.2 -o conftest -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/x86_64-darwin11.0.0 -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/ruby/backward -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1 -I. -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE    -O3 -ggdb -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wshorten-64-to-32 -Wimplicit-function-declaration  -fno-common -pipe -I/opt/oracle/instantclient_10_2/sdk/include conftest.c  -L. -L/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/lib -L. -L/usr/local/lib     -lruby.1.9.1-static  -lpthread -ldl -lobjc "
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: #include <oci.h>
+4: 
+5: #include <stdio.h>
+6: /*top*/
+7: int conftest_const = (int)(OCI_MINOR_VERSION);
+8: int main() {printf("%d\n", conftest_const); return 0;}
+/* end */
+
+./conftest |
+have_func: checking for OCIEnvCreate()... -------------------- yes
+
+"/usr/bin/gcc-4.2 -o conftest -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/x86_64-darwin11.0.0 -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/ruby/backward -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1 -I. -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE    -O3 -ggdb -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wshorten-64-to-32 -Wimplicit-function-declaration  -fno-common -pipe -I/opt/oracle/instantclient_10_2/sdk/include conftest.c  -L. -L/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/lib -L. -L/usr/local/lib     -L/opt/oracle/instantclient_10_2 -lclntsh  -lruby.1.9.1-static  -L/opt/oracle/instantclient_10_2 -lclntsh  -lpthread -ldl -lobjc "
+conftest.c: In function ‘t’:
+conftest.c:5: error: ‘OCIEnvCreate’ undeclared (first use in this function)
+conftest.c:5: error: (Each undeclared identifier is reported only once
+conftest.c:5: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: /*top*/
+4: int main() {return 0;}
+5: int t() { void ((*volatile p)()); p = (void ((*)()))OCIEnvCreate; return 0; }
+/* end */
+
+"/usr/bin/gcc-4.2 -o conftest -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/x86_64-darwin11.0.0 -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/ruby/backward -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1 -I. -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE    -O3 -ggdb -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wshorten-64-to-32 -Wimplicit-function-declaration  -fno-common -pipe -I/opt/oracle/instantclient_10_2/sdk/include conftest.c  -L. -L/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/lib -L. -L/usr/local/lib     -L/opt/oracle/instantclient_10_2 -lclntsh  -lruby.1.9.1-static  -L/opt/oracle/instantclient_10_2 -lclntsh  -lpthread -ldl -lobjc "
+conftest.c: In function ‘t’:
+conftest.c:5: warning: implicit declaration of function ‘OCIEnvCreate’
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: /*top*/
+4: int main() {return 0;}
+5: int t() { OCIEnvCreate(); return 0; }
+/* end */
+
+--------------------
+
+have_func: checking for OCILobClose()... -------------------- yes
+
+"/usr/bin/gcc-4.2 -o conftest -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/x86_64-darwin11.0.0 -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/ruby/backward -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1 -I. -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE    -O3 -ggdb -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wshorten-64-to-32 -Wimplicit-function-declaration  -fno-common -pipe -I/opt/oracle/instantclient_10_2/sdk/include conftest.c  -L. -L/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/lib -L. -L/usr/local/lib     -L/opt/oracle/instantclient_10_2 -lclntsh  -lruby.1.9.1-static  -L/opt/oracle/instantclient_10_2 -lclntsh  -lpthread -ldl -lobjc "
+conftest.c: In function ‘t’:
+conftest.c:5: error: ‘OCILobClose’ undeclared (first use in this function)
+conftest.c:5: error: (Each undeclared identifier is reported only once
+conftest.c:5: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: /*top*/
+4: int main() {return 0;}
+5: int t() { void ((*volatile p)()); p = (void ((*)()))OCILobClose; return 0; }
+/* end */
+
+"/usr/bin/gcc-4.2 -o conftest -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/x86_64-darwin11.0.0 -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/ruby/backward -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1 -I. -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE    -O3 -ggdb -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wshorten-64-to-32 -Wimplicit-function-declaration  -fno-common -pipe -I/opt/oracle/instantclient_10_2/sdk/include conftest.c  -L. -L/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/lib -L. -L/usr/local/lib     -L/opt/oracle/instantclient_10_2 -lclntsh  -lruby.1.9.1-static  -L/opt/oracle/instantclient_10_2 -lclntsh  -lpthread -ldl -lobjc "
+conftest.c: In function ‘t’:
+conftest.c:5: warning: implicit declaration of function ‘OCILobClose’
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: /*top*/
+4: int main() {return 0;}
+5: int t() { OCILobClose(); return 0; }
+/* end */
+
+--------------------
+
+have_func: checking for OCILobCreateTemporary()... -------------------- yes
+
+"/usr/bin/gcc-4.2 -o conftest -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/x86_64-darwin11.0.0 -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/ruby/backward -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1 -I. -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE    -O3 -ggdb -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wshorten-64-to-32 -Wimplicit-function-declaration  -fno-common -pipe -I/opt/oracle/instantclient_10_2/sdk/include conftest.c  -L. -L/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/lib -L. -L/usr/local/lib     -L/opt/oracle/instantclient_10_2 -lclntsh  -lruby.1.9.1-static  -L/opt/oracle/instantclient_10_2 -lclntsh  -lpthread -ldl -lobjc "
+conftest.c: In function ‘t’:
+conftest.c:5: error: ‘OCILobCreateTemporary’ undeclared (first use in this function)
+conftest.c:5: error: (Each undeclared identifier is reported only once
+conftest.c:5: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: /*top*/
+4: int main() {return 0;}
+5: int t() { void ((*volatile p)()); p = (void ((*)()))OCILobCreateTemporary; return 0; }
+/* end */
+
+"/usr/bin/gcc-4.2 -o conftest -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/x86_64-darwin11.0.0 -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/ruby/backward -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1 -I. -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE    -O3 -ggdb -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wshorten-64-to-32 -Wimplicit-function-declaration  -fno-common -pipe -I/opt/oracle/instantclient_10_2/sdk/include conftest.c  -L. -L/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/lib -L. -L/usr/local/lib     -L/opt/oracle/instantclient_10_2 -lclntsh  -lruby.1.9.1-static  -L/opt/oracle/instantclient_10_2 -lclntsh  -lpthread -ldl -lobjc "
+conftest.c: In function ‘t’:
+conftest.c:5: warning: implicit declaration of function ‘OCILobCreateTemporary’
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: /*top*/
+4: int main() {return 0;}
+5: int t() { OCILobCreateTemporary(); return 0; }
+/* end */
+
+--------------------
+
+have_func: checking for OCILobFreeTemporary()... -------------------- yes
+
+"/usr/bin/gcc-4.2 -o conftest -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/x86_64-darwin11.0.0 -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/ruby/backward -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1 -I. -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE    -O3 -ggdb -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wshorten-64-to-32 -Wimplicit-function-declaration  -fno-common -pipe -I/opt/oracle/instantclient_10_2/sdk/include conftest.c  -L. -L/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/lib -L. -L/usr/local/lib     -L/opt/oracle/instantclient_10_2 -lclntsh  -lruby.1.9.1-static  -L/opt/oracle/instantclient_10_2 -lclntsh  -lpthread -ldl -lobjc "
+conftest.c: In function ‘t’:
+conftest.c:5: error: ‘OCILobFreeTemporary’ undeclared (first use in this function)
+conftest.c:5: error: (Each undeclared identifier is reported only once
+conftest.c:5: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: /*top*/
+4: int main() {return 0;}
+5: int t() { void ((*volatile p)()); p = (void ((*)()))OCILobFreeTemporary; return 0; }
+/* end */
+
+"/usr/bin/gcc-4.2 -o conftest -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/x86_64-darwin11.0.0 -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/ruby/backward -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1 -I. -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE    -O3 -ggdb -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wshorten-64-to-32 -Wimplicit-function-declaration  -fno-common -pipe -I/opt/oracle/instantclient_10_2/sdk/include conftest.c  -L. -L/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/lib -L. -L/usr/local/lib     -L/opt/oracle/instantclient_10_2 -lclntsh  -lruby.1.9.1-static  -L/opt/oracle/instantclient_10_2 -lclntsh  -lpthread -ldl -lobjc "
+conftest.c: In function ‘t’:
+conftest.c:5: warning: implicit declaration of function ‘OCILobFreeTemporary’
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: /*top*/
+4: int main() {return 0;}
+5: int t() { OCILobFreeTemporary(); return 0; }
+/* end */
+
+--------------------
+
+have_func: checking for OCILobGetChunkSize()... -------------------- yes
+
+"/usr/bin/gcc-4.2 -o conftest -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/x86_64-darwin11.0.0 -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/ruby/backward -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1 -I. -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE    -O3 -ggdb -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wshorten-64-to-32 -Wimplicit-function-declaration  -fno-common -pipe -I/opt/oracle/instantclient_10_2/sdk/include conftest.c  -L. -L/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/lib -L. -L/usr/local/lib     -L/opt/oracle/instantclient_10_2 -lclntsh  -lruby.1.9.1-static  -L/opt/oracle/instantclient_10_2 -lclntsh  -lpthread -ldl -lobjc "
+conftest.c: In function ‘t’:
+conftest.c:5: error: ‘OCILobGetChunkSize’ undeclared (first use in this function)
+conftest.c:5: error: (Each undeclared identifier is reported only once
+conftest.c:5: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: /*top*/
+4: int main() {return 0;}
+5: int t() { void ((*volatile p)()); p = (void ((*)()))OCILobGetChunkSize; return 0; }
+/* end */
+
+"/usr/bin/gcc-4.2 -o conftest -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/x86_64-darwin11.0.0 -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/ruby/backward -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1 -I. -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE    -O3 -ggdb -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wshorten-64-to-32 -Wimplicit-function-declaration  -fno-common -pipe -I/opt/oracle/instantclient_10_2/sdk/include conftest.c  -L. -L/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/lib -L. -L/usr/local/lib     -L/opt/oracle/instantclient_10_2 -lclntsh  -lruby.1.9.1-static  -L/opt/oracle/instantclient_10_2 -lclntsh  -lpthread -ldl -lobjc "
+conftest.c: In function ‘t’:
+conftest.c:5: warning: implicit declaration of function ‘OCILobGetChunkSize’
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: /*top*/
+4: int main() {return 0;}
+5: int t() { OCILobGetChunkSize(); return 0; }
+/* end */
+
+--------------------
+
+have_func: checking for OCILobIsTemporary()... -------------------- yes
+
+"/usr/bin/gcc-4.2 -o conftest -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/x86_64-darwin11.0.0 -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/ruby/backward -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1 -I. -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE    -O3 -ggdb -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wshorten-64-to-32 -Wimplicit-function-declaration  -fno-common -pipe -I/opt/oracle/instantclient_10_2/sdk/include conftest.c  -L. -L/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/lib -L. -L/usr/local/lib     -L/opt/oracle/instantclient_10_2 -lclntsh  -lruby.1.9.1-static  -L/opt/oracle/instantclient_10_2 -lclntsh  -lpthread -ldl -lobjc "
+conftest.c: In function ‘t’:
+conftest.c:5: error: ‘OCILobIsTemporary’ undeclared (first use in this function)
+conftest.c:5: error: (Each undeclared identifier is reported only once
+conftest.c:5: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: /*top*/
+4: int main() {return 0;}
+5: int t() { void ((*volatile p)()); p = (void ((*)()))OCILobIsTemporary; return 0; }
+/* end */
+
+"/usr/bin/gcc-4.2 -o conftest -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/x86_64-darwin11.0.0 -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/ruby/backward -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1 -I. -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE    -O3 -ggdb -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wshorten-64-to-32 -Wimplicit-function-declaration  -fno-common -pipe -I/opt/oracle/instantclient_10_2/sdk/include conftest.c  -L. -L/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/lib -L. -L/usr/local/lib     -L/opt/oracle/instantclient_10_2 -lclntsh  -lruby.1.9.1-static  -L/opt/oracle/instantclient_10_2 -lclntsh  -lpthread -ldl -lobjc "
+conftest.c: In function ‘t’:
+conftest.c:5: warning: implicit declaration of function ‘OCILobIsTemporary’
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: /*top*/
+4: int main() {return 0;}
+5: int t() { OCILobIsTemporary(); return 0; }
+/* end */
+
+--------------------
+
+have_func: checking for OCILobLocatorAssign()... -------------------- yes
+
+"/usr/bin/gcc-4.2 -o conftest -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/x86_64-darwin11.0.0 -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/ruby/backward -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1 -I. -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE    -O3 -ggdb -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wshorten-64-to-32 -Wimplicit-function-declaration  -fno-common -pipe -I/opt/oracle/instantclient_10_2/sdk/include conftest.c  -L. -L/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/lib -L. -L/usr/local/lib     -L/opt/oracle/instantclient_10_2 -lclntsh  -lruby.1.9.1-static  -L/opt/oracle/instantclient_10_2 -lclntsh  -lpthread -ldl -lobjc "
+conftest.c: In function ‘t’:
+conftest.c:5: error: ‘OCILobLocatorAssign’ undeclared (first use in this function)
+conftest.c:5: error: (Each undeclared identifier is reported only once
+conftest.c:5: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: /*top*/
+4: int main() {return 0;}
+5: int t() { void ((*volatile p)()); p = (void ((*)()))OCILobLocatorAssign; return 0; }
+/* end */
+
+"/usr/bin/gcc-4.2 -o conftest -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/x86_64-darwin11.0.0 -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/ruby/backward -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1 -I. -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE    -O3 -ggdb -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wshorten-64-to-32 -Wimplicit-function-declaration  -fno-common -pipe -I/opt/oracle/instantclient_10_2/sdk/include conftest.c  -L. -L/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/lib -L. -L/usr/local/lib     -L/opt/oracle/instantclient_10_2 -lclntsh  -lruby.1.9.1-static  -L/opt/oracle/instantclient_10_2 -lclntsh  -lpthread -ldl -lobjc "
+conftest.c: In function ‘t’:
+conftest.c:5: warning: implicit declaration of function ‘OCILobLocatorAssign’
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: /*top*/
+4: int main() {return 0;}
+5: int t() { OCILobLocatorAssign(); return 0; }
+/* end */
+
+--------------------
+
+have_func: checking for OCILobOpen()... -------------------- yes
+
+"/usr/bin/gcc-4.2 -o conftest -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/x86_64-darwin11.0.0 -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/ruby/backward -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1 -I. -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE    -O3 -ggdb -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wshorten-64-to-32 -Wimplicit-function-declaration  -fno-common -pipe -I/opt/oracle/instantclient_10_2/sdk/include conftest.c  -L. -L/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/lib -L. -L/usr/local/lib     -L/opt/oracle/instantclient_10_2 -lclntsh  -lruby.1.9.1-static  -L/opt/oracle/instantclient_10_2 -lclntsh  -lpthread -ldl -lobjc "
+conftest.c: In function ‘t’:
+conftest.c:5: error: ‘OCILobOpen’ undeclared (first use in this function)
+conftest.c:5: error: (Each undeclared identifier is reported only once
+conftest.c:5: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: /*top*/
+4: int main() {return 0;}
+5: int t() { void ((*volatile p)()); p = (void ((*)()))OCILobOpen; return 0; }
+/* end */
+
+"/usr/bin/gcc-4.2 -o conftest -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/x86_64-darwin11.0.0 -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/ruby/backward -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1 -I. -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE    -O3 -ggdb -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wshorten-64-to-32 -Wimplicit-function-declaration  -fno-common -pipe -I/opt/oracle/instantclient_10_2/sdk/include conftest.c  -L. -L/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/lib -L. -L/usr/local/lib     -L/opt/oracle/instantclient_10_2 -lclntsh  -lruby.1.9.1-static  -L/opt/oracle/instantclient_10_2 -lclntsh  -lpthread -ldl -lobjc "
+conftest.c: In function ‘t’:
+conftest.c:5: warning: implicit declaration of function ‘OCILobOpen’
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: /*top*/
+4: int main() {return 0;}
+5: int t() { OCILobOpen(); return 0; }
+/* end */
+
+--------------------
+
+have_func: checking for OCIMessageGet()... -------------------- yes
+
+"/usr/bin/gcc-4.2 -o conftest -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/x86_64-darwin11.0.0 -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/ruby/backward -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1 -I. -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE    -O3 -ggdb -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wshorten-64-to-32 -Wimplicit-function-declaration  -fno-common -pipe -I/opt/oracle/instantclient_10_2/sdk/include conftest.c  -L. -L/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/lib -L. -L/usr/local/lib     -L/opt/oracle/instantclient_10_2 -lclntsh  -lruby.1.9.1-static  -L/opt/oracle/instantclient_10_2 -lclntsh  -lpthread -ldl -lobjc "
+conftest.c: In function ‘t’:
+conftest.c:5: error: ‘OCIMessageGet’ undeclared (first use in this function)
+conftest.c:5: error: (Each undeclared identifier is reported only once
+conftest.c:5: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: /*top*/
+4: int main() {return 0;}
+5: int t() { void ((*volatile p)()); p = (void ((*)()))OCIMessageGet; return 0; }
+/* end */
+
+"/usr/bin/gcc-4.2 -o conftest -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/x86_64-darwin11.0.0 -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/ruby/backward -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1 -I. -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE    -O3 -ggdb -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wshorten-64-to-32 -Wimplicit-function-declaration  -fno-common -pipe -I/opt/oracle/instantclient_10_2/sdk/include conftest.c  -L. -L/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/lib -L. -L/usr/local/lib     -L/opt/oracle/instantclient_10_2 -lclntsh  -lruby.1.9.1-static  -L/opt/oracle/instantclient_10_2 -lclntsh  -lpthread -ldl -lobjc "
+conftest.c: In function ‘t’:
+conftest.c:5: warning: implicit declaration of function ‘OCIMessageGet’
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: /*top*/
+4: int main() {return 0;}
+5: int t() { OCIMessageGet(); return 0; }
+/* end */
+
+--------------------
+
+have_func: checking for OCIMessageOpen()... -------------------- yes
+
+"/usr/bin/gcc-4.2 -o conftest -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/x86_64-darwin11.0.0 -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/ruby/backward -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1 -I. -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE    -O3 -ggdb -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wshorten-64-to-32 -Wimplicit-function-declaration  -fno-common -pipe -I/opt/oracle/instantclient_10_2/sdk/include conftest.c  -L. -L/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/lib -L. -L/usr/local/lib     -L/opt/oracle/instantclient_10_2 -lclntsh  -lruby.1.9.1-static  -L/opt/oracle/instantclient_10_2 -lclntsh  -lpthread -ldl -lobjc "
+conftest.c: In function ‘t’:
+conftest.c:5: error: ‘OCIMessageOpen’ undeclared (first use in this function)
+conftest.c:5: error: (Each undeclared identifier is reported only once
+conftest.c:5: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: /*top*/
+4: int main() {return 0;}
+5: int t() { void ((*volatile p)()); p = (void ((*)()))OCIMessageOpen; return 0; }
+/* end */
+
+"/usr/bin/gcc-4.2 -o conftest -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/x86_64-darwin11.0.0 -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/ruby/backward -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1 -I. -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE    -O3 -ggdb -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wshorten-64-to-32 -Wimplicit-function-declaration  -fno-common -pipe -I/opt/oracle/instantclient_10_2/sdk/include conftest.c  -L. -L/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/lib -L. -L/usr/local/lib     -L/opt/oracle/instantclient_10_2 -lclntsh  -lruby.1.9.1-static  -L/opt/oracle/instantclient_10_2 -lclntsh  -lpthread -ldl -lobjc "
+conftest.c: In function ‘t’:
+conftest.c:5: warning: implicit declaration of function ‘OCIMessageOpen’
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: /*top*/
+4: int main() {return 0;}
+5: int t() { OCIMessageOpen(); return 0; }
+/* end */
+
+--------------------
+
+have_func: checking for OCINumberIsInt()... -------------------- yes
+
+"/usr/bin/gcc-4.2 -o conftest -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/x86_64-darwin11.0.0 -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/ruby/backward -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1 -I. -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE    -O3 -ggdb -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wshorten-64-to-32 -Wimplicit-function-declaration  -fno-common -pipe -I/opt/oracle/instantclient_10_2/sdk/include conftest.c  -L. -L/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/lib -L. -L/usr/local/lib     -L/opt/oracle/instantclient_10_2 -lclntsh  -lruby.1.9.1-static  -L/opt/oracle/instantclient_10_2 -lclntsh  -lpthread -ldl -lobjc "
+conftest.c: In function ‘t’:
+conftest.c:5: error: ‘OCINumberIsInt’ undeclared (first use in this function)
+conftest.c:5: error: (Each undeclared identifier is reported only once
+conftest.c:5: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: /*top*/
+4: int main() {return 0;}
+5: int t() { void ((*volatile p)()); p = (void ((*)()))OCINumberIsInt; return 0; }
+/* end */
+
+"/usr/bin/gcc-4.2 -o conftest -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/x86_64-darwin11.0.0 -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/ruby/backward -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1 -I. -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE    -O3 -ggdb -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wshorten-64-to-32 -Wimplicit-function-declaration  -fno-common -pipe -I/opt/oracle/instantclient_10_2/sdk/include conftest.c  -L. -L/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/lib -L. -L/usr/local/lib     -L/opt/oracle/instantclient_10_2 -lclntsh  -lruby.1.9.1-static  -L/opt/oracle/instantclient_10_2 -lclntsh  -lpthread -ldl -lobjc "
+conftest.c: In function ‘t’:
+conftest.c:5: warning: implicit declaration of function ‘OCINumberIsInt’
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: /*top*/
+4: int main() {return 0;}
+5: int t() { OCINumberIsInt(); return 0; }
+/* end */
+
+--------------------
+
+have_func: checking for OCINumberPrec()... -------------------- yes
+
+"/usr/bin/gcc-4.2 -o conftest -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/x86_64-darwin11.0.0 -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/ruby/backward -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1 -I. -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE    -O3 -ggdb -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wshorten-64-to-32 -Wimplicit-function-declaration  -fno-common -pipe -I/opt/oracle/instantclient_10_2/sdk/include conftest.c  -L. -L/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/lib -L. -L/usr/local/lib     -L/opt/oracle/instantclient_10_2 -lclntsh  -lruby.1.9.1-static  -L/opt/oracle/instantclient_10_2 -lclntsh  -lpthread -ldl -lobjc "
+conftest.c: In function ‘t’:
+conftest.c:5: error: ‘OCINumberPrec’ undeclared (first use in this function)
+conftest.c:5: error: (Each undeclared identifier is reported only once
+conftest.c:5: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: /*top*/
+4: int main() {return 0;}
+5: int t() { void ((*volatile p)()); p = (void ((*)()))OCINumberPrec; return 0; }
+/* end */
+
+"/usr/bin/gcc-4.2 -o conftest -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/x86_64-darwin11.0.0 -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/ruby/backward -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1 -I. -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE    -O3 -ggdb -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wshorten-64-to-32 -Wimplicit-function-declaration  -fno-common -pipe -I/opt/oracle/instantclient_10_2/sdk/include conftest.c  -L. -L/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/lib -L. -L/usr/local/lib     -L/opt/oracle/instantclient_10_2 -lclntsh  -lruby.1.9.1-static  -L/opt/oracle/instantclient_10_2 -lclntsh  -lpthread -ldl -lobjc "
+conftest.c: In function ‘t’:
+conftest.c:5: warning: implicit declaration of function ‘OCINumberPrec’
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: /*top*/
+4: int main() {return 0;}
+5: int t() { OCINumberPrec(); return 0; }
+/* end */
+
+--------------------
+
+have_func: checking for OCINumberSetPi()... -------------------- yes
+
+"/usr/bin/gcc-4.2 -o conftest -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/x86_64-darwin11.0.0 -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/ruby/backward -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1 -I. -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE    -O3 -ggdb -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wshorten-64-to-32 -Wimplicit-function-declaration  -fno-common -pipe -I/opt/oracle/instantclient_10_2/sdk/include conftest.c  -L. -L/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/lib -L. -L/usr/local/lib     -L/opt/oracle/instantclient_10_2 -lclntsh  -lruby.1.9.1-static  -L/opt/oracle/instantclient_10_2 -lclntsh  -lpthread -ldl -lobjc "
+conftest.c: In function ‘t’:
+conftest.c:5: error: ‘OCINumberSetPi’ undeclared (first use in this function)
+conftest.c:5: error: (Each undeclared identifier is reported only once
+conftest.c:5: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: /*top*/
+4: int main() {return 0;}
+5: int t() { void ((*volatile p)()); p = (void ((*)()))OCINumberSetPi; return 0; }
+/* end */
+
+"/usr/bin/gcc-4.2 -o conftest -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/x86_64-darwin11.0.0 -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/ruby/backward -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1 -I. -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE    -O3 -ggdb -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wshorten-64-to-32 -Wimplicit-function-declaration  -fno-common -pipe -I/opt/oracle/instantclient_10_2/sdk/include conftest.c  -L. -L/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/lib -L. -L/usr/local/lib     -L/opt/oracle/instantclient_10_2 -lclntsh  -lruby.1.9.1-static  -L/opt/oracle/instantclient_10_2 -lclntsh  -lpthread -ldl -lobjc "
+conftest.c: In function ‘t’:
+conftest.c:5: warning: implicit declaration of function ‘OCINumberSetPi’
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: /*top*/
+4: int main() {return 0;}
+5: int t() { OCINumberSetPi(); return 0; }
+/* end */
+
+--------------------
+
+have_func: checking for OCINumberShift()... -------------------- yes
+
+"/usr/bin/gcc-4.2 -o conftest -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/x86_64-darwin11.0.0 -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/ruby/backward -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1 -I. -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE    -O3 -ggdb -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wshorten-64-to-32 -Wimplicit-function-declaration  -fno-common -pipe -I/opt/oracle/instantclient_10_2/sdk/include conftest.c  -L. -L/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/lib -L. -L/usr/local/lib     -L/opt/oracle/instantclient_10_2 -lclntsh  -lruby.1.9.1-static  -L/opt/oracle/instantclient_10_2 -lclntsh  -lpthread -ldl -lobjc "
+conftest.c: In function ‘t’:
+conftest.c:5: error: ‘OCINumberShift’ undeclared (first use in this function)
+conftest.c:5: error: (Each undeclared identifier is reported only once
+conftest.c:5: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: /*top*/
+4: int main() {return 0;}
+5: int t() { void ((*volatile p)()); p = (void ((*)()))OCINumberShift; return 0; }
+/* end */
+
+"/usr/bin/gcc-4.2 -o conftest -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/x86_64-darwin11.0.0 -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/ruby/backward -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1 -I. -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE    -O3 -ggdb -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wshorten-64-to-32 -Wimplicit-function-declaration  -fno-common -pipe -I/opt/oracle/instantclient_10_2/sdk/include conftest.c  -L. -L/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/lib -L. -L/usr/local/lib     -L/opt/oracle/instantclient_10_2 -lclntsh  -lruby.1.9.1-static  -L/opt/oracle/instantclient_10_2 -lclntsh  -lpthread -ldl -lobjc "
+conftest.c: In function ‘t’:
+conftest.c:5: warning: implicit declaration of function ‘OCINumberShift’
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: /*top*/
+4: int main() {return 0;}
+5: int t() { OCINumberShift(); return 0; }
+/* end */
+
+--------------------
+
+have_func: checking for OCINumberSign()... -------------------- yes
+
+"/usr/bin/gcc-4.2 -o conftest -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/x86_64-darwin11.0.0 -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/ruby/backward -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1 -I. -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE    -O3 -ggdb -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wshorten-64-to-32 -Wimplicit-function-declaration  -fno-common -pipe -I/opt/oracle/instantclient_10_2/sdk/include conftest.c  -L. -L/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/lib -L. -L/usr/local/lib     -L/opt/oracle/instantclient_10_2 -lclntsh  -lruby.1.9.1-static  -L/opt/oracle/instantclient_10_2 -lclntsh  -lpthread -ldl -lobjc "
+conftest.c: In function ‘t’:
+conftest.c:5: error: ‘OCINumberSign’ undeclared (first use in this function)
+conftest.c:5: error: (Each undeclared identifier is reported only once
+conftest.c:5: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: /*top*/
+4: int main() {return 0;}
+5: int t() { void ((*volatile p)()); p = (void ((*)()))OCINumberSign; return 0; }
+/* end */
+
+"/usr/bin/gcc-4.2 -o conftest -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/x86_64-darwin11.0.0 -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/ruby/backward -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1 -I. -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE    -O3 -ggdb -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wshorten-64-to-32 -Wimplicit-function-declaration  -fno-common -pipe -I/opt/oracle/instantclient_10_2/sdk/include conftest.c  -L. -L/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/lib -L. -L/usr/local/lib     -L/opt/oracle/instantclient_10_2 -lclntsh  -lruby.1.9.1-static  -L/opt/oracle/instantclient_10_2 -lclntsh  -lpthread -ldl -lobjc "
+conftest.c: In function ‘t’:
+conftest.c:5: warning: implicit declaration of function ‘OCINumberSign’
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: /*top*/
+4: int main() {return 0;}
+5: int t() { OCINumberSign(); return 0; }
+/* end */
+
+--------------------
+
+have_func: checking for OCIReset()... -------------------- yes
+
+"/usr/bin/gcc-4.2 -o conftest -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/x86_64-darwin11.0.0 -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/ruby/backward -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1 -I. -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE    -O3 -ggdb -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wshorten-64-to-32 -Wimplicit-function-declaration  -fno-common -pipe -I/opt/oracle/instantclient_10_2/sdk/include conftest.c  -L. -L/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/lib -L. -L/usr/local/lib     -L/opt/oracle/instantclient_10_2 -lclntsh  -lruby.1.9.1-static  -L/opt/oracle/instantclient_10_2 -lclntsh  -lpthread -ldl -lobjc "
+conftest.c: In function ‘t’:
+conftest.c:5: error: ‘OCIReset’ undeclared (first use in this function)
+conftest.c:5: error: (Each undeclared identifier is reported only once
+conftest.c:5: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: /*top*/
+4: int main() {return 0;}
+5: int t() { void ((*volatile p)()); p = (void ((*)()))OCIReset; return 0; }
+/* end */
+
+"/usr/bin/gcc-4.2 -o conftest -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/x86_64-darwin11.0.0 -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/ruby/backward -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1 -I. -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE    -O3 -ggdb -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wshorten-64-to-32 -Wimplicit-function-declaration  -fno-common -pipe -I/opt/oracle/instantclient_10_2/sdk/include conftest.c  -L. -L/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/lib -L. -L/usr/local/lib     -L/opt/oracle/instantclient_10_2 -lclntsh  -lruby.1.9.1-static  -L/opt/oracle/instantclient_10_2 -lclntsh  -lpthread -ldl -lobjc "
+conftest.c: In function ‘t’:
+conftest.c:5: warning: implicit declaration of function ‘OCIReset’
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: /*top*/
+4: int main() {return 0;}
+5: int t() { OCIReset(); return 0; }
+/* end */
+
+--------------------
+
+have_func: checking for OCIDateTimeConstruct()... -------------------- yes
+
+"/usr/bin/gcc-4.2 -o conftest -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/x86_64-darwin11.0.0 -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/ruby/backward -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1 -I. -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE    -O3 -ggdb -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wshorten-64-to-32 -Wimplicit-function-declaration  -fno-common -pipe -I/opt/oracle/instantclient_10_2/sdk/include conftest.c  -L. -L/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/lib -L. -L/usr/local/lib     -L/opt/oracle/instantclient_10_2 -lclntsh  -lruby.1.9.1-static  -L/opt/oracle/instantclient_10_2 -lclntsh  -lpthread -ldl -lobjc "
+conftest.c: In function ‘t’:
+conftest.c:5: error: ‘OCIDateTimeConstruct’ undeclared (first use in this function)
+conftest.c:5: error: (Each undeclared identifier is reported only once
+conftest.c:5: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: /*top*/
+4: int main() {return 0;}
+5: int t() { void ((*volatile p)()); p = (void ((*)()))OCIDateTimeConstruct; return 0; }
+/* end */
+
+"/usr/bin/gcc-4.2 -o conftest -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/x86_64-darwin11.0.0 -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/ruby/backward -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1 -I. -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE    -O3 -ggdb -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wshorten-64-to-32 -Wimplicit-function-declaration  -fno-common -pipe -I/opt/oracle/instantclient_10_2/sdk/include conftest.c  -L. -L/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/lib -L. -L/usr/local/lib     -L/opt/oracle/instantclient_10_2 -lclntsh  -lruby.1.9.1-static  -L/opt/oracle/instantclient_10_2 -lclntsh  -lpthread -ldl -lobjc "
+conftest.c: In function ‘t’:
+conftest.c:5: warning: implicit declaration of function ‘OCIDateTimeConstruct’
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: /*top*/
+4: int main() {return 0;}
+5: int t() { OCIDateTimeConstruct(); return 0; }
+/* end */
+
+--------------------
+
+have_func: checking for OCIDateTimeGetDate()... -------------------- yes
+
+"/usr/bin/gcc-4.2 -o conftest -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/x86_64-darwin11.0.0 -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/ruby/backward -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1 -I. -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE    -O3 -ggdb -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wshorten-64-to-32 -Wimplicit-function-declaration  -fno-common -pipe -I/opt/oracle/instantclient_10_2/sdk/include conftest.c  -L. -L/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/lib -L. -L/usr/local/lib     -L/opt/oracle/instantclient_10_2 -lclntsh  -lruby.1.9.1-static  -L/opt/oracle/instantclient_10_2 -lclntsh  -lpthread -ldl -lobjc "
+conftest.c: In function ‘t’:
+conftest.c:5: error: ‘OCIDateTimeGetDate’ undeclared (first use in this function)
+conftest.c:5: error: (Each undeclared identifier is reported only once
+conftest.c:5: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: /*top*/
+4: int main() {return 0;}
+5: int t() { void ((*volatile p)()); p = (void ((*)()))OCIDateTimeGetDate; return 0; }
+/* end */
+
+"/usr/bin/gcc-4.2 -o conftest -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/x86_64-darwin11.0.0 -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/ruby/backward -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1 -I. -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE    -O3 -ggdb -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wshorten-64-to-32 -Wimplicit-function-declaration  -fno-common -pipe -I/opt/oracle/instantclient_10_2/sdk/include conftest.c  -L. -L/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/lib -L. -L/usr/local/lib     -L/opt/oracle/instantclient_10_2 -lclntsh  -lruby.1.9.1-static  -L/opt/oracle/instantclient_10_2 -lclntsh  -lpthread -ldl -lobjc "
+conftest.c: In function ‘t’:
+conftest.c:5: warning: implicit declaration of function ‘OCIDateTimeGetDate’
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: /*top*/
+4: int main() {return 0;}
+5: int t() { OCIDateTimeGetDate(); return 0; }
+/* end */
+
+--------------------
+
+have_func: checking for OCIDateTimeGetTime()... -------------------- yes
+
+"/usr/bin/gcc-4.2 -o conftest -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/x86_64-darwin11.0.0 -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/ruby/backward -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1 -I. -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE    -O3 -ggdb -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wshorten-64-to-32 -Wimplicit-function-declaration  -fno-common -pipe -I/opt/oracle/instantclient_10_2/sdk/include conftest.c  -L. -L/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/lib -L. -L/usr/local/lib     -L/opt/oracle/instantclient_10_2 -lclntsh  -lruby.1.9.1-static  -L/opt/oracle/instantclient_10_2 -lclntsh  -lpthread -ldl -lobjc "
+conftest.c: In function ‘t’:
+conftest.c:5: error: ‘OCIDateTimeGetTime’ undeclared (first use in this function)
+conftest.c:5: error: (Each undeclared identifier is reported only once
+conftest.c:5: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: /*top*/
+4: int main() {return 0;}
+5: int t() { void ((*volatile p)()); p = (void ((*)()))OCIDateTimeGetTime; return 0; }
+/* end */
+
+"/usr/bin/gcc-4.2 -o conftest -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/x86_64-darwin11.0.0 -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/ruby/backward -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1 -I. -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE    -O3 -ggdb -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wshorten-64-to-32 -Wimplicit-function-declaration  -fno-common -pipe -I/opt/oracle/instantclient_10_2/sdk/include conftest.c  -L. -L/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/lib -L. -L/usr/local/lib     -L/opt/oracle/instantclient_10_2 -lclntsh  -lruby.1.9.1-static  -L/opt/oracle/instantclient_10_2 -lclntsh  -lpthread -ldl -lobjc "
+conftest.c: In function ‘t’:
+conftest.c:5: warning: implicit declaration of function ‘OCIDateTimeGetTime’
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: /*top*/
+4: int main() {return 0;}
+5: int t() { OCIDateTimeGetTime(); return 0; }
+/* end */
+
+--------------------
+
+have_func: checking for OCIDateTimeGetTimeZoneOffset()... -------------------- yes
+
+"/usr/bin/gcc-4.2 -o conftest -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/x86_64-darwin11.0.0 -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/ruby/backward -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1 -I. -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE    -O3 -ggdb -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wshorten-64-to-32 -Wimplicit-function-declaration  -fno-common -pipe -I/opt/oracle/instantclient_10_2/sdk/include conftest.c  -L. -L/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/lib -L. -L/usr/local/lib     -L/opt/oracle/instantclient_10_2 -lclntsh  -lruby.1.9.1-static  -L/opt/oracle/instantclient_10_2 -lclntsh  -lpthread -ldl -lobjc "
+conftest.c: In function ‘t’:
+conftest.c:5: error: ‘OCIDateTimeGetTimeZoneOffset’ undeclared (first use in this function)
+conftest.c:5: error: (Each undeclared identifier is reported only once
+conftest.c:5: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: /*top*/
+4: int main() {return 0;}
+5: int t() { void ((*volatile p)()); p = (void ((*)()))OCIDateTimeGetTimeZoneOffset; return 0; }
+/* end */
+
+"/usr/bin/gcc-4.2 -o conftest -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/x86_64-darwin11.0.0 -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/ruby/backward -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1 -I. -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE    -O3 -ggdb -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wshorten-64-to-32 -Wimplicit-function-declaration  -fno-common -pipe -I/opt/oracle/instantclient_10_2/sdk/include conftest.c  -L. -L/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/lib -L. -L/usr/local/lib     -L/opt/oracle/instantclient_10_2 -lclntsh  -lruby.1.9.1-static  -L/opt/oracle/instantclient_10_2 -lclntsh  -lpthread -ldl -lobjc "
+conftest.c: In function ‘t’:
+conftest.c:5: warning: implicit declaration of function ‘OCIDateTimeGetTimeZoneOffset’
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: /*top*/
+4: int main() {return 0;}
+5: int t() { OCIDateTimeGetTimeZoneOffset(); return 0; }
+/* end */
+
+--------------------
+
+have_func: checking for OCIIntervalFromText()... -------------------- yes
+
+"/usr/bin/gcc-4.2 -o conftest -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/x86_64-darwin11.0.0 -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/ruby/backward -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1 -I. -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE    -O3 -ggdb -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wshorten-64-to-32 -Wimplicit-function-declaration  -fno-common -pipe -I/opt/oracle/instantclient_10_2/sdk/include conftest.c  -L. -L/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/lib -L. -L/usr/local/lib     -L/opt/oracle/instantclient_10_2 -lclntsh  -lruby.1.9.1-static  -L/opt/oracle/instantclient_10_2 -lclntsh  -lpthread -ldl -lobjc "
+conftest.c: In function ‘t’:
+conftest.c:5: error: ‘OCIIntervalFromText’ undeclared (first use in this function)
+conftest.c:5: error: (Each undeclared identifier is reported only once
+conftest.c:5: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: /*top*/
+4: int main() {return 0;}
+5: int t() { void ((*volatile p)()); p = (void ((*)()))OCIIntervalFromText; return 0; }
+/* end */
+
+"/usr/bin/gcc-4.2 -o conftest -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/x86_64-darwin11.0.0 -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/ruby/backward -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1 -I. -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE    -O3 -ggdb -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wshorten-64-to-32 -Wimplicit-function-declaration  -fno-common -pipe -I/opt/oracle/instantclient_10_2/sdk/include conftest.c  -L. -L/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/lib -L. -L/usr/local/lib     -L/opt/oracle/instantclient_10_2 -lclntsh  -lruby.1.9.1-static  -L/opt/oracle/instantclient_10_2 -lclntsh  -lpthread -ldl -lobjc "
+conftest.c: In function ‘t’:
+conftest.c:5: warning: implicit declaration of function ‘OCIIntervalFromText’
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: /*top*/
+4: int main() {return 0;}
+5: int t() { OCIIntervalFromText(); return 0; }
+/* end */
+
+--------------------
+
+have_func: checking for OCIIntervalGetDaySecond()... -------------------- yes
+
+"/usr/bin/gcc-4.2 -o conftest -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/x86_64-darwin11.0.0 -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/ruby/backward -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1 -I. -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE    -O3 -ggdb -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wshorten-64-to-32 -Wimplicit-function-declaration  -fno-common -pipe -I/opt/oracle/instantclient_10_2/sdk/include conftest.c  -L. -L/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/lib -L. -L/usr/local/lib     -L/opt/oracle/instantclient_10_2 -lclntsh  -lruby.1.9.1-static  -L/opt/oracle/instantclient_10_2 -lclntsh  -lpthread -ldl -lobjc "
+conftest.c: In function ‘t’:
+conftest.c:5: error: ‘OCIIntervalGetDaySecond’ undeclared (first use in this function)
+conftest.c:5: error: (Each undeclared identifier is reported only once
+conftest.c:5: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: /*top*/
+4: int main() {return 0;}
+5: int t() { void ((*volatile p)()); p = (void ((*)()))OCIIntervalGetDaySecond; return 0; }
+/* end */
+
+"/usr/bin/gcc-4.2 -o conftest -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/x86_64-darwin11.0.0 -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/ruby/backward -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1 -I. -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE    -O3 -ggdb -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wshorten-64-to-32 -Wimplicit-function-declaration  -fno-common -pipe -I/opt/oracle/instantclient_10_2/sdk/include conftest.c  -L. -L/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/lib -L. -L/usr/local/lib     -L/opt/oracle/instantclient_10_2 -lclntsh  -lruby.1.9.1-static  -L/opt/oracle/instantclient_10_2 -lclntsh  -lpthread -ldl -lobjc "
+conftest.c: In function ‘t’:
+conftest.c:5: warning: implicit declaration of function ‘OCIIntervalGetDaySecond’
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: /*top*/
+4: int main() {return 0;}
+5: int t() { OCIIntervalGetDaySecond(); return 0; }
+/* end */
+
+--------------------
+
+have_func: checking for OCIIntervalGetYearMonth()... -------------------- yes
+
+"/usr/bin/gcc-4.2 -o conftest -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/x86_64-darwin11.0.0 -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/ruby/backward -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1 -I. -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE    -O3 -ggdb -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wshorten-64-to-32 -Wimplicit-function-declaration  -fno-common -pipe -I/opt/oracle/instantclient_10_2/sdk/include conftest.c  -L. -L/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/lib -L. -L/usr/local/lib     -L/opt/oracle/instantclient_10_2 -lclntsh  -lruby.1.9.1-static  -L/opt/oracle/instantclient_10_2 -lclntsh  -lpthread -ldl -lobjc "
+conftest.c: In function ‘t’:
+conftest.c:5: error: ‘OCIIntervalGetYearMonth’ undeclared (first use in this function)
+conftest.c:5: error: (Each undeclared identifier is reported only once
+conftest.c:5: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: /*top*/
+4: int main() {return 0;}
+5: int t() { void ((*volatile p)()); p = (void ((*)()))OCIIntervalGetYearMonth; return 0; }
+/* end */
+
+"/usr/bin/gcc-4.2 -o conftest -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/x86_64-darwin11.0.0 -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/ruby/backward -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1 -I. -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE    -O3 -ggdb -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wshorten-64-to-32 -Wimplicit-function-declaration  -fno-common -pipe -I/opt/oracle/instantclient_10_2/sdk/include conftest.c  -L. -L/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/lib -L. -L/usr/local/lib     -L/opt/oracle/instantclient_10_2 -lclntsh  -lruby.1.9.1-static  -L/opt/oracle/instantclient_10_2 -lclntsh  -lpthread -ldl -lobjc "
+conftest.c: In function ‘t’:
+conftest.c:5: warning: implicit declaration of function ‘OCIIntervalGetYearMonth’
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: /*top*/
+4: int main() {return 0;}
+5: int t() { OCIIntervalGetYearMonth(); return 0; }
+/* end */
+
+--------------------
+
+have_func: checking for OCIIntervalSetDaySecond()... -------------------- yes
+
+"/usr/bin/gcc-4.2 -o conftest -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/x86_64-darwin11.0.0 -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/ruby/backward -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1 -I. -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE    -O3 -ggdb -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wshorten-64-to-32 -Wimplicit-function-declaration  -fno-common -pipe -I/opt/oracle/instantclient_10_2/sdk/include conftest.c  -L. -L/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/lib -L. -L/usr/local/lib     -L/opt/oracle/instantclient_10_2 -lclntsh  -lruby.1.9.1-static  -L/opt/oracle/instantclient_10_2 -lclntsh  -lpthread -ldl -lobjc "
+conftest.c: In function ‘t’:
+conftest.c:5: error: ‘OCIIntervalSetDaySecond’ undeclared (first use in this function)
+conftest.c:5: error: (Each undeclared identifier is reported only once
+conftest.c:5: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: /*top*/
+4: int main() {return 0;}
+5: int t() { void ((*volatile p)()); p = (void ((*)()))OCIIntervalSetDaySecond; return 0; }
+/* end */
+
+"/usr/bin/gcc-4.2 -o conftest -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/x86_64-darwin11.0.0 -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/ruby/backward -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1 -I. -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE    -O3 -ggdb -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wshorten-64-to-32 -Wimplicit-function-declaration  -fno-common -pipe -I/opt/oracle/instantclient_10_2/sdk/include conftest.c  -L. -L/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/lib -L. -L/usr/local/lib     -L/opt/oracle/instantclient_10_2 -lclntsh  -lruby.1.9.1-static  -L/opt/oracle/instantclient_10_2 -lclntsh  -lpthread -ldl -lobjc "
+conftest.c: In function ‘t’:
+conftest.c:5: warning: implicit declaration of function ‘OCIIntervalSetDaySecond’
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: /*top*/
+4: int main() {return 0;}
+5: int t() { OCIIntervalSetDaySecond(); return 0; }
+/* end */
+
+--------------------
+
+have_func: checking for OCIIntervalSetYearMonth()... -------------------- yes
+
+"/usr/bin/gcc-4.2 -o conftest -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/x86_64-darwin11.0.0 -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/ruby/backward -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1 -I. -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE    -O3 -ggdb -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wshorten-64-to-32 -Wimplicit-function-declaration  -fno-common -pipe -I/opt/oracle/instantclient_10_2/sdk/include conftest.c  -L. -L/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/lib -L. -L/usr/local/lib     -L/opt/oracle/instantclient_10_2 -lclntsh  -lruby.1.9.1-static  -L/opt/oracle/instantclient_10_2 -lclntsh  -lpthread -ldl -lobjc "
+conftest.c: In function ‘t’:
+conftest.c:5: error: ‘OCIIntervalSetYearMonth’ undeclared (first use in this function)
+conftest.c:5: error: (Each undeclared identifier is reported only once
+conftest.c:5: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: /*top*/
+4: int main() {return 0;}
+5: int t() { void ((*volatile p)()); p = (void ((*)()))OCIIntervalSetYearMonth; return 0; }
+/* end */
+
+"/usr/bin/gcc-4.2 -o conftest -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/x86_64-darwin11.0.0 -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/ruby/backward -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1 -I. -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE    -O3 -ggdb -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wshorten-64-to-32 -Wimplicit-function-declaration  -fno-common -pipe -I/opt/oracle/instantclient_10_2/sdk/include conftest.c  -L. -L/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/lib -L. -L/usr/local/lib     -L/opt/oracle/instantclient_10_2 -lclntsh  -lruby.1.9.1-static  -L/opt/oracle/instantclient_10_2 -lclntsh  -lpthread -ldl -lobjc "
+conftest.c: In function ‘t’:
+conftest.c:5: warning: implicit declaration of function ‘OCIIntervalSetYearMonth’
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: /*top*/
+4: int main() {return 0;}
+5: int t() { OCIIntervalSetYearMonth(); return 0; }
+/* end */
+
+--------------------
+
+have_func: checking for OCIRowidToChar()... -------------------- yes
+
+"/usr/bin/gcc-4.2 -o conftest -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/x86_64-darwin11.0.0 -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/ruby/backward -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1 -I. -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE    -O3 -ggdb -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wshorten-64-to-32 -Wimplicit-function-declaration  -fno-common -pipe -I/opt/oracle/instantclient_10_2/sdk/include conftest.c  -L. -L/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/lib -L. -L/usr/local/lib     -L/opt/oracle/instantclient_10_2 -lclntsh  -lruby.1.9.1-static  -L/opt/oracle/instantclient_10_2 -lclntsh  -lpthread -ldl -lobjc "
+conftest.c: In function ‘t’:
+conftest.c:5: error: ‘OCIRowidToChar’ undeclared (first use in this function)
+conftest.c:5: error: (Each undeclared identifier is reported only once
+conftest.c:5: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: /*top*/
+4: int main() {return 0;}
+5: int t() { void ((*volatile p)()); p = (void ((*)()))OCIRowidToChar; return 0; }
+/* end */
+
+"/usr/bin/gcc-4.2 -o conftest -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/x86_64-darwin11.0.0 -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/ruby/backward -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1 -I. -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE    -O3 -ggdb -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wshorten-64-to-32 -Wimplicit-function-declaration  -fno-common -pipe -I/opt/oracle/instantclient_10_2/sdk/include conftest.c  -L. -L/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/lib -L. -L/usr/local/lib     -L/opt/oracle/instantclient_10_2 -lclntsh  -lruby.1.9.1-static  -L/opt/oracle/instantclient_10_2 -lclntsh  -lpthread -ldl -lobjc "
+conftest.c: In function ‘t’:
+conftest.c:5: warning: implicit declaration of function ‘OCIRowidToChar’
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: /*top*/
+4: int main() {return 0;}
+5: int t() { OCIRowidToChar(); return 0; }
+/* end */
+
+--------------------
+
+have_func: checking for OCIServerRelease()... -------------------- yes
+
+"/usr/bin/gcc-4.2 -o conftest -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/x86_64-darwin11.0.0 -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/ruby/backward -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1 -I. -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE    -O3 -ggdb -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wshorten-64-to-32 -Wimplicit-function-declaration  -fno-common -pipe -I/opt/oracle/instantclient_10_2/sdk/include conftest.c  -L. -L/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/lib -L. -L/usr/local/lib     -L/opt/oracle/instantclient_10_2 -lclntsh  -lruby.1.9.1-static  -L/opt/oracle/instantclient_10_2 -lclntsh  -lpthread -ldl -lobjc "
+conftest.c: In function ‘t’:
+conftest.c:5: error: ‘OCIServerRelease’ undeclared (first use in this function)
+conftest.c:5: error: (Each undeclared identifier is reported only once
+conftest.c:5: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: /*top*/
+4: int main() {return 0;}
+5: int t() { void ((*volatile p)()); p = (void ((*)()))OCIServerRelease; return 0; }
+/* end */
+
+"/usr/bin/gcc-4.2 -o conftest -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/x86_64-darwin11.0.0 -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/ruby/backward -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1 -I. -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE    -O3 -ggdb -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wshorten-64-to-32 -Wimplicit-function-declaration  -fno-common -pipe -I/opt/oracle/instantclient_10_2/sdk/include conftest.c  -L. -L/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/lib -L. -L/usr/local/lib     -L/opt/oracle/instantclient_10_2 -lclntsh  -lruby.1.9.1-static  -L/opt/oracle/instantclient_10_2 -lclntsh  -lpthread -ldl -lobjc "
+conftest.c: In function ‘t’:
+conftest.c:5: warning: implicit declaration of function ‘OCIServerRelease’
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: /*top*/
+4: int main() {return 0;}
+5: int t() { OCIServerRelease(); return 0; }
+/* end */
+
+--------------------
+
+have_func: checking for OCINlsCharSetIdToName()... -------------------- yes
+
+"/usr/bin/gcc-4.2 -o conftest -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/x86_64-darwin11.0.0 -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/ruby/backward -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1 -I. -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE    -O3 -ggdb -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wshorten-64-to-32 -Wimplicit-function-declaration  -fno-common -pipe -I/opt/oracle/instantclient_10_2/sdk/include conftest.c  -L. -L/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/lib -L. -L/usr/local/lib     -L/opt/oracle/instantclient_10_2 -lclntsh  -lruby.1.9.1-static  -L/opt/oracle/instantclient_10_2 -lclntsh  -lpthread -ldl -lobjc "
+conftest.c: In function ‘t’:
+conftest.c:5: error: ‘OCINlsCharSetIdToName’ undeclared (first use in this function)
+conftest.c:5: error: (Each undeclared identifier is reported only once
+conftest.c:5: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: /*top*/
+4: int main() {return 0;}
+5: int t() { void ((*volatile p)()); p = (void ((*)()))OCINlsCharSetIdToName; return 0; }
+/* end */
+
+"/usr/bin/gcc-4.2 -o conftest -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/x86_64-darwin11.0.0 -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/ruby/backward -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1 -I. -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE    -O3 -ggdb -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wshorten-64-to-32 -Wimplicit-function-declaration  -fno-common -pipe -I/opt/oracle/instantclient_10_2/sdk/include conftest.c  -L. -L/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/lib -L. -L/usr/local/lib     -L/opt/oracle/instantclient_10_2 -lclntsh  -lruby.1.9.1-static  -L/opt/oracle/instantclient_10_2 -lclntsh  -lpthread -ldl -lobjc "
+conftest.c: In function ‘t’:
+conftest.c:5: warning: implicit declaration of function ‘OCINlsCharSetIdToName’
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: /*top*/
+4: int main() {return 0;}
+5: int t() { OCINlsCharSetIdToName(); return 0; }
+/* end */
+
+--------------------
+
+have_func: checking for OCINlsCharSetNameToId()... -------------------- yes
+
+"/usr/bin/gcc-4.2 -o conftest -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/x86_64-darwin11.0.0 -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/ruby/backward -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1 -I. -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE    -O3 -ggdb -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wshorten-64-to-32 -Wimplicit-function-declaration  -fno-common -pipe -I/opt/oracle/instantclient_10_2/sdk/include conftest.c  -L. -L/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/lib -L. -L/usr/local/lib     -L/opt/oracle/instantclient_10_2 -lclntsh  -lruby.1.9.1-static  -L/opt/oracle/instantclient_10_2 -lclntsh  -lpthread -ldl -lobjc "
+conftest.c: In function ‘t’:
+conftest.c:5: error: ‘OCINlsCharSetNameToId’ undeclared (first use in this function)
+conftest.c:5: error: (Each undeclared identifier is reported only once
+conftest.c:5: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: /*top*/
+4: int main() {return 0;}
+5: int t() { void ((*volatile p)()); p = (void ((*)()))OCINlsCharSetNameToId; return 0; }
+/* end */
+
+"/usr/bin/gcc-4.2 -o conftest -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/x86_64-darwin11.0.0 -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/ruby/backward -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1 -I. -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE    -O3 -ggdb -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wshorten-64-to-32 -Wimplicit-function-declaration  -fno-common -pipe -I/opt/oracle/instantclient_10_2/sdk/include conftest.c  -L. -L/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/lib -L. -L/usr/local/lib     -L/opt/oracle/instantclient_10_2 -lclntsh  -lruby.1.9.1-static  -L/opt/oracle/instantclient_10_2 -lclntsh  -lpthread -ldl -lobjc "
+conftest.c: In function ‘t’:
+conftest.c:5: warning: implicit declaration of function ‘OCINlsCharSetNameToId’
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: /*top*/
+4: int main() {return 0;}
+5: int t() { OCINlsCharSetNameToId(); return 0; }
+/* end */
+
+--------------------
+
+have_func: checking for OCILobGetLength2()... -------------------- yes
+
+"/usr/bin/gcc-4.2 -o conftest -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/x86_64-darwin11.0.0 -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/ruby/backward -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1 -I. -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE    -O3 -ggdb -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wshorten-64-to-32 -Wimplicit-function-declaration  -fno-common -pipe -I/opt/oracle/instantclient_10_2/sdk/include conftest.c  -L. -L/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/lib -L. -L/usr/local/lib     -L/opt/oracle/instantclient_10_2 -lclntsh  -lruby.1.9.1-static  -L/opt/oracle/instantclient_10_2 -lclntsh  -lpthread -ldl -lobjc "
+conftest.c: In function ‘t’:
+conftest.c:5: error: ‘OCILobGetLength2’ undeclared (first use in this function)
+conftest.c:5: error: (Each undeclared identifier is reported only once
+conftest.c:5: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: /*top*/
+4: int main() {return 0;}
+5: int t() { void ((*volatile p)()); p = (void ((*)()))OCILobGetLength2; return 0; }
+/* end */
+
+"/usr/bin/gcc-4.2 -o conftest -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/x86_64-darwin11.0.0 -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/ruby/backward -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1 -I. -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE    -O3 -ggdb -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wshorten-64-to-32 -Wimplicit-function-declaration  -fno-common -pipe -I/opt/oracle/instantclient_10_2/sdk/include conftest.c  -L. -L/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/lib -L. -L/usr/local/lib     -L/opt/oracle/instantclient_10_2 -lclntsh  -lruby.1.9.1-static  -L/opt/oracle/instantclient_10_2 -lclntsh  -lpthread -ldl -lobjc "
+conftest.c: In function ‘t’:
+conftest.c:5: warning: implicit declaration of function ‘OCILobGetLength2’
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: /*top*/
+4: int main() {return 0;}
+5: int t() { OCILobGetLength2(); return 0; }
+/* end */
+
+--------------------
+
+have_func: checking for OCILobRead2()... -------------------- yes
+
+"/usr/bin/gcc-4.2 -o conftest -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/x86_64-darwin11.0.0 -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/ruby/backward -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1 -I. -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE    -O3 -ggdb -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wshorten-64-to-32 -Wimplicit-function-declaration  -fno-common -pipe -I/opt/oracle/instantclient_10_2/sdk/include conftest.c  -L. -L/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/lib -L. -L/usr/local/lib     -L/opt/oracle/instantclient_10_2 -lclntsh  -lruby.1.9.1-static  -L/opt/oracle/instantclient_10_2 -lclntsh  -lpthread -ldl -lobjc "
+conftest.c: In function ‘t’:
+conftest.c:5: error: ‘OCILobRead2’ undeclared (first use in this function)
+conftest.c:5: error: (Each undeclared identifier is reported only once
+conftest.c:5: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: /*top*/
+4: int main() {return 0;}
+5: int t() { void ((*volatile p)()); p = (void ((*)()))OCILobRead2; return 0; }
+/* end */
+
+"/usr/bin/gcc-4.2 -o conftest -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/x86_64-darwin11.0.0 -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/ruby/backward -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1 -I. -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE    -O3 -ggdb -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wshorten-64-to-32 -Wimplicit-function-declaration  -fno-common -pipe -I/opt/oracle/instantclient_10_2/sdk/include conftest.c  -L. -L/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/lib -L. -L/usr/local/lib     -L/opt/oracle/instantclient_10_2 -lclntsh  -lruby.1.9.1-static  -L/opt/oracle/instantclient_10_2 -lclntsh  -lpthread -ldl -lobjc "
+conftest.c: In function ‘t’:
+conftest.c:5: warning: implicit declaration of function ‘OCILobRead2’
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: /*top*/
+4: int main() {return 0;}
+5: int t() { OCILobRead2(); return 0; }
+/* end */
+
+--------------------
+
+have_func: checking for OCILobTrim2()... -------------------- yes
+
+"/usr/bin/gcc-4.2 -o conftest -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/x86_64-darwin11.0.0 -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/ruby/backward -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1 -I. -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE    -O3 -ggdb -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wshorten-64-to-32 -Wimplicit-function-declaration  -fno-common -pipe -I/opt/oracle/instantclient_10_2/sdk/include conftest.c  -L. -L/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/lib -L. -L/usr/local/lib     -L/opt/oracle/instantclient_10_2 -lclntsh  -lruby.1.9.1-static  -L/opt/oracle/instantclient_10_2 -lclntsh  -lpthread -ldl -lobjc "
+conftest.c: In function ‘t’:
+conftest.c:5: error: ‘OCILobTrim2’ undeclared (first use in this function)
+conftest.c:5: error: (Each undeclared identifier is reported only once
+conftest.c:5: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: /*top*/
+4: int main() {return 0;}
+5: int t() { void ((*volatile p)()); p = (void ((*)()))OCILobTrim2; return 0; }
+/* end */
+
+"/usr/bin/gcc-4.2 -o conftest -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/x86_64-darwin11.0.0 -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/ruby/backward -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1 -I. -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE    -O3 -ggdb -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wshorten-64-to-32 -Wimplicit-function-declaration  -fno-common -pipe -I/opt/oracle/instantclient_10_2/sdk/include conftest.c  -L. -L/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/lib -L. -L/usr/local/lib     -L/opt/oracle/instantclient_10_2 -lclntsh  -lruby.1.9.1-static  -L/opt/oracle/instantclient_10_2 -lclntsh  -lpthread -ldl -lobjc "
+conftest.c: In function ‘t’:
+conftest.c:5: warning: implicit declaration of function ‘OCILobTrim2’
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: /*top*/
+4: int main() {return 0;}
+5: int t() { OCILobTrim2(); return 0; }
+/* end */
+
+--------------------
+
+have_func: checking for OCILobWrite2()... -------------------- yes
+
+"/usr/bin/gcc-4.2 -o conftest -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/x86_64-darwin11.0.0 -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/ruby/backward -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1 -I. -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE    -O3 -ggdb -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wshorten-64-to-32 -Wimplicit-function-declaration  -fno-common -pipe -I/opt/oracle/instantclient_10_2/sdk/include conftest.c  -L. -L/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/lib -L. -L/usr/local/lib     -L/opt/oracle/instantclient_10_2 -lclntsh  -lruby.1.9.1-static  -L/opt/oracle/instantclient_10_2 -lclntsh  -lpthread -ldl -lobjc "
+conftest.c: In function ‘t’:
+conftest.c:5: error: ‘OCILobWrite2’ undeclared (first use in this function)
+conftest.c:5: error: (Each undeclared identifier is reported only once
+conftest.c:5: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: /*top*/
+4: int main() {return 0;}
+5: int t() { void ((*volatile p)()); p = (void ((*)()))OCILobWrite2; return 0; }
+/* end */
+
+"/usr/bin/gcc-4.2 -o conftest -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/x86_64-darwin11.0.0 -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/ruby/backward -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1 -I. -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE    -O3 -ggdb -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wshorten-64-to-32 -Wimplicit-function-declaration  -fno-common -pipe -I/opt/oracle/instantclient_10_2/sdk/include conftest.c  -L. -L/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/lib -L. -L/usr/local/lib     -L/opt/oracle/instantclient_10_2 -lclntsh  -lruby.1.9.1-static  -L/opt/oracle/instantclient_10_2 -lclntsh  -lpthread -ldl -lobjc "
+conftest.c: In function ‘t’:
+conftest.c:5: warning: implicit declaration of function ‘OCILobWrite2’
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: /*top*/
+4: int main() {return 0;}
+5: int t() { OCILobWrite2(); return 0; }
+/* end */
+
+--------------------
+
+have_func: checking for OCIClientVersion()... -------------------- yes
+
+"/usr/bin/gcc-4.2 -o conftest -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/x86_64-darwin11.0.0 -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/ruby/backward -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1 -I. -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE    -O3 -ggdb -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wshorten-64-to-32 -Wimplicit-function-declaration  -fno-common -pipe -I/opt/oracle/instantclient_10_2/sdk/include conftest.c  -L. -L/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/lib -L. -L/usr/local/lib     -L/opt/oracle/instantclient_10_2 -lclntsh  -lruby.1.9.1-static  -L/opt/oracle/instantclient_10_2 -lclntsh  -lpthread -ldl -lobjc "
+conftest.c: In function ‘t’:
+conftest.c:5: error: ‘OCIClientVersion’ undeclared (first use in this function)
+conftest.c:5: error: (Each undeclared identifier is reported only once
+conftest.c:5: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: /*top*/
+4: int main() {return 0;}
+5: int t() { void ((*volatile p)()); p = (void ((*)()))OCIClientVersion; return 0; }
+/* end */
+
+"/usr/bin/gcc-4.2 -o conftest -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/x86_64-darwin11.0.0 -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/ruby/backward -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1 -I. -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE    -O3 -ggdb -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wshorten-64-to-32 -Wimplicit-function-declaration  -fno-common -pipe -I/opt/oracle/instantclient_10_2/sdk/include conftest.c  -L. -L/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/lib -L. -L/usr/local/lib     -L/opt/oracle/instantclient_10_2 -lclntsh  -lruby.1.9.1-static  -L/opt/oracle/instantclient_10_2 -lclntsh  -lpthread -ldl -lobjc "
+conftest.c: In function ‘t’:
+conftest.c:5: warning: implicit declaration of function ‘OCIClientVersion’
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: /*top*/
+4: int main() {return 0;}
+5: int t() { OCIClientVersion(); return 0; }
+/* end */
+
+--------------------
+
+have_func: checking for OCIDBShutdown()... -------------------- yes
+
+"/usr/bin/gcc-4.2 -o conftest -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/x86_64-darwin11.0.0 -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/ruby/backward -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1 -I. -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE    -O3 -ggdb -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wshorten-64-to-32 -Wimplicit-function-declaration  -fno-common -pipe -I/opt/oracle/instantclient_10_2/sdk/include conftest.c  -L. -L/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/lib -L. -L/usr/local/lib     -L/opt/oracle/instantclient_10_2 -lclntsh  -lruby.1.9.1-static  -L/opt/oracle/instantclient_10_2 -lclntsh  -lpthread -ldl -lobjc "
+conftest.c: In function ‘t’:
+conftest.c:5: error: ‘OCIDBShutdown’ undeclared (first use in this function)
+conftest.c:5: error: (Each undeclared identifier is reported only once
+conftest.c:5: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: /*top*/
+4: int main() {return 0;}
+5: int t() { void ((*volatile p)()); p = (void ((*)()))OCIDBShutdown; return 0; }
+/* end */
+
+"/usr/bin/gcc-4.2 -o conftest -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/x86_64-darwin11.0.0 -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/ruby/backward -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1 -I. -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE    -O3 -ggdb -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wshorten-64-to-32 -Wimplicit-function-declaration  -fno-common -pipe -I/opt/oracle/instantclient_10_2/sdk/include conftest.c  -L. -L/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/lib -L. -L/usr/local/lib     -L/opt/oracle/instantclient_10_2 -lclntsh  -lruby.1.9.1-static  -L/opt/oracle/instantclient_10_2 -lclntsh  -lpthread -ldl -lobjc "
+conftest.c: In function ‘t’:
+conftest.c:5: warning: implicit declaration of function ‘OCIDBShutdown’
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: /*top*/
+4: int main() {return 0;}
+5: int t() { OCIDBShutdown(); return 0; }
+/* end */
+
+--------------------
+
+have_func: checking for OCIDBStartup()... -------------------- yes
+
+"/usr/bin/gcc-4.2 -o conftest -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/x86_64-darwin11.0.0 -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/ruby/backward -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1 -I. -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE    -O3 -ggdb -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wshorten-64-to-32 -Wimplicit-function-declaration  -fno-common -pipe -I/opt/oracle/instantclient_10_2/sdk/include conftest.c  -L. -L/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/lib -L. -L/usr/local/lib     -L/opt/oracle/instantclient_10_2 -lclntsh  -lruby.1.9.1-static  -L/opt/oracle/instantclient_10_2 -lclntsh  -lpthread -ldl -lobjc "
+conftest.c: In function ‘t’:
+conftest.c:5: error: ‘OCIDBStartup’ undeclared (first use in this function)
+conftest.c:5: error: (Each undeclared identifier is reported only once
+conftest.c:5: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: /*top*/
+4: int main() {return 0;}
+5: int t() { void ((*volatile p)()); p = (void ((*)()))OCIDBStartup; return 0; }
+/* end */
+
+"/usr/bin/gcc-4.2 -o conftest -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/x86_64-darwin11.0.0 -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/ruby/backward -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1 -I. -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE    -O3 -ggdb -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wshorten-64-to-32 -Wimplicit-function-declaration  -fno-common -pipe -I/opt/oracle/instantclient_10_2/sdk/include conftest.c  -L. -L/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/lib -L. -L/usr/local/lib     -L/opt/oracle/instantclient_10_2 -lclntsh  -lruby.1.9.1-static  -L/opt/oracle/instantclient_10_2 -lclntsh  -lpthread -ldl -lobjc "
+conftest.c: In function ‘t’:
+conftest.c:5: warning: implicit declaration of function ‘OCIDBStartup’
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: /*top*/
+4: int main() {return 0;}
+5: int t() { OCIDBStartup(); return 0; }
+/* end */
+
+--------------------
+
+have_func: checking for OCIPing()... -------------------- yes
+
+"/usr/bin/gcc-4.2 -o conftest -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/x86_64-darwin11.0.0 -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/ruby/backward -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1 -I. -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE    -O3 -ggdb -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wshorten-64-to-32 -Wimplicit-function-declaration  -fno-common -pipe -I/opt/oracle/instantclient_10_2/sdk/include conftest.c  -L. -L/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/lib -L. -L/usr/local/lib     -L/opt/oracle/instantclient_10_2 -lclntsh  -lruby.1.9.1-static  -L/opt/oracle/instantclient_10_2 -lclntsh  -lpthread -ldl -lobjc "
+conftest.c: In function ‘t’:
+conftest.c:5: error: ‘OCIPing’ undeclared (first use in this function)
+conftest.c:5: error: (Each undeclared identifier is reported only once
+conftest.c:5: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: /*top*/
+4: int main() {return 0;}
+5: int t() { void ((*volatile p)()); p = (void ((*)()))OCIPing; return 0; }
+/* end */
+
+"/usr/bin/gcc-4.2 -o conftest -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/x86_64-darwin11.0.0 -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/ruby/backward -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1 -I. -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE    -O3 -ggdb -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wshorten-64-to-32 -Wimplicit-function-declaration  -fno-common -pipe -I/opt/oracle/instantclient_10_2/sdk/include conftest.c  -L. -L/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/lib -L. -L/usr/local/lib     -L/opt/oracle/instantclient_10_2 -lclntsh  -lruby.1.9.1-static  -L/opt/oracle/instantclient_10_2 -lclntsh  -lpthread -ldl -lobjc "
+conftest.c: In function ‘t’:
+conftest.c:5: warning: implicit declaration of function ‘OCIPing’
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: /*top*/
+4: int main() {return 0;}
+5: int t() { OCIPing(); return 0; }
+/* end */
+
+--------------------
+
+have_func: checking for OCIArrayDescriptorAlloc()... -------------------- no
+
+"/usr/bin/gcc-4.2 -o conftest -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/x86_64-darwin11.0.0 -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/ruby/backward -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1 -I. -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE    -O3 -ggdb -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wshorten-64-to-32 -Wimplicit-function-declaration  -fno-common -pipe -I/opt/oracle/instantclient_10_2/sdk/include conftest.c  -L. -L/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/lib -L. -L/usr/local/lib     -L/opt/oracle/instantclient_10_2 -lclntsh  -lruby.1.9.1-static  -L/opt/oracle/instantclient_10_2 -lclntsh  -lpthread -ldl -lobjc "
+conftest.c: In function ‘t’:
+conftest.c:5: error: ‘OCIArrayDescriptorAlloc’ undeclared (first use in this function)
+conftest.c:5: error: (Each undeclared identifier is reported only once
+conftest.c:5: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: /*top*/
+4: int main() {return 0;}
+5: int t() { void ((*volatile p)()); p = (void ((*)()))OCIArrayDescriptorAlloc; return 0; }
+/* end */
+
+"/usr/bin/gcc-4.2 -o conftest -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/x86_64-darwin11.0.0 -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/ruby/backward -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1 -I. -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE    -O3 -ggdb -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wshorten-64-to-32 -Wimplicit-function-declaration  -fno-common -pipe -I/opt/oracle/instantclient_10_2/sdk/include conftest.c  -L. -L/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/lib -L. -L/usr/local/lib     -L/opt/oracle/instantclient_10_2 -lclntsh  -lruby.1.9.1-static  -L/opt/oracle/instantclient_10_2 -lclntsh  -lpthread -ldl -lobjc "
+conftest.c: In function ‘t’:
+conftest.c:5: warning: implicit declaration of function ‘OCIArrayDescriptorAlloc’
+Undefined symbols for architecture x86_64:
+  "_OCIArrayDescriptorAlloc", referenced from:
+      _t in ccoLGbd5.o
+ld: symbol(s) not found for architecture x86_64
+collect2: ld returned 1 exit status
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: /*top*/
+4: int main() {return 0;}
+5: int t() { OCIArrayDescriptorAlloc(); return 0; }
+/* end */
+
+--------------------
+
+have_type: checking for oratext in ociap.h... -------------------- yes
+
+"/usr/bin/gcc-4.2 -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/x86_64-darwin11.0.0 -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/ruby/backward -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1 -I. -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE    -O3 -ggdb -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wshorten-64-to-32 -Wimplicit-function-declaration  -fno-common -pipe -I/opt/oracle/instantclient_10_2/sdk/include   -c conftest.c"
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: #include <ociap.h>
+4: 
+5: /*top*/
+6: typedef oratext conftest_type;
+7: int conftestval[sizeof(conftest_type)?1:-1];
+/* end */
+
+--------------------
+
+have_type: checking for OCIDateTime* in ociap.h... -------------------- yes
+
+"/usr/bin/gcc-4.2 -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/x86_64-darwin11.0.0 -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/ruby/backward -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1 -I. -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE    -O3 -ggdb -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wshorten-64-to-32 -Wimplicit-function-declaration  -fno-common -pipe -I/opt/oracle/instantclient_10_2/sdk/include   -c conftest.c"
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: #include <ociap.h>
+4: 
+5: /*top*/
+6: typedef OCIDateTime* conftest_type;
+7: int conftestval[sizeof(conftest_type)?1:-1];
+/* end */
+
+--------------------
+
+have_type: checking for OCIInterval* in ociap.h... -------------------- yes
+
+"/usr/bin/gcc-4.2 -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/x86_64-darwin11.0.0 -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/ruby/backward -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1 -I. -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE    -O3 -ggdb -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wshorten-64-to-32 -Wimplicit-function-declaration  -fno-common -pipe -I/opt/oracle/instantclient_10_2/sdk/include   -c conftest.c"
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: #include <ociap.h>
+4: 
+5: /*top*/
+6: typedef OCIInterval* conftest_type;
+7: int conftestval[sizeof(conftest_type)?1:-1];
+/* end */
+
+--------------------
+
+have_type: checking for OCICallbackLobRead2 in ociap.h... -------------------- yes
+
+"/usr/bin/gcc-4.2 -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/x86_64-darwin11.0.0 -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/ruby/backward -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1 -I. -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE    -O3 -ggdb -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wshorten-64-to-32 -Wimplicit-function-declaration  -fno-common -pipe -I/opt/oracle/instantclient_10_2/sdk/include   -c conftest.c"
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: #include <ociap.h>
+4: 
+5: /*top*/
+6: typedef OCICallbackLobRead2 conftest_type;
+7: int conftestval[sizeof(conftest_type)?1:-1];
+/* end */
+
+--------------------
+
+have_type: checking for OCICallbackLobWrite2 in ociap.h... -------------------- yes
+
+"/usr/bin/gcc-4.2 -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/x86_64-darwin11.0.0 -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/ruby/backward -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1 -I. -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE    -O3 -ggdb -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wshorten-64-to-32 -Wimplicit-function-declaration  -fno-common -pipe -I/opt/oracle/instantclient_10_2/sdk/include   -c conftest.c"
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: #include <ociap.h>
+4: 
+5: /*top*/
+6: typedef OCICallbackLobWrite2 conftest_type;
+7: int conftestval[sizeof(conftest_type)?1:-1];
+/* end */
+
+--------------------
+
+have_type: checking for OCIAdmin* in ociap.h... -------------------- yes
+
+"/usr/bin/gcc-4.2 -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/x86_64-darwin11.0.0 -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/ruby/backward -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1 -I. -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE    -O3 -ggdb -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wshorten-64-to-32 -Wimplicit-function-declaration  -fno-common -pipe -I/opt/oracle/instantclient_10_2/sdk/include   -c conftest.c"
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: #include <ociap.h>
+4: 
+5: /*top*/
+6: typedef OCIAdmin* conftest_type;
+7: int conftestval[sizeof(conftest_type)?1:-1];
+/* end */
+
+--------------------
+
+have_type: checking for OCIMsg* in ociap.h... -------------------- yes
+
+"/usr/bin/gcc-4.2 -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/x86_64-darwin11.0.0 -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/ruby/backward -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1 -I. -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE    -O3 -ggdb -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wshorten-64-to-32 -Wimplicit-function-declaration  -fno-common -pipe -I/opt/oracle/instantclient_10_2/sdk/include   -c conftest.c"
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: #include <ociap.h>
+4: 
+5: /*top*/
+6: typedef OCIMsg* conftest_type;
+7: int conftestval[sizeof(conftest_type)?1:-1];
+/* end */
+
+--------------------
+
+have_func: checking for localtime_r()... -------------------- yes
+
+"/usr/bin/gcc-4.2 -o conftest -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/x86_64-darwin11.0.0 -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/ruby/backward -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1 -I. -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE    -O3 -ggdb -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wshorten-64-to-32 -Wimplicit-function-declaration  -fno-common -pipe -I/opt/oracle/instantclient_10_2/sdk/include -Wall conftest.c  -L. -L/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/lib -L. -L/usr/local/lib     -L/opt/oracle/instantclient_10_2 -lclntsh  -lruby.1.9.1-static  -L/opt/oracle/instantclient_10_2 -lclntsh  -lpthread -ldl -lobjc "
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: /*top*/
+4: int main() {return 0;}
+5: int t() { void ((*volatile p)()); p = (void ((*)()))localtime_r; return 0; }
+/* end */
+
+--------------------
+
+have_header: checking for intern.h... -------------------- no
+
+"/usr/bin/gcc-4.2 -E -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/x86_64-darwin11.0.0 -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/ruby/backward -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1 -I. -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE    -O3 -ggdb -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wshorten-64-to-32 -Wimplicit-function-declaration  -fno-common -pipe -I/opt/oracle/instantclient_10_2/sdk/include -Wall  conftest.c -o conftest.i"
+conftest.c:3:20: error: intern.h: No such file or directory
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: #include <intern.h>
+/* end */
+
+--------------------
+
+have_header: checking for util.h... -------------------- yes
+
+"/usr/bin/gcc-4.2 -E -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/x86_64-darwin11.0.0 -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/ruby/backward -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1 -I. -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE    -O3 -ggdb -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wshorten-64-to-32 -Wimplicit-function-declaration  -fno-common -pipe -I/opt/oracle/instantclient_10_2/sdk/include -Wall  conftest.c -o conftest.i"
+In file included from conftest.c:3:
+/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/ruby/backward/util.h:2:2: warning: #warning use "ruby/util.h" instead of bare "util.h"
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: #include <util.h>
+/* end */
+
+--------------------
+
+have_header: checking for ruby/util.h... -------------------- yes
+
+"/usr/bin/gcc-4.2 -E -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/x86_64-darwin11.0.0 -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/ruby/backward -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1 -I. -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE    -O3 -ggdb -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wshorten-64-to-32 -Wimplicit-function-declaration  -fno-common -pipe -I/opt/oracle/instantclient_10_2/sdk/include -Wall  conftest.c -o conftest.i"
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: #include <ruby/util.h>
+/* end */
+
+--------------------
+
+have_type: checking for rb_encoding in ruby/ruby.h,ruby/encoding.h... -------------------- yes
+
+"/usr/bin/gcc-4.2 -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/x86_64-darwin11.0.0 -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/ruby/backward -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1 -I. -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE    -O3 -ggdb -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wshorten-64-to-32 -Wimplicit-function-declaration  -fno-common -pipe -I/opt/oracle/instantclient_10_2/sdk/include -Wall   -c conftest.c"
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: #include <ruby/ruby.h>
+4: #include <ruby/encoding.h>
+5: 
+6: /*top*/
+7: typedef rb_encoding conftest_type;
+8: int conftestval[sizeof(conftest_type)?1:-1];
+/* end */
+
+--------------------
+
+have_var: checking for ruby_errinfo in ruby.h... -------------------- no
+
+"/usr/bin/gcc-4.2 -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/x86_64-darwin11.0.0 -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/ruby/backward -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1 -I. -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE    -O3 -ggdb -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wshorten-64-to-32 -Wimplicit-function-declaration  -fno-common -pipe -I/opt/oracle/instantclient_10_2/sdk/include -Wall   -c conftest.c"
+conftest.c: In function ‘t’:
+conftest.c:7: error: ‘ruby_errinfo’ undeclared (first use in this function)
+conftest.c:7: error: (Each undeclared identifier is reported only once
+conftest.c:7: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: #include <ruby.h>
+4: 
+5: /*top*/
+6: int main() {return 0;}
+7: int t() { const volatile void *volatile p; p = &(&ruby_errinfo)[0]; return 0; }
+/* end */
+
+--------------------
+
+have_func: checking for rb_errinfo() in ruby.h... -------------------- yes
+
+"/usr/bin/gcc-4.2 -o conftest -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/x86_64-darwin11.0.0 -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/ruby/backward -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1 -I. -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE    -O3 -ggdb -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wshorten-64-to-32 -Wimplicit-function-declaration  -fno-common -pipe -I/opt/oracle/instantclient_10_2/sdk/include -Wall conftest.c  -L. -L/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/lib -L. -L/usr/local/lib     -L/opt/oracle/instantclient_10_2 -lclntsh  -lruby.1.9.1-static  -L/opt/oracle/instantclient_10_2 -lclntsh  -lpthread -ldl -lobjc "
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: #include <ruby.h>
+4: 
+5: /*top*/
+6: int main() {return 0;}
+7: int t() { void ((*volatile p)()); p = (void ((*)()))rb_errinfo; return 0; }
+/* end */
+
+--------------------
+
+have_type: checking for rb_blocking_function_t in ruby.h... -------------------- yes
+
+"/usr/bin/gcc-4.2 -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/x86_64-darwin11.0.0 -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/ruby/backward -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1 -I. -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE    -O3 -ggdb -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wshorten-64-to-32 -Wimplicit-function-declaration  -fno-common -pipe -I/opt/oracle/instantclient_10_2/sdk/include -Wall   -c conftest.c"
+conftest.c:7: warning: invalid application of ‘sizeof’ to a function type
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: #include <ruby.h>
+4: 
+5: /*top*/
+6: typedef rb_blocking_function_t conftest_type;
+7: int conftestval[sizeof(conftest_type)?1:-1];
+/* end */
+
+--------------------
+
+have_func: checking for rb_set_end_proc() in ruby.h... -------------------- yes
+
+"/usr/bin/gcc-4.2 -o conftest -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/x86_64-darwin11.0.0 -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/ruby/backward -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1 -I. -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE    -O3 -ggdb -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wshorten-64-to-32 -Wimplicit-function-declaration  -fno-common -pipe -I/opt/oracle/instantclient_10_2/sdk/include -Wall conftest.c  -L. -L/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/lib -L. -L/usr/local/lib     -L/opt/oracle/instantclient_10_2 -lclntsh  -lruby.1.9.1-static  -L/opt/oracle/instantclient_10_2 -lclntsh  -lpthread -ldl -lobjc "
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: #include <ruby.h>
+4: 
+5: /*top*/
+6: int main() {return 0;}
+7: int t() { void ((*volatile p)()); p = (void ((*)()))rb_set_end_proc; return 0; }
+/* end */
+
+--------------------
+
+have_func: checking for rb_class_superclass() in ruby.h... -------------------- yes
+
+"/usr/bin/gcc-4.2 -o conftest -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/x86_64-darwin11.0.0 -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/ruby/backward -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1 -I. -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE    -O3 -ggdb -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wshorten-64-to-32 -Wimplicit-function-declaration  -fno-common -pipe -I/opt/oracle/instantclient_10_2/sdk/include -Wall conftest.c  -L. -L/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/lib -L. -L/usr/local/lib     -L/opt/oracle/instantclient_10_2 -lclntsh  -lruby.1.9.1-static  -L/opt/oracle/instantclient_10_2 -lclntsh  -lpthread -ldl -lobjc "
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: #include <ruby.h>
+4: 
+5: /*top*/
+6: int main() {return 0;}
+7: int t() { void ((*volatile p)()); p = (void ((*)()))rb_class_superclass; return 0; }
+/* end */
+
+--------------------
+
+have_func: checking for rb_thread_blocking_region() in ruby.h... -------------------- yes
+
+"/usr/bin/gcc-4.2 -o conftest -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/x86_64-darwin11.0.0 -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1/ruby/backward -I/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/include/ruby-1.9.1 -I. -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE    -O3 -ggdb -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wshorten-64-to-32 -Wimplicit-function-declaration  -fno-common -pipe -I/opt/oracle/instantclient_10_2/sdk/include -Wall conftest.c  -L. -L/Users/josh/.rvm/rubies/ruby-1.9.3-preview1/lib -L. -L/usr/local/lib     -L/opt/oracle/instantclient_10_2 -lclntsh  -lruby.1.9.1-static  -L/opt/oracle/instantclient_10_2 -lclntsh  -lpthread -ldl -lobjc "
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: #include <ruby.h>
+4: 
+5: /*top*/
+6: int main() {return 0;}
+7: int t() { void ((*volatile p)()); p = (void ((*)()))rb_thread_blocking_region; return 0; }
+/* end */
+
+--------------------
+
