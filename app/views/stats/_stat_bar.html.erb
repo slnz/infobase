@@ -6,9 +6,10 @@
   <table class="movementheader">
     <tr onClick="javascript:$('#<%= counter %>').toggleClass('selected');">
       <th class="expand"></th>
-      <th class="schoolname" style="width:280px">
+      <th class="schoolname" style="width:335px">
         <span style="display:inline;float:left;padding-right:10px;text-align:left"><%= stat.activity.target_area.name %> - <%= Activity.strategies[stat.activity.strategy] %></span>
       </th>
+      <th class="bookmark"><%= link_to "", unbookmark_location_movement_path(stat.activity.target_area, stat.activity), {:class => "unbookmark", :method => :delete} %></th>
       <th class="schoolname">
         <ul class="checkmarks" style="display:inline;float:right;">
           <% 14.downto(0) do |week_ago| %>
@@ -16,15 +17,15 @@
             <li class="checkmark <%= first_week(sunday) ? "first_week" : "" %>">
               <%= link_to (stats_path + "?date=" + display_date_dash(sunday)) do %><!-- TODO: Hover gives dates? -->
                 <% if stat.activity.last_fifteen_stats.exists?({:periodBegin => sunday}) %>
-                  <%= image_tag "greendot.gif" %>
+                  <%= image_tag "greendot.png" %>
                 <% else %>
-                  <%= image_tag "reddot.gif" %>
+                  <%= image_tag "reddot.png" %>
                 <% end%>
               <% end %>
             </li>
           <% end %>
         </ul>
       </th>
-      <th class="bookmark"><%= link_to "Unbookmark", unbookmark_location_movement_path(stat.activity.target_area, stat.activity), {:class => "unbookmark", :method => :delete} %></th>
+      
     </tr>
   </table>

@@ -348,8 +348,19 @@ table.movementheader {
 .weekTab, .thisWeek {
   display: inline;
   float: left;
-  margin-right: 20px;
+  margin-right: 0px;
   text-align: center;
+}
+
+.weekTab a {
+  display: block;
+  padding: 4px 6px;
+  color: blue;
+  width: 25px;
+}
+
+.weekTab a:hover {
+  background: #efefef;
 }
 
 li.selected {
@@ -411,7 +422,7 @@ div.aschool .thecolumn, div.aschool_thin .thecolumn {
 }
 
 th.bookmark {
-  width: 10%;
+  width: 30px;
 }
 
 table.movementheader th {
@@ -436,6 +447,17 @@ ul.results li {
 ul.checkmarks li.checkmark {
   height: auto;
   margin-bottom: 0px;
+  width: 26px;
+  padding: 0px 4px;
+  margin-right: 0px;
+}
+
+ul.checkmarks {
+  padding: 0px;
+}
+
+table.movementheader th.schoolname {
+  padding: 0px;
 }
 
 a.editfield {
@@ -460,13 +482,21 @@ th.expand, td.expand {
   width: 60px;
 }
 
-ul.results li.selected th.expand {
+ul.results th.expand {
   background: url(<%= asset_path 'contract.png' %>) no-repeat scroll 50% 50% transparent;
-  width: 60px;
+  width: 35px;
+  padding: 0px;
+}
+
+li.checkmark img, ul.results li.checkmark img {
+  /* background-color: #d3d3d3; */
+  padding: 1px;
 }
 
 li.first_week img, ul.results li.first_week img {
-  background-color: #d3d3d3;
+  /* background-color: #d3d3d3; */
+  border: 1px solid #6770b1;
+  background: #6770b1;
 }
 
 a.unbookmark {
@@ -541,4 +571,13 @@ h3.indented {
 
 div.aschool:hover, div.aschool_thin:hover {
 background-color:#B5B5B5;
+}
+
+h1.multi {
+  float: left;
+}
+
+h1 span.title {
+  display: block;
+  font-size: 16px;
 }
