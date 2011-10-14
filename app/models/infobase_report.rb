@@ -38,6 +38,7 @@ class InfobaseReport
     rows = []
     regions = Region.standard_region_codes
     regions << "nil" if type != "campus"
+    regions.uniq!
     Region.standard_region_codes.each do |region|
       stats = start_national_query(from_date, to_date, strategies, region, type)
       
