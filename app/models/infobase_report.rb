@@ -96,7 +96,7 @@ class InfobaseReport
         stats = sum_weekly_stats(stats)
         
         max_end_date = activity.statistics.between_dates(from_date, to_date).maximum(Statistic.table_name + ".periodEnd")
-        last_stats = start_team_query(from_date, to_date, strategies, activity).
+        last_stats = start_team_query(from_date, to_date, strategies, activity, type).
           where(Statistic.table_name + ".periodEnd = ?", max_end_date)
         last_stats = sum_semester_stats(last_stats)
       else
@@ -104,7 +104,7 @@ class InfobaseReport
       end
       
       if activity.is_bridges? && type == "campus"
-        bridges_rows = get_bridges_rows(from_date, to_date, activity)
+        bridges_rows = get_bridges_rows(from_date, to_date, activity, type)
       end
       
       if activity.is_active? || !stats.empty?
@@ -128,13 +128,18 @@ class InfobaseReport
         select(Statistic.table_name + ".periodBegin").
         select(Statistic.table_name + ".periodEnd").
         select(Statistic.table_name + ".statisticID")
-      stats = sum_all_stats(stats)
+      
+      if type == "campus"
+        stats = sum_all_stats(stats)
+      else
+        stats = sum_event_stats(stats)
+      end
       
       stats.each do |stat|
         if activity.is_bridges? && type == "campus"
-          bridges_rows = get_bridges_rows(stat.periodBegin, stat.periodEnd, activity)
+          bridges_rows = get_bridges_rows(stat.periodBegin, stat.periodEnd, activity, type)
         end
-                
+        
         rows << InfobaseReportRow.new(stat.periodBegin.to_s + " - " + stat.periodEnd.to_s, stat, [stat], stat.statisticID.to_s, bridges_rows, true)
       end
       
@@ -189,7 +194,7 @@ class InfobaseReport
   end
   
   def self.start_regional_query(from_date, to_date, strategies, region, team)
-    stats = start_national_query(from_date, to_date, strategies, region)
+    stats = start_national_query(from_date, to_date, strategies, region, "campus")
     stats = add_team_clause(stats, team)
     stats
   end
@@ -203,17 +208,17 @@ class InfobaseReport
     stats
   end
   
-  def self.get_bridges_rows(from_date, to_date, activity)
+  def self.get_bridges_rows(from_date, to_date, activity, type)
     rows = []
     Statistic.people_groups.each do |group|
-      stats = start_team_query(from_date, to_date, [Activity.bridges], activity).
+      stats = start_team_query(from_date, to_date, [Activity.bridges], activity, type).
         group(Activity.table_name + ".ActivityId")
       stats = add_group_clause(stats, group)
       stats = sum_weekly_stats(stats)
       
       max_end_date = activity.statistics.between_dates(from_date, to_date).
         where(Statistic.table_name + ".peopleGroup = ?", group).maximum(Statistic.table_name + ".periodEnd")
-      last_stats = start_team_query(from_date, to_date, [Activity.bridges], activity).
+      last_stats = start_team_query(from_date, to_date, [Activity.bridges], activity, type).
         where(Statistic.table_name + ".periodEnd = ?", max_end_date)
       last_stats = add_group_clause(last_stats, group)
       last_stats = sum_semester_stats(last_stats)

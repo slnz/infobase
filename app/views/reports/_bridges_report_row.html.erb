@@ -1,9 +1,9 @@
 <div id="start_<%= row.key %>" class="bridges_split" style="display:none;">
-  <%= render :partial => 'report_row', :locals => { :report => report, :row => row, :bridges => "split" } %>
+  <%= render :partial => 'report_row', :locals => { :report => report, :row => row, :bridges => "split", :type => type } %>
   <% row.bridges_rows.each do |row| %>
-    <%= render :partial => 'report_row', :locals => { :report => report, :row => row } %>
+    <%= render :partial => 'report_row', :locals => { :report => report, :row => row, :type => type} %>
   <% end %>
 </div>
 <div id="end_<%= row.key %>" class="bridges_sum" style="display:block;">
-  <%= render :partial => 'report_row', :locals => { :report => report, :row => row, :bridges => "sum" } %>
+  <%= render :partial => 'report_row', :locals => { :report => report, :row => row, :bridges => "sum", :type => type } %>
 </div>

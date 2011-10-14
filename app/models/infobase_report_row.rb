@@ -24,7 +24,9 @@ class InfobaseReportRow
   private
   
   def set_stats
-    Statistic.event_stats.each do |stat_type|
+    event_stats = Statistic.event_stats
+    event_stats.delete("invldStudents") #invldStudents will be counted in semester stats
+    event_stats.each do |stat_type|
       instance_variable_set("@#{stat_type}", 0)
       instance_variable_set("@#{stat_type}", @stats.send(stat_type)) if @stats && @stats[stat_type]
     end
@@ -32,7 +34,7 @@ class InfobaseReportRow
     Statistic.semester_stats.each do |stat_type|
       instance_variable_set("@#{stat_type}", 0) unless !instance_variable_get("@#{stat_type}").blank?
       @last_stats.each do |stat|
-        instance_variable_set("@#{stat_type}", instance_variable_get("@#{stat_type}") + stat.send(stat_type)) if stat.send(stat_type)
+        instance_variable_set("@#{stat_type}", instance_variable_get("@#{stat_type}") + stat.send(stat_type)) if stat[stat_type]
       end
     end
   end

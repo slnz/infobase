@@ -27,7 +27,7 @@
       <% report.rows.each do |row| %>
         <div class="regular">
           <% if row.is_bridges? %>
-            <%= render :partial => 'bridges_report_row', :locals => { :report => report, :row => row } %>
+            <%= render :partial => 'bridges_report_row', :locals => { :report => report, :row => row, :type => @type } %>
           <% else %>
             <%= render :partial => 'report_row', :locals => { :report => report, :row => row, :type => @type } %>
           <% end %>
