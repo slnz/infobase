@@ -402,12 +402,12 @@ a.edittext {
 }
 
 .schoolentry {
-  background-color: #A2ADFF;
+  background-color: #efefef;
 }
 
 div.aschool {
   border-top: 1px solid silver;
-  height: 275px;
+  height: 300px;
   padding: 10px;
 }
 
@@ -423,6 +423,7 @@ div.aschool .thecolumn, div.aschool_thin .thecolumn {
 
 th.bookmark {
   width: 30px;
+  padding-left: 0px !important;
 }
 
 table.movementheader th {
@@ -499,10 +500,14 @@ li.first_week img, ul.results li.first_week img {
   background: #6770b1;
 }
 
-a.unbookmark {
+a.unbookmark, .editicon {
   background: url(<%= asset_path 'icons/bookmark.png' %>) no-repeat scroll 0 50% transparent;
   font-weight: normal;
   padding-left: 20px;
+}
+
+.editicon {
+  background: url(/assets/icons/pencil_tiny.png) no-repeat scroll 0 50% transparent;
 }
 
 .stats_submit_surround {
@@ -570,7 +575,7 @@ h3.indented {
 }
 
 div.aschool:hover, div.aschool_thin:hover {
-background-color:#B5B5B5;
+  /* background-color:#e0e0e0; */
 }
 
 h1.multi {
@@ -580,4 +585,39 @@ h1.multi {
 h1 span.title {
   display: block;
   font-size: 16px;
+}
+
+a.unbookmark {
+  padding-left: 23px;
+}
+
+.editbtn {
+  border-radius: 5px;
+  padding: 4px 4px 4px 22px;
+  background-color: white !important;
+  background-position: 4px 50% !important;
+  box-shadow: 0 0 5px rgba(0,0,0,.1);
+  border: 1px solid silver;
+  vertical-align: middle;
+}
+
+.field {
+  line-height: 1.5em;
+}
+
+p {
+  font-size: 12px;
+}
+
+.aschool h2 {
+  margin-bottom: 5px;
+}
+
+div.keyitem {
+  margin-top: 10px;
+  padding: 8px 8px 8px 35px;
+  background: ;
+  font-size: 12px;
+  font-weight: bold;
+  background: #FAF3D4 url(/assets/bulb.png) no-repeat 7px 50%;
 }

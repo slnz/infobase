@@ -8,11 +8,11 @@
   <div class="aschool">
     <h2>
       <%= Activity.strategies[stat.activity.strategy] %>&nbsp;<%= stat.peopleGroup %>&nbsp;&nbsp;
-      <%= link_to "", edit_location_movement_path(stat.activity.target_area, stat.activity), :class => "editfield" %>
-      <%= link_to "(edit)", edit_location_movement_path(stat.activity.target_area, stat.activity), :class => "edittext" %>
+      <%= link_to "Edit", edit_location_movement_path(stat.activity.target_area, stat.activity), :class => "editicon edittext editbtn" %>
+      <%= link_to "Unbookmark", unbookmark_location_movement_path(stat.activity.target_area, stat.activity), {:class => "unbookmark edittext editbtn", :method => :delete} %>
     </h2>
     <div class="thecolumn">
-      <b>Weekly Stats</b>
+      <h4>Weekly Stats</h4>
       <div class="field">
         <label onMouseOver="infoBox('<%= unique_name(stat) %>','personal_evangelism',200);" onMouseOut="infoBoxClear('<%= unique_name(stat) %>');" >Personal Evangelism</label>
         <%= text_field_tag "stat[" + unique_name(stat) + "[evangelisticOneOnOne]]", stat.evangelisticOneOnOne, :id => "week 1", :class => "totalnumber", :onfocus => "infoBox('#{unique_name(stat)}','personal_evangelism',200);" %>
@@ -35,7 +35,7 @@
     </div>
     
     <div class="thecolumn">
-      <b>&nbsp;</b>
+      <h4>&nbsp;</h4>
       <div class="field">
         <label onMouseOver="infoBox('<%= unique_name(stat) %>','decisions_personal',200);" onMouseOut="infoBoxClear('<%= unique_name(stat) %>');" >Personal Evangelism Decisions</label>
         <%= text_field_tag "stat[" + unique_name(stat) + "[decisionsHelpedByOneOnOne]]", stat.decisionsHelpedByOneOnOne, :id => "week 1", :class => "totalnumber", :onfocus => "infoBox('#{unique_name(stat)}','decisions_personal',200);" %>
@@ -58,8 +58,8 @@
     </div>
 
     <div class="thecolumn">
-      <b>Semester/Quarter Stats</b><br/>
-      The following are prefilled with the most recently entered stats.  If these numbers have changed, please update them below.
+      <h4>Semester/Quarter Stats</h4>
+      <p>The following are prefilled with the most recently entered stats.  If these numbers have changed, please update them below.</p>
       <div class="field">
         <label onMouseOver="infoBox('<%= unique_name(stat) %>','multipliers',200);" onMouseOut="infoBoxClear('<%= unique_name(stat) %>');" >Multipliers</label>
         <%= text_field_tag "stat[" + unique_name(stat) + "[multipliers]]", stat.multipliers, :id => "week 1", :class => "totalnumber", :onfocus => "infoBox('#{unique_name(stat)}','multipliers',200);" %>

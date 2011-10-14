@@ -9,7 +9,7 @@
       <th class="schoolname" style="width:335px">
         <span style="display:inline;float:left;padding-right:10px;text-align:left"><%= stat.activity.target_area.name %> - <%= Activity.strategies[stat.activity.strategy] %></span>
       </th>
-      <th class="bookmark"><%= link_to "", unbookmark_location_movement_path(stat.activity.target_area, stat.activity), {:class => "unbookmark", :method => :delete} %></th>
+      <th class="bookmark"></th>
       <th class="schoolname">
         <ul class="checkmarks" style="display:inline;float:right;">
           <% 14.downto(0) do |week_ago| %>
