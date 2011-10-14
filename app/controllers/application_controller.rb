@@ -7,6 +7,10 @@ class ApplicationController < ActionController::Base
   def self.application_name
     "Infobase"
   end
+
+  def application_name
+    ApplicationController.application_name
+  end
   
   protected
   
