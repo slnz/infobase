@@ -17,21 +17,22 @@
       <% end %>
     </p>
 
+    <table class="reporttable">
     <% @reports.each do |report| %>
       <% if @type == "campus" %>
         <%= render :partial => 'report_header_bar', :locals => { :row_type => report.row_type } %>
       <% else %>
         <%= render :partial => 'event_header_bar', :locals => { :row_type => report.row_type } %>
       <% end %>
+    
+    
   
       <% report.rows.each do |row| %>
-        <div class="regular">
           <% if row.is_bridges? %>
             <%= render :partial => 'bridges_report_row', :locals => { :report => report, :row => row, :type => @type } %>
           <% else %>
             <%= render :partial => 'report_row', :locals => { :report => report, :row => row, :type => @type } %>
           <% end %>
-        </div>
       <% end %>
   
       <% if @type == "campus" %>
@@ -40,25 +41,22 @@
         <%= render :partial => 'event_header_bar', :locals => { :row_type => report.row_type } %>
       <% end %>
   
-      <div class="regular">
-        <table class="row">
-          <tr>
-            <td class="report_header_label"><center> Totals </center></td>
-            <% if @type == "campus" %>
-              <% Statistic.weekly_stats.each do |stat| %>
-                <td class="report_header"><%= report.get_totals.send(stat) %></td>
-              <% end %>
-              <% Statistic.semester_stats.each do |stat| %>
-                <td class="report_header"><%= report.get_totals.send(stat) %></td>
-              <% end %>
-            <% else %>
-              <% Statistic.event_stats.each do |stat| %>
-                <td class="report_header"><%= report.get_totals.send(stat) %></td>
-              <% end %>
-            <% end %>
-          </tr>
-        </table>
-      </div>
+      <tr class="row">
+        <td class="report_header_label"><center> Totals </center></td>
+        <% if @type == "campus" %>
+          <% Statistic.weekly_stats.each do |stat| %>
+            <td class="report_header"><%= report.get_totals.send(stat) %></td>
+          <% end %>
+          <% Statistic.semester_stats.each do |stat| %>
+            <td class="report_header"><%= report.get_totals.send(stat) %></td>
+          <% end %>
+        <% else %>
+          <% Statistic.event_stats.each do |stat| %>
+            <td class="report_header"><%= report.get_totals.send(stat) %></td>
+          <% end %>
+        <% end %>
+      </tr>
+    </table>
       <br/>
     <% end %>
     

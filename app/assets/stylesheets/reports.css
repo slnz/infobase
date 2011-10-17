@@ -1,3 +1,7 @@
+.reporttable {
+  border-collapse: collapse;
+}
+
 div#stat_report {
 	display:block;
 	overflow:hidden;
@@ -8,7 +12,6 @@ td.muster_cap {
 }
 
 td.report_light,td.report_darker,td.label,td.split {
-	float:left;
 	margin:0px;
 	padding:0px;
   padding-top:3px;
@@ -61,6 +64,7 @@ table.row_short td {
 
 td.label {
   background-color:#ffffff;
+  padding-right: 5px;
 }
 
 td.report_light {
@@ -90,8 +94,6 @@ div.regular,bridges_sum {
 }
 
 td.report_header,td.report_header_double,td.report_header_triple,td.report_header_quadruple {
-  display:block;
-  float:left;
   padding-top:3px;
   padding-bottom:3px;
   text-align:center;
@@ -119,8 +121,6 @@ td.report_header_quadruple {
 }
 
 td.report_header_label {
-  display:block;
-	float:left;
 	margin:0px;
 	padding:0px;
   padding-top:3px;
