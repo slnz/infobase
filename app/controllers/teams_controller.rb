@@ -102,7 +102,7 @@ class TeamsController < ApplicationController
   end
   
   def new_member
-    if @info_user.can_add_team_members? || @team.is_leader(@current_user.person)
+    if @info_user.can_add_team_members? || @team.is_leader?(@current_user.person)
       @person = Person.new
       @person.current_address = Address.new
     else
@@ -111,7 +111,7 @@ class TeamsController < ApplicationController
   end
   
   def create_member
-    if @info_user.can_add_team_members? || @team.is_leader(@current_user.person)
+    if @info_user.can_add_team_members? || @team.is_leader?(@current_user.person)
       @person = Person.new
       @person.current_address = Address.new
       @person.current_address.addressType = "current"
