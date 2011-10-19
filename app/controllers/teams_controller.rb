@@ -24,6 +24,7 @@ class TeamsController < ApplicationController
     @team.attributes = params[:team]
     if @team.valid?
       if @info_user.can_create_teams?
+        @team.isActive = "T"
         @team.save!
         redirect_to team_path(@team), :notice => "Team was created successfully."
       else
