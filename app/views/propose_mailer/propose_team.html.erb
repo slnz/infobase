@@ -4,8 +4,7 @@
     <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
   </head>
   <body>
-    To whom it may concern, 
-       This is an automated request for a new team.<br/>
+    This is an automated request for a new team.<br/>
     -----------------------------------------------------------------<br/>
     Team Name: <%= @team.name %><br/>
     Team Lane: <%= @team.lane %><br/>
@@ -25,7 +24,7 @@
     -----------------------------------------------------------------<br/>
     As entered by <%= @person.full_name %>, <%= @person.email %> on <%= Time.now.to_s %><br/>
     <br/>
-    Please click or paste the following into your browser to approve/edit this proposal: <br/>
+    Please click to approve/edit this proposal: <br/>
     <%= link_to "Proposed New Team", new_team_url(:host => @host) + @request_params %>
   </body>
 </html>
