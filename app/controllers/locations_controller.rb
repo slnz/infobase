@@ -14,7 +14,7 @@ class LocationsController < ApplicationController
       redirect_to locations_path
       return
     end
-    @reports_link = location_report_path(@location, {:from => last_august(), :to => Date.today.to_s, :strategies => Activity.visible_strategies.keys})
+    @reports_link = location_report_path(@location, {:event_type => "campus", :from => last_august(), :to => Date.today.to_s, :strategies => Activity.visible_strategies.keys})
     @open_strategies = Activity.determine_open_strategies(@location)
     @title = "Infobase - " + @location.name
   end

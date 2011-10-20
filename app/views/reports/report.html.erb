@@ -26,11 +26,11 @@
         <% end %>
       
         <% report.rows.each do |row| %>
-            <% if row.is_bridges? %>
-              <%= render :partial => 'bridges_report_row', :locals => { :report => report, :row => row, :type => @type } %>
-            <% else %>
-              <%= render :partial => 'report_row', :locals => { :report => report, :row => row, :type => @type } %>
-            <% end %>
+          <% if row.is_bridges? %>
+            <%= render :partial => 'bridges_report_row', :locals => { :report => report, :row => row, :type => @type } %>
+          <% else %>
+            <%= render :partial => 'report_row', :locals => { :report => report, :row => row, :type => @type } %>
+          <% end %>
         <% end %>
     
         <% if @type == "campus" %>
