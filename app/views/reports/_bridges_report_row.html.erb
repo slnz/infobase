@@ -1,14 +1,3 @@
-<script type="text/javascript" language="javascript">
-  $(document).ready(function() {
-    var rows = $('table.reporttable tr');
-    
-    $('#<%= row.key %>').click(function() {
-      rows.filter('.row_short-<%= row.key %>').toggle(300);
-      return false;
-    });
-  });
-</script>
-
 <%= render :partial => 'report_row', :locals => { :report => report, :row => row, :bridges => "split", :type => type, :id => row.key, :hide => false } %>
 <% row.bridges_rows.each do |bridges_row| %>
   <%= render :partial => 'report_row', :locals => { :report => report, :row => bridges_row, :bridges => nil, :type => type, :id => row.key, :hide => true} %>

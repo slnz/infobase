@@ -18,6 +18,21 @@
     </p>
 
     <% @reports.each do |report| %>
+      <script type="text/javascript" language="javascript">
+        $(document).ready(function() {
+          var rows = $('table.reporttable tr');
+          
+          <% report.rows.each do |row| %>
+            <% if row.is_bridges? %>
+              $('#<%= row.key %>').click(function() {
+                rows.filter('.row_short-<%= row.key %>').toggle(300);
+                return false;
+              });
+            <% end %>
+          <% end %>
+        });
+      </script>
+
       <table class="reporttable">
         <% if @type == "campus" %>
           <%= render :partial => 'report_header_bar', :locals => { :row_type => report.row_type } %>

@@ -1,5 +1,4 @@
-<%= bridges ? "<tr class='row'".html_safe : "<tr class='row_short-".html_safe + id.to_s + "'".html_safe %>
-  <%= hide ? " style='display: none;'>".html_safe : ">".html_safe%>
+<%= bridges ? "<tr class='row'".html_safe : "<tr class='row_short-".html_safe + id.to_s + "'".html_safe %><%= hide ? " style='display: none;'>".html_safe : ">".html_safe%>
   <td class="label">
     <% @team ||= nil %>
     <% bridges ||= nil %>
