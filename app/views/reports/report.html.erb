@@ -25,7 +25,7 @@
           <% report.rows.each do |row| %>
             <% if row.is_bridges? %>
               $('#<%= row.key %>').click(function() {
-                rows.filter('.row_short-<%= row.key %>').toggle(300);
+                rows.filter('.row_short-<%= row.key %>').toggle();
                 return false;
               });
             <% end %>
