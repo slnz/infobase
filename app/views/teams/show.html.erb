@@ -74,7 +74,7 @@
           <div id="<%= person.personID %>_leader_status" style="display: none;">
             <i>
               Team Leader
-              <% if @info_user.can_add_team_leaders? || @team.is_leader?(@current_user.person) %>
+              <% if @info_user.can_add_team_leaders? %>
                 :&nbsp;<%= link_to "Change to Member", remove_leader_team_path(@team) + "/" + person.personID.to_s, :method => :post %>
               <% end %>
             </i>
@@ -84,7 +84,7 @@
           <div id="<%= person.personID %>_leader_status" style="display: none;">
             <i>
               Team Member
-              <% if @info_user.can_add_team_leaders? || @team.is_leader?(@current_user.person) %>
+              <% if @info_user.can_add_team_leaders? %>
                 :&nbsp;<%= link_to "Change to Leader", add_leader_team_path(@team) + "/" + person.personID.to_s, :method => :post %>
               <% end %>
             </i>

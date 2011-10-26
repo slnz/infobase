@@ -141,7 +141,7 @@ class TeamsController < ApplicationController
   end
   
   def add_leader
-    if @info_user.can_add_team_leaders? || @team.is_leader?(@current_user.person)
+    if @info_user.can_add_team_leaders?
       person = Person.find(params[:person_id])
       if @team.add_leader(person)
         redirect_to team_path(@team), :notice => "Team Leader was successfully added."
@@ -154,7 +154,7 @@ class TeamsController < ApplicationController
   end
   
   def remove_leader
-    if @info_user.can_add_team_leaders? || @team.is_leader?(@current_user.person)
+    if @info_user.can_add_team_leaders?
       person = Person.find(params[:person_id])
       if @team.remove_leader(person)
         redirect_to team_path(@team), :notice => "Team Leader was successfully removed."
