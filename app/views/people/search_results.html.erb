@@ -9,7 +9,7 @@
         <% options = {:style => "color: blue;"} %>
       <% end %>
       <tr>
-        <td><%= link_to person.full_name, person_path(person), options %></td>
+        <td><%= link_to person.name_with_nick, person_path(person), options %></td>
         <td>
           <%= person.email %>&nbsp;
           <% if person.current_address %>
