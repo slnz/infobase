@@ -271,7 +271,7 @@ class InfobaseReport
   def self.add_type_clause(relation, type)
     case type
     when "campus"
-      relation.where(TargetArea.table_name + ".type = 'College' OR " + TargetArea.table_name + ".type = 'HighSchool'")
+      relation.where(TargetArea.table_name + ".type = 'College' OR " + TargetArea.table_name + ".type = 'HighSchool' OR " + TargetArea.table_name + ".type = 'Business'")
     when "SP"
       relation.where(TargetArea.table_name + ".type = 'Event'").where(TargetArea.table_name + ".eventType = 'SP'")
     when "conference"
