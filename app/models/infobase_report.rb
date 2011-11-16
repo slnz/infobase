@@ -60,7 +60,7 @@ class InfobaseReport
 
   def self.create_regional_report(region, from_date, to_date, strategies)
     rows = []
-    teams = Team.where("region = ?", region).includes(:activities).order(:name)
+    teams = Team.where("region = ? OR hasMultiRegionalAccess = 'T'", region).includes(:activities).order(:name)
     teams.each do |team|
       stats = start_regional_query(from_date, to_date, strategies, region, team).
         group(Activity.table_name + ".fk_teamID")
@@ -71,7 +71,7 @@ class InfobaseReport
         where(Statistic.table_name + ".statisticID IN (?)", last_end_date_ids.collect(&:statisticID))
       last_stats = sum_semester_stats(last_stats)
       
-      if (team.is_active? && team.is_responsible_for_strategies?(strategies)) || !stats.empty?
+      if (team.is_active? && team.is_responsible_for_strategies_in_region?(strategies, region)) || !stats.empty?
         row_header = team.name.to_s
         row_header += "<font color='red'> - Inactive Team</font>" unless team.is_active?
         rows << InfobaseReportRow.new(row_header.html_safe, stats.first, last_stats, team.id)
