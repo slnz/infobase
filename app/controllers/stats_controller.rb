@@ -161,6 +161,7 @@ class StatsController < ApplicationController
     @name = params[:name]
     @region = params[:region] if Region.campus_region_codes.include?(params[:region])
     @strategy = params[:strategy]
+    @strategy = "EV" if @strategy.blank?
     @email = params[:email]
     @event_id = params[:eventKeyID]
     @is_secure = params[:isSecure].to_s == 'T'
