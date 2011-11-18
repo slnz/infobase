@@ -79,11 +79,15 @@ class LocationsController < ApplicationController
   end
   
   def state
-    if params[:all]
-      perform_search
-    else
-      @cities = TargetArea.open_school.select("distinct city").where("region = ?", @region).where("state = ?", @state).where("city is not null and city != ''").order(:city)
-      @title = "Infobase - Locations in " + State.states[@state]
+    if State.states[@state]
+      if params[:all]
+        perform_search
+      else
+        @cities = TargetArea.open_school.select("distinct city").where("region = ?", @region).where("state = ?", @state).where("city is not null and city != ''").order(:city)
+        @title = "Infobase - Locations in " + State.states[@state]
+      end
+    else # invalid state
+      redirect_to region_locations_path + "/" + @region
     end
   end
   
