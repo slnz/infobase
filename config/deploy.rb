@@ -1,4 +1,4 @@
-require 'hoptoad_notifier/capistrano'
+require 'airbrake/capistrano'
 require 'capistrano_colors'
 load 'deploy/assets'
 

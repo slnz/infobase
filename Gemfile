@@ -22,10 +22,10 @@ gem 'capistrano_colors'
 # To use debugger
 # gem 'ruby-debug'
 
-gem 'hoptoad_notifier'
+gem 'airbrake'
 group :production do
   gem 'activerecord-oracle_enhanced-adapter', '1.3.2' #1.4.0 doesn't work, see: https://github.com/rsim/oracle-enhanced/issues/85
-  gem 'ruby-oci8' #, :git => "git://github.com/kubo/ruby-oci8.git"
+  gem 'ruby-oci8', :git => "git://github.com/kubo/ruby-oci8.git"
   gem 'rack-google_analytics', :require => "rack/google_analytics"
 end
 gem 'multi_json'
