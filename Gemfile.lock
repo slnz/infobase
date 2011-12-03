@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/kubo/ruby-oci8.git
-  revision: 4be51c0ad76fb467086fc3a3b99a8cb50ec1f17d
+  revision: 694627e6d505dee12bc8db135925c72a2e6e5276
   specs:
     ruby-oci8 (2.1.x)
 
