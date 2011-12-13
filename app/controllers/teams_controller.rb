@@ -16,6 +16,7 @@ class TeamsController < ApplicationController
     @team = Team.new
     @team.attributes = params[:team]
     @name_options = {}
+    @strategies = Activity.strategies
     @title = "Infobase - Propose New Team"
   end
 
