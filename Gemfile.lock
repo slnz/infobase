@@ -1,9 +1,12 @@
+<<<<<<< HEAD
 GIT
   remote: git://github.com/kubo/ruby-oci8.git
   revision: 694627e6d505dee12bc8db135925c72a2e6e5276
   specs:
     ruby-oci8 (2.1.x)
 
+=======
+>>>>>>> 1d956557e4a01e85f9a32d6d89696bb90bb28c0c
 GEM
   remote: http://rubygems.org/
   specs:
@@ -113,6 +116,7 @@ GEM
     rake (0.9.2.2)
     rdoc (3.11)
       json (~> 1.4)
+    ruby-oci8 (2.0.6)
     sprockets (2.0.3)
       hike (~> 1.2)
       rack (~> 1.0)
@@ -146,6 +150,6 @@ DEPENDENCIES
   paperclip
   rack-google_analytics
   rails (~> 3.1.0)
-  ruby-oci8!
+  ruby-oci8 (= 2.0.6)
   therubyracer
   uglifier
