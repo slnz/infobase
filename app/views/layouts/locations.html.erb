@@ -4,7 +4,7 @@
     <%= link_to ">" + Region.full_name(@region), region_locations_path + "/" + @region if @region %>
     <%= link_to ">" + State.states[@state], region_locations_path + "/" + @region + "/state/" + @state if @state && @region %>
     <%= link_to ">" + @city, region_locations_path + "/" + @region + "/state/" + @state + "/city/" + @city if @state && @city && @region %>
-    <%= link_to ">" + Country.full_name(@country), region_locations_path + "/" + @region + "/country/" + @country if @country && @region %>
+    <%= link_to ">" + Country.full_name(@country).to_s, region_locations_path + "/" + @region + "/country/" + @country if @country && @region %>
     <%= link_to ">" + @city, region_locations_path + "/" + @region + "/country/" + @country + "/city/" + @city if @country && @city && @region %>
     <%= link_to "Advanced Location Search", search_locations_path %>
     <%= link_to "Propose New Location", new_location_path %>

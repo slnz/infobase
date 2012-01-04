@@ -193,7 +193,7 @@ class TeamsController < ApplicationController
       @region = params[:region]
       @country = params[:country]
       @cities = Team.active.select("distinct city").where("region = ?", @region).where("country = ?", @country).where("city is not null and city != ''").order(:city)
-      @title = "Infobase - Teams in " + Country.full_name(@country)
+      @title = "Infobase - Teams in " + Country.full_name(@country).to_s
     end
   end
   

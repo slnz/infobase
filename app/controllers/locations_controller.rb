@@ -98,7 +98,7 @@ class LocationsController < ApplicationController
       @region = params[:region]
       @country = params[:country]
       @cities = TargetArea.open_school.select("distinct city").where("region = ?", @region).where("country = ?", @country).where("city is not null and city != ''").order(:city)
-      @title = "Infobase - Locations in " + Country.full_name(@country)
+      @title = "Infobase - Locations in " + Country.full_name(@country).to_s
     end
   end
   
