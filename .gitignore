@@ -5,3 +5,4 @@ log/*.log
 tmp/**/*
 config/database.yml
 public/assets
+vendor/ruby
