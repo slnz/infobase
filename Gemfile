@@ -24,7 +24,7 @@ gem 'capistrano_colors'
 
 gem 'airbrake'
 group :production do
-  gem 'activerecord-oracle_enhanced-adapter', '1.3.2' #1.4.0 doesn't work, see: https://github.com/rsim/oracle-enhanced/issues/85
+  gem 'activerecord-oracle_enhanced-adapter'
   gem 'ruby-oci8'
   gem 'rack-google_analytics', :require => "rack/google_analytics"
 end
