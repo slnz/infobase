@@ -65,11 +65,15 @@ class PersonUpdater
             staff.delete(maiden.maiden_emplid)
             Rails.logger.info("Record #{p_record.emplid} did not exist (#{p_record.first_name.to_s + " " + p_record.last_name.to_s}).  Found old record #{maiden.maiden_emplid} from maiden table and switched account numbers for staff record (#{s_record.firstName.to_s + " " + s_record.lastName.to_s}).")
           else
-            Staff.create!({:accountNo => p_record.emplid, :firstName => p_record.first_name, :lastName => p_record.last_name, :removedFromPeopleSoft => "N"})
+            s = Staff.new({:firstName => p_record.first_name, :lastName => p_record.last_name, :removedFromPeopleSoft => "N"})
+            s.accountNo = p_record.emplid
+            s.save!
             Rails.logger.info("Record #{p_record.emplid} did not exist (#{p_record.first_name.to_s + " " + p_record.last_name.to_s}).  Did not find a record from maiden table.  Created new record.")
           end
         else
-          Staff.create!({:accountNo => p_record.emplid, :firstName => p_record.first_name, :lastName => p_record.last_name, :removedFromPeopleSoft => "N"})
+          s = Staff.new({:firstName => p_record.first_name, :lastName => p_record.last_name, :removedFromPeopleSoft => "N"})
+          s.accountNo = p_record.emplid
+          s.save!
           Rails.logger.info("Record #{p_record.emplid} did not exist (#{p_record.first_name.to_s + " " + p_record.last_name.to_s}).  Did not find a record in maiden table.  Created new record.")
         end
       end
