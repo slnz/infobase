@@ -29,7 +29,7 @@ class PersonUpdater
         else # Name doesn't match
           maiden = PsCccPersData.where("emplid = ?", p_record.emplid).first
           if maiden && !maiden.maiden_emplid.blank? # Changed emplid at some point
-            maiden_record = Staff.find(maiden.maiden_emplid)
+            maiden_record = Staff.find_by_accountNo(maiden.maiden_emplid)
             # Check maiden record for name accuracy
             if maiden_record && maiden_record.lastName.upcase == p_record.last_name.upcase && maiden_record.firstName.upcase == p_record.first_name.upcase
               # Name is correct in maiden_record
@@ -58,7 +58,7 @@ class PersonUpdater
       else # record does not exist
         maiden = PsCccPersData.where("maiden_emplid = ?", p_record.emplid).first
         if maiden
-          s_record = Staff.find(maiden.maiden_emplid)
+          s_record = Staff.find_by_accountNo(maiden.maiden_emplid)
           s_record.accountNo = maiden.emplid
           s_record.save!
           staff.delete(maiden.maiden_emplid)
