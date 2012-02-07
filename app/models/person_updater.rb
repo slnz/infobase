@@ -20,7 +20,7 @@ class PersonUpdater
     staff = Staff.select("accountNo").all.collect(&:accountNo)
     pstaff = PsEmployee.select("emplid, first_name, last_name").order("emplid")
     pstaff.each do |p_record|
-      s_record = Staff.find(p_record.emplid)
+      s_record = Staff.find_by_accountNo(p_record.emplid)
       if s_record # This record exists already
         # Check to make sure it's the right person
         if s_record.lastName.upcase == p_record.last_name.upcase && s_record.firstName.upcase == p_record.first_name.upcase
