@@ -23,8 +23,9 @@ gem 'capistrano_colors'
 # gem 'ruby-debug'
 
 gem 'airbrake'
+gem 'activerecord-oracle_enhanced-adapter'
+
 group :production do
-  gem 'activerecord-oracle_enhanced-adapter'
   gem 'ruby-oci8'
   gem 'rack-google_analytics', :require => "rack/google_analytics"
 end
