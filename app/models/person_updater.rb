@@ -25,7 +25,7 @@ class PersonUpdater
         # Check to make sure it's the right person
         if s_record.lastName.upcase == p_record.last_name.upcase && s_record.firstName.upcase == p_record.first_name.upcase
           staff.delete(p_record.emplid)
-          logger.info("Record #{p_record.emplid} exists (#{p_record.first_name.to_s + " " + p_record.last_name.to_s}).")
+          Rails.logger.info("Record #{p_record.emplid} exists (#{p_record.first_name.to_s + " " + p_record.last_name.to_s}).")
         else # Name doesn't match
           maiden = PsCccPersData.where("emplid = ?", p_record.emplid).first
           if maiden && !maiden.maiden_emplid.blank? # Changed emplid at some point
@@ -39,7 +39,7 @@ class PersonUpdater
               maiden_record.accountNo = p_record.emplid
               maiden_record.save!
               staff.delete(p_record.emplid)
-              logger.info("Record #{p_record.emplid} existed (#{p_record.first_name.to_s + " " + p_record.last_name.to_s}), but name didn't match (#{s_record.firstName.to_s + " " + s_record.lastName.to_s}).  Found maiden record #{maiden.maiden_emplid} and switched account numbers.")
+              Rails.logger.info("Record #{p_record.emplid} existed (#{p_record.first_name.to_s + " " + p_record.last_name.to_s}), but name didn't match (#{s_record.firstName.to_s + " " + s_record.lastName.to_s}).  Found maiden record #{maiden.maiden_emplid} and switched account numbers.")
             else
               # Name is incorrect in maiden_record, will switch anyway
               s_record.accountNo = s_record.accountNo + "_old"
@@ -48,11 +48,11 @@ class PersonUpdater
               maiden_record.accountNo = p_record.emplid
               maiden_record.save!
               staff.delete(p_record.emplid)
-              logger.info("Record #{p_record.emplid} existed (#{p_record.first_name.to_s + " " + p_record.last_name.to_s}), but name didn't match (#{s_record.firstName.to_s + " " + s_record.lastName.to_s}).  Found maiden record #{maiden.maiden_emplid} but name still didn't match (#{maiden_record.firstName.to_s + " " + maiden_record.lastName.to_s}).  Switched account numbers anyway.")
+              Rails.logger.info("Record #{p_record.emplid} existed (#{p_record.first_name.to_s + " " + p_record.last_name.to_s}), but name didn't match (#{s_record.firstName.to_s + " " + s_record.lastName.to_s}).  Found maiden record #{maiden.maiden_emplid} but name still didn't match (#{maiden_record.firstName.to_s + " " + maiden_record.lastName.to_s}).  Switched account numbers anyway.")
             end
           else
             staff.delete(p_record.emplid)
-            logger.info("Record #{p_record.emplid} exists (#{p_record.first_name.to_s + " " + p_record.last_name.to_s}), but name doesn't match (#{s_record.firstName.to_s + " " + s_record.lastName.to_s}).  No maiden record found.")
+            Rails.logger.info("Record #{p_record.emplid} exists (#{p_record.first_name.to_s + " " + p_record.last_name.to_s}), but name doesn't match (#{s_record.firstName.to_s + " " + s_record.lastName.to_s}).  No maiden record found.")
           end
         end
       else # record does not exist
@@ -62,14 +62,14 @@ class PersonUpdater
           s_record.accountNo = maiden.emplid
           s_record.save!
           staff.delete(maiden.maiden_emplid)
-          logger.info("Record #{p_record.emplid} did not exist (#{p_record.first_name.to_s + " " + p_record.last_name.to_s}).  Found new record #{maiden.emplid} from maiden table and switched account numbers for staff record (#{s_record.firstName.to_s + " " + s_record.lastName.to_s}).")
+          Rails.logger.info("Record #{p_record.emplid} did not exist (#{p_record.first_name.to_s + " " + p_record.last_name.to_s}).  Found new record #{maiden.emplid} from maiden table and switched account numbers for staff record (#{s_record.firstName.to_s + " " + s_record.lastName.to_s}).")
         else
           Staff.create!(:accountNo => p_record.emplid, :firstName => p_record.first_name, :lastName => p_record.last_name, :removedFromPeopleSoft => "N")
-          logger.info("Record #{p_record.emplid} did not exist (#{p_record.first_name.to_s + " " + p_record.last_name.to_s}).  Did not find a record in maiden table.  Created new record.")
+          Rails.logger.info("Record #{p_record.emplid} did not exist (#{p_record.first_name.to_s + " " + p_record.last_name.to_s}).  Did not find a record in maiden table.  Created new record.")
         end
       end
     end
     
-    logger.info("Staff left: #{staff.size}")
+    Rails.logger.info("Staff left: #{staff.size}")
   end
 end
