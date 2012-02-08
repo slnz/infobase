@@ -33,19 +33,19 @@ class PersonUpdater
             # Check maiden record for name accuracy
             if maiden_record && maiden_record.lastName.upcase == p_record.last_name.upcase && maiden_record.firstName.upcase == p_record.first_name.upcase
               # Name is correct in maiden_record
-              s_record.accountNo = s_record.accountNo + "_old"
+              s_record.update_attribute(:accountNo, s_record.accountNo + "_old")
               s_record.removedFromPeopleSoft = "Y"
               s_record.save!
-              maiden_record.accountNo = p_record.emplid
+              maiden_record.update_attribute(:accountNo, p_record.emplid)
               maiden_record.save!
               staff.delete(p_record.emplid)
               Rails.logger.info("Record #{p_record.emplid} existed (#{p_record.first_name.to_s + " " + p_record.last_name.to_s}), but name didn't match (#{s_record.firstName.to_s + " " + s_record.lastName.to_s}).  Found maiden record #{maiden.maiden_emplid} and switched account numbers.")
             else
               # Name is incorrect in maiden_record, will switch anyway
-              s_record.accountNo = s_record.accountNo + "_old"
+              s_record.update_attribute(:accountNo, s_record.accountNo + "_old")
               s_record.removedFromPeopleSoft = "Y"
               s_record.save!
-              maiden_record.accountNo = p_record.emplid
+              maiden_record.update_attribute(:accountNo, p_record.emplid)
               maiden_record.save!
               staff.delete(p_record.emplid)
               Rails.logger.info("Record #{p_record.emplid} existed (#{p_record.first_name.to_s + " " + p_record.last_name.to_s}), but name didn't match (#{s_record.firstName.to_s + " " + s_record.lastName.to_s}).  Found maiden record #{maiden.maiden_emplid} but name still didn't match (#{maiden_record.firstName.to_s + " " + maiden_record.lastName.to_s}).  Switched account numbers anyway.")
@@ -60,7 +60,7 @@ class PersonUpdater
         if maiden && !maiden.maiden_emplid.blank? # Changed emplid at some point
           s_record = Staff.find_by_accountNo(maiden.maiden_emplid)
           if s_record
-            s_record.accountNo = maiden.emplid
+            s_record.update_attribute(:accountNo, maiden.emplid)
             s_record.save!
             staff.delete(maiden.maiden_emplid)
             Rails.logger.info("Record #{p_record.emplid} did not exist (#{p_record.first_name.to_s + " " + p_record.last_name.to_s}).  Found old record #{maiden.maiden_emplid} from maiden table and switched account numbers for staff record (#{s_record.firstName.to_s + " " + s_record.lastName.to_s}).")
