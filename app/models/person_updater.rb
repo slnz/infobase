@@ -17,7 +17,7 @@ class PersonUpdater
   end
   
   def insert_and_remove_staff_records
-    staff = Staff.select("accountNo").where("removedFromPS = 'N'").all.collect(&:accountNo)
+    staff = Staff.select("accountNo").where("removedFromPeopleSoft = 'N'").all.collect(&:accountNo)
     pstaff = PsEmployee.select("emplid, first_name, last_name").order("emplid")
     pstaff.each do |p_record|
       s_record = Staff.find_by_accountNo(p_record.emplid)
