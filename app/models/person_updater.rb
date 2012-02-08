@@ -40,7 +40,7 @@ class PersonUpdater
               maiden_record.save!
               staff.delete(p_record.emplid)
               Rails.logger.info("Record #{p_record.emplid} existed (#{p_record.first_name.to_s + " " + p_record.last_name.to_s}), but name didn't match (#{s_record.firstName.to_s + " " + s_record.lastName.to_s}).  Found maiden record #{maiden.maiden_emplid} and switched account numbers.")
-            else
+            elsif maiden_record
               # Name is incorrect in maiden_record, will switch anyway
               s_record.update_attribute(:accountNo, s_record.accountNo + "_old")
               s_record.removedFromPeopleSoft = "Y"
@@ -49,10 +49,14 @@ class PersonUpdater
               maiden_record.save!
               staff.delete(p_record.emplid)
               Rails.logger.info("Record #{p_record.emplid} existed (#{p_record.first_name.to_s + " " + p_record.last_name.to_s}), but name didn't match (#{s_record.firstName.to_s + " " + s_record.lastName.to_s}).  Found maiden record #{maiden.maiden_emplid} but name still didn't match (#{maiden_record.firstName.to_s + " " + maiden_record.lastName.to_s}).  Switched account numbers anyway.")
+            else
+              # Maiden record not found in our database, leave as is.
+              staff.delete(p_record.emplid)
+              Rails.logger.info("Record #{p_record.emplid} exists (#{p_record.first_name.to_s + " " + p_record.last_name.to_s}), but name doesn't match (#{s_record.firstName.to_s + " " + s_record.lastName.to_s}).  Maiden record exists in PS, not in Staff table.  Leaving as is.")
             end
           else
             staff.delete(p_record.emplid)
-            Rails.logger.info("Record #{p_record.emplid} exists (#{p_record.first_name.to_s + " " + p_record.last_name.to_s}), but name doesn't match (#{s_record.firstName.to_s + " " + s_record.lastName.to_s}).  No maiden record found.")
+            Rails.logger.info("Record #{p_record.emplid} exists (#{p_record.first_name.to_s + " " + p_record.last_name.to_s}), but name doesn't match (#{s_record.firstName.to_s + " " + s_record.lastName.to_s}).  No maiden record found.  Leaving as is.")
           end
         end
       else # record does not exist
