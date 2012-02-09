@@ -83,12 +83,14 @@ class PersonUpdater
     # Staff records not accounted for in PS, check and set removedFromPeopleSoft to "Y"
     staff.each do |account_no|
       s_record = Staff.find_by_accountNo(account_no)
-      if PsEmployee.find_by_emplid(s_record.accountNo)
-        Rails.logger.info("Record #{s_record.accountNo} is in PS but was never checked off.  Why????????????????????????")
-      else
-        s_record.removedFromPeopleSoft = "Y"
-        s_record.save!
-        Rails.logger.info("Record #{s_record.accountNo} removed from PS.")
+      if s_record
+        if PsEmployee.find_by_emplid(s_record.accountNo)
+          Rails.logger.info("Record #{s_record.accountNo} is in PS but was never checked off.  Why????????????????????????")
+        else
+          s_record.removedFromPeopleSoft = "Y"
+          s_record.save!
+          Rails.logger.info("Record #{s_record.accountNo} removed from PS.")
+        end
       end
     end
   end
