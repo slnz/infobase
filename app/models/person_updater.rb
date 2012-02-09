@@ -98,12 +98,12 @@ class PersonUpdater
   end
   
   def switch_account_number(staff, account_no)
-    new_record = staff.clone
-    staff.removedFromPeopleSoft = "Y"
-    staff.person_id = nil
+    old_record = staff.dup
+    old_record.removedFromPeopleSoft = "Y"
+    old_record.person_id = nil
+    old_record.save!
+    staff.removedFromPeopleSoft = "N"
+    staff.accountNo = account_no
     staff.save!
-    new_record.accountNo = account_no
-    new_record.removedFromPeopleSoft = "N"
-    new_record.save!
   end
 end
