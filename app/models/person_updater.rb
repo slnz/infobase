@@ -35,6 +35,7 @@ class PersonUpdater
               # Name is correct in maiden_record
               s_record.update_attribute(:accountNo, s_record.accountNo + "_old")
               s_record.removedFromPeopleSoft = "Y"
+              s_record.person_id = nil
               s_record.save!
               switch_account_number(maiden_record, p_record.emplid)
               staff.delete(p_record.emplid)
@@ -43,6 +44,7 @@ class PersonUpdater
               # Name is incorrect in maiden_record, will switch anyway
               s_record.update_attribute(:accountNo, s_record.accountNo + "_old")
               s_record.removedFromPeopleSoft = "Y"
+              s_record.person_id = nil
               s_record.save!
               switch_account_number(maiden_record, p_record.emplid)
               staff.delete(p_record.emplid)
@@ -101,6 +103,7 @@ class PersonUpdater
     staff.person_id = nil
     staff.save!
     new_record.accountNo = account_no
+    new_record.removedFromPeopleSoft = "N"
     new_record.save!
   end
 end
