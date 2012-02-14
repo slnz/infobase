@@ -163,7 +163,7 @@ class PersonUpdater
 
     staff.middleName = ps_record.middle_name
     staff.statusDescr = ps_record.status_descr
-    staff.internationalStatus = internation_status
+    staff.internationalStatus = ps_record.internation_status
     staff.balance = ps_record.balance
     staff.cccHrSendingDept = ps_record.ccc_hr_sndng_dept
     staff.cccHrCaringDept = ps_record.ccc_hr_caring_dept
