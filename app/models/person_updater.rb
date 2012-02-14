@@ -129,46 +129,46 @@ class PersonUpdater
   end
   
   def set_staff_attributes(staff, ps_record)
-    staff.isMale = ("M" == ps_record.sex)
-    staff.birthDate = ps_record.birthdate
-    staff.maritalStatus = ps_record.mar_status
-    staff.marriageDate = ps_record.mar_status_dt
+    staff.isMale = ("M" == ps_record.sex) ? "T" : "F"
+    staff.birthDate = ps_record.birthdate.to_date if ps_record.birthdate
+    staff.maritalStatus = ps_record.mar_status.strip
+    staff.marriageDate = ps_record.mar_status_dt.to_date if ps_record.mar_status_dt
     if "E" == ps_record.employee_flag
-      staff.hireDate = ps_record.hire_dt
-      staff.rehireDate = ps_record.rehire_dt
-      staff.origHiredate = ps_record.orig_hire_dt
+      staff.hireDate = ps_record.hire_dt.to_date if ps_record.hire_dt
+      staff.rehireDate = ps_record.rehire_dt.to_date if ps_record.rehire_dt
+      staff.origHiredate = ps_record.orig_hire_dt.to_date if ps_record.orig_hire_dt
     else
       staff.hireDate = nil
       staff.rehireDate = nil
       staff.origHiredate = nil
     end
-    staff.serviceDate = ps_record.service_dt
-    staff.workPhone = ps_record.work_phone
-    staff.deptId = ps_record.deptid
-    staff.jobCode = ps_record.jobcode
-    staff.accountCode = ps_record.acct_cd
-    staff.jobTitle = ps_record.jobtitle
-    staff.deptName = ps_record.deptname
+    staff.serviceDate = ps_record.service_dt.to_date if ps_record.service_dt
+    staff.workPhone = ps_record.work_phone.strip
+    staff.deptId = ps_record.deptid.strip
+    staff.jobCode = ps_record.jobcode.strip
+    staff.accountCode = ps_record.acct_cd.strip
+    staff.jobTitle = ps_record.jobtitle.strip
+    staff.deptName = ps_record.deptname.strip
     
-    staff.primaryEmpLocCity = ps_record.psTaxLocation.city
-    staff.primaryEmpLocState = ps_record.psTaxLocation.state
-    staff.primaryEmpLocCountry = ps_record.psTaxLocation.country
-    staff.primaryEmpLocDesc = ps_record.psTaxLocation.descr
+    staff.primaryEmpLocCity = ps_record.psTaxLocation.city.strip
+    staff.primaryEmpLocState = ps_record.psTaxLocation.state.strip
+    staff.primaryEmpLocCountry = ps_record.psTaxLocation.country.strip
+    staff.primaryEmpLocDesc = ps_record.psTaxLocation.descr.strip
     
-    staff.jobStatus = PsCccStatusTbl.translate_status(ps_record.status_code)
-    staff.ministry = PsDeptTbl.translate_ministry(ps_record.ccc_ministry)
-    staff.region = PsRegion.translate_region(ps_record.ccc_sub_ministry)
-    staff.strategy = PsStrategy.translate_strategy(ps_record.lane_outreach)
-    staff.position = PsRespScope.translate_resp_scope(ps_record.respons_scope)
+    staff.jobStatus = PsCccStatusTbl.translate_status(ps_record.status_code.strip)
+    staff.ministry = PsDeptTbl.translate_ministry(ps_record.ccc_ministry.strip)
+    staff.region = PsRegion.translate_region(ps_record.ccc_sub_ministry.strip)
+    staff.strategy = PsStrategy.translate_strategy(ps_record.lane_outreach.strip)
+    staff.position = PsRespScope.translate_resp_scope(ps_record.respons_scope.strip)
 
-    staff.middleName = ps_record.middle_name
-    staff.statusDescr = ps_record.status_descr
-    staff.internationalStatus = ps_record.internation_status
+    staff.middleName = ps_record.middle_name.strip
+    staff.statusDescr = ps_record.status_descr.strip
+    staff.internationalStatus = ps_record.internation_status.strip
     staff.balance = ps_record.balance
-    staff.cccHrSendingDept = ps_record.ccc_hr_sndng_dept
-    staff.cccHrCaringDept = ps_record.ccc_hr_caring_dept
-    staff.cccCaringMinistry = ps_record.ccc_carng_ministry
-    staff.assignmentLength = ps_record.assignment_lngth
+    staff.cccHrSendingDept = ps_record.ccc_hr_sndng_dept.strip
+    staff.cccHrCaringDept = ps_record.ccc_hr_caring_dept.strip
+    staff.cccCaringMinistry = ps_record.ccc_carng_ministry.strip
+    staff.assignmentLength = ps_record.assignment_lngth.strip
     
 
     # guarentees that if a staff is reloaded at night, they are said to be on peoplesoft.  (I.E., seen on Infobase)
@@ -177,32 +177,32 @@ class PersonUpdater
     # Update spousal info
     update_spouse_info(staff, ps_record)
 
-    staff.reportingDate = ps_record.reporting_date
-    staff.coupleTitle = ps_record.couple_name_prefix
-    staff.firstName = ps_record.first_name
-    staff.lastName = ps_record.last_name
+    staff.reportingDate = ps_record.reporting_date.to_date if ps_record.reporting_date
+    staff.coupleTitle = ps_record.couple_name_prefix.strip
+    staff.firstName = ps_record.first_name.strip
+    staff.lastName = ps_record.last_name.strip
     staff.email = ps_record.email_addr.strip
-    staff.preferredName = ps_record.pref_first_name
-    staff.homePhone = ps_record.home_phone
-    staff.otherPhone = ps_record.phone # Actually a duplicate of home phone
-    staff.mobilePhone = ps_record.cell_phone
+    staff.preferredName = ps_record.pref_first_name.strip
+    staff.homePhone = ps_record.home_phone.strip
+    staff.otherPhone = ps_record.phone.strip # Actually a duplicate of home phone
+    staff.mobilePhone = ps_record.cell_phone.strip
 
-    staff.countryCode = ps_record.nid_country
+    staff.countryCode = ps_record.nid_country.strip
 
     if "SECURE" != staff.countryCode.upcase 
       set_addr(staff, ps_record)
     end
     
-    staff.isSecure = ps_record.secure_employee == "Y"
+    staff.isSecure = (ps_record.secure_employee == "Y") ? "T" : "F"
     
     Rails.logger.info("Changes for #{ps_record.emplid} (#{ps_record.first_name.to_s + " " + ps_record.last_name.to_s}):  #{staff.changes}")
   end
   
   def update_spouse_info(staff, ps_record)
-    staff.spouseFirstName = ps_record.spouse_name
-    staff.spouseLastName = ps_record.last_name
+    staff.spouseFirstName = ps_record.spouse_name.strip
+    staff.spouseLastName = ps_record.last_name.strip
     
-    accountNo = ps_record.emplid
+    accountNo = ps_record.emplid.strip
     
     # If husband account
     if accountNo.size == 9 && accountNo.last != 'S'
@@ -214,7 +214,7 @@ class PersonUpdater
         wife.save!
       end
     elsif accountNo.size == 10 && accountNo.last == 'S'
-      husband_account_no = accountNo.substring(0,9)
+      husband_account_no = accountNo[0,9]
       husband = Staff.find_by_accountNo(husband_account_no)
       if husband
         staff.spouseAccountNo = husband_account_no     
@@ -230,14 +230,14 @@ class PersonUpdater
       add1 = StaffAddress.new
       Rails.logger.info("Address1 for " + staff.firstName + " " + staff.lastName + " not persistant; creating new one");
     end
-    add1.address1 = ps_record.address1
-    add1.address2 = ps_record.address2
-    add1.address3 = ps_record.address3
-    add1.address4 = ps_record.address4
-    add1.city = ps_record.city
-    add1.state = ps_record.state
-    add1.zip = ps_record.postal
-    add1.country = ps_record.country
+    add1.address1 = ps_record.address1.strip
+    add1.address2 = ps_record.address2.strip
+    add1.address3 = ps_record.address3.strip
+    add1.address4 = ps_record.address4.strip
+    add1.city = ps_record.city.strip
+    add1.state = ps_record.state.strip
+    add1.zip = ps_record.postal.strip
+    add1.country = ps_record.country.strip
     add1.save!
     staff.primary_address = add1
     
@@ -246,13 +246,13 @@ class PersonUpdater
       add2 = StaffAddress.new
       Rails.logger.info("Address2 for " + staff.firstName + " " + staff.lastName + " not persistant; creating new one");
     end
-    add2.address1 = ps_record.address1_other
-    add2.address2 = ps_record.address2_other
-    add2.address3 = ps_record.address3_other
-    add2.city = ps_record.city_other
-    add2.state = ps_record.state_other
-    add2.zip = ps_record.postal_other
-    add2.country = ps_record.country_other
+    add2.address1 = ps_record.address1_other.strip
+    add2.address2 = ps_record.address2_other.strip
+    add2.address3 = ps_record.address3_other.strip
+    add2.city = ps_record.city_other.strip
+    add2.state = ps_record.state_other.strip
+    add2.zip = ps_record.postal_other.strip
+    add2.country = ps_record.country_other.strip
     add2.save!
     staff.secondary_address = add2
   end
