@@ -136,11 +136,11 @@ class PersonUpdater
     if "E" == ps_record.employee_flag
       staff.hireDate = ps_record.hire_dt
       staff.rehireDate = ps_record.rehire_dt
-      staff.origHireDate = ps_record.orig_hire_dt
+      staff.origHiredate = ps_record.orig_hire_dt
     else
       staff.hireDate = nil
       staff.rehireDate = nil
-      staff.origHireDate = nil
+      staff.origHiredate = nil
     end
     staff.serviceDate = ps_record.service_dt
     staff.workPhone = ps_record.work_phone
