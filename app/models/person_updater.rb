@@ -190,7 +190,7 @@ class PersonUpdater
     staff.countryCode = ps_record.nid_country
 
     if "SECURE" != staff.countryCode.upcase 
-      setAddr(staff, ps_record)
+      set_addr(staff, ps_record)
     end
     
     staff.isSecure = ps_record.secure_employee == "Y"
