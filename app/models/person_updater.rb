@@ -33,19 +33,27 @@ class PersonUpdater
             # Check maiden record for name accuracy
             if maiden_record && maiden_record.lastName.upcase == p_record.last_name.upcase && maiden_record.firstName.upcase == p_record.first_name.upcase
               # Name is correct in maiden_record
-              s_record.update_attribute(:accountNo, s_record.accountNo + "_old")
-              s_record.removedFromPeopleSoft = "Y"
-              s_record.person_id = nil
-              s_record.save!
+              unless Staff.find_by_accountNo(s_record.accountNo + "_old")
+                s_record.update_attribute(:accountNo, s_record.accountNo + "_old")
+                s_record.removedFromPeopleSoft = "Y"
+                s_record.person_id = nil
+                s_record.save!
+              else # There's already an _old record, so we'll just get rid of this one
+                s_record.destroy
+              end
               switch_account_number(maiden_record, p_record.emplid)
               staff.delete(p_record.emplid)
               Rails.logger.info("Record #{p_record.emplid} existed (#{p_record.first_name.to_s + " " + p_record.last_name.to_s}), but name didn't match (#{s_record.firstName.to_s + " " + s_record.lastName.to_s}).  Found maiden record #{maiden.maiden_emplid} and switched account numbers.")
             elsif maiden_record
               # Name is incorrect in maiden_record, will switch anyway
-              s_record.update_attribute(:accountNo, s_record.accountNo + "_old")
-              s_record.removedFromPeopleSoft = "Y"
-              s_record.person_id = nil
-              s_record.save!
+              unless Staff.find_by_accountNo(s_record.accountNo + "_old")
+                s_record.update_attribute(:accountNo, s_record.accountNo + "_old")
+                s_record.removedFromPeopleSoft = "Y"
+                s_record.person_id = nil
+                s_record.save!
+              else # There's already an _old record, so we'll just get rid of this one
+                s_record.destroy
+              end
               switch_account_number(maiden_record, p_record.emplid)
               staff.delete(p_record.emplid)
               Rails.logger.info("Record #{p_record.emplid} existed (#{p_record.first_name.to_s + " " + p_record.last_name.to_s}), but name didn't match (#{s_record.firstName.to_s + " " + s_record.lastName.to_s}).  Found maiden record #{maiden.maiden_emplid} but name still didn't match (#{maiden_record.firstName.to_s + " " + maiden_record.lastName.to_s}).  Switched account numbers anyway.")
