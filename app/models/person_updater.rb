@@ -108,7 +108,7 @@ class PersonUpdater
   def update_staff_record_attributes
     ps_records = PsEmployee.includes(:psTaxLocation).order(:emplid)
     ps_records.each do |ps_record|
-      staff = Staff.where("accountNo = ?", ps_record.emplid).includes(:primary_address, :secondary_address)
+      staff = Staff.where("accountNo = ?", ps_record.emplid).includes(:primary_address, :secondary_address).first
       if staff
         set_staff_attributes(staff, ps_record)
         staff.save!
