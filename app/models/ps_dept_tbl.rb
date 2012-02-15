@@ -11,7 +11,7 @@ class PsDeptTbl < ActiveRecord::Base
   
   def self.init_ministries
     @@ministries = {}
-    ministries = PsDeptTbl.select(:deptid, :descr).joins("INNER JOIN SYSADM.PS_CCC_MINISTRIES ON SYSADM.PS_CCC_MINISTRIES.CCC_MINISTRY = SYSADM.PS_DEPT_TBL.DEPTID")
+    ministries = PsDeptTbl.select("deptid, descr").joins("INNER JOIN SYSADM.PS_CCC_MINISTRIES ON SYSADM.PS_CCC_MINISTRIES.CCC_MINISTRY = SYSADM.PS_DEPT_TBL.DEPTID")
     ministries.each do |ministry|
       @@ministries[:deptid] = :descr
     end

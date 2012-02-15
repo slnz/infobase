@@ -11,7 +11,7 @@ class PsRespScope < ActiveRecord::Base
   
   def self.init_positions
     @@scopes = {}
-    scopes = PsRespScope.select(:fieldvalue, :xlatlongname).where("fieldname = 'RESPONS_SCOPE")
+    scopes = PsRespScope.select("fieldvalue, xlatlongname").where("fieldname = 'RESPONS_SCOPE")
     scopes.each do |scope|
       @@scopes[:fieldvalue] = :xlatlongname
     end
