@@ -108,7 +108,7 @@ class PersonUpdater
   def update_staff_record_attributes
     ps_records = PsEmployee.includes(:psTaxLocation).order(:emplid)
     ps_records.each do |ps_record|
-      staff = Staff.find_by_accountNo(ps_record.emplid)
+      staff = Staff.find_by_accountNo(ps_record.emplid).includes(:primary_address, :secondary_address)
       if staff
         set_staff_attributes(staff, ps_record)
         staff.save!
@@ -150,10 +150,10 @@ class PersonUpdater
     staff.jobTitle = ps_record.jobtitle.strip
     staff.deptName = ps_record.deptname.strip
     
-    staff.primaryEmpLocCity = ps_record.psTaxLocation.city.strip
-    staff.primaryEmpLocState = ps_record.psTaxLocation.state.strip
-    staff.primaryEmpLocCountry = ps_record.psTaxLocation.country.strip
-    staff.primaryEmpLocDesc = ps_record.psTaxLocation.descr.strip
+    staff.primaryEmpLocCity = ps_record.psTaxLocation.city.strip if ps_record.psTaxLocation
+    staff.primaryEmpLocState = ps_record.psTaxLocation.state.strip if ps_record.psTaxLocation
+    staff.primaryEmpLocCountry = ps_record.psTaxLocation.country.strip if ps_record.psTaxLocation
+    staff.primaryEmpLocDesc = ps_record.psTaxLocation.descr.strip if ps_record.psTaxLocation
     
     staff.jobStatus = PsCccStatusTbl.translate_status(ps_record.status_code.strip)
     staff.ministry = PsDeptTbl.translate_ministry(ps_record.ccc_ministry.strip)

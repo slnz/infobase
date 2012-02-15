@@ -21,5 +21,6 @@ class PsRegion
       "CWC" => "GP",
       "CGP" => "GP"
     }
+    @@regions
   end
 end

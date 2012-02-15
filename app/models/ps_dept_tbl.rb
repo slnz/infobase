@@ -3,13 +3,19 @@ class PsDeptTbl < ActiveRecord::Base
   set_table_name "SYSADM.PS_DEPT_TBL"
   
   def self.translate_ministry(ps_ministry)
-    ministry = PsDeptTbl.find_by_deptid(ps_ministry)
-    result = ps_ministry
-    if ps_ministry == "CM"
-      result = "Campus Ministry" # Override what's in PS - "The Campus Ministry"
-    elsif ministry
-      result = ministry.descr
-    end
+    @@ministries ||= init_ministries
+    result = @@ministries[ps_ministry]
+    result ||= ps_ministry
     result
+  end
+  
+  def self.init_ministries
+    @@ministries = {}
+    ministries = PsDeptTbl.select(:deptid, :descr).joins("INNER JOIN SYSADM.PS_CCC_MINISTRIES ON SYSADM.PS_CCC_MINISTRIES.CCC_MINISTRY = SYSADM.PS_DEPT_TBL.DEPTID")
+    ministries.each do |ministry|
+      @@ministries[:deptid] = :descr
+    end
+    @@ministries["CM"] = "Campus Ministry" # Override what's in PS - "The Campus Ministry"
+    @@ministries
   end
 end

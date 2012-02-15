@@ -3,6 +3,7 @@ class PsStrategy
     @@strategies ||= init_strategies
     result = @@strategies[ps_strategy]
     result ||= ps_strategy
+    result
   end
   
   def self.init_strategies
@@ -15,5 +16,6 @@ class PsStrategy
       "HR" => "LD",
       "FLD" => "CFM"
     }
+    @@strategies
   end
 end
