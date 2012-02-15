@@ -13,7 +13,7 @@ class PsDeptTbl < ActiveRecord::Base
     @@ministries = {}
     ministries = PsDeptTbl.select("deptid, descr").joins("INNER JOIN SYSADM.PS_CCC_MINISTRIES ON SYSADM.PS_CCC_MINISTRIES.CCC_MINISTRY = SYSADM.PS_DEPT_TBL.DEPTID")
     ministries.each do |ministry|
-      @@ministries[:deptid] = :descr
+      @@ministries[ministry.deptid] = ministry.descr
     end
     @@ministries["CM"] = "Campus Ministry" # Override what's in PS - "The Campus Ministry"
     @@ministries

@@ -13,8 +13,12 @@ class PsRespScope < ActiveRecord::Base
     @@scopes = {}
     scopes = PsRespScope.select("fieldvalue, xlatlongname").where("fieldname = 'RESPONS_SCOPE'")
     scopes.each do |scope|
-      @@scopes[:fieldvalue] = :xlatlongname
+      @@scopes[scope.fieldvalue] = scope.xlatlongname
     end
+    @@scopes
+  end
+  
+  def self.scopes
     @@scopes
   end
 end
