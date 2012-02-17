@@ -17,8 +17,4 @@ class PsRespScope < ActiveRecord::Base
     end
     @@scopes
   end
-  
-  def self.scopes
-    @@scopes
-  end
 end

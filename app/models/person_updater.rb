@@ -5,8 +5,10 @@ class PersonUpdater
   end
   
   def update_people
+    Rails.logger.info("Updating Staff/Person records from PS...")
     update_staff_records
-#    update_person_records
+    update_person_records
+    Rails.logger.info("Done!")
   end
   
   private
@@ -195,7 +197,7 @@ class PersonUpdater
     
     staff.isSecure = (ps_record.secure_employee == "Y") ? "T" : "F"
     
-    Rails.logger.info("Changes for #{ps_record.emplid} (#{ps_record.first_name.to_s + " " + ps_record.last_name.to_s}):  #{staff.changes}")
+    Rails.logger.info("Changes for Staff #{ps_record.emplid} (#{ps_record.first_name.to_s + " " + ps_record.last_name.to_s}):  #{staff.changes}")
   end
   
   def update_spouse_info(staff, ps_record)
@@ -255,5 +257,120 @@ class PersonUpdater
     add2.country = ps_record.country_other.strip
     add2.save!
     staff.secondary_address = add2
+  end
+
+
+  def update_person_records
+    staffs = Staff.where("removedFromPeopleSoft <> 'Y'").includes(:person => [:current_address, :permanent_address], :primary_address, :secondary_address)
+    staffs.each do |staff|
+      unless staff.person
+        find_or_create_person(staff)
+      end
+      update_person_attributes(staff)
+    end
+  end
+  
+  def find_or_create_person(staff)
+    p = Person.find_by_accountNo(staff.accountNo)
+    if p
+      staff.person = p
+      staff.save!
+      Rails.logger.info("Staff record #{staff.accountNo} associated with Person record #{staff.person.id} by account number.")
+    end
+    
+    u = User.find_by_username(staff.email) unless staff.person
+    if !staff.person && u && u.person
+      staff.person = u.person
+      staff.save!
+      Rails.logger.info("Staff record #{staff.accountNo} associated with Person record #{staff.person.id} by username.")
+    end
+    
+    addr = Address.where("addressType = 'current'").where("email = ?", staff.email) unless staff.person
+    if !staff.person && addr & addr.person
+      staff.person = addr.person
+      staff.save!
+      Rails.logger.info("Staff record #{staff.accountNo} associated with Person record #{staff.person.id} by email address.")
+    end
+    
+    unless staff.person
+      p = Person.new(:accountNo => staff.accountNo, :firstName => staff.firstName, :lastName => staff.lastName)
+      p.save!
+      staff.person = p
+      staff.save!
+      Rails.logger.info("Staff record #{staff.accountNo} not found in Person table.  Created new Person record.")
+    end
+  end
+  
+  def update_person_attributes(staff)
+    person = staff.person
+    
+    person.accountNo = staff.accountNo
+    person.isSecure = staff.isSecure
+    person.firstName = staff.firstName
+    person.preferredName = staff.preferredName
+    person.lastName = staff.lastName
+    
+    person.gender = staff.isMale == "T" ? "1" : "0"
+    person.maritalStatus = staff.maritalStatus
+    spouse = Staff.find_by_accountNo(staff.spouseAccountNo)
+    if spouse
+      person.setFk_spouseID = spouse.personID
+      spouse.setFk_spouseID = person.personID
+      spouse.save!
+    end
+        
+    person.ministry = staff.ministry
+    if ("NC SE MA MS GP GL NW RR UM SW NE HLIC KEY").include?(staff.region)
+      person.region = staff.region
+    else 
+      person.region = ""
+    end
+    person.strategy = staff.strategy
+    person.isStaff = staff.removedFromPeopleSoft == "N" && Staff.staff_positions.include?(staff.jobStatus)
+
+    person.birthDate = staff.birthDate
+    person.dateChanged = Time.now
+    person.toolName = "PU2"
+    Rails.logger.info("Changes for Person #{person.id} (#{person.firstName.to_s + " " + person.lastName.to_s}):  #{person.changes}")
+    person.save!
+    
+    unless person.current_address
+      address Address.new(:addressType => 'current')
+      address.person = person
+      address.save!
+    end
+    current_address = person.current_address
+    home_address = staff.primary_address
+    push_address(home_address, current_address, staff);
+    
+    unless person.permanent_address
+      address Address.new(:addressType => 'permanent')
+      address.person = person
+      address.save!
+    end
+    permanent_address = person.permanent_address
+    mailing_address = staff.secondary_address
+    push_address(mailing_address, permanent_address, staff);
+  end
+  
+  def push_address(staff_address, person_address, staff)
+    person_address.address1 = staff_address.address1
+    person_address.address2 = staff_address.address2
+    person_address.address3 = staff_address.address3
+    person_address.address4 = staff_address.address4
+    person_address.city = staff_address.city
+    person_address.state = staff_address.state
+    person_address.zip = staff_address.zip
+    person_address.country = staff_address.country
+    person_address.city = staff_address.city
+    
+    person_address.homePhone = staff.homePhone
+    person_address.workPhone = staff.workPhone
+    person_address.cellPhone = staff.MmobilePhone
+    person_address.fax = staff.fax
+    person_address.email = staff.email
+    person_address.dateChanged = Time.now
+    person_address.toolName = "PU2"
+    person_address.save!
   end
 end
