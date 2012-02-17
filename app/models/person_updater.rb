@@ -285,7 +285,7 @@ class PersonUpdater
       Rails.logger.info("Staff record #{staff.accountNo} associated with Person record #{staff.person.id} by username.")
     end
     
-    addr = Address.where("addressType = 'current'").where("email = ?", staff.email) unless staff.person
+    addr = Address.where("addressType = 'current'").where("email = ?", staff.email).first unless staff.person
     if !staff.person && addr & addr.person
       staff.person = addr.person
       staff.save!
