@@ -6,7 +6,7 @@ class PersonUpdater
   
   def update_people
     Rails.logger.info("Updating Staff/Person records from PS...")
-    update_staff_records
+#    update_staff_records
     update_person_records
     Rails.logger.info("Done!")
   end
@@ -330,7 +330,7 @@ class PersonUpdater
 
     person.birth_date = staff.birthDate
     person.dateChanged = Time.now
-    person.toolName = "PU2"
+    person.changedBy = "PU2"
     Rails.logger.info("Changes for Person #{person.id} (#{person.firstName.to_s + " " + person.lastName.to_s}):  #{person.changes}")
     person.save!
     
@@ -370,7 +370,7 @@ class PersonUpdater
     person_address.fax = staff.fax
     person_address.email = staff.email
     person_address.dateChanged = Time.now
-    person_address.toolName = "PU2"
+    person_address.changedBy = "PU2"
     person_address.save!
   end
 end
