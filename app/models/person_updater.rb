@@ -343,6 +343,7 @@ class PersonUpdater
       address = Address.new(:addressType => 'current')
       address.person = person
       address.save!
+      person.current_address(true)
     end
     current_address = person.current_address
     home_address = staff.primary_address
@@ -352,6 +353,7 @@ class PersonUpdater
       address = Address.new(:addressType => 'permanent')
       address.person = person
       address.save!
+      person.permanent_address(true)
     end
     permanent_address = person.permanent_address
     mailing_address = staff.secondary_address
