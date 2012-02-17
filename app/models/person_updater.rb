@@ -329,10 +329,13 @@ class PersonUpdater
     person.isStaff = staff.removedFromPeopleSoft == "N" && Staff.staff_positions.include?(staff.jobStatus)
 
     person.birth_date = staff.birthDate
-    person.dateChanged = Time.now
-    person.changedBy = "PU2"
-    Rails.logger.info("Changes for Person #{person.id} (#{person.firstName.to_s + " " + person.lastName.to_s}):  #{person.changes}")
-    person.save!
+    if person.changed?
+      person.fk_ssmUserId = nil if person.fk_ssmUserId = 0
+      person.dateChanged = Time.now
+      person.changedBy = "PU2"
+      Rails.logger.info("Changes for Person #{person.id} (#{person.firstName.to_s + " " + person.lastName.to_s}):  #{person.changes}")
+      person.save!
+    end
     
     unless person.current_address
       address Address.new(:addressType => 'current')
