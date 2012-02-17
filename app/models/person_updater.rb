@@ -261,7 +261,7 @@ class PersonUpdater
 
 
   def update_person_records
-    staffs = Staff.where("removedFromPeopleSoft <> 'Y'").includes(:person => [:current_address, :permanent_address], :primary_address, :secondary_address)
+    staffs = Staff.where("removedFromPeopleSoft <> 'Y'").includes(:primary_address, :secondary_address, :person => [:current_address, :permanent_address])
     staffs.each do |staff|
       unless staff.person
         find_or_create_person(staff)
