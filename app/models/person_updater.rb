@@ -313,10 +313,12 @@ class PersonUpdater
     person.gender = staff.isMale == "T" ? "1" : "0"
     person.maritalStatus = staff.maritalStatus
     spouse = Staff.find_by_accountNo(staff.spouseAccountNo)
-    if spouse
-      person.setFk_spouseID = spouse.personID
-      spouse.setFk_spouseID = person.personID
-      spouse.save!
+    if spouse && spouse.person
+      spouse_person = spouse.person
+      person.setFk_spouseID = spouse_person.id
+      spouse_person.setFk_spouseID = person.id
+      spouse_person.fk_ssmUserId = nil if spouse_person.fk_ssmUserId = 0
+      spouse.person.save!
     end
         
     person.ministry = staff.ministry
@@ -372,8 +374,10 @@ class PersonUpdater
     person_address.cellPhone = staff.mobilePhone
     person_address.fax = staff.fax
     person_address.email = staff.email
-    person_address.dateChanged = Time.now
-    person_address.changedBy = "PU2"
-    person_address.save!
+    if person_address.changed?
+      person_address.dateChanged = Time.now
+      person_address.changedBy = "PU2"
+      person_address.save!
+    end
   end
 end
