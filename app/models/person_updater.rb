@@ -317,7 +317,7 @@ class PersonUpdater
       spouse_person = spouse.person
       person.fk_spouseID = spouse_person.id
       spouse_person.fk_spouseID = person.id
-      spouse_person.fk_ssmUserId = nil if spouse_person.fk_ssmUserId = 0
+      spouse_person.fk_ssmUserId = nil if spouse_person.fk_ssmUserId == 0
       spouse.person.save!
     end
         
@@ -332,7 +332,7 @@ class PersonUpdater
 
     person.birth_date = staff.birthDate
     if person.changed?
-      person.fk_ssmUserId = nil if person.fk_ssmUserId = 0
+      person.fk_ssmUserId = nil if person.fk_ssmUserId == 0
       person.dateChanged = Time.now
       person.changedBy = "PU2"
       Rails.logger.info("Changes for Person #{person.id} (#{person.firstName.to_s + " " + person.lastName.to_s}):  #{person.changes}")
@@ -340,7 +340,7 @@ class PersonUpdater
     end
     
     unless person.current_address
-      address Address.new(:addressType => 'current')
+      address = Address.new(:addressType => 'current')
       address.person = person
       address.save!
     end
@@ -349,7 +349,7 @@ class PersonUpdater
     push_address(home_address, current_address, staff);
     
     unless person.permanent_address
-      address Address.new(:addressType => 'permanent')
+      address = Address.new(:addressType => 'permanent')
       address.person = person
       address.save!
     end
