@@ -369,7 +369,7 @@ class PersonUpdater
     
     person_address.homePhone = staff.homePhone
     person_address.workPhone = staff.workPhone
-    person_address.cellPhone = staff.MmobilePhone
+    person_address.cellPhone = staff.mobilePhone
     person_address.fax = staff.fax
     person_address.email = staff.email
     person_address.dateChanged = Time.now
