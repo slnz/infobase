@@ -328,7 +328,7 @@ class PersonUpdater
     person.strategy = staff.strategy
     person.isStaff = staff.removedFromPeopleSoft == "N" && Staff.staff_positions.include?(staff.jobStatus)
 
-    person.birthDate = staff.birthDate
+    person.birth_date = staff.birthDate
     person.dateChanged = Time.now
     person.toolName = "PU2"
     Rails.logger.info("Changes for Person #{person.id} (#{person.firstName.to_s + " " + person.lastName.to_s}):  #{person.changes}")

@@ -3,11 +3,18 @@ class PsCccStatusTbl < ActiveRecord::Base
   set_table_name "SYSADM.PS_CCC_STATUS_TBL"
   
   def self.translate_status(ps_status)
-    status = PsCccStatusTbl.find_by_status_code(ps_status)
-    result = ps_status
-    if status
-      result = status.descr
-    end
+    @@statuses ||= init_statuses
+    result = @@statuses[ps_status]
+    result ||= ps_status
     result
+  end
+  
+  def self.init_statuses
+    @@statuses = {}
+    statuses = PsccStatusTbl.select("status_code, descr")
+    statuses.each do |status|
+      @@statuses[status.status_code] = status.descr
+    end
+    @@statuses
   end
 end
