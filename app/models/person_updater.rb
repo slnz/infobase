@@ -315,8 +315,8 @@ class PersonUpdater
     spouse = Staff.find_by_accountNo(staff.spouseAccountNo)
     if spouse && spouse.person
       spouse_person = spouse.person
-      person.setFk_spouseID = spouse_person.id
-      spouse_person.setFk_spouseID = person.id
+      person.fk_spouseID = spouse_person.id
+      spouse_person.fk_spouseID = person.id
       spouse_person.fk_ssmUserId = nil if spouse_person.fk_ssmUserId = 0
       spouse.person.save!
     end
