@@ -11,7 +11,7 @@ class PsCccStatusTbl < ActiveRecord::Base
   
   def self.init_statuses
     @@statuses = {}
-    statuses = PsccStatusTbl.select("status_code, descr")
+    statuses = PsCccStatusTbl.select("status_code, descr")
     statuses.each do |status|
       @@statuses[status.status_code] = status.descr
     end
