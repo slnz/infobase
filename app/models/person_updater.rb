@@ -27,7 +27,7 @@ class PersonUpdater
         # Check to make sure it's the right person
         if s_record.lastName.upcase == p_record.last_name.upcase && s_record.firstName.upcase == p_record.first_name.upcase
           staff.delete(p_record.emplid)
-          Rails.logger.info("Record #{p_record.emplid} exists (#{p_record.first_name.to_s + " " + p_record.last_name.to_s}).")
+          #Rails.logger.info("Record #{p_record.emplid} exists (#{p_record.first_name.to_s + " " + p_record.last_name.to_s}).")
         else # Name doesn't match
           maiden = PsCccPersData.where("emplid = ?", p_record.emplid).first
           if maiden && !maiden.maiden_emplid.blank? # Changed emplid at some point
@@ -197,7 +197,7 @@ class PersonUpdater
     
     staff.isSecure = (ps_record.secure_employee == "Y") ? "T" : "F"
     
-    Rails.logger.info("Changes for Staff #{ps_record.emplid} (#{ps_record.first_name.to_s + " " + ps_record.last_name.to_s}):  #{staff.changes}")
+    Rails.logger.info("Changes for Staff #{ps_record.emplid} (#{ps_record.first_name.to_s + " " + ps_record.last_name.to_s}):  #{staff.changes}") if staff.changed?
   end
   
   def update_spouse_info(staff, ps_record)
