@@ -25,8 +25,8 @@ class PeopleController < ApplicationController
     if params[:name].blank? && params[:city].blank? && params[:state].blank? && params[:country].blank? && params[:regions].blank? && params[:strategies].blank? && params[:staff].blank?
       redirect_to search_people_path, :notice => "You must fill in at least one search option."
     end
-    if !params[:name].blank? && params[:name].size < 3
-      redirect_to search_people_path, :notice => "You must fill in at least three letters of the name."
+    if !params[:name].blank? && params[:name].size < 2
+      redirect_to search_people_path, :notice => "You must fill in at least two letters of the name."
     end
 
     @people = Person.where(Person.table_name + ".isSecure != 'T' or " + Person.table_name + ".isSecure is null").order(Person.table_name + ".lastName", Person.table_name + ".firstName").includes(:current_address).includes(:staff)
