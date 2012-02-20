@@ -337,8 +337,6 @@ class PersonUpdater
     end
     if person.changed?
       person.fk_ssmUserId = nil if person.fk_ssmUserId == 0
-      person.dateChanged = Time.now
-      person.changedBy = "PU2"
       Rails.logger.info("Changes for Person #{person.id} (#{person.firstName.to_s + " " + person.lastName.to_s}):  #{person.changes}")
       person.save!
     end
@@ -381,8 +379,6 @@ class PersonUpdater
     person_address.fax = staff.fax
     person_address.email = staff.email
     if person_address.changed?
-      person_address.dateChanged = Time.now
-      person_address.changedBy = "PU2"
       person_address.save!
     end
   end
