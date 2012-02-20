@@ -330,7 +330,11 @@ class PersonUpdater
     person.strategy = staff.strategy
     person.isStaff = staff.removedFromPeopleSoft == "N" && Staff.staff_positions.include?(staff.jobStatus)
 
-    person.birth_date = staff.birthDate
+    if staff.birthDate > '1/1/1901'.to_date
+      person.birth_date = staff.birthDate
+    else
+      person.birth_date = nil
+    end
     if person.changed?
       person.fk_ssmUserId = nil if person.fk_ssmUserId == 0
       person.dateChanged = Time.now
