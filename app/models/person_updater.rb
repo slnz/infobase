@@ -272,21 +272,21 @@ class PersonUpdater
   
   def find_or_create_person(staff)
     p = Person.find_by_accountNo(staff.accountNo)
-    if p
+    if p && !p.staff
       staff.person = p
       staff.save!
       Rails.logger.info("Staff record #{staff.accountNo} associated with Person record #{staff.person.id} by account number.")
     end
     
     u = User.find_by_username(staff.email) unless staff.person
-    if !staff.person && u && u.person
+    if !staff.person && u && u.person && !u.person.staff
       staff.person = u.person
       staff.save!
       Rails.logger.info("Staff record #{staff.accountNo} associated with Person record #{staff.person.id} by username.")
     end
     
     addr = Address.where("addressType = 'current'").where("email = ?", staff.email).first unless staff.person
-    if !staff.person && addr && addr.person
+    if !staff.person && addr && addr.person && !addr.person.staff
       staff.person = addr.person
       staff.save!
       Rails.logger.info("Staff record #{staff.accountNo} associated with Person record #{staff.person.id} by email address.")
