@@ -24,6 +24,7 @@ gem 'capistrano_colors'
 
 gem 'airbrake'
 gem 'activerecord-oracle_enhanced-adapter'
+gem 'whenever', '~> 0.7.3'
 
 group :production do
   gem 'ruby-oci8'
