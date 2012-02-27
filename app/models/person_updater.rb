@@ -272,21 +272,21 @@ class PersonUpdater
   
   def find_or_create_person(staff)
     p = Person.find_by_accountNo(staff.accountNo)
-    if p && !p.staff && p.firstName.upcase == staff.firstName.upcase && p.lastName.upcase == staff.lastname.upcase
+    if p && !p.staff && p.firstName.upcase == staff.firstName.upcase && p.lastName.upcase == staff.lastName.upcase
       staff.person = p
       staff.save!
       Rails.logger.info("Staff record #{staff.accountNo} associated with Person record #{staff.person.id} by account number.")
     end
     
     u = User.find_by_username(staff.email) unless staff.person
-    if !staff.person && u && u.person && !u.person.staff && u.person.firstName.upcase == staff.firstName.upcase && u.person.lastName.upcase == staff.lastname.upcase
+    if !staff.person && u && u.person && !u.person.staff && u.person.firstName.upcase == staff.firstName.upcase && u.person.lastName.upcase == staff.lastName.upcase
       staff.person = u.person
       staff.save!
       Rails.logger.info("Staff record #{staff.accountNo} associated with Person record #{staff.person.id} by username.")
     end
     
     addr = Address.where("addressType = 'current'").where("email = ?", staff.email).first unless staff.person
-    if !staff.person && addr && addr.person && !addr.person.staff && addr.person.firstName.upcase == staff.firstName.upcase && addr.person.lastName.upcase == staff.lastname.upcase
+    if !staff.person && addr && addr.person && !addr.person.staff && addr.person.firstName.upcase == staff.firstName.upcase && addr.person.lastName.upcase == staff.lastName.upcase
       staff.person = addr.person
       staff.save!
       Rails.logger.info("Staff record #{staff.accountNo} associated with Person record #{staff.person.id} by email address.")
