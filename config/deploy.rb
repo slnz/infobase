@@ -1,8 +1,6 @@
 require 'airbrake/capistrano'
 require 'capistrano_colors'
 load 'deploy/assets'
-set :whenever_command, "bundle exec whenever"
-require "whenever/capistrano"
 
 # This defines a deployment "recipe" that you can feed to capistrano
 # (http://manuals.rubyonrails.com/read/book/17). It allows you to automate
@@ -52,6 +50,8 @@ task :staging do
 end
   
 task :production do
+  set :whenever_command, "bundle exec whenever"
+  require "whenever/capistrano"
   set :deploy_to, "/var/www/html/production/#{application}"
   set :environment, 'production'
   set :rails_env, 'production'
