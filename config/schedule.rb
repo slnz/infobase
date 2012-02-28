@@ -21,6 +21,8 @@
 
 set :output, 'log/person_updater.log'
 
+job_type :rake, "cd :path && RAILS_ENV=:environment /usr/local/bin/bundle exec /usr/local/bin/rake :task --silent :output"
+
 every 1.day, :at => '5:15 am' do 
-  runner "PersonUpdater.update_people_from_ps"
+  rake "person"
 end
