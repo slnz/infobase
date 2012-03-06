@@ -25,7 +25,9 @@ class InfobaseReportRow
   
   def set_stats
     event_stats = Statistic.event_stats
-    event_stats.delete("invldStudents") #invldStudents will be counted in semester stats
+    if !@last_stats.empty?
+      event_stats.delete("invldStudents") #invldStudents will be counted in semester stats
+    end
     event_stats.each do |stat_type|
       instance_variable_set("@#{stat_type}", 0)
       instance_variable_set("@#{stat_type}", @stats.send(stat_type)) if @stats && @stats[stat_type]
