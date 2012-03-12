@@ -1,14 +1,13 @@
 class MovementsController < ApplicationController
   before_filter :setup, :get_location
   before_filter :get_movement, :except => [:new, :create]
-  before_filter :populate_select_options, :only => [:edit]
   
   def new
     @movement = Activity.new_movement_for_strategy(@location, params[:strategy])
     if @movement.ActivityID
       redirect_to edit_location_movement_path(@location, @movement)
     end
-    populate_select_options
+    populate_select_options(params[:strategy])
     @movement.periodBegin = Time.now.to_date # Initialize date of change to today
   end
   
@@ -19,12 +18,13 @@ class MovementsController < ApplicationController
       @movement.save_create_history(@current_user)
       redirect_to location_path(@location), :notice => "Your request was submitted successfully."
     else
-      populate_select_options
+      populate_select_options(@movement.strategy)
       render :new
     end
   end
   
   def edit
+    populate_select_options(@movement.strategy)
     @movement.periodBegin = Time.now.to_date # Initialize date of change to today
   end
   
@@ -33,7 +33,7 @@ class MovementsController < ApplicationController
     if @movement.errors.empty?
       redirect_to location_path(@location), :notice => "#{@location.name}, #{@movement.strategy} was updated successfully."
     else
-      populate_select_options
+      populate_select_options(@movement.strategy)
       render :edit
     end
   end
@@ -140,8 +140,12 @@ class MovementsController < ApplicationController
     @location = @movement.target_area
   end
   
-  def populate_select_options
-    @statuses = Activity.visible_statuses
+  def populate_select_options(strategy)
+    if strategy == "WS"
+      @statuses = Activity.wsn_statuses
+    else
+      @statuses = Activity.visible_statuses
+    end
     @teams = Team.from_region(@location.region)
     @team_id = @movement.team.id if @movement.team
   end
