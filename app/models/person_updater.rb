@@ -317,8 +317,11 @@ class PersonUpdater
       spouse_person = spouse.person
       person.fk_spouseID = spouse_person.id
       spouse_person.fk_spouseID = person.id
-      spouse_person.fk_ssmUserId = nil if spouse_person.fk_ssmUserId == 0
-      spouse.person.save!
+      if spouse_person.changed?
+        spouse_person.fk_ssmUserId = nil if spouse_person.fk_ssmUserId == 0
+        Rails.logger.info("Changes for Spouse #{spouse_person.id} (#{spouse_person.firstName.to_s + " " + spouse_person.lastName.to_s}):  #{spouse_person.changes}")
+        spouse_person.save!
+      end
     end
         
     person.ministry = staff.ministry
