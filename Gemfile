@@ -11,6 +11,7 @@ gem 'acts_as_state_machine'
 gem 'dynamic_form'
 gem 'dalli'
 gem 'paperclip'
+gem 'newrelic_rpm'
 
 # Use unicorn as the web server
 # gem 'unicorn'
