@@ -4,7 +4,11 @@ class StatsController < ApplicationController
   before_filter :get_event_params, :only => [:sp, :crs]
   
   def index
-    @movements = current_user.activities
+    all_movements = current_user.activities
+    @movements = []
+    all_movements.each do |movement|
+      @movements << movement if movement.is_active?
+    end
     render :movement
   end
   
