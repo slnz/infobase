@@ -4,7 +4,7 @@
     <%= link_to ">" + Region.full_name(@region), region_teams_path + "/" + @region if !@region.blank? %>
     <%= link_to ">" + State.states[@state], region_teams_path + "/" + @region + "/state/" + @state if !@state.blank? && !@region.blank? %>
     <%= link_to ">" + @city, region_teams_path + "/" + @region + "/state/" + @state + "/city/" + @city if !@state.blank? && !@city.blank? && !@region.blank? %>
-    <%= link_to ">" + Country.full_name(@country), region_teams_path + "/" + @region + "/country/" + @country if !@country.blank? && !@region.blank? %>
+    <%= link_to ">" + Country.full_name(@country).to_s, region_teams_path + "/" + @region + "/country/" + @country if !@country.blank? && !@region.blank? %>
     <%= link_to ">" + @city, region_teams_path + "/" + @region + "/country/" + @country + "/city/" + @city if !@country.blank? && !@city.blank? && !@region.blank? %>
     <%= link_to "Advanced Team Search", search_teams_path %>
     <%= link_to "Propose New Team", new_team_path %>

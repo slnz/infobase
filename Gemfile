@@ -1,6 +1,7 @@
 source 'http://rubygems.org'
 
 gem 'rails', '~> 3.1.0'
+gem 'jquery-rails'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
@@ -10,6 +11,7 @@ gem 'acts_as_state_machine'
 gem 'dynamic_form'
 gem 'dalli'
 gem 'paperclip'
+gem 'newrelic_rpm'
 
 # Use unicorn as the web server
 # gem 'unicorn'
@@ -21,10 +23,13 @@ gem 'capistrano_colors'
 # To use debugger
 # gem 'ruby-debug'
 
-gem 'hoptoad_notifier'
+gem 'airbrake'
+gem 'activerecord-oracle_enhanced-adapter'
+gem 'whenever', '~> 0.7.3'
+
 group :production do
-  gem 'activerecord-oracle_enhanced-adapter', '1.3.2' #1.4.0 doesn't work, see: https://github.com/rsim/oracle-enhanced/issues/85
   gem 'ruby-oci8'
+  gem 'rack-google_analytics', :require => "rack/google_analytics"
 end
 gem 'multi_json'
 

@@ -7,6 +7,6 @@
 <br/><br/>
 <b>Or look for your Location in the Countries below:</b><br/>
 <% @countries.each do |ta| %>
-  <%= link_to Country.full_name(ta.country), region_locations_path + "/" + @region + "/country/" + ta.country %>
+  <%= link_to Country.full_name(ta.country).to_s, region_locations_path + "/" + @region + "/country/" + ta.country %>
   <%= link_to "(all)", region_locations_path + "/" + @region + "/country/" + ta.country + "/all" %><br/>
 <% end %>

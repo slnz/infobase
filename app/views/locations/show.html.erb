@@ -117,7 +117,7 @@
       <div class="thecolumn" style="float: right;">
         <div class="field">
           <label>Missional Team:</label>
-          <%= link_to activity.team.name, team_path(activity.team) %>
+          <%= link_to activity.team.name, team_path(activity.team) if activity.team %>
         </div>
         <br/>
 

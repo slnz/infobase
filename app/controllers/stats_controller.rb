@@ -4,7 +4,11 @@ class StatsController < ApplicationController
   before_filter :get_event_params, :only => [:sp, :crs]
   
   def index
-    @movements = current_user.activities
+    all_movements = current_user.activities
+    @movements = []
+    all_movements.each do |movement|
+      @movements << movement if movement.is_active?
+    end
     render :movement
   end
   
@@ -161,6 +165,7 @@ class StatsController < ApplicationController
     @name = params[:name]
     @region = params[:region] if Region.campus_region_codes.include?(params[:region])
     @strategy = params[:strategy]
+    @strategy = "EV" if @strategy.blank?
     @email = params[:email]
     @event_id = params[:eventKeyID]
     @is_secure = params[:isSecure].to_s == 'T'

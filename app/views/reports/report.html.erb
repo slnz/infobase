@@ -18,38 +18,63 @@
     </p>
 
     <% @reports.each do |report| %>
-      <%= render :partial => 'report_header_bar', :locals => { :row_type => report.row_type } %>
-  
-      <% report.rows.each do |row| %>
-        <div class="regular">
-          <% if row.is_bridges? %>
-            <%= render :partial => 'bridges_report_row', :locals => { :report => report, :row => row } %>
-          <% else %>
-            <%= render :partial => 'report_row', :locals => { :report => report, :row => row } %>
+      <script type="text/javascript" language="javascript">
+        $(document).ready(function() {
+          var rows = $('table.reporttable tr');
+          
+          <% report.rows.each do |row| %>
+            <% if row.is_bridges? %>
+              $('#<%= row.key %>').click(function() {
+                rows.filter('.row_short-<%= row.key %>').toggle();
+                return false;
+              });
+            <% end %>
           <% end %>
-        </div>
-      <% end %>
-  
-      <%= render :partial => 'report_header_bar', :locals => { :row_type => report.row_type } %>
-  
-      <div class="regular">
-        <table class="row">
-          <tr>
-            <td class="report_header_label"><center> Totals </center></td>
+        });
+      </script>
+
+      <table class="reporttable">
+        <% if @type == "campus" %>
+          <%= render :partial => 'report_header_bar', :locals => { :row_type => report.row_type } %>
+        <% else %>
+          <%= render :partial => 'event_header_bar', :locals => { :row_type => report.row_type } %>
+        <% end %>
+      
+        <% report.rows.each do |row| %>
+          <% if row.is_bridges? %>
+            <%= render :partial => 'bridges_report_row', :locals => { :report => report, :row => row, :type => @type } %>
+          <% else %>
+            <%= render :partial => 'report_row', :locals => { :report => report, :row => row, :bridges => nil, :type => @type, :id => nil, :hide => false } %>
+          <% end %>
+        <% end %>
+    
+        <% if @type == "campus" %>
+          <%= render :partial => 'report_header_bar', :locals => { :row_type => report.row_type } %>
+        <% else %>
+          <%= render :partial => 'event_header_bar', :locals => { :row_type => report.row_type } %>
+        <% end %>
+    
+        <tr class="row">
+          <td class="report_header_label"><center> Totals </center></td>
+          <% if @type == "campus" %>
             <% Statistic.weekly_stats.each do |stat| %>
               <td class="report_header"><%= report.get_totals.send(stat) %></td>
             <% end %>
             <% Statistic.semester_stats.each do |stat| %>
               <td class="report_header"><%= report.get_totals.send(stat) %></td>
             <% end %>
-          </tr>
-        </table>
-      </div>
+          <% else %>
+            <% Statistic.event_stats.each do |stat| %>
+              <td class="report_header"><%= report.get_totals.send(stat) %></td>
+            <% end %>
+          <% end %>
+        </tr>
+      </table>
       <br/>
     <% end %>
     
-    <%= link_to "[Zoom Out to Team]<br/>".html_safe, team_report_path(@team.id, {:from => @from_date, :to => @to_date, :strategies => @strategies_list}) if @location && @team %>
-    <%= link_to "[Zoom Out to Regional]<br/>".html_safe, regional_report_path(@region, {:from => @from_date, :to => @to_date, :strategies => @strategies_list}) if @team %>
-    <%= link_to "[Zoom Out to National]<br/>".html_safe, national_report_path({:from => @from_date, :to => @to_date, :strategies => @strategies_list}) if @region %>
+    <%= link_to "[Zoom Out to Team]<br/>".html_safe, team_report_path(@team.id, {:from => @from_date, :to => @to_date, :strategies => @strategies_list, :event_type => @type}) if @location && @team %>
+    <%= link_to "[Zoom Out to Regional]<br/>".html_safe, regional_report_path(@region, {:from => @from_date, :to => @to_date, :strategies => @strategies_list, :event_type => @type}) if @team %>
+    <%= link_to "[Zoom Out to National]<br/>".html_safe, national_report_path({:from => @from_date, :to => @to_date, :strategies => @strategies_list, :event_type => @type}) if @region %>
   </div>
 </div>

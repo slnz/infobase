@@ -28,10 +28,10 @@
 
           <div class="box">
             <ul style="list-style:none;background:none;height:auto;">
-              <li><%= radio_button_tag "event_type", "CM", true %>Campus Report (traditional Success Criteria report)</li>
-              <li><%= radio_button_tag "event_type", "C2", false, :disabled => true, :onClick => "checkAll();" %>Conference Stats (coming soon)</li>
-              <li><%= radio_button_tag "event_type", "SP", false, :disabled => true, :onClick => "checkAll();" %>Summer Project Stats (coming soon)</li>
-              <li><%= radio_button_tag "event_type", "DI", false, :disabled => true, :onClick => "checkAll();" %>Special Event Stats (coming soon)</li>
+              <li><%= radio_button_tag "event_type", "campus", true %>Campus Report (traditional Success Criteria report)</li>
+              <li><%= radio_button_tag "event_type", "conference", false, :onClick => "checkAll();" %>Conference Stats</li>
+              <li><%= radio_button_tag "event_type", "SP", false, :onClick => "checkAll();" %>Summer Project Stats</li>
+              <li><%= radio_button_tag "event_type", "website", false, :disabled => true, :onClick => "checkAll();" %>Website Stats (coming soon)</li>
             </ul>
           </div>
         </div>

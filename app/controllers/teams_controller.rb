@@ -16,6 +16,7 @@ class TeamsController < ApplicationController
     @team = Team.new
     @team.attributes = params[:team]
     @name_options = {}
+    @strategies = Activity.strategies
     @title = "Infobase - Propose New Team"
   end
 
@@ -24,6 +25,7 @@ class TeamsController < ApplicationController
     @team.attributes = params[:team]
     if @team.valid?
       if @info_user.can_create_teams?
+        @team.isActive = "T"
         @team.save!
         redirect_to team_path(@team), :notice => "Team was created successfully."
       else
@@ -102,7 +104,7 @@ class TeamsController < ApplicationController
   end
   
   def new_member
-    if @info_user.can_add_team_members? || @team.is_leader(@current_user.person)
+    if @info_user.can_add_team_members? || @team.is_leader?(@current_user.person)
       @person = Person.new
       @person.current_address = Address.new
     else
@@ -111,7 +113,7 @@ class TeamsController < ApplicationController
   end
   
   def create_member
-    if @info_user.can_add_team_members? || @team.is_leader(@current_user.person)
+    if @info_user.can_add_team_members? || @team.is_leader?(@current_user.person)
       @person = Person.new
       @person.current_address = Address.new
       @person.current_address.addressType = "current"
@@ -140,7 +142,7 @@ class TeamsController < ApplicationController
   end
   
   def add_leader
-    if @info_user.can_add_team_leaders? || @team.is_leader?(@current_user.person)
+    if @info_user.can_add_team_leaders?
       person = Person.find(params[:person_id])
       if @team.add_leader(person)
         redirect_to team_path(@team), :notice => "Team Leader was successfully added."
@@ -153,7 +155,7 @@ class TeamsController < ApplicationController
   end
   
   def remove_leader
-    if @info_user.can_add_team_leaders? || @team.is_leader?(@current_user.person)
+    if @info_user.can_add_team_leaders?
       person = Person.find(params[:person_id])
       if @team.remove_leader(person)
         redirect_to team_path(@team), :notice => "Team Leader was successfully removed."
@@ -191,7 +193,7 @@ class TeamsController < ApplicationController
       @region = params[:region]
       @country = params[:country]
       @cities = Team.active.select("distinct city").where("region = ?", @region).where("country = ?", @country).where("city is not null and city != ''").order(:city)
-      @title = "Infobase - Teams in " + Country.full_name(@country)
+      @title = "Infobase - Teams in " + Country.full_name(@country).to_s
     end
   end
   

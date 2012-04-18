@@ -1,9 +1,4 @@
-<div id="start_<%= row.key %>" class="bridges_split" style="display:none;">
-  <%= render :partial => 'report_row', :locals => { :report => report, :row => row, :bridges => "split" } %>
-  <% row.bridges_rows.each do |row| %>
-    <%= render :partial => 'report_row', :locals => { :report => report, :row => row } %>
-  <% end %>
-</div>
-<div id="end_<%= row.key %>" class="bridges_sum" style="display:block;">
-  <%= render :partial => 'report_row', :locals => { :report => report, :row => row, :bridges => "sum" } %>
-</div>
+<%= render :partial => 'report_row', :locals => { :report => report, :row => row, :bridges => "split", :type => type, :id => row.key, :hide => false } %>
+<% row.bridges_rows.each do |bridges_row| %>
+  <%= render :partial => 'report_row', :locals => { :report => report, :row => bridges_row, :bridges => nil, :type => type, :id => row.key, :hide => true} %>
+<% end %>

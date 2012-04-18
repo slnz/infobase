@@ -1,4 +1,4 @@
-require 'hoptoad_notifier/capistrano'
+require 'airbrake/capistrano'
 require 'capistrano_colors'
 load 'deploy/assets'
 
@@ -50,6 +50,8 @@ task :staging do
 end
   
 task :production do
+  set :whenever_command, "bundle exec whenever"
+  require "whenever/capistrano"
   set :deploy_to, "/var/www/html/production/#{application}"
   set :environment, 'production'
   set :rails_env, 'production'

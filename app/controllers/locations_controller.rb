@@ -14,7 +14,7 @@ class LocationsController < ApplicationController
       redirect_to locations_path
       return
     end
-    @reports_link = location_report_path(@location, {:from => last_august(), :to => Date.today.to_s, :strategies => Activity.visible_strategies.keys})
+    @reports_link = location_report_path(@location, {:event_type => "campus", :from => last_august(), :to => Date.today.to_s, :strategies => Activity.visible_strategies.keys})
     @open_strategies = Activity.determine_open_strategies(@location)
     @title = "Infobase - " + @location.name
   end
@@ -79,11 +79,15 @@ class LocationsController < ApplicationController
   end
   
   def state
-    if params[:all]
-      perform_search
-    else
-      @cities = TargetArea.open_school.select("distinct city").where("region = ?", @region).where("state = ?", @state).where("city is not null and city != ''").order(:city)
-      @title = "Infobase - Locations in " + State.states[@state]
+    if State.states[@state]
+      if params[:all]
+        perform_search
+      else
+        @cities = TargetArea.open_school.select("distinct city").where("region = ?", @region).where("state = ?", @state).where("city is not null and city != ''").order(:city)
+        @title = "Infobase - Locations in " + State.states[@state]
+      end
+    else # invalid state
+      redirect_to region_locations_path + "/" + @region
     end
   end
   
@@ -94,7 +98,7 @@ class LocationsController < ApplicationController
       @region = params[:region]
       @country = params[:country]
       @cities = TargetArea.open_school.select("distinct city").where("region = ?", @region).where("country = ?", @country).where("city is not null and city != ''").order(:city)
-      @title = "Infobase - Locations in " + Country.full_name(@country)
+      @title = "Infobase - Locations in " + Country.full_name(@country).to_s
     end
   end
   

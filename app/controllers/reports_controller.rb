@@ -10,12 +10,12 @@ class ReportsController < ApplicationController
   def do_report
     from_date = Date.civil(params["from(1i)"].to_i, params["from(2i)"].to_i, params["from(3i)"].to_i)
     to_date = Date.civil(params["to(1i)"].to_i, params["to(2i)"].to_i, params["to(3i)"].to_i) + 1.month - 1.day
-    redirect_to national_report_path({:from => from_date, :to => to_date, :strategies => params[:strategies]})
+    redirect_to national_report_path({:from => from_date, :to => to_date, :strategies => params[:strategies], :event_type => params[:event_type]})
   end
   
   def national_report
-    @report_type = "National"
-    @reports = [InfobaseReport.create_national_report(@from_date, @to_date, @strategies_list)]
+    @report_type = @type.capitalize + " National"
+    @reports = [InfobaseReport.create_national_report(@from_date, @to_date, @strategies_list, @type)]
     render :report
   end
   
@@ -27,10 +27,15 @@ class ReportsController < ApplicationController
   end
 
   def team_report
-    @team = Team.find(params[:team_id])
-    @region = @team.region
-    @report_type = @team.name.to_s + " Missional Team"
-    @reports = [InfobaseReport.create_team_report(@team, @from_date, @to_date, @strategies_list)]
+    if @type == "campus"
+      @team = Team.find(params[:team_id])
+      @region = @team.region
+      @report_type = @type.capitalize + " " + @team.name.to_s + " Missional Team"
+    else 
+      @region = params[:team_id]
+      @report_type = @type.capitalize + " " + Region.full_name(@region).to_s + " Regional"
+    end
+    @reports = [InfobaseReport.create_team_report(@team, @from_date, @to_date, @strategies_list, @type, @region)]
     render :report
   end
   
@@ -39,7 +44,7 @@ class ReportsController < ApplicationController
     @team = Team.find(params[:team_id]) if params[:team_id]
     @region = @team.region if @team
     @report_type = @location.name.to_s + " Ministry Location"
-    @reports = InfobaseReport.create_location_reports(@location, @from_date, @to_date, @strategies_list, @team)
+    @reports = InfobaseReport.create_location_reports(@location, @from_date, @to_date, @strategies_list, @type, @team)
     render :report
   end
   
@@ -64,5 +69,6 @@ class ReportsController < ApplicationController
     @from_date = Date.parse(params[:from])
     @to_date = Date.parse(params[:to])
     @strategies_list = params[:strategies]
+    @type = params[:event_type]
   end
 end

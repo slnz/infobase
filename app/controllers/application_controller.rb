@@ -2,6 +2,7 @@ require 'authenticated_system'
 class ApplicationController < ActionController::Base
   include AuthenticatedSystem
   before_filter CASClient::Frameworks::Rails3::Filter, AuthenticationFilter, :check_user, :current_user, :except => [:no, :destroy]
+  before_filter :log_user, :except => [:destroy]
   protect_from_forgery
   
   def self.application_name
@@ -53,6 +54,10 @@ class ApplicationController < ActionController::Base
       end      
     end
     @current_user
+  end
+  
+  def log_user
+    logger.info "User is " + current_user.username.to_s
   end
   
   def search_options
