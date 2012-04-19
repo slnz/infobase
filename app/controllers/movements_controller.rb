@@ -52,7 +52,7 @@ class MovementsController < ApplicationController
   
   def remove_contact
     @contact = Person.find(params[:person_id])
-    if @info_user.can_delete_contacts? || @current_user.person == @contact
+    if @info_user.can_delete_contacts? || @current_user.person == @contact || @movement.team.is_leader?(@current_user.person)
       @movement.contacts.delete(@contact)
       redirect_to location_path(@location), :notice => "Contact was successfully removed."
     else

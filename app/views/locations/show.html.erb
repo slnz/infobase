@@ -97,7 +97,7 @@
           <div class="box">
             <% activity.contacts.each do |contact| %>
               <%= link_to contact.full_name, person_path(contact) %>
-              <% if @info_user.can_delete_contacts? || current_user.person.personID == contact.personID %>
+              <% if @info_user.can_delete_contacts? || current_user.person.personID == contact.personID || activity.team.is_leader?(@current_user.person) %>
                 <%= link_to "", remove_contact_location_movement_path(@location, activity) + "/" + contact.personID.to_s, :method => :delete, :confirm => "Are you sure?", :class => "deletefield" %>
               <% end %>
               <br/>
