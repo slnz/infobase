@@ -31,9 +31,4 @@ class InfobaseUser < ActiveRecord::Base
     end
     info_user
   end
-  
-  def is_current
-    current_user
-  end
-  
 end
