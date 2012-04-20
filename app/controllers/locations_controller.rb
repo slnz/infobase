@@ -22,7 +22,6 @@ class LocationsController < ApplicationController
   def new
     @location = TargetArea.new
     @location.attributes = params[:target_area]
-    @name_options = {}
     @title = "Infobase - Propose New Location"
   end
   
@@ -66,6 +65,11 @@ class LocationsController < ApplicationController
   
   def search
     @title = "Infobase - Location Search"
+  end
+  
+  def validate_name
+    response = TargetArea.exists?(:name => params[:name].strip) ? 0 : 1
+    render :text => response
   end
   
   def region

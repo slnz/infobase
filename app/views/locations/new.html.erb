@@ -1,5 +1,5 @@
 <h2>Propose New Location</h2>
 <%= form_for @location, :url => locations_path do |f| %>
   <%= render :partial => 'form', :locals => {:f => f} %>
-  <%= f.submit "Submit New Location" %>
+  <%= f.submit "Submit New Location", :id => "location_submit_button" %>
 <% end %>

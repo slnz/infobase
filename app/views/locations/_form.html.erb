@@ -1,65 +1,133 @@
 <%= f.error_messages %>
-(* = required field)<br/>
+(* = required field)
+		</td>
+	</tr>
 
-<%= f.label :region, "*Region:" %>
-<%= f.select :region, options_for_select(@regions.collect {|r| [r.name, r.region]}, @location.region) %><br/>
-
-<%= f.label :name, "*Location Name:" %>
-<%= f.text_field :name, @name_options %><br/>
-
-<%= f.label :altName, "Alternate Name:"%>
-<%= f.text_field :altName %><br/>
-
-<%= f.label :abbrv, "Abbreviation:" %>
-<%= f.text_field :abbrv %><br/>
-
-<%= f.label :address1, "Address 1:" %>
-<%= f.text_field :address1 %><br/>
-
-<%= f.label :address2, "Address 2:" %>
-<%= f.text_field :address2 %><br/>
-
-<%= f.label :city, "*City:" %>
-<%= f.text_field :city %><br/>
-
-<%= f.label :state, "State:" %>
-<%= f.select :state, options_for_select(@states, @location.state) %><br/>
-
-<%= f.label :zip, "Zip:" %>
-<%= f.text_field :zip %><br/>
-
-<%= f.label :country, "*Country:" %>
-<%= f.select :country, options_for_select(@countries, @location.country) %><br/>
-
-<%= f.label :url, "Local Level Ministry URL:" %>
-<%= f.text_field :url %><br/>
-
-<%= f.label :infoUrl, "Other School Website URL:" %>
-<%= f.text_field :infoUrl %><br/>
-
-<%= f.label :enrollment, "Population/Enrollment/Scope:" %>
-<%= f.text_field :enrollment %><br/>
-
-<%= f.label :urlToLogo, "Ministry Location Logo URL:" %>
-<%= f.text_field :urlToLogo %><br/>
-
-<%= f.label :monthSchoolStarts, "Month and Day School Starts:" %>
-<%= f.text_field :monthSchoolStarts %> (i.e. AUG30)<br/>
-
-<%= f.label :monthSchoolStops, "Month and Day School Ends:" %>
-<%= f.text_field :monthSchoolStops %> (i.e. MAY06)<br/>
-
-<%= f.label :isSemester, "Semester System?" %>
-<%= f.radio_button :isSemester, "T" %>Yes
-<%= f.radio_button :isSemester, "F" %>No<br/>
-
-<%= f.label :isSecure, "*Is this Ministry Location secure?" %>
-<%= f.radio_button :isSecure, "T" %>Yes
-<%= f.radio_button :isSecure, "F" %>No<br/>
-
-<%= f.label :type, "*Is this a High School?" %>
-<%= f.radio_button :type, "HighSchool" %>Yes
-<%= f.radio_button :type, "College" %>No<br/>
-
-<%= f.label :note, "Note:", :style => "vertical-align:top;" %>
-<%= f.text_area :note %><br/>
+<table>
+	<tr>
+		<td><%= f.label :region, "*Region:" %></td>
+		<td>
+			<%= f.select :region, options_for_select(@regions.collect {|r| [r.name, r.region]}, @location.region) %>
+		</td>
+	</tr>
+	<tr>
+		<td>	<tr>
+		<td><%= f.label :name, "*Location Name:" %></td>
+		<td>
+			<%= f.text_field :name, :autocomplete => 'off' %>
+			<span id="target_area_name_result"></span>
+			<%= spinner('target_area_name') %>
+		</td>
+	</tr>
+	<tr>
+		<td><%= f.label :altName, "Alternate Name:" %></td>
+		<td>
+			<%= f.text_field :altName %>
+		</td>
+	</tr>
+	<tr>
+		<td><%= f.label :abbrv, "Abbreviation:" %></td>
+		<td>
+			<%= f.text_field :abbrv %>
+		</td>
+	</tr>
+	<tr>
+		<td><%= f.label :address1, "Address 1:" %></td>
+		<td>
+			<%= f.text_field :address1 %>
+		</td>
+	</tr>
+	<tr>
+		<td><%= f.label :address2, "Address 2:" %></td>
+		<td>
+			<%= f.text_field :address2 %>
+		</td>
+	</tr>
+	<tr>
+		<td><%= f.label :city, "*City:" %></td>
+		<td>
+			<%= f.text_field :city %>
+		</td>
+	</tr>
+	<tr>
+		<td><%= f.label :state, "State:" %></td>
+		<td>
+			<%= f.select :state, options_for_select(@states, @location.state) %>
+		</td>
+	</tr>
+	<tr>
+		<td><%= f.label :zip, "Zip:" %></td>
+		<td>
+			<%= f.text_field :zip %>
+		</td>
+	</tr>
+	<tr>
+		<td><%= f.label :country, "*Country:" %></td>
+		<td>
+			<%= f.select :country, options_for_select(@countries, @location.country) %>
+		</td>
+	</tr>
+	<tr>
+		<td><%= f.label :url, "Local Level Ministry URL:" %></td>
+		<td>
+			<%= f.text_field :url %>
+		</td>
+	</tr>
+	<tr>
+		<td><%= f.label :infoUrl, "Other School Website URL:" %></td>
+		<td>
+			<%= f.text_field :infoUrl %>
+		</td>
+	</tr>
+	<tr>
+		<td><%= f.label :enrollment, "Population/Enrollment/Scope:" %></td>
+		<td>
+			<%= f.text_field :enrollment %>
+		</td>
+	</tr>
+	<tr>
+		<td><%= f.label :urlToLogo, "Ministry Location Logo URL:" %></td>
+		<td>
+			<%= f.text_field :urlToLogo %>
+		</td>
+	</tr>
+	<tr>
+		<td><%= f.label :monthSchoolStarts, "Month and Day School Starts:" %></td>
+		<td>
+			<%= f.text_field :monthSchoolStarts %> (i.e. AUG30)
+		</td>
+	</tr>
+	<tr>
+		<td><%= f.label :monthSchoolStops, "Month and Day School Ends:" %></td>
+		<td>
+			<%= f.text_field :monthSchoolStops %> (i.e. MAY06)
+		</td>
+	</tr>
+	<tr>
+		<td><%= f.label :isSemester, "Semester System?" %></td>
+		<td>
+			<%= f.radio_button :isSemester, "T" %>Yes
+			<%= f.radio_button :isSemester, "F" %>No
+		</td>
+	</tr>
+	<tr>
+		<td><%= f.label :isSecure, "*Is this Ministry Location secure?" %></td>
+		<td>
+			<%= f.radio_button :isSecure, "T" %>Yes
+<%= f.radio_button :isSecure, "F" %>No
+		</td>
+	</tr>
+	<tr>
+		<td><%= f.label :type, "*Is this a High School?" %></td>
+		<td>
+			<%= f.radio_button :type, "HighSchool" %>Yes
+<%= f.radio_button :type, "College" %>No
+		</td>
+	</tr>
+	<tr>
+		<td><%= f.label :note, "Note:", :style => "vertical-align:top;" %></td>
+		<td>
+			<%= f.text_area :note %>
+		</td>
+	</tr>
+</table>
