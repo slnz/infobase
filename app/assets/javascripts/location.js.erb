@@ -6,18 +6,21 @@ $(document).ready(function(){
 		var value = $(this).val();
 		if(value){
 			$('#spinner_target_area_name').show();
-			$.ajax({url: 'http://' + window.location.host + '/locations/validate/' + value,
+			id = $('#location_id').val();
+			$.ajax({url: 'http://' + window.location.host + '/locations/validate/' + value + "?id=" + id,
 				data: '', 
 				dataType: 'script',
 				type: 'GET',
 				success: function(data) {
-					response = String(data);
-					if(Boolean(parseInt(data))){
+					if(data == 0){
 						$('span#target_area_name_result').html("<span class='positive'>Location Name is available!</span>");
 						$('input#location_submit_button').removeAttr('disabled');
-					}else{
+					}else if(data == 1){
 						$('span#target_area_name_result').html("<span class='negative'>Location Name already taken!</span>");
 						$('input#location_submit_button').attr('disabled', 'disabled');
+					}else if(data == 2){
+						$('span#target_area_name_result').html("");
+						$('input#location_submit_button').removeAttr('disabled');
 					}
 				},
 				complete: function() {

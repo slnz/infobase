@@ -3,20 +3,21 @@
 		</td>
 	</tr>
 
-<table>
+<table id="styled_form_table">
 	<tr>
-		<td><%= f.label :region, "*Region:" %></td>
-		<td>
+		<td id="label_column"><%= f.label :region, "*Region:" %></td>
+		<td id="field_column">
 			<%= f.select :region, options_for_select(@regions.collect {|r| [r.name, r.region]}, @location.region) %>
 		</td>
 	</tr>
 	<tr>
-		<td>	<tr>
 		<td><%= f.label :name, "*Location Name:" %></td>
 		<td>
+			<%= hidden_field_tag :location_id, params[:id] %>
 			<%= f.text_field :name, :autocomplete => 'off' %>
 			<span id="target_area_name_result"></span>
 			<%= spinner('target_area_name') %>
+			
 		</td>
 	</tr>
 	<tr>

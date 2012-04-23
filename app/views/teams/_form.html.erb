@@ -1,9 +1,10 @@
 <%= f.error_messages %>
 (* = required field)<br/>
-<table>
+<table id="styled_form_table">
 	<tr>
-		<td>*Team Name:</td>
-		<td>
+		<td id="label_column">*Team Name:</td>
+		<td id="field_column">
+			<%= hidden_field_tag :location_id, params[:id] %>
 			<%= f.text_field :name, :autocomplete => 'off' %>
 			<span id="team_name_result"></span>
 			<%= spinner('team_name') %>

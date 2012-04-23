@@ -68,7 +68,15 @@ class LocationsController < ApplicationController
   end
   
   def validate_name
-    response = TargetArea.exists?(:name => params[:name].strip) ? 0 : 1
+    data = TargetArea.find_by_name(params[:name].strip)
+    if data.present?
+      response = data.id == params[:id].to_i ? 2 : 1 
+    else
+      response = 0 
+    end
+    # 0 - Available
+    # 1 - Used by others
+    # 2 - Same as currentons
     render :text => response
   end
   
