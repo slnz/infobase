@@ -15,7 +15,6 @@ class TeamsController < ApplicationController
   def new
     @team = Team.new
     @team.attributes = params[:team]
-    @name_options = {}
     @strategies = Activity.strategies
     @title = "Infobase - Propose New Team"
   end
@@ -139,6 +138,19 @@ class TeamsController < ApplicationController
     else
       redirect_to team_path(@team), :notice => "You do not have permission to add team members."
     end
+  end
+  
+  def validate_name
+    data = Team.find_by_name(params[:name].strip)
+    if data.present?
+      response = data.id == params[:id].to_i ? 2 : 1 
+    else
+      response = 0 
+    end
+    # 0 - Available
+    # 1 - Used by others
+    # 2 - Same as currentons
+    render :text => response
   end
   
   def add_leader

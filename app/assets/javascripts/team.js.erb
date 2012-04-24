@@ -1,0 +1,39 @@
+$(document).ready(function(){
+	$('input#team_name').focus(function(){
+		$('#team_name_result').html("");
+	});
+	$('input#team_name').blur(function(){
+		var value = $(this).val();
+		if(value){
+			$('#spinner_team_name').show();
+			id = $('#location_id').val();
+			$.ajax({url: 'http://' + window.location.host + '/teams/validate/' + value + "?id=" + id,
+				data: '', 
+				dataType: 'script',
+				type: 'GET',
+				success: function(data) {
+					if(data == 0){
+						$('span#team_name_result').html("<span class='positive'>Team Name is available!</span>");
+						$('input#team_submit_button').removeAttr('disabled');
+					}else if(data == 1){
+						$('span#team_name_result').html("<span class='negative'>Team Name already taken!</span>");
+						$('input#team_submit_button').attr('disabled', 'disabled');
+					}else if(data == 2){
+						$('span#team_name_result').html("");
+						$('input#team_submit_button').removeAttr('disabled');
+					}
+				},
+				complete: function() {
+					$('#spinner_team_name').hide();
+				}
+			});
+		}else{
+			$('span#team_name_result').html("");
+			$('input#team_submit_button').attr('disabled', 'disabled');
+		}
+	});
+	$('form#new_team').submit(function(){
+		$('input#team_submit_button').attr('disabled', 'disabled');
+	});
+	
+});

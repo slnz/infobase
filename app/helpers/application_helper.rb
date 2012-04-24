@@ -53,4 +53,9 @@ module ApplicationHelper
     result = Date.parse("#{year}-08-01")
     result
   end
+  
+  def spinner(extra = nil)
+    e = extra ? "spinner_#{extra}" : 'spinner'
+    image_tag('spinner.gif', :id => e, :style => 'display:none', :class => 'spinner')
+  end
 end

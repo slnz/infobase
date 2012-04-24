@@ -19,6 +19,8 @@ Infobase::Application.routes.draw do
       post :remove_leader
     end
   end
+  match 'teams/validate/:name' => 'teams#validate_name'
+  match 'locations/validate/:name' => 'locations#validate_name'
   match 'teams/region/:region/state/:state/city/:city' => 'teams#city'
   match 'teams/region/:region/state/:state/:all' => 'teams#state'
   match 'teams/region/:region/state/:state' => 'teams#state'

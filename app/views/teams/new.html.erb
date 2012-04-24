@@ -1,5 +1,5 @@
 <h2>Propose New Team</h2>
 <%= form_for @team, :url => teams_path do |f| %>
   <%= render :partial => 'form', :locals => {:f => f} %>
-  <%= f.submit "Submit New Team" %>
+  <%= f.submit "Submit New Team", :id => "team_submit_button" %>
 <% end %>
