@@ -24,13 +24,13 @@
           <% end %>
         </div>
       </div>
-			<% unless @person.staff.is_removed? %>
-	      <div class="field">
-	        <label>Region:</label>
-	        <%= Region.full_name(@person.region) %>
-	      </div>
-	      <br/>
-			<% end %>
+      <% unless @person.staff.is_removed? %>
+        <div class="field">
+          <label>Region:</label>
+          <%= Region.full_name(@person.region) %>
+        </div>
+        <br/>
+      <% end %>
 
       <div class="field">
         <label>Work Phone:</label>
@@ -71,44 +71,44 @@
       </div>
       <br/>
     
-			<% unless @person.staff.is_removed? %>
+      <% unless @person.staff.is_removed? %>
       	<div class="field">
-	        <label>Ministry:</label>
-	        <%= @person.ministry %>
-	      </div>
-	      <br/>
+          <label>Ministry:</label>
+          <%= @person.ministry %>
+        </div>
+        <br/>
 
-	      <% if (@person.ministry == "Campus Ministry") %>
-	        <div class="field">
-	          <label>Ministry Type:</label>
-	          <%= @person.staff.strategy if @person.staff %>
-	        </div>
-	        <br/>
-	      <% else %>
-	        <div class="field">
-	          <label>Dept. Name:</label>
-	          <%= @person.staff.deptName if @person.staff  %>
-	        </div>
-	        <br/>
-	        <div class="field">
-	          <label>Job Code:</label>
-	          <%= @person.staff.jobCode if @person.staff  %>
-	        </div>
-	        <br/>
-	      <% end %>
-  
-	      <div class="field">
-	        <label>Job Title:</label>
-	        <%= @person.staff.jobTitle if @person.staff  %>
-	      </div>
-	      <br/>
-      
-	      <div class="field">
-	        <label>Job Status:</label>
-	        <%= @person.staff.jobStatus if @person.staff  %>
-	      </div>
-	      <br/>
-			<% end %>
+        <% if (@person.ministry == "Campus Ministry") %>
+          <div class="field">
+            <label>Ministry Type:</label>
+            <%= @person.staff.strategy if @person.staff %>
+          </div>
+          <br/>
+        <% else %>
+          <div class="field">
+            <label>Dept. Name:</label>
+            <%= @person.staff.deptName if @person.staff  %>
+          </div>
+          <br/>
+          <div class="field">
+            <label>Job Code:</label>
+            <%= @person.staff.jobCode if @person.staff  %>
+          </div>
+          <br/>
+        <% end %>
+
+        <div class="field">
+          <label>Job Title:</label>
+          <%= @person.staff.jobTitle if @person.staff  %>
+        </div>
+        <br/>
+
+        <div class="field">
+          <label>Job Status:</label>
+          <%= @person.staff.jobStatus if @person.staff  %>
+        </div>
+        <br/>
+      <% end %>
   
       <div class="field">
         <label>Birthday:</label>
@@ -116,13 +116,13 @@
       </div>
       <br/>
 
-			<% unless @person.staff.is_removed? %>
+      <% unless @person.staff.is_removed? %>
       	<div class="field">
-	        <label>Hire Date:</label>
-	        <%= display_date(@person.staff.hireDate) if @person.staff  %>
-	      </div>
-	      <br/>
-			<% end %>
+          <label>Hire Date:</label>
+          <%= display_date(@person.staff.hireDate) if @person.staff  %>
+        </div>
+        <br/>
+      <% end %>
   
       <div class="field">
         <label>Marital Status:</label>
