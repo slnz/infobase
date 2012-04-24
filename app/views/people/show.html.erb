@@ -126,6 +126,12 @@
       <br/>
       
       <div class="field">
+        <label>Anniversary Date:</label>
+        <%= @person.staff.marriageDate if @person.staff %>        
+      </div>
+      <br/>
+      
+      <div class="field">
         <label>Note:</label>
         <%= @person.staff.note if @person.staff  %>        
       </div>  
