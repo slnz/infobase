@@ -24,7 +24,7 @@
           <% end %>
         </div>
       </div>
-      <% unless @person.staff.is_removed? %>
+      <% unless @person.staff && @person.staff.is_removed? %>
         <div class="field">
           <label>Region:</label>
           <%= Region.full_name(@person.region) %>
@@ -71,7 +71,7 @@
       </div>
       <br/>
     
-      <% unless @person.staff.is_removed? %>
+      <% unless @person.staff && @person.staff.is_removed? %>
       	<div class="field">
           <label>Ministry:</label>
           <%= @person.ministry %>
@@ -116,7 +116,7 @@
       </div>
       <br/>
 
-      <% unless @person.staff.is_removed? %>
+      <% unless @person.staff && @person.staff.is_removed? %>
       	<div class="field">
           <label>Hire Date:</label>
           <%= display_date(@person.staff.hireDate) if @person.staff  %>
@@ -127,6 +127,12 @@
       <div class="field">
         <label>Marital Status:</label>
         <%= @person.marital_status %>        
+      </div>
+      <br/>
+      
+      <div class="field">
+        <label>Anniversary Date:</label>
+        <%= @person.staff.marriageDate if @person.staff %>        
       </div>
       <br/>
 
