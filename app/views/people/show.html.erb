@@ -96,25 +96,28 @@
               <%= @person.ministry %>
             </td>
           </tr>
-          <% if (@person.ministry == "Campus Ministry") %>
-          	<tr>
-          	  <td>Ministry Type:</td>
-          	  <td>
-                <%= @person.staff.strategy if @person.staff %>
-              </td>
-            </tr>
-          <% else %>
-          	<tr>
-          	  <td>Dept. Name:</td>
-          	  <td>
-                <%= @person.staff.deptName if @person.staff %>
-              </td>
-            </tr>
-          <% end %>
+        	<tr>
+        	  <td>Ministry Type:</td>
+        	  <td>
+              <%= @person.staff.strategy if @person.staff %>
+            </td>
+          </tr>
           <tr>
             <td>Region:</td>
             <td>
               <%= Region.full_name(@person.region) %>
+            </td>
+          </tr>
+          <tr>
+            <td>PS Department:</td>
+            <td>
+              <%= @person.staff.deptName if @person.staff %>
+            </td>
+          </tr>
+          <tr>
+            <td>PS Caring Dept.:</td>
+            <td>
+              <%= @person.staff.cccHrCaringDept if @person.staff %>
             </td>
           </tr>
         	<tr>
