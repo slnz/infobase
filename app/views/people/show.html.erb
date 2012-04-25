@@ -9,132 +9,140 @@
 <div class="strategy">
   <div class="details">
     <div class="thecolumn">
-
-      <div class="field">
-        <label>Address:</label>
-        <div class="box">
-          <% if @person.current_address %>
-            <%= @person.current_address.address1 %>&nbsp;<%= @person.current_address.address2 %><br/>
-            <%= @person.current_address.city %><%= (@person.current_address.state.blank? || @person.current_address.city.blank? ? "" : ",") %>
-            <%= @person.current_address.state %><br/>
-            <%= @person.current_address.zip %><%= (@person.current_address.country.blank? || @person.current_address.zip.blank? ? "" : ",") %>
-            <%= @person.current_address.country %>
-          <% else %>
-            &nbsp;
-          <% end %>
-        </div>
-      </div>
-      <% unless !@person.staff || (@person.staff && @person.staff.is_removed?) %>
-        <div class="field">
-          <label>Region:</label>
-          <%= Region.full_name(@person.region) %>
-        </div>
-        <br/>
-      <% end %>
-
-      <div class="field">
-        <label>Work Phone:</label>
-        <%= @person.current_address.work_phone if @person.current_address %>                            
-      </div>
-      <br/>
-
-      <div class="field">
-        <label>Mobile Phone:</label>
-        <%= @person.current_address.cell_phone if @person.current_address %>
-      </div>
-      <br/>
-
-      <div class="field">
-        <label>Home Phone:</label>
-        <%= @person.current_address.home_phone if @person.current_address %>
-      </div>
-      <br/>
-
-      <div class="field">
-        <label>Email:</label>
-        <a href="mailto:<%= @person.email %>"><%= @person.email %></a>
-      </div>
-      <br/>
+      <table id="styled_form_table">
+        <tr>
+          <td id="display_label_column">Address:</td>
+          <td>
+            <% if @person.current_address %>
+              <%= @person.current_address.address1 %>&nbsp;<%= @person.current_address.address2 %><br/>
+              <%= @person.current_address.city %><%= (@person.current_address.state.blank? || @person.current_address.city.blank? ? "" : ",") %>
+              <%= @person.current_address.state %><br/>
+              <%= @person.current_address.zip %><%= (@person.current_address.country.blank? || @person.current_address.zip.blank? ? "" : ",") %>
+              <%= @person.current_address.country %>
+            <% else %>
+              &nbsp;
+            <% end %>
+          </td>
+        </tr>
+        <tr>
+          <td>Work Phone:</td>
+          <td>
+            <%= @person.current_address.work_phone if @person.current_address %>  
+          </td>
+        </tr>
+        <tr>
+          <td>Mobile Phone:</td>
+          <td>
+            <%= @person.current_address.cell_phone if @person.current_address %>
+          </td>
+        </tr>
+        <tr>
+          <td>Home Phone:</td>
+          <td>
+            <%= @person.current_address.home_phone if @person.current_address %>
+          </td>
+        </tr>
+        <tr>
+          <td>Email:</td>
+          <td>
+            <a href="mailto:<%= @person.email %>"><%= @person.email %></a>
+          </td>
+        </tr>
+      	<tr>
+      	  <td>Marital Status:</td>
+      	  <td>
+            <%= @person.marital_status %>        
+          </td>
+        </tr>
+        <% if @person.spouse %>
+      	  <tr>
+        	  <td>Spouse:</td>
+        	  <td>
+              <%= @person.spouse %>
+            </td>
+          </tr>
+        	<tr>
+        	  <td>Anniversary Date:</td>
+        	  <td>
+              <%= display_date(@person.staff.marriageDate) if @person.staff %>
+            </td>
+          </tr>
+        <% end %>
+      	<tr>
+      	  <td>Birthday:</td>
+      	  <td>
+            <%= display_date(@person.birth_date) %>
+          </td>
+        </tr>
+      </table>
 
       <div class="clear"></div>
     </div>
     
     <div class="thecolumn">
-
-      <div class="field">
-        <label>Missional Teams:</label>
-        <div class="box">
-          <% @person.teams.each do |team| %>
-            <%= link_to team.name, team_path(team) %><br/>
+      <table id="styled_form_table">
+        <tr>
+          <td id="display_label_column">Missional Teams:</td>
+          <td>
+            <% @person.teams.each do |team| %>
+              <%= link_to team.name, team_path(team) %><br/>
+            <% end %>
+          </td>
+        </tr>
+        <% unless !@person.staff || (@person.staff && @person.staff.is_removed?) %>
+        	<tr>
+        	  <td>Ministry:</td>
+        	  <td>
+              <%= @person.ministry %>
+            </td>
+          </tr>
+          <% if (@person.ministry == "Campus Ministry") %>
+          	<tr>
+          	  <td>Ministry Type:</td>
+          	  <td>
+                <%= @person.staff.strategy if @person.staff %>
+              </td>
+            </tr>
+          <% else %>
+          	<tr>
+          	  <td>Dept. Name:</td>
+          	  <td>
+                <%= @person.staff.deptName if @person.staff %>
+              </td>
+            </tr>
+          	<tr>
+          	  <td>Job Code:</td>
+          	  <td>
+                <%= @person.staff.jobCode if @person.staff %>
+              </td>
+            </tr>
           <% end %>
-        </div>
-      </div>
-      <br/>
-    
-      <% unless !@person.staff || (@person.staff && @person.staff.is_removed?) %>
-      	<div class="field">
-          <label>Ministry:</label>
-          <%= @person.ministry %>
-        </div>
-        <br/>
-
-        <% if (@person.ministry == "Campus Ministry") %>
-          <div class="field">
-            <label>Ministry Type:</label>
-            <%= @person.staff.strategy if @person.staff %>
-          </div>
-          <br/>
-        <% else %>
-          <div class="field">
-            <label>Dept. Name:</label>
-            <%= @person.staff.deptName if @person.staff  %>
-          </div>
-          <br/>
-          <div class="field">
-            <label>Job Code:</label>
-            <%= @person.staff.jobCode if @person.staff  %>
-          </div>
-          <br/>
+          <tr>
+            <td>Region:</td>
+            <td>
+              <%= Region.full_name(@person.region) %>
+            </td>
+          </tr>
+        	<tr>
+        	  <td>Job Title:</td>
+        	  <td>
+              <%= @person.staff.jobTitle if @person.staff  %>
+            </td>
+          </tr>
+        	<tr>
+        	  <td>Job Status:</td>
+        	  <td>
+              <%= @person.staff.jobStatus if @person.staff  %>
+            </td>
+          </tr>
+      	  <tr>
+        	  <td>Hire Date:</td>
+        	  <td>
+              <%= display_date(@person.staff.hireDate) if @person.staff  %>
+            </td>
+          </tr>
         <% end %>
-
-        <div class="field">
-          <label>Job Title:</label>
-          <%= @person.staff.jobTitle if @person.staff  %>
-        </div>
-        <br/>
-
-        <div class="field">
-          <label>Job Status:</label>
-          <%= @person.staff.jobStatus if @person.staff  %>
-        </div>
-        <br/>
-      <% end %>
-  
-      <div class="field">
-        <label>Birthday:</label>
-        <%= display_date_short(@person.birth_date) %>
-      </div>
-      <br/>
-
-      <% unless @person.staff && @person.staff.is_removed? %>
-      	<div class="field">
-          <label>Hire Date:</label>
-          <%= display_date(@person.staff.hireDate) if @person.staff  %>
-        </div>
-        <br/>
-      <% end %>
-  
-      <div class="field">
-        <label>Marital Status:</label>
-        <%= @person.marital_status %>        
-      </div>
-      <br/>
-      
-      <div class="field">
-        <label>Anniversary Date:</label>
-        <%= display_date(@person.staff.marriageDate) if @person.staff %>        
-      </div>
-      <br/>
+      </table>
 
       <div class="clear"></div>
     </div>
