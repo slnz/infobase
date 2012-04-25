@@ -24,24 +24,28 @@
             <% end %>
           </td>
         </tr>
-        <tr>
-          <td>Work Phone:</td>
-          <td>
-            <%= @person.current_address.work_phone if @person.current_address %>  
-          </td>
-        </tr>
+        <% if @person.current_address.work_phone.present? %>
+          <tr>
+            <td>Work Phone:</td>
+            <td>
+              <%= @person.current_address.work_phone if @person.current_address %>  
+            </td>
+          </tr>
+        <% end %>
         <tr>
           <td>Mobile Phone:</td>
           <td>
             <%= @person.current_address.cell_phone if @person.current_address %>
           </td>
         </tr>
-        <tr>
-          <td>Home Phone:</td>
-          <td>
-            <%= @person.current_address.home_phone if @person.current_address %>
-          </td>
-        </tr>
+        <% if @person.current_address.home_phone.present? %>
+          <tr>
+            <td>Home Phone:</td>
+            <td>
+              <%= @person.current_address.home_phone if @person.current_address %>
+            </td>
+          </tr>
+        <% end %>
         <tr>
           <td>Email:</td>
           <td>
@@ -108,18 +112,22 @@
               <%= Region.full_name(@person.region) %>
             </td>
           </tr>
-          <tr>
-            <td>PS Department:</td>
-            <td>
-              <%= @person.staff.deptName if @person.staff %>
-            </td>
-          </tr>
-          <tr>
-            <td>PS Caring Dept.:</td>
-            <td>
-              <%= @person.staff.cccHrCaringDept if @person.staff %>
-            </td>
-          </tr>
+          <% if @person.staff && @person.staff.deptName.present? %>
+            <tr>
+              <td>PS Department:</td>
+              <td>
+                <%= @person.staff.deptName if @person.staff %>
+              </td>
+            </tr>
+          <% end %>
+          <% if @person.staff && @person.staff.cccHrCaringDept.present? %>
+            <tr>
+              <td>PS Caring Dept.:</td>
+              <td>
+                <%= @person.staff.cccHrCaringDept if @person.staff %>
+              </td>
+            </tr>
+          <% end %>
         	<tr>
         	  <td>Job Title:</td>
         	  <td>
