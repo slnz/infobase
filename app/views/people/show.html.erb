@@ -24,7 +24,7 @@
           <% end %>
         </div>
       </div>
-      <% unless @person.staff && @person.staff.is_removed? %>
+      <% unless !@person.staff || (@person.staff && @person.staff.is_removed?) %>
         <div class="field">
           <label>Region:</label>
           <%= Region.full_name(@person.region) %>
@@ -71,7 +71,7 @@
       </div>
       <br/>
     
-      <% unless @person.staff && @person.staff.is_removed? %>
+      <% unless !@person.staff || (@person.staff && @person.staff.is_removed?) %>
       	<div class="field">
           <label>Ministry:</label>
           <%= @person.ministry %>
