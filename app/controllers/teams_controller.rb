@@ -10,6 +10,7 @@ class TeamsController < ApplicationController
   end
 
   def show
+    @reports_link = team_report_path(@team, {:event_type => "campus", :from => last_august(), :to => Date.today.to_s, :strategies => Activity.visible_strategies.keys})
   end
   
   def new
