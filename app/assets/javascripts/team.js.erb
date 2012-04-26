@@ -7,7 +7,7 @@ $(document).ready(function(){
 		if(value){
 			$('#spinner_team_name').show();
 			id = $('#location_id').val();
-			$.ajax({url: 'http://' + window.location.host + '/teams/validate/' + value + "?id=" + id,
+			$.ajax({url: window.location.protocol + '//' + window.location.host + '/teams/validate/' + value + "?id=" + id,
 				data: '', 
 				dataType: 'script',
 				type: 'GET',
