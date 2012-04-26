@@ -142,7 +142,7 @@ class TeamsController < ApplicationController
   end
   
   def validate_name
-    data = Team.find_by_name(params[:name].strip)
+    data = Team.find_by_name_and_isActive(params[:name].strip, 'T')
     if data.present?
       response = data.id == params[:id].to_i ? 2 : 1 
     else
