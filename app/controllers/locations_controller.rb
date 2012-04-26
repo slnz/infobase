@@ -35,7 +35,7 @@ class LocationsController < ApplicationController
       else
         host = request.host_with_port
         ProposeMailer.propose_location(@location, current_user.person, host).deliver
-        redirect_to locations_path, :notice => "Your request was submitted successfully."
+        redirect_to locations_path, :notice => "Your proposed location has been submitted for approval. This manual process may take a few days.."
       end
     else
       search_options

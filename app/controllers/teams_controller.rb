@@ -31,7 +31,7 @@ class TeamsController < ApplicationController
       else
         host = request.host_with_port
         ProposeMailer.propose_team(@team, current_user.person, host).deliver
-        redirect_to teams_path, :notice => "Your request was submitted successfully."
+        redirect_to teams_path, :notice => "Your proposed team has been submitted for approval. This manual process may take a few days."
       end
     else
       search_options
@@ -142,7 +142,7 @@ class TeamsController < ApplicationController
   end
   
   def validate_name
-    data = Team.find_by_name(params[:name].strip)
+    data = Team.find_by_name_and_isActive(params[:name].strip, 'T')
     if data.present?
       response = data.id == params[:id].to_i ? 2 : 1 
     else
