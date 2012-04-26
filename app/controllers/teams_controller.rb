@@ -31,7 +31,7 @@ class TeamsController < ApplicationController
       else
         host = request.host_with_port
         ProposeMailer.propose_team(@team, current_user.person, host).deliver
-        redirect_to teams_path, :notice => "Your request was submitted successfully."
+        redirect_to teams_path, :notice => "Your proposed team has been submitted for approval. This manual process may take a few days."
       end
     else
       search_options
