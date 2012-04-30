@@ -24,7 +24,7 @@
             <% end %>
           </td>
         </tr>
-        <% if @person.current_address.work_phone.present? %>
+        <% if @person.current_address && @person.current_address.work_phone.present? %>
           <tr>
             <td>Work Phone:</td>
             <td>
