@@ -8,6 +8,7 @@ class PeopleController < ApplicationController
   
   def show
     @person = Person.not_secure.find(params[:id], :include => [:staff, :current_address])
+    @person.build_current_address unless @person.current_address
     @title = "Infobase - " + @person.full_name
   end
   
