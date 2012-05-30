@@ -26,3 +26,7 @@ job_type :rake, "cd :path && RAILS_ENV=:environment /usr/local/bin/bundle exec /
 every 1.day, :at => '5:15 am' do 
   rake "person"
 end
+
+every 1.day, :at => '8:15 am' do 
+  rake "balance"
+end
