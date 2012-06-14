@@ -27,6 +27,16 @@ class InfobaseUser < ActiveRecord::Base
         elsif info_user && staff && (staff.is_hr? || staff.is_director?)
           info_user = InfobaseHrUser.new()
         end
+
+        # access if person not removed from People Soft
+        unless info_user
+          info_user = new() if staff.removed_from_people_soft == "N"
+        end
+
+        # access if person is on 1 or more team
+        unless staff && info_user
+          info_user = new() if user.person.teams > 1
+        end
       end
     end
     info_user
