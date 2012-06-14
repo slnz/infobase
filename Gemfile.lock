@@ -147,7 +147,7 @@ DEPENDENCIES
   newrelic_rpm
   paperclip
   rack-google_analytics
-  rails (~> 3.1.0)
+  rails (~> 3.1.6)
   ruby-oci8
   therubyracer
   uglifier
