@@ -30,7 +30,7 @@ class InfobaseUser < ActiveRecord::Base
 
         # access if person not removed from People Soft
         unless info_user
-          info_user = new() if staff.removed_from_people_soft == "N"
+          info_user = new() if staff.removedFromPeopleSoft == "N"
         end
 
         # access if person is on 1 or more team
