@@ -35,7 +35,7 @@ class InfobaseUser < ActiveRecord::Base
 
         # access if person is on 1 or more team
         if info_user.nil?
-          info_user = new() if user.person.teams.count > 1
+          info_user = new() if user.person.teams.count > 0
         end
       end
     end
