@@ -29,12 +29,12 @@ class InfobaseUser < ActiveRecord::Base
         end
 
         # access if person not removed from People Soft
-        unless info_user
+        unless info_user && staff
           info_user = new() if staff.removedFromPeopleSoft == "N"
         end
 
         # access if person is on 1 or more team
-        unless staff && info_user
+        unless info_user
           info_user = new() if user.person.teams > 1
         end
       end
