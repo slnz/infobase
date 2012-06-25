@@ -30,6 +30,7 @@ group :production do
   gem 'rack-google_analytics', :require => "rack/google_analytics"
 end
 gem 'multi_json'
+gem 'aasm'
 
 group :assets do
   gem 'therubyracer'
