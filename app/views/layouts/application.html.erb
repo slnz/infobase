@@ -25,8 +25,7 @@
           <%= link_to "", root_path, :class => "logo", :alt => "InfoBase Home" %>
           <div id="helpside" class="float-right">
             <a class="help" target="_blank" href="http://wiki.uscm.org/display/NCO/Infobase+Help">
-              <%= image_tag "help.gif", :id=>"helpImg", :alt=>"help" %> 
-              InfoBase Help
+              <%= image_tag "help_smaller.jpeg", :id=>"helpImg", :alt=>"help" %></br>InfoBase Help
             </a>
           </div>
         </div><!-- logoside -->
@@ -41,12 +40,11 @@
       </div>
       
       <div class="clear"></div>
-          
-      <div id="footer">
-        &copy; Copyright <%=Time.now.year%> Campus Crusade for Christ International<br/>
-        <a href="mailto:help@campuscrusadeforchrist.com" class="sendfeedback">Send Feedback</a>&nbsp;
-      </div>
 
+      <div id="footer">
+        <div class="copyright" >&copy; Copyright <%=Time.now.year%> Cru<br/></div>
+        <a href="http://crutech.org/helpdesk/ServiceRequest" class="helplink">Help Request</a>
+      </div>
     </div>
   </div>
 </body>
