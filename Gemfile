@@ -27,8 +27,8 @@ gem 'airbrake'
 gem 'whenever', '~> 0.7.3'
 
 group :production do
-  gem 'ruby-oci8'
-  gem 'activerecord-oracle_enhanced-adapter'
+  # gem 'ruby-oci8'
+  # gem 'activerecord-oracle_enhanced-adapter'
   gem 'rack-google_analytics', :require => "rack/google_analytics"
 end
 gem 'multi_json'
@@ -44,9 +44,9 @@ end
 # gem 'sqlite3-ruby', :require => 'sqlite3'
 # gem 'aws-s3', :require => 'aws/s3'
 
-# Bundle gems for the local environment. Make sure to
-# put test-only gems in this group so their generators
-# and rake tasks are available in development mode:
-# group :development, :test do
-#   gem 'webrat'
-# end
+group :development, :test do
+  gem 'rspec-rails'
+  gem 'factory_girl'
+  gem 'capybara'
+end
+

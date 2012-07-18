@@ -24,7 +24,6 @@ GEM
       activesupport (= 3.1.6)
       arel (~> 2.2.3)
       tzinfo (~> 0.3.29)
-    activerecord-oracle_enhanced-adapter (1.4.1)
     activeresource (3.1.6)
       activemodel (= 3.1.6)
       activesupport (= 3.1.6)
@@ -32,7 +31,8 @@ GEM
       multi_json (>= 1.0, < 1.3)
     acts_as_state_machine (2.2.0)
       activerecord (>= 2.1)
-    airbrake (3.1.1)
+    addressable (2.2.8)
+    airbrake (3.1.2)
       activesupport
       builder
     arel (2.2.3)
@@ -44,13 +44,26 @@ GEM
       net-ssh (>= 2.0.14)
       net-ssh-gateway (>= 1.1.0)
     capistrano_colors (0.5.5)
+    capybara (1.1.2)
+      mime-types (>= 1.16)
+      nokogiri (>= 1.3.3)
+      rack (>= 1.0.0)
+      rack-test (>= 0.5.4)
+      selenium-webdriver (~> 2.0)
+      xpath (~> 0.1.4)
+    childprocess (0.3.3)
+      ffi (~> 1.0.6)
     chronic (0.6.7)
     cocaine (0.2.1)
-    dalli (2.0.5)
+    dalli (2.1.0)
+    diff-lcs (1.1.3)
     dynamic_form (1.1.4)
     erubis (2.7.0)
     execjs (1.4.0)
       multi_json (~> 1.0)
+    factory_girl (3.5.0)
+      activesupport (>= 3.0.0)
+    ffi (1.0.11)
     highline (1.6.13)
     hike (1.2.1)
     i18n (0.6.0)
@@ -59,11 +72,13 @@ GEM
       thor (~> 0.14)
     json (1.7.3)
     libv8 (3.3.10.4)
+    libwebsocket (0.1.4)
+      addressable
     mail (2.3.3)
       i18n (>= 0.4.0)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
-    mime-types (1.18)
+    mime-types (1.19)
     multi_json (1.2.0)
     mysql2 (0.3.11)
     net-scp (1.0.4)
@@ -73,8 +88,9 @@ GEM
     net-ssh (2.5.2)
     net-ssh-gateway (1.1.0)
       net-ssh (>= 1.99.1)
-    newrelic_rpm (3.4.0)
-    paperclip (3.0.4)
+    newrelic_rpm (3.4.0.1)
+    nokogiri (1.5.5)
+    paperclip (3.1.3)
       activemodel (>= 3.0.0)
       activerecord (>= 3.0.0)
       activesupport (>= 3.0.0)
@@ -110,7 +126,25 @@ GEM
     rake (0.9.2.2)
     rdoc (3.12)
       json (~> 1.4)
-    ruby-oci8 (2.1.2)
+    rspec (2.11.0)
+      rspec-core (~> 2.11.0)
+      rspec-expectations (~> 2.11.0)
+      rspec-mocks (~> 2.11.0)
+    rspec-core (2.11.0)
+    rspec-expectations (2.11.1)
+      diff-lcs (~> 1.1.3)
+    rspec-mocks (2.11.1)
+    rspec-rails (2.11.0)
+      actionpack (>= 3.0)
+      activesupport (>= 3.0)
+      railties (>= 3.0)
+      rspec (~> 2.11.0)
+    rubyzip (0.9.9)
+    selenium-webdriver (2.24.0)
+      childprocess (>= 0.2.5)
+      libwebsocket (~> 0.1.3)
+      multi_json (~> 1.0)
+      rubyzip
     sprockets (2.0.4)
       hike (~> 1.2)
       rack (~> 1.0)
@@ -129,18 +163,21 @@ GEM
     whenever (0.7.3)
       activesupport (>= 2.3.4)
       chronic (~> 0.6.3)
+    xpath (0.1.4)
+      nokogiri (~> 1.3)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
-  activerecord-oracle_enhanced-adapter
   acts_as_state_machine
   airbrake
   capistrano
   capistrano_colors
+  capybara
   dalli
   dynamic_form
+  factory_girl
   jquery-rails
   multi_json
   mysql2
@@ -148,7 +185,7 @@ DEPENDENCIES
   paperclip
   rack-google_analytics
   rails (~> 3.1.6)
-  ruby-oci8
+  rspec-rails
   therubyracer
   uglifier
   whenever (~> 0.7.3)
