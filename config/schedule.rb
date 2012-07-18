@@ -23,10 +23,10 @@ set :output, 'log/person_updater.log'
 
 job_type :rake, "cd :path && RAILS_ENV=:environment /usr/local/bin/bundle exec /usr/local/bin/rake :task --silent :output"
 
-every 1.day, :at => '5:15 am' do 
-  rake "person"
-end
+#every 1.day, :at => '5:15 am' do 
+  #rake "person"
+#end
 
-every 1.day, :at => '8:15 am' do 
-  rake "balance"
-end
+#every 1.day, :at => '8:15 am' do 
+  #rake "balance"
+#end
