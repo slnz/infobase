@@ -28,7 +28,7 @@
     </div>
     
     <% javascript_counter = 0 %>
-    <ul class="results" style="height: 337px;>
+    <ul class="results">
       <% if @stats %> <!-- There were errors from saving -->
         <% @stats.each do |stat| %>
           <%= render :partial => "stat_entry", :locals => {:stat => stat, :year => @year, :counter => javascript_counter} %>
