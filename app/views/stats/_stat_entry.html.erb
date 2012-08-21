@@ -1,7 +1,15 @@
 <% if stat.instance_of?(Array) && stat.first.activity.strategy == "BR" %>
-  <%= render :partial => "stat_bar", :locals => {:stat => stat.first, :current_week => current_week, :counter => counter} %>
-  <% stat.each do |br_stat| %>
-    <%= render :partial => "stat_form", :locals => {:stat => br_stat} %>
+  <% current_week ||= nil %>
+  <% if current_week %>
+    <%= render :partial => "stat_bar", :locals => {:stat => stat.first, :current_week => current_week, :counter => counter} %>
+    <% stat.each do |br_stat| %>
+      <%= render :partial => "stat_form", :locals => {:stat => br_stat} %>
+    <% end %>
+  <% else %>
+    <%= render :partial => "event_stat_bar", :locals => {:stat => stat.first, :counter => counter} %>
+    <% stat.each do |br_stat| %>
+      <%= render :partial => "event_stat_form", :locals => {:stat => br_stat} %>
+    <% end %>
   <% end %>
   </li>
 <% else %>

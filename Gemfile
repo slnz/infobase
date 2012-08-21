@@ -31,6 +31,15 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'factory_girl_rails'
   gem 'capybara'
+  gem 'guard-rspec'
+	gem 'guard-rails'
+	gem 'rb-fsevent'
+	gem 'database_cleaner'
+	gem 'launchy'
+
+	gem 'yard'
+	gem 'simplecov', :require => false
+
 end
 
 # Bundle the extra gems:
