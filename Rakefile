@@ -5,3 +5,8 @@ require File.expand_path('../config/application', __FILE__)
 require 'rake'
 
 Infobase::Application.load_tasks
+
+desc "runs simplecov report"
+task :cov do
+  sh 'bundle exec rake spec COVERAGE=true'
+end 

@@ -2,39 +2,44 @@ source 'http://rubygems.org'
 
 gem 'rails', '~> 3.1.6'
 gem 'jquery-rails'
-
-# Bundle edge Rails instead:
-# gem 'rails', :git => 'git://github.com/rails/rails.git'
-
 gem 'mysql2'#, '~> 0.2.0'
 gem 'acts_as_state_machine'
 gem 'dynamic_form'
 gem 'dalli'
 gem 'paperclip'
 gem 'newrelic_rpm'
+gem 'multi_json'
+gem 'aasm'
+gem 'airbrake'
 
-# Use unicorn as the web server
-# gem 'unicorn'
-
-# Deploy with Capistrano
 gem 'capistrano'
 gem 'capistrano_colors'
-
-# To use debugger
-# gem 'ruby-debug'
-
-gem 'airbrake'
 gem 'whenever', '~> 0.7.3'
 
 group :production do
+  # gem 'ruby-oci8'
+  # gem 'activerecord-oracle_enhanced-adapter'
   gem 'rack-google_analytics', :require => "rack/google_analytics"
 end
-gem 'multi_json'
-gem 'aasm'
 
 group :assets do
   gem 'therubyracer'
   gem 'uglifier'
+end
+
+group :development, :test do
+  gem 'rspec-rails'
+  gem 'factory_girl_rails'
+  gem 'capybara'
+  gem 'guard-rspec'
+	gem 'guard-rails'
+	gem 'rb-fsevent'
+	gem 'database_cleaner'
+	gem 'launchy'
+
+	gem 'yard'
+	gem 'simplecov', :require => false
+
 end
 
 # Bundle the extra gems:
@@ -42,10 +47,3 @@ end
 # gem 'nokogiri', '1.4.1'
 # gem 'sqlite3-ruby', :require => 'sqlite3'
 # gem 'aws-s3', :require => 'aws/s3'
-
-# Bundle gems for the local environment. Make sure to
-# put test-only gems in this group so their generators
-# and rake tasks are available in development mode:
-# group :development, :test do
-#   gem 'webrat'
-# end
