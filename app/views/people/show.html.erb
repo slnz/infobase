@@ -68,14 +68,14 @@
         	<tr>
         	  <td>Anniversary Date:</td>
         	  <td>
-              <%= display_date(@person.staff.marriageDate) if @person.staff %>
+              <%= display_date_short(@person.staff.marriageDate) if @person.staff %>
             </td>
           </tr>
         <% end %>
       	<tr>
       	  <td>Birthday:</td>
       	  <td>
-            <%= display_date(@person.birth_date) %>
+            <%= display_date_short(@person.birth_date) %>
           </td>
         </tr>
       </table>
