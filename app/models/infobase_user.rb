@@ -9,7 +9,7 @@ class InfobaseUser < ActiveRecord::Base
   def can_remove_team_members?()  false; end
   def can_add_team_leaders?()     false; end
   
-  def self.determine_infobase_user(user, emplid)
+  def self.determine_infobase_user(user, emplid=nil)
     info_user = nil
     
     if user
