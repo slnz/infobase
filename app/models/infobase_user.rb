@@ -22,22 +22,24 @@ class InfobaseUser < ActiveRecord::Base
           info_user = new()
         end
 
-        # If they're HR or a "Director" they have admin access, only HR Directors can make Team Leaders
-        staff = user.person.staff
-        if info_user && staff && staff.is_hr_director?
-          info_user = InfobaseAdminUser.new()
-        elsif info_user && staff && (staff.is_hr? || staff.is_director?)
-          info_user = InfobaseHrUser.new()
-        end
-
-        # access if person not removed from People Soft
-        if staff && info_user.nil?
-          info_user = new() if staff.removedFromPeopleSoft == "N"
-        end
-
-        # access if person is on 1 or more team
-        if info_user.nil?
-          info_user = new() if user.person.teams.count > 0
+        if user.person
+          # If they're HR or a "Director" they have admin access, only HR Directors can make Team Leaders
+          staff = user.person.staff
+          if info_user && staff && staff.is_hr_director?
+            info_user = InfobaseAdminUser.new()
+          elsif info_user && staff && (staff.is_hr? || staff.is_director?)
+            info_user = InfobaseHrUser.new()
+          end
+  
+          # access if person not removed from People Soft
+          if staff && info_user.nil?
+            info_user = new() if staff.removedFromPeopleSoft == "N"
+          end
+  
+          # access if person is on 1 or more team
+          if info_user.nil?
+            info_user = new() if user.person.teams.count > 0
+          end
         end
       end
     end
