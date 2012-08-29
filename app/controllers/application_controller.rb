@@ -51,7 +51,10 @@ class ApplicationController < ActionController::Base
       end
       if session['cas_extra_attributes']
         @current_user ||= User.find_by_globallyUniqueID(session['cas_extra_attributes']['ssoGuid'])
-      end      
+      end
+      if @current_user
+        @current_user.create_person_and_address unless @current_user.person
+      end
     end
     @current_user
   end
