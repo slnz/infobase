@@ -60,7 +60,7 @@ class ApplicationController < ActionController::Base
   end
   
   def log_user
-    logger.info "User is " + current_user.username.to_s
+    logger.info "User is " + current_user.username.to_s if current_user
   end
   
   def search_options
