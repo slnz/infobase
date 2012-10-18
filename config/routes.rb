@@ -88,6 +88,14 @@ Infobase::Application.routes.draw do
       get :search_results
       post :search_results
       get :roles
+      get :merge
+      post :confirm_merge
+      post :do_merge
+      get :search_ids
+    end
+    member do
+      get :merge_preview
+      get :involvement
     end
   end
   match 'people/roles/:region' => 'people#roles'

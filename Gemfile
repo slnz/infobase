@@ -11,6 +11,7 @@ gem 'newrelic_rpm'
 gem 'multi_json'
 gem 'aasm'
 gem 'airbrake'
+gem 'coffee-script'
 
 gem 'capistrano'
 gem 'capistrano_colors'
@@ -22,9 +23,12 @@ group :production do
   gem 'rack-google_analytics', :require => "rack/google_analytics"
 end
 
+gem 'sass-rails'#, "~>3.2.3"
+gem 'sass'#, '=3.1.14'
 group :assets do
   gem 'therubyracer'
   gem 'uglifier'
+  gem 'coffee-rails'#, "~> 3.2.1"
 end
 
 group :development, :test do
