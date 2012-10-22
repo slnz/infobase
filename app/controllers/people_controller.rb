@@ -113,14 +113,15 @@ class PeopleController < ApplicationController
       @keep = @keep.smart_merge(person)
     end
     redirect_to merge_people_path, notice: "You've just merged #{params[:merge_ids].length + 1} people"
-  end  
+  end
+
   private
   def setup
     @menubar = "ministry"
     @submenu = "people"
     @title = "Infobase - Person Home"
   end
-  
+
   def authorize_merge
     unless Ccc::SuperAdmin.all.collect(&:user_id).include? current_user.id
       redirect_to "/people"

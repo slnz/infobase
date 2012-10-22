@@ -11,11 +11,18 @@ class Ccc::SimplesecuritymanagerUser < ActiveRecord::Base
   has_one :si_user, foreign_key: :ssm_id, class_name: 'Ccc::SiUser', foreign_key: 'ssm_id'
   has_one :pr_user, foreign_key: :ssm_id, class_name: 'Ccc::PrUser', dependent: :destroy, foreign_key: 'ssm_id'
   has_many :authentications, class_name: 'Ccc::Authentication', foreign_key: 'user_id'
+  has_one :person, class_name: 'Ccc::Person', foreign_key: 'fk_ssmUserId'
 
   def merge(other)
     User.connection.execute('SET foreign_key_checks = 0')
 
     User.transaction do
+
+      person.merge(other.person) if person
+
+      # Authentications
+      other.authentications.collect {|oa| oa.update_attribute(:user_id, id)}
+
       if other.mpd_user && mpd_user
         mpd_user.merge(other.mpd_user)
       elsif other.mpd_user
