@@ -76,7 +76,7 @@ class Ccc::Person < ActiveRecord::Base
 
   def merge(other)
     reload
-    ::Person.transaction do
+    Ccc::Person.transaction do
       attributes.each do |k, v|
         next if k == ::Person.primary_key
         next if v == other.attributes[k]
@@ -142,7 +142,7 @@ class Ccc::Person < ActiveRecord::Base
       # Panorama
       other.pr_reviewers.each { |ua| ua.update_column(:person_id, personID) }
 
-      PrReview.where(["subject_id = ? or initiator_id = ?", other.id, other.id]).each do |ua|
+      Ccc::PrReview.where(["subject_id = ? or initiator_id = ?", other.id, other.id]).each do |ua|
         ua.update_attribute(:subject_id, personID) if ua.subject_id == other.id
         ua.update_attribute(:initiator_id, personID) if ua.initiator_id == other.id
       end
@@ -157,7 +157,7 @@ class Ccc::Person < ActiveRecord::Base
       # Summer Project Tool
       other.sp_applications.each { |ua| ua.update_attribute(:person_id, personID) }
 
-      SpProject.where(["pd_id = ? or apd_id = ? or opd_id = ? or coordinator_id = ?", other.id, other.id, other.id, other.id]).each do |ua|
+      Ccc::SpProject.where(["pd_id = ? or apd_id = ? or opd_id = ? or coordinator_id = ?", other.id, other.id, other.id, other.id]).each do |ua|
         ua.update_attribute(:pd_id, personID) if ua.pd_id == other.id
         ua.update_attribute(:apd_id, personID) if ua.apd_id == other.id
         ua.update_attribute(:opd_id, personID) if ua.opd_id == other.id
@@ -167,7 +167,7 @@ class Ccc::Person < ActiveRecord::Base
       if other.sp_user and sp_user
         sp_user.merge(other.sp_user)
       elsif other.sp_user
-        SpUser.where(["person_id = ? or ssm_id = ? or created_by_id = ?", other.id, other.fk_ssmUserId, other.fk_ssmUserId]).each do |ua|
+        Ccc::SpUser.where(["person_id = ? or ssm_id = ? or created_by_id = ?", other.id, other.fk_ssmUserId, other.fk_ssmUserId]).each do |ua|
           ua.update_attribute(:person_id, personID) if ua.person_id == other.id
           ua.update_attribute(:ssm_id, fk_ssmUserId) if ua.ssm_id == other.fk_ssmUserId
           ua.update_attribute(:created_by_id, fk_ssmUserId) if ua.created_by_id == other.fk_ssmUserId
