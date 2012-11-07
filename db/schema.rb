@@ -11,134 +11,28 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120822154432) do
+ActiveRecord::Schema.define(:version => 20121107214021) do
 
   create_table "academic_departments", :force => true do |t|
     t.string "name"
   end
 
-  create_table "am_friends_people", :id => false, :force => true do |t|
-    t.integer "friend_id", :default => 0, :null => false
-    t.integer "person_id", :default => 0, :null => false
-  end
-
-  create_table "am_friends_people_deprecated", :id => false, :force => true do |t|
-    t.integer "friend_id", :null => false
-    t.integer "person_id", :null => false
-  end
-
-  create_table "am_group_links", :force => true do |t|
-    t.string  "api",         :limit => 50,  :default => "", :null => false
-    t.string  "url",         :limit => 500, :default => "", :null => false
-    t.string  "title",       :limit => 500
-    t.text    "description"
-    t.integer "group_id",                   :default => 0,  :null => false
-  end
-
-  add_index "am_group_links", ["group_id"], :name => "group_id"
-
-  create_table "am_group_links_deprecated", :force => true do |t|
-    t.string  "api",         :limit => 50,         :null => false
-    t.string  "url",         :limit => 500,        :null => false
-    t.string  "title",       :limit => 500
-    t.text    "description", :limit => 2147483647
-    t.integer "group_id",                          :null => false
-  end
-
-  add_index "am_group_links_deprecated", ["group_id"], :name => "group_id"
-
-  create_table "am_group_messages", :force => true do |t|
-    t.string   "subject",    :limit => 500
-    t.text     "body"
-    t.datetime "created_on",                               :null => false
-    t.integer  "group_id",                  :default => 0, :null => false
-    t.integer  "person_id",                 :default => 0, :null => false
-  end
-
-  add_index "am_group_messages", ["group_id"], :name => "am_group_messages_group_id"
-  add_index "am_group_messages", ["person_id"], :name => "am_group_messages_person_id"
-
-  create_table "am_group_messages_deprecated", :force => true do |t|
-    t.string   "subject",    :limit => 500
-    t.text     "body",       :limit => 2147483647
-    t.datetime "created_on",                       :null => false
-    t.integer  "group_id",                         :null => false
-    t.integer  "person_id",                        :null => false
-  end
-
-  add_index "am_group_messages_deprecated", ["group_id"], :name => "group_id"
-  add_index "am_group_messages_deprecated", ["person_id"], :name => "person_id"
-
-  create_table "am_groups", :force => true do |t|
-    t.string  "name",                        :default => "", :null => false
-    t.string  "url_safe_name",               :default => "", :null => false
-    t.text    "description"
-    t.string  "group_type",    :limit => 50
-    t.integer "lookup_id"
-  end
-
-  add_index "am_groups", ["lookup_id"], :name => "lookup_id"
-
-  create_table "am_groups_deprecated", :force => true do |t|
-    t.string  "name",                                :null => false
-    t.string  "url_safe_name",                       :null => false
-    t.text    "description",   :limit => 2147483647
-    t.string  "group_type",    :limit => 50
-    t.integer "lookup_id"
-  end
-
-  add_index "am_groups_deprecated", ["lookup_id"], :name => "lookup_id"
-
-  create_table "am_groups_people", :id => false, :force => true do |t|
-    t.integer  "person_id",  :default => 0, :null => false
-    t.integer  "group_id",   :default => 0, :null => false
-    t.datetime "created_on"
-  end
-
-  create_table "am_groups_people_deprecated", :id => false, :force => true do |t|
-    t.integer  "person_id",  :null => false
-    t.integer  "group_id",   :null => false
-    t.datetime "created_on"
-  end
-
-  create_table "am_personal_links", :force => true do |t|
-    t.string  "api",         :limit => 50,  :default => "", :null => false
-    t.string  "url",         :limit => 500, :default => "", :null => false
-    t.string  "title",       :limit => 500
-    t.text    "description"
-    t.integer "person_id",                  :default => 0,  :null => false
-  end
-
-  add_index "am_personal_links", ["person_id"], :name => "person_id"
-
-  create_table "am_personal_links_deprecated", :force => true do |t|
-    t.string  "api",         :limit => 50,         :null => false
-    t.string  "url",         :limit => 500,        :null => false
-    t.string  "title",       :limit => 500
-    t.text    "description", :limit => 2147483647
-    t.integer "person_id",                         :null => false
-  end
-
-  add_index "am_personal_links_deprecated", ["person_id"], :name => "person_id"
-
   create_table "aoas", :force => true do |t|
     t.string "name"
   end
 
-  create_table "ap_signup", :id => false, :force => true do |t|
-    t.integer  "ambassadorPledgeID",                :null => false
-    t.datetime "pledgeDate"
-    t.integer  "fk_PersonID",        :default => 0, :null => false
+  add_index "aoas", ["name"], :name => "name", :unique => true
+
+  create_table "authentications", :force => true do |t|
+    t.integer  "user_id"
+    t.string   "provider"
+    t.string   "uid"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "token"
   end
 
-  add_index "ap_signup", ["fk_PersonID"], :name => "fk_PersonID"
-
-  create_table "ap_signup_deprecated", :primary_key => "ambassadorPledgeID", :force => true do |t|
-    t.datetime "pledgeDate"
-    t.integer  "fk_PersonID", :null => false
-  end
-
-  add_index "ap_signup_deprecated", ["fk_PersonID"], :name => "fk_PersonID"
+  add_index "authentications", ["uid", "provider"], :name => "uid_provider", :unique => true
 
   create_table "cms_assoc_filecategory", :id => false, :force => true do |t|
     t.string  "CmsFileID",     :limit => 64,                   :null => false
@@ -163,7 +57,7 @@ ActiveRecord::Schema.define(:version => 20120822154432) do
     t.datetime "dateAdded"
     t.datetime "dateModified"
     t.string   "moderatedYet", :limit => 1
-    t.string   "summary",      :limit => 4000
+    t.text     "summary"
     t.string   "quality",      :limit => 256
     t.datetime "expDate"
     t.datetime "lastAccessed"
@@ -189,7 +83,7 @@ ActiveRecord::Schema.define(:version => 20120822154432) do
     t.datetime "dateAdded"
     t.datetime "dateModified"
     t.string   "moderatedYet",  :limit => 1
-    t.string   "summary",       :limit => 4000
+    t.text     "summary"
     t.string   "quality",       :limit => 256
     t.datetime "expDate"
     t.datetime "lastAccessed"
@@ -214,6 +108,36 @@ ActiveRecord::Schema.define(:version => 20120822154432) do
     t.string  "path",           :limit => 2000
     t.string  "pathid",         :limit => 2000
     t.string  "CmsFileID",      :limit => 64,                  :null => false
+  end
+
+  create_table "cms_viewfilesandcategories", :id => false, :force => true do |t|
+    t.integer  "CmsFileID",                      :default => 0, :null => false
+    t.string   "mime",           :limit => 128
+    t.string   "title",          :limit => 256
+    t.integer  "accessCount"
+    t.datetime "dateAdded"
+    t.datetime "dateModified"
+    t.string   "moderatedYet",   :limit => 1
+    t.text     "summary"
+    t.string   "quality",        :limit => 256
+    t.datetime "expDate"
+    t.datetime "lastAccessed"
+    t.string   "modMsg",         :limit => 4000
+    t.string   "keywords",       :limit => 4000
+    t.string   "url",            :limit => 128
+    t.string   "detail",         :limit => 4000
+    t.string   "language",       :limit => 128
+    t.string   "version",        :limit => 128
+    t.string   "author",         :limit => 256
+    t.string   "submitter",      :limit => 256
+    t.string   "contact",        :limit => 256
+    t.integer  "rating"
+    t.integer  "CmsCategoryID",                  :default => 0, :null => false
+    t.integer  "parentCategory"
+    t.string   "catName",        :limit => 256
+    t.string   "catDesc",        :limit => 2000
+    t.string   "path",           :limit => 2000
+    t.string   "pathid",         :limit => 2000
   end
 
   create_table "counties", :force => true do |t|
@@ -243,10 +167,8 @@ ActiveRecord::Schema.define(:version => 20120822154432) do
     t.integer  "registrant_type_id",                               :null => false
   end
 
-  add_index "crs2_additional_expenses_item", ["expense_id"], :name => "FK385A9FF09F87976B"
   add_index "crs2_additional_expenses_item", ["expense_id"], :name => "fk_additional_expenses_item_expense_id"
   add_index "crs2_additional_expenses_item", ["registrant_type_id", "expense_id"], :name => "unique_registrant_type_expense", :unique => true
-  add_index "crs2_additional_expenses_item", ["registrant_type_id"], :name => "FK385A9FF0BFB88996"
   add_index "crs2_additional_expenses_item", ["registrant_type_id"], :name => "fk_additional_expenses_item_registrant_type_id"
 
   create_table "crs2_additional_info_item", :force => true do |t|
@@ -259,7 +181,6 @@ ActiveRecord::Schema.define(:version => 20120822154432) do
     t.integer  "conference_id"
   end
 
-  add_index "crs2_additional_info_item", ["conference_id"], :name => "FKC01086BD863D9D1F"
   add_index "crs2_additional_info_item", ["conference_id"], :name => "fk_additional_info_item_conference_id"
 
   create_table "crs2_answer", :force => true do |t|
@@ -276,10 +197,8 @@ ActiveRecord::Schema.define(:version => 20120822154432) do
     t.integer  "registrant_id",     :null => false
   end
 
-  add_index "crs2_answer", ["question_usage_id"], :name => "FK8F185E4F620BBCDE"
   add_index "crs2_answer", ["question_usage_id"], :name => "fk_answer_question_usage_id"
   add_index "crs2_answer", ["registrant_id", "question_usage_id"], :name => "unique_registrant_question_usage", :unique => true
-  add_index "crs2_answer", ["registrant_id"], :name => "FK8F185E4FE86BBEBF"
   add_index "crs2_answer", ["registrant_id"], :name => "fk_answer_registrant_id"
 
   create_table "crs2_conference", :force => true do |t|
@@ -326,10 +245,8 @@ ActiveRecord::Schema.define(:version => 20120822154432) do
     t.string   "event_zip"
   end
 
-  add_index "crs2_conference", ["creator_id"], :name => "FK6669B32D4EC33E7E"
   add_index "crs2_conference", ["creator_id"], :name => "fk_conference_creator_id"
   add_index "crs2_conference", ["name"], :name => "unique_name", :unique => true
-  add_index "crs2_conference", ["url_base_id"], :name => "FK6669B32D7CD5005C"
   add_index "crs2_conference", ["url_base_id"], :name => "fk_conference_url_base_id"
 
   create_table "crs2_configuration", :force => true do |t|
@@ -340,7 +257,6 @@ ActiveRecord::Schema.define(:version => 20120822154432) do
     t.integer  "default_url_base_id"
   end
 
-  add_index "crs2_configuration", ["default_url_base_id"], :name => "FK15F201454608DB5E"
   add_index "crs2_configuration", ["default_url_base_id"], :name => "fk_configuration_default_url_base_id"
 
   create_table "crs2_custom_questions_item", :force => true do |t|
@@ -355,10 +271,8 @@ ActiveRecord::Schema.define(:version => 20120822154432) do
     t.integer  "question_id"
   end
 
-  add_index "crs2_custom_questions_item", ["question_id"], :name => "FK72AEFAA2FE697289"
   add_index "crs2_custom_questions_item", ["question_id"], :name => "fk_custom_questions_item_question_id"
   add_index "crs2_custom_questions_item", ["registrant_type_id", "question_id"], :name => "unique_registrant_type_question", :unique => true
-  add_index "crs2_custom_questions_item", ["registrant_type_id"], :name => "FK72AEFAA2BFB88996"
   add_index "crs2_custom_questions_item", ["registrant_type_id"], :name => "fk_custom_questions_item_registrant_type_id"
 
   create_table "crs2_custom_stylesheet", :force => true do |t|
@@ -369,8 +283,15 @@ ActiveRecord::Schema.define(:version => 20120822154432) do
     t.integer  "conference_id", :null => false
   end
 
-  add_index "crs2_custom_stylesheet", ["conference_id"], :name => "FKC81CDCAB863D9D1F"
   add_index "crs2_custom_stylesheet", ["conference_id"], :name => "fk_custom_stylesheet_conference_id"
+
+  create_table "crs2_email_addresses", :force => true do |t|
+    t.string   "email"
+    t.integer  "person_id"
+    t.boolean  "primary",    :default => false, :null => false
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
+  end
 
   create_table "crs2_expense", :force => true do |t|
     t.datetime "created_at"
@@ -383,7 +304,6 @@ ActiveRecord::Schema.define(:version => 20120822154432) do
     t.boolean  "disabled"
   end
 
-  add_index "crs2_expense", ["conference_id"], :name => "FK386A7BE7863D9D1F"
   add_index "crs2_expense", ["conference_id"], :name => "fk_expense_conference_id"
 
   create_table "crs2_expense_selection", :force => true do |t|
@@ -395,10 +315,8 @@ ActiveRecord::Schema.define(:version => 20120822154432) do
     t.integer  "expense_usage_id", :null => false
   end
 
-  add_index "crs2_expense_selection", ["expense_usage_id"], :name => "FKB9237334168AAE98"
   add_index "crs2_expense_selection", ["expense_usage_id"], :name => "fk_expense_selection_expense_usage_id"
   add_index "crs2_expense_selection", ["registrant_id", "expense_usage_id"], :name => "unique_registrant_expense_usage", :unique => true
-  add_index "crs2_expense_selection", ["registrant_id"], :name => "FKB9237334E86BBEBF"
   add_index "crs2_expense_selection", ["registrant_id"], :name => "fk_expense_selection_registrant_id"
 
   create_table "crs2_module_usage", :force => true do |t|
@@ -409,7 +327,6 @@ ActiveRecord::Schema.define(:version => 20120822154432) do
     t.integer  "conference_id"
   end
 
-  add_index "crs2_module_usage", ["conference_id"], :name => "FK28233DF863D9D1F"
   add_index "crs2_module_usage", ["conference_id"], :name => "fk_module_usage_conference_id"
 
   create_table "crs2_person", :force => true do |t|
@@ -445,6 +362,17 @@ ActiveRecord::Schema.define(:version => 20120822154432) do
     t.string   "year_in_school"
   end
 
+  create_table "crs2_phone_numbers", :force => true do |t|
+    t.string   "number"
+    t.integer  "person_id"
+    t.string   "location"
+    t.boolean  "primary",    :default => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "crs2_phone_numbers", ["person_id"], :name => "index_crs2_phone_numbers_on_person_id"
+
   create_table "crs2_profile", :force => true do |t|
     t.string   "type",               :limit => 31, :default => "", :null => false
     t.datetime "created_at"
@@ -455,13 +383,10 @@ ActiveRecord::Schema.define(:version => 20120822154432) do
     t.integer  "ministry_person_id"
   end
 
-  add_index "crs2_profile", ["crs_person_id"], :name => "FK74043D38E20F2579"
   add_index "crs2_profile", ["crs_person_id"], :name => "fk_profile_crs_person_id"
   add_index "crs2_profile", ["crs_person_id"], :name => "unique_crs_person", :unique => true
-  add_index "crs2_profile", ["ministry_person_id"], :name => "FK74043D38E8E728C3"
   add_index "crs2_profile", ["ministry_person_id"], :name => "fk_profile_ministry_person_id"
   add_index "crs2_profile", ["ministry_person_id"], :name => "unique_ministry_person", :unique => true
-  add_index "crs2_profile", ["user_id"], :name => "FK74043D38F3C73A7F"
   add_index "crs2_profile", ["user_id"], :name => "fk_profile_user_id"
   add_index "crs2_profile", ["user_id"], :name => "unique_user", :unique => true
 
@@ -474,7 +399,6 @@ ActiveRecord::Schema.define(:version => 20120822154432) do
     t.integer  "registrant_type_id"
   end
 
-  add_index "crs2_profile_question", ["registrant_type_id"], :name => "FK80688F0DBFB88996"
   add_index "crs2_profile_question", ["registrant_type_id"], :name => "fk_profile_question_registrant_type_id"
 
   create_table "crs2_question", :force => true do |t|
@@ -488,7 +412,6 @@ ActiveRecord::Schema.define(:version => 20120822154432) do
     t.integer  "conference_id"
   end
 
-  add_index "crs2_question", ["conference_id"], :name => "FK2C2FA37863D9D1F"
   add_index "crs2_question", ["conference_id"], :name => "fk_question_conference_id"
   add_index "crs2_question", ["name", "conference_id"], :name => "unique_name_conference", :unique => true
 
@@ -504,13 +427,12 @@ ActiveRecord::Schema.define(:version => 20120822154432) do
 
   add_index "crs2_question_option", ["option_question_id", "name"], :name => "unique_option_question_name", :unique => true
   add_index "crs2_question_option", ["option_question_id", "value"], :name => "unique_option_question_value", :unique => true
-  add_index "crs2_question_option", ["option_question_id"], :name => "FK5B6AEF7D5D2F9214"
   add_index "crs2_question_option", ["option_question_id"], :name => "fk_question_option_option_question_id"
 
   create_table "crs2_registrant", :force => true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "version",                                                :null => false
+    t.integer  "version",                                                   :null => false
     t.date     "arrival_date"
     t.datetime "began_at"
     t.datetime "cancelled_at"
@@ -519,30 +441,27 @@ ActiveRecord::Schema.define(:version => 20120822154432) do
     t.date     "departure_date"
     t.string   "registrant_role"
     t.boolean  "requires_childcare"
-    t.string   "status",                                 :default => "", :null => false
+    t.string   "status",                                 :default => "",    :null => false
     t.integer  "registration_before_cancellation_id"
     t.integer  "cancelled_by_id"
-    t.integer  "profile_id",                                             :null => false
+    t.integer  "profile_id"
     t.integer  "registrant_type_id"
     t.integer  "registrant_type_before_cancellation_id"
     t.integer  "registration_id"
     t.string   "early_registration_override"
     t.boolean  "name_disabled"
+    t.boolean  "confirmed_unique",                       :default => false
+    t.boolean  "orphan",                                 :default => false, :null => false
   end
 
-  add_index "crs2_registrant", ["cancelled_by_id"], :name => "FKCB9B36BC6F044A05"
   add_index "crs2_registrant", ["cancelled_by_id"], :name => "fk_registrant_cancelled_by_id"
   add_index "crs2_registrant", ["profile_id", "registrant_type_id"], :name => "unique_profile_registrant_type", :unique => true
-  add_index "crs2_registrant", ["profile_id"], :name => "FKCB9B36BC2442AF81"
   add_index "crs2_registrant", ["profile_id"], :name => "fk_registrant_profile_id"
-  add_index "crs2_registrant", ["registrant_type_before_cancellation_id"], :name => "FKCB9B36BC33BE6712"
   add_index "crs2_registrant", ["registrant_type_before_cancellation_id"], :name => "fk_registrant_registrant_type_before_cancellation_id"
-  add_index "crs2_registrant", ["registrant_type_id"], :name => "FKCB9B36BCBFB88996"
   add_index "crs2_registrant", ["registrant_type_id"], :name => "fk_registrant_registrant_type_id"
-  add_index "crs2_registrant", ["registration_before_cancellation_id"], :name => "FKCB9B36BC8FD067BB"
   add_index "crs2_registrant", ["registration_before_cancellation_id"], :name => "fk_registrant_registration_before_cancellation_id"
-  add_index "crs2_registrant", ["registration_id"], :name => "FKCB9B36BCA7FD76BF"
   add_index "crs2_registrant", ["registration_id"], :name => "fk_registrant_registration_id"
+  add_index "crs2_registrant", ["status"], :name => "index_crs2_registrant_on_status"
 
   create_table "crs2_registrant_type", :force => true do |t|
     t.datetime "created_at"
@@ -588,9 +507,9 @@ ActiveRecord::Schema.define(:version => 20120822154432) do
     t.boolean  "require_full_payment"
     t.boolean  "shut_off"
     t.text     "shut_off_message"
+    t.boolean  "enable_rideshare"
   end
 
-  add_index "crs2_registrant_type", ["conference_id"], :name => "FKA936E6DD863D9D1F"
   add_index "crs2_registrant_type", ["conference_id"], :name => "fk_registrant_type_conference_id"
 
   create_table "crs2_registration", :force => true do |t|
@@ -608,8 +527,6 @@ ActiveRecord::Schema.define(:version => 20120822154432) do
     t.integer  "cancelled_by_id"
   end
 
-  add_index "crs2_registration", ["cancelled_by_id"], :name => "FK51AB168A6F044A05"
-  add_index "crs2_registration", ["creator_id"], :name => "FK51AB168A4EC33E7E"
   add_index "crs2_registration", ["creator_id"], :name => "fk_registration_creator_id"
 
   create_table "crs2_transaction", :force => true do |t|
@@ -648,26 +565,16 @@ ActiveRecord::Schema.define(:version => 20120822154432) do
   end
 
   add_index "crs2_transaction", ["authorizer_id"], :name => "fk_transaction_authorizer_id"
-  add_index "crs2_transaction", ["charge_cancellation_id"], :name => "FKA5E426ED6E748998"
   add_index "crs2_transaction", ["charge_cancellation_id"], :name => "fk_transaction_charge_cancellation_id"
-  add_index "crs2_transaction", ["conference_id"], :name => "FKA5E426ED863D9D1F"
   add_index "crs2_transaction", ["conference_id"], :name => "fk_transaction_conference_id"
-  add_index "crs2_transaction", ["expense_selection_id"], :name => "FKA5E426ED744633B8"
   add_index "crs2_transaction", ["expense_selection_id"], :name => "fk_transaction_expense_selection_id"
   add_index "crs2_transaction", ["indicated_verifier_id"], :name => "fk_transaction_indicated_verifier_id"
-  add_index "crs2_transaction", ["paid_by_id"], :name => "FKA5E426ED6A74B681"
   add_index "crs2_transaction", ["paid_by_id"], :name => "fk_transaction_paid_by_id"
-  add_index "crs2_transaction", ["payment_cancellation_id"], :name => "FKA5E426EDFBB004F2"
   add_index "crs2_transaction", ["payment_cancellation_id"], :name => "fk_transaction_payment_cancellation_id"
-  add_index "crs2_transaction", ["registrant_id"], :name => "FKA5E426EDE86BBEBF"
   add_index "crs2_transaction", ["registrant_id"], :name => "fk_transaction_registrant_id"
-  add_index "crs2_transaction", ["registration_id"], :name => "FKA5E426EDA7FD76BF"
   add_index "crs2_transaction", ["registration_id"], :name => "fk_transaction_registration_id"
-  add_index "crs2_transaction", ["scholarship_charge_id"], :name => "FKA5E426ED4FA3400A"
   add_index "crs2_transaction", ["scholarship_charge_id"], :name => "fk_transaction_scholarship_charge_id"
-  add_index "crs2_transaction", ["user_id"], :name => "FKA5E426EDF3C73A7F"
   add_index "crs2_transaction", ["user_id"], :name => "fk_transaction_user_id"
-  add_index "crs2_transaction", ["verified_by_id"], :name => "FKA5E426ED24360A3C"
   add_index "crs2_transaction", ["verified_by_id"], :name => "fk_transaction_verified_by_id"
 
   create_table "crs2_url_base", :force => true do |t|
@@ -694,9 +601,7 @@ ActiveRecord::Schema.define(:version => 20120822154432) do
     t.integer  "user_id",                                     :null => false
   end
 
-  add_index "crs2_user_role", ["conference_id"], :name => "FKD4130039863D9D1F"
   add_index "crs2_user_role", ["conference_id"], :name => "fk_user_rule_conference_id"
-  add_index "crs2_user_role", ["user_id"], :name => "FKD4130039F3C73A7F"
   add_index "crs2_user_role", ["user_id"], :name => "fk_user_rule_user_id"
 
   create_table "crs_answer", :primary_key => "answerID", :force => true do |t|
@@ -932,304 +837,21 @@ ActiveRecord::Schema.define(:version => 20120822154432) do
     t.string  "sortNames",   :limit => 1000
   end
 
-  create_table "crs_viewmerchandisechoice", :id => false, :force => true do |t|
-    t.integer  "registrationID",                       :default => 0, :null => false
-    t.datetime "registrationDate"
-    t.string   "preRegistered",         :limit => 1
-    t.integer  "fk_PersonID"
-    t.integer  "displayOrder"
-    t.string   "registrationType",      :limit => 50
-    t.string   "required",              :limit => 1
-    t.float    "amount"
-    t.string   "note"
-    t.string   "name",                  :limit => 128
-    t.integer  "merchandiseID",                        :default => 0, :null => false
-    t.integer  "fk_ConferenceID"
-    t.integer  "fk_RegistrationTypeID"
+  create_table "email_addresses", :force => true do |t|
+    t.string   "email"
+    t.integer  "person_id"
+    t.boolean  "primary",    :default => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
-  create_table "crs_viewquestion", :id => false, :force => true do |t|
-    t.string  "registrationType",      :limit => 50
-    t.string  "required",              :limit => 1
-    t.integer "displayOrder"
-    t.integer "fk_ConferenceID"
-    t.string  "body",                  :limit => 7000
-    t.string  "answerType",            :limit => 50
-    t.string  "status",                :limit => 50
-    t.integer "questionID",                            :default => 0, :null => false
-    t.integer "fk_QuestionTextID"
-    t.integer "questionTextID",                        :default => 0, :null => false
-    t.integer "fk_RegistrationTypeID"
-  end
-
-  create_table "crs_viewregistration", :id => false, :force => true do |t|
-    t.string   "preRegistered",         :limit => 1
-    t.datetime "registrationDate"
-    t.integer  "registrationID",                       :default => 0, :null => false
-    t.integer  "fk_ConferenceID"
-    t.datetime "createdDate"
-    t.string   "firstName",             :limit => 50
-    t.string   "lastName",              :limit => 50
-    t.string   "middleInitial",         :limit => 50
-    t.datetime "birth_date"
-    t.string   "campus",                :limit => 128
-    t.string   "yearInSchool",          :limit => 20
-    t.datetime "graduation_date"
-    t.string   "greekAffiliation",      :limit => 50
-    t.integer  "personID",                             :default => 0
-    t.string   "gender",                :limit => 1
-    t.string   "address1",              :limit => 55
-    t.string   "address2",              :limit => 55
-    t.string   "city",                  :limit => 50
-    t.string   "state",                 :limit => 50
-    t.string   "zip",                   :limit => 15
-    t.string   "homePhone",             :limit => 25
-    t.string   "country",               :limit => 64
-    t.string   "email",                 :limit => 200
-    t.string   "permanentAddress1",     :limit => 55
-    t.string   "permanentAddress2",     :limit => 55
-    t.string   "permanentCity",         :limit => 50
-    t.string   "permanentState",        :limit => 50
-    t.string   "permanentZip",          :limit => 15
-    t.string   "permanentPhone",        :limit => 25
-    t.string   "permanentCountry",      :limit => 64
-    t.string   "maritalStatus",         :limit => 20
-    t.string   "numberOfKids",          :limit => 2
-    t.integer  "fk_PersonID"
-    t.string   "accountNo",             :limit => 11
-    t.integer  "additionalRooms"
-    t.datetime "leaveDate"
-    t.datetime "arriveDate"
-    t.integer  "spouseID"
-    t.integer  "spouseComing"
-    t.integer  "spouseRegistrationID"
-    t.string   "registeredFirst",       :limit => 1
-    t.string   "isOnsite",              :limit => 1
-    t.integer  "fk_RegistrationTypeID"
-    t.string   "registrationType",      :limit => 64
-    t.integer  "newPersonID"
-  end
-
-  create_table "crs_viewregistrationlocallevel", :id => false, :force => true do |t|
-    t.integer  "registrationID",                       :default => 0, :null => false
-    t.datetime "registrationDate"
-    t.string   "registrationType",      :limit => 80
-    t.string   "preRegistered",         :limit => 1
-    t.integer  "fk_PersonID"
-    t.integer  "fk_ConferenceID"
-    t.string   "lastName",              :limit => 50
-    t.integer  "personID",                             :default => 0, :null => false
-    t.datetime "createdDate"
-    t.string   "firstName",             :limit => 50
-    t.string   "middleInitial",         :limit => 50
-    t.datetime "birth_date"
-    t.string   "campus",                :limit => 128
-    t.string   "yearInSchool",          :limit => 20
-    t.datetime "graduation_date"
-    t.string   "greekAffiliation",      :limit => 50
-    t.string   "gender",                :limit => 1
-    t.string   "address1",              :limit => 55
-    t.string   "address2",              :limit => 55
-    t.string   "city",                  :limit => 50
-    t.string   "state",                 :limit => 50
-    t.string   "zip",                   :limit => 15
-    t.string   "homePhone",             :limit => 25
-    t.string   "country",               :limit => 64
-    t.string   "email",                 :limit => 200
-    t.string   "permanentAddress1",     :limit => 55
-    t.string   "permanentAddress2",     :limit => 55
-    t.string   "permanentCity",         :limit => 50
-    t.string   "permanentState",        :limit => 50
-    t.string   "permanentZip",          :limit => 15
-    t.string   "permanentPhone",        :limit => 25
-    t.string   "permanentCountry",      :limit => 64
-    t.string   "maritalStatus",         :limit => 20
-    t.string   "numberOfKids",          :limit => 2
-    t.integer  "localLevelId",                         :default => 0, :null => false
-    t.string   "region",                :limit => 2
-    t.string   "llstate",               :limit => 6
-    t.string   "accountNo",             :limit => 11
-    t.integer  "additionalRooms"
-    t.datetime "leaveDate"
-    t.datetime "arriveDate"
-    t.integer  "fk_RegistrationTypeID"
-    t.integer  "spouseComing"
-    t.integer  "spouseRegistrationID"
-    t.string   "registeredFirst",       :limit => 1
-    t.string   "isOnsite",              :limit => 1
-    t.integer  "spouseID"
-    t.integer  "newPersonID"
-  end
-
-  create_table "crs_viewregistrationtargetarea", :id => false, :force => true do |t|
-    t.integer  "registrationID",                       :default => 0, :null => false
-    t.datetime "registrationDate"
-    t.string   "registrationType",      :limit => 80
-    t.string   "preRegistered",         :limit => 1
-    t.integer  "fk_PersonID"
-    t.integer  "fk_ConferenceID"
-    t.string   "lastName",              :limit => 50
-    t.integer  "personID",                             :default => 0, :null => false
-    t.datetime "createdDate"
-    t.string   "firstName",             :limit => 50
-    t.string   "middleInitial",         :limit => 50
-    t.datetime "birth_date"
-    t.string   "campus",                :limit => 128
-    t.string   "yearInSchool",          :limit => 20
-    t.datetime "graduation_date"
-    t.string   "greekAffiliation",      :limit => 50
-    t.string   "gender",                :limit => 1
-    t.string   "address1",              :limit => 55
-    t.string   "address2",              :limit => 55
-    t.string   "city",                  :limit => 50
-    t.string   "state",                 :limit => 50
-    t.string   "zip",                   :limit => 15
-    t.string   "homePhone",             :limit => 25
-    t.string   "country",               :limit => 64
-    t.string   "email",                 :limit => 200
-    t.string   "permanentAddress1",     :limit => 55
-    t.string   "permanentAddress2",     :limit => 55
-    t.string   "permanentCity",         :limit => 50
-    t.string   "permanentState",        :limit => 50
-    t.string   "permanentZip",          :limit => 15
-    t.string   "permanentPhone",        :limit => 25
-    t.string   "permanentCountry",      :limit => 64
-    t.string   "maritalStatus",         :limit => 20
-    t.string   "numberOfKids",          :limit => 2
-    t.string   "campusName",            :limit => 100
-    t.string   "tastate",               :limit => 32
-    t.integer  "additionalRooms"
-    t.datetime "leaveDate"
-    t.datetime "arriveDate"
-    t.string   "accountNo",             :limit => 11
-    t.integer  "fk_RegistrationTypeID"
-    t.integer  "spouseComing"
-    t.integer  "spouseRegistrationID"
-    t.string   "registeredFirst",       :limit => 1
-    t.string   "isOnsite",              :limit => 1
-    t.integer  "spouseID"
-    t.integer  "newPersonID"
-  end
+  add_index "email_addresses", ["email"], :name => "email"
+  add_index "email_addresses", ["person_id"], :name => "person_id"
 
   create_table "engine_schema_info", :id => false, :force => true do |t|
     t.string  "engine_name"
     t.integer "version"
   end
-
-  create_table "fsk_allocations", :force => true do |t|
-    t.integer  "ssm_id"
-    t.integer  "region_id"
-    t.integer  "impact_allotment"
-    t.integer  "forerunner_allotment"
-    t.integer  "regional_allotment"
-    t.integer  "regionally_raised"
-    t.integer  "locally_raised"
-    t.string   "allocation_year",      :limit => 10
-    t.text     "national_notes",       :limit => 2147483647
-    t.text     "impact_notes",         :limit => 2147483647
-    t.text     "forerunner_notes",     :limit => 2147483647
-    t.text     "regional_notes",       :limit => 2147483647
-    t.text     "local_notes",          :limit => 2147483647
-    t.integer  "lock_version",                               :default => 0, :null => false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.boolean  "agree_to_report"
-  end
-
-  add_index "fsk_allocations", ["ssm_id"], :name => "FK_fsk_allocations_simplesecuritymanager_user"
-
-  create_table "fsk_fields", :force => true do |t|
-    t.string "name", :limit => 50
-  end
-
-  create_table "fsk_fields_roles", :id => false, :force => true do |t|
-    t.integer "role_id",  :null => false
-    t.integer "field_id", :null => false
-  end
-
-  add_index "fsk_fields_roles", ["field_id"], :name => "FK_fsk_fields_roles"
-
-  create_table "fsk_kit_categories", :force => true do |t|
-    t.string   "name",         :limit => 50,                  :null => false
-    t.string   "description",  :limit => 2000
-    t.integer  "lock_version",                 :default => 0, :null => false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "fsk_line_items", :force => true do |t|
-    t.integer  "product_id",   :default => 0, :null => false
-    t.integer  "order_id",     :default => 0, :null => false
-    t.integer  "quantity",     :default => 0, :null => false
-    t.integer  "lock_version", :default => 0, :null => false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "fsk_line_items", ["order_id"], :name => "FK_fsk_line_items_fsk_orders"
-  add_index "fsk_line_items", ["product_id"], :name => "FK_fsk_line_items_fsk_products"
-
-  create_table "fsk_orders", :force => true do |t|
-    t.string   "location_name",      :limit => 128
-    t.datetime "updated_at"
-    t.integer  "allocation_id"
-    t.string   "contact_first_name", :limit => 30
-    t.string   "contact_last_name",  :limit => 30
-    t.string   "contact_phone",      :limit => 24
-    t.string   "contact_cell",       :limit => 24
-    t.string   "contact_email",      :limit => 50
-    t.string   "ship_first_name",    :limit => 30
-    t.string   "ship_address1",      :limit => 50
-    t.string   "ship_address2",      :limit => 50
-    t.string   "ship_city",          :limit => 30
-    t.string   "ship_state",         :limit => 6
-    t.string   "ship_zip",           :limit => 10
-    t.string   "ship_phone",         :limit => 24
-    t.integer  "total_kits"
-    t.string   "business_unit",      :limit => 20
-    t.string   "operating_unit",     :limit => 20
-    t.string   "dept_id",            :limit => 20
-    t.string   "project_id",         :limit => 10
-    t.string   "type",               :limit => 20
-    t.string   "order_year",         :limit => 10
-    t.integer  "ssm_id"
-    t.integer  "lock_version",                             :default => 0,     :null => false
-    t.datetime "created_at"
-    t.string   "ship_last_name"
-    t.boolean  "freeze_order",                             :default => false
-    t.text     "target_audience",    :limit => 2147483647
-    t.text     "how_used",           :limit => 2147483647
-  end
-
-  add_index "fsk_orders", ["ssm_id"], :name => "FK_fsk_orders_simplesecuritymanager_user"
-
-  create_table "fsk_products", :force => true do |t|
-    t.string   "name",            :limit => 100,        :default => "",     :null => false
-    t.text     "description",     :limit => 2147483647
-    t.string   "image_filename",  :limit => 1000
-    t.float    "price"
-    t.integer  "quantity",                              :default => 0,      :null => false
-    t.integer  "lock_version",                          :default => 0,      :null => false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "kit_category_id"
-    t.string   "availability",    :limit => 20,         :default => "both", :null => false
-    t.integer  "box_quantity",                          :default => 100
-  end
-
-  add_index "fsk_products", ["kit_category_id"], :name => "FK_fsk_products_fsk_kit_categories"
-
-  create_table "fsk_roles", :force => true do |t|
-    t.string "name", :limit => 50
-  end
-
-  create_table "fsk_users", :force => true do |t|
-    t.integer "role_id", :default => 0, :null => false
-    t.integer "ssm_id",  :default => 0, :null => false
-  end
-
-  add_index "fsk_users", ["role_id"], :name => "FK_fsk_users_fsk_roles"
-  add_index "fsk_users", ["ssm_id"], :name => "FK_fsk_users_simplesecuritymanager_user"
 
   create_table "hr_ms_payment", :primary_key => "paymentID", :force => true do |t|
     t.datetime "paymentDate"
@@ -1259,51 +881,51 @@ ActiveRecord::Schema.define(:version => 20120822154432) do
     t.string   "currentPosition",     :limit => 128
     t.string   "leadershipLevel",     :limit => 128
     t.string   "relationship",        :limit => 128
-    t.text     "q1",                  :limit => 2147483647
+    t.text     "q1",                  :limit => 16777215
     t.integer  "q2"
-    t.text     "q3",                  :limit => 2147483647
-    t.text     "q4",                  :limit => 2147483647
-    t.text     "q5",                  :limit => 2147483647
-    t.text     "q6",                  :limit => 2147483647
-    t.text     "q7",                  :limit => 2147483647
+    t.text     "q3",                  :limit => 16777215
+    t.text     "q4",                  :limit => 16777215
+    t.text     "q5",                  :limit => 16777215
+    t.text     "q6",                  :limit => 16777215
+    t.text     "q7",                  :limit => 16777215
     t.integer  "q8"
-    t.text     "q9",                  :limit => 2147483647
+    t.text     "q9",                  :limit => 16777215
     t.integer  "q10"
-    t.text     "q11",                 :limit => 2147483647
+    t.text     "q11",                 :limit => 16777215
     t.integer  "q12"
-    t.text     "q13",                 :limit => 2147483647
+    t.text     "q13",                 :limit => 16777215
     t.integer  "q14"
-    t.text     "q15",                 :limit => 2147483647
+    t.text     "q15",                 :limit => 16777215
     t.integer  "q16"
-    t.text     "q17",                 :limit => 2147483647
+    t.text     "q17",                 :limit => 16777215
     t.integer  "q18"
-    t.text     "q19",                 :limit => 2147483647
+    t.text     "q19",                 :limit => 16777215
     t.integer  "q20"
-    t.text     "q21",                 :limit => 2147483647
+    t.text     "q21",                 :limit => 16777215
     t.integer  "q22"
-    t.text     "q23",                 :limit => 2147483647
+    t.text     "q23",                 :limit => 16777215
     t.integer  "q24"
-    t.text     "q25",                 :limit => 2147483647
-    t.text     "q26",                 :limit => 2147483647
-    t.text     "q27",                 :limit => 2147483647
-    t.text     "q28f1",               :limit => 2147483647
+    t.text     "q25",                 :limit => 16777215
+    t.text     "q26",                 :limit => 16777215
+    t.text     "q27",                 :limit => 16777215
+    t.text     "q28f1",               :limit => 16777215
     t.integer  "q28f2"
-    t.text     "q28l1",               :limit => 2147483647
+    t.text     "q28l1",               :limit => 16777215
     t.integer  "q28l2"
-    t.text     "q28o1",               :limit => 2147483647
+    t.text     "q28o1",               :limit => 16777215
     t.integer  "q28o2"
-    t.text     "q28a1",               :limit => 2147483647
+    t.text     "q28a1",               :limit => 16777215
     t.integer  "q28a2"
-    t.text     "q28t1",               :limit => 2147483647
+    t.text     "q28t1",               :limit => 16777215
     t.integer  "q28t2"
-    t.text     "q28s1",               :limit => 2147483647
+    t.text     "q28s1",               :limit => 16777215
     t.integer  "q28s2"
-    t.text     "q29",                 :limit => 2147483647
-    t.text     "q30",                 :limit => 2147483647
-    t.text     "q31",                 :limit => 2147483647
-    t.text     "q32",                 :limit => 2147483647
-    t.text     "q33",                 :limit => 2147483647
-    t.text     "q34",                 :limit => 2147483647
+    t.text     "q29",                 :limit => 16777215
+    t.text     "q30",                 :limit => 16777215
+    t.text     "q31",                 :limit => 16777215
+    t.text     "q32",                 :limit => 16777215
+    t.text     "q33",                 :limit => 16777215
+    t.text     "q34",                 :limit => 16777215
     t.integer  "fk_ReviewSessionID"
     t.string   "reviewedByTitle",     :limit => 5
     t.string   "reviewedByFirstName", :limit => 30
@@ -1325,15 +947,15 @@ ActiveRecord::Schema.define(:version => 20120822154432) do
     t.string   "currentPosition",         :limit => 128
     t.string   "leadershipLevel",         :limit => 128
     t.string   "relationship",            :limit => 128
-    t.text     "q1",                      :limit => 2147483647
-    t.text     "q2",                      :limit => 2147483647
-    t.text     "q3",                      :limit => 2147483647
-    t.text     "q4",                      :limit => 2147483647
-    t.text     "q5",                      :limit => 2147483647
-    t.text     "q6",                      :limit => 2147483647
-    t.text     "q7",                      :limit => 2147483647
-    t.text     "q8",                      :limit => 2147483647
-    t.text     "q9",                      :limit => 2147483647
+    t.text     "q1",                      :limit => 16777215
+    t.text     "q2",                      :limit => 16777215
+    t.text     "q3",                      :limit => 16777215
+    t.text     "q4",                      :limit => 16777215
+    t.text     "q5",                      :limit => 16777215
+    t.text     "q6",                      :limit => 16777215
+    t.text     "q7",                      :limit => 16777215
+    t.text     "q8",                      :limit => 16777215
+    t.text     "q9",                      :limit => 16777215
     t.integer  "fk_ReviewSessionLightID"
   end
 
@@ -1358,689 +980,6 @@ ActiveRecord::Schema.define(:version => 20120822154432) do
     t.string   "administratorID", :limit => 128
     t.string   "requestedByID",   :limit => 128
   end
-
-  create_table "hr_si_application_2003_deprecated", :id => false, :force => true do |t|
-    t.integer  "applicationID",                                                 :null => false
-    t.integer  "locationA"
-    t.string   "locationAExplanation",                    :limit => 90
-    t.integer  "locationB"
-    t.string   "locationBExplanation",                    :limit => 90
-    t.integer  "locationC"
-    t.string   "locationCExplanation",                    :limit => 90
-    t.string   "availableMonth",                          :limit => 2
-    t.string   "availableYear",                           :limit => 4
-    t.integer  "hasMinistryConflict"
-    t.text     "ministryConflictExplanation",             :limit => 2147483647
-    t.integer  "hasSpecificLocation"
-    t.string   "specificLocationRecruiterName",           :limit => 50
-    t.text     "teamMembers",                             :limit => 2147483647
-    t.integer  "isDating"
-    t.text     "datingLocation",                          :limit => 2147483647
-    t.integer  "hasCampusPartnership"
-    t.integer  "isDatingStint"
-    t.text     "datingStintName",                         :limit => 2147483647
-    t.string   "language1",                               :limit => 50
-    t.string   "language1YearsStudied",                   :limit => 20
-    t.integer  "language1Fluency"
-    t.string   "language2",                               :limit => 50
-    t.string   "language2YearsStudied",                   :limit => 20
-    t.integer  "language2Fluency"
-    t.text     "previousMinistryExperience",              :limit => 2147483647
-    t.text     "ministryTraining",                        :limit => 2147483647
-    t.text     "evangelismAttitude",                      :limit => 2147483647
-    t.integer  "isEvangelismTrainable"
-    t.text     "participationExplanation",                :limit => 2147483647
-    t.integer  "isFamiliarFourSpiritualLaws"
-    t.integer  "hasExperienceFourSpiritualLaws"
-    t.integer  "confidenceFourSpiritualLaws"
-    t.integer  "isFamiliarLifeAtLarge"
-    t.integer  "hasExperienceLifeAtLarge"
-    t.integer  "confidenceLifeAtLarge"
-    t.integer  "isFamiliarPersonalTestimony"
-    t.integer  "hasExperiencePersonalTestimony"
-    t.integer  "confidencePersonalTestimony"
-    t.integer  "isFamiliarExplainingGospel"
-    t.integer  "hasExperienceExplainingGospel"
-    t.integer  "confidenceExplainingGospel"
-    t.integer  "isFamiliarSharingFaith"
-    t.integer  "hasExperienceSharingFaith"
-    t.integer  "confidenceSharingFaith"
-    t.integer  "isFamiliarHolySpiritBooklet"
-    t.integer  "hasExperienceHolySpiritBooklet"
-    t.integer  "confidenceHolySpiritBooklet"
-    t.integer  "isFamiliarFollowUp"
-    t.integer  "hasExperienceFollowUp"
-    t.integer  "confidenceFollowUp"
-    t.integer  "isFamiliarHelpGrowInFaith"
-    t.integer  "hasExperienceHelpGrowInFaith"
-    t.integer  "confidenceHelpGrowInFaith"
-    t.integer  "isFamiliarTrainShareFaith"
-    t.integer  "hasExperienceTrainShareFaith"
-    t.integer  "confidenceTrainShareFaith"
-    t.integer  "isFamiliarOtherReligions"
-    t.integer  "hasExperienceOtherReligions"
-    t.integer  "confidenceOtherReligions"
-    t.text     "leadershipPositions",                     :limit => 2147483647
-    t.integer  "hasLedDiscipleshipGroup"
-    t.string   "discipleshipGroupSize",                   :limit => 50
-    t.text     "leadershipEvaluation",                    :limit => 2147483647
-    t.integer  "conversionMonth"
-    t.integer  "conversionYear"
-    t.string   "memberChurchDenomination",                :limit => 50
-    t.string   "memberChurchDuration",                    :limit => 50
-    t.string   "attendingChurchDenomination",             :limit => 50
-    t.string   "attendingChurchDuration",                 :limit => 50
-    t.text     "attendingChurchInvolvement",              :limit => 2147483647
-    t.text     "quietTimeQuantity",                       :limit => 2147483647
-    t.text     "quietTimeDescription",                    :limit => 2147483647
-    t.text     "explanationOfSalvation",                  :limit => 2147483647
-    t.text     "explanationOfSpiritFilled",               :limit => 2147483647
-    t.integer  "hasInvolvementSpeakingTongues"
-    t.text     "differenceIndwellingFilled",              :limit => 2147483647
-    t.integer  "hasCrimeConviction"
-    t.text     "crimeConvictionExplanation",              :limit => 2147483647
-    t.integer  "hasDrugUse"
-    t.integer  "isTobaccoUser"
-    t.integer  "isWillingChangeHabits"
-    t.text     "authorityResponseExplanation",            :limit => 2147483647
-    t.text     "alcoholUseFrequency",                     :limit => 2147483647
-    t.text     "alcoholUseDecision",                      :limit => 2147483647
-    t.integer  "isWillingRefrainAlcohol"
-    t.text     "unwillingRefrainAlcoholExplanation",      :limit => 2147483647
-    t.text     "drugUseExplanation",                      :limit => 2147483647
-    t.text     "tobaccoUseExplanation",                   :limit => 2147483647
-    t.integer  "isWillingAbstainTobacco"
-    t.integer  "hasRequestedPhoneCall"
-    t.string   "contactPhoneNumber",                      :limit => 50
-    t.string   "contactBestTime",                         :limit => 50
-    t.string   "contactTimeZone",                         :limit => 50
-    t.text     "sexualInvolvementExplanation",            :limit => 2147483647
-    t.integer  "hasSexualGuidelines"
-    t.text     "sexualGuidelineExplanation",              :limit => 2147483647
-    t.integer  "isCurrentlyDating"
-    t.text     "currentlyDatingLocation",                 :limit => 2147483647
-    t.integer  "hasHomosexualInvolvement"
-    t.text     "homosexualInvolvementExplanation",        :limit => 2147483647
-    t.integer  "hasRecentPornographicInvolvement"
-    t.integer  "pornographicInvolvementMonth"
-    t.integer  "pornographicInvolvementYear"
-    t.text     "pornographicInvolvementExplanation",      :limit => 2147483647
-    t.integer  "hasRecentSexualImmorality"
-    t.integer  "sexualImmoralityMonth"
-    t.integer  "sexualImmoralityYear"
-    t.text     "sexualImmoralityExplanation",             :limit => 2147483647
-    t.integer  "hasOtherDateSinceImmorality"
-    t.text     "singleImmoralityResultsExplanation",      :limit => 2147483647
-    t.text     "marriedImmoralityResultsExplanation",     :limit => 2147483647
-    t.text     "immoralityLifeChangeExplanation",         :limit => 2147483647
-    t.text     "immoralityCurrentStrugglesExplanation",   :limit => 2147483647
-    t.text     "additionalMoralComments",                 :limit => 2147483647
-    t.integer  "isAwareMustRaiseSupport"
-    t.integer  "isInDebt"
-    t.string   "debtNature1",                             :limit => 50
-    t.string   "debtTotal1",                              :limit => 50
-    t.string   "debtMonthlyPayment1",                     :limit => 50
-    t.string   "debtNature2",                             :limit => 50
-    t.string   "debtTotal2",                              :limit => 50
-    t.string   "debtMonthlyPayment2",                     :limit => 50
-    t.string   "debtNature3",                             :limit => 50
-    t.string   "debtTotal3",                              :limit => 50
-    t.string   "debtMonthlyPayment3",                     :limit => 50
-    t.integer  "hasOtherFinancialResponsibility"
-    t.text     "otherFinancialResponsibilityExplanation", :limit => 2147483647
-    t.text     "debtPaymentPlan",                         :limit => 2147483647
-    t.text     "debtPaymentTimeframe",                    :limit => 2147483647
-    t.text     "developingPartnersExplanation",           :limit => 2147483647
-    t.integer  "isWillingDevelopPartners"
-    t.text     "unwillingDevelopPartnersExplanation",     :limit => 2147483647
-    t.integer  "isCommittedDevelopPartners"
-    t.text     "uncommittedDevelopPartnersExplanation",   :limit => 2147483647
-    t.text     "personalTestimonyGrowth",                 :limit => 2147483647
-    t.text     "internshipParticipationExplanation",      :limit => 2147483647
-    t.text     "internshipObjectives",                    :limit => 2147483647
-    t.text     "currentMinistryDescription",              :limit => 2147483647
-    t.text     "personalStrengthA",                       :limit => 2147483647
-    t.text     "personalStrengthB",                       :limit => 2147483647
-    t.text     "personalStrengthC",                       :limit => 2147483647
-    t.text     "personalDevelopmentA",                    :limit => 2147483647
-    t.text     "personalDevelopmentB",                    :limit => 2147483647
-    t.text     "personalDevelopmentC",                    :limit => 2147483647
-    t.text     "personalDescriptionA",                    :limit => 2147483647
-    t.text     "personalDescriptionB",                    :limit => 2147483647
-    t.text     "personalDescriptionC",                    :limit => 2147483647
-    t.text     "familyRelationshipDescription",           :limit => 2147483647
-    t.string   "electronicSignature",                     :limit => 90
-    t.string   "ssn",                                     :limit => 50
-    t.integer  "fk_ssmUserID"
-    t.integer  "fk_PersonID",                                                   :null => false
-    t.boolean  "isPaid"
-    t.integer  "appFee"
-    t.datetime "dateAppLastChanged"
-    t.datetime "dateAppStarted"
-    t.datetime "dateSubmitted"
-    t.boolean  "isSubmitted"
-    t.string   "appStatus",                               :limit => 15
-    t.integer  "assignedToProject"
-    t.integer  "finalProject"
-    t.string   "siYear",                                  :limit => 50
-    t.datetime "submitDate"
-    t.string   "status",                                  :limit => 22
-    t.string   "appType",                                 :limit => 64
-  end
-
-  add_index "hr_si_application_2003_deprecated", ["fk_ssmUserID"], :name => "fk_ssmUserID"
-
-  create_table "hr_si_application_2004_deprecated", :primary_key => "applicationID", :force => true do |t|
-    t.integer  "locationA"
-    t.string   "locationAExplanation",                    :limit => 90
-    t.integer  "locationB"
-    t.string   "locationBExplanation",                    :limit => 90
-    t.integer  "locationC"
-    t.string   "locationCExplanation",                    :limit => 90
-    t.string   "availableMonth",                          :limit => 2
-    t.string   "availableYear",                           :limit => 4
-    t.integer  "hasMinistryConflict"
-    t.text     "ministryConflictExplanation",             :limit => 2147483647
-    t.integer  "hasSpecificLocation"
-    t.string   "specificLocationRecruiterName",           :limit => 50
-    t.text     "teamMembers",                             :limit => 2147483647
-    t.integer  "isDating"
-    t.text     "datingLocation",                          :limit => 2147483647
-    t.integer  "hasCampusPartnership"
-    t.integer  "isDatingStint"
-    t.text     "datingStintName",                         :limit => 2147483647
-    t.string   "language1",                               :limit => 50
-    t.string   "language1YearsStudied",                   :limit => 20
-    t.integer  "language1Fluency"
-    t.string   "language2",                               :limit => 50
-    t.string   "language2YearsStudied",                   :limit => 20
-    t.integer  "language2Fluency"
-    t.text     "previousMinistryExperience",              :limit => 2147483647
-    t.text     "ministryTraining",                        :limit => 2147483647
-    t.text     "evangelismAttitude",                      :limit => 2147483647
-    t.integer  "isEvangelismTrainable"
-    t.text     "participationExplanation",                :limit => 2147483647
-    t.integer  "isFamiliarFourSpiritualLaws"
-    t.integer  "hasExperienceFourSpiritualLaws"
-    t.integer  "confidenceFourSpiritualLaws"
-    t.integer  "isFamiliarLifeAtLarge"
-    t.integer  "hasExperienceLifeAtLarge"
-    t.integer  "confidenceLifeAtLarge"
-    t.integer  "isFamiliarPersonalTestimony"
-    t.integer  "hasExperiencePersonalTestimony"
-    t.integer  "confidencePersonalTestimony"
-    t.integer  "isFamiliarExplainingGospel"
-    t.integer  "hasExperienceExplainingGospel"
-    t.integer  "confidenceExplainingGospel"
-    t.integer  "isFamiliarSharingFaith"
-    t.integer  "hasExperienceSharingFaith"
-    t.integer  "confidenceSharingFaith"
-    t.integer  "isFamiliarHolySpiritBooklet"
-    t.integer  "hasExperienceHolySpiritBooklet"
-    t.integer  "confidenceHolySpiritBooklet"
-    t.integer  "isFamiliarFollowUp"
-    t.integer  "hasExperienceFollowUp"
-    t.integer  "confidenceFollowUp"
-    t.integer  "isFamiliarHelpGrowInFaith"
-    t.integer  "hasExperienceHelpGrowInFaith"
-    t.integer  "confidenceHelpGrowInFaith"
-    t.integer  "isFamiliarTrainShareFaith"
-    t.integer  "hasExperienceTrainShareFaith"
-    t.integer  "confidenceTrainShareFaith"
-    t.integer  "isFamiliarOtherReligions"
-    t.integer  "hasExperienceOtherReligions"
-    t.integer  "confidenceOtherReligions"
-    t.text     "leadershipPositions",                     :limit => 2147483647
-    t.integer  "hasLedDiscipleshipGroup"
-    t.string   "discipleshipGroupSize",                   :limit => 50
-    t.text     "leadershipEvaluation",                    :limit => 2147483647
-    t.integer  "conversionMonth"
-    t.integer  "conversionYear"
-    t.string   "memberChurchDenomination",                :limit => 50
-    t.string   "memberChurchDuration",                    :limit => 50
-    t.string   "attendingChurchDenomination",             :limit => 50
-    t.string   "attendingChurchDuration",                 :limit => 50
-    t.text     "attendingChurchInvolvement",              :limit => 2147483647
-    t.text     "quietTimeQuantity",                       :limit => 2147483647
-    t.text     "quietTimeDescription",                    :limit => 2147483647
-    t.text     "explanationOfSalvation",                  :limit => 2147483647
-    t.text     "explanationOfSpiritFilled",               :limit => 2147483647
-    t.integer  "hasInvolvementSpeakingTongues"
-    t.text     "differenceIndwellingFilled",              :limit => 2147483647
-    t.integer  "hasCrimeConviction"
-    t.text     "crimeConvictionExplanation",              :limit => 2147483647
-    t.integer  "hasDrugUse"
-    t.integer  "isTobaccoUser"
-    t.integer  "isWillingChangeHabits"
-    t.text     "authorityResponseExplanation",            :limit => 2147483647
-    t.text     "alcoholUseFrequency",                     :limit => 2147483647
-    t.text     "alcoholUseDecision",                      :limit => 2147483647
-    t.integer  "isWillingRefrainAlcohol"
-    t.text     "unwillingRefrainAlcoholExplanation",      :limit => 2147483647
-    t.text     "drugUseExplanation",                      :limit => 2147483647
-    t.text     "tobaccoUseExplanation",                   :limit => 2147483647
-    t.integer  "isWillingAbstainTobacco"
-    t.integer  "hasRequestedPhoneCall"
-    t.string   "contactPhoneNumber",                      :limit => 50
-    t.string   "contactBestTime",                         :limit => 50
-    t.string   "contactTimeZone",                         :limit => 50
-    t.text     "sexualInvolvementExplanation",            :limit => 2147483647
-    t.integer  "hasSexualGuidelines"
-    t.text     "sexualGuidelineExplanation",              :limit => 2147483647
-    t.integer  "isCurrentlyDating"
-    t.text     "currentlyDatingLocation",                 :limit => 2147483647
-    t.integer  "hasHomosexualInvolvement"
-    t.text     "homosexualInvolvementExplanation",        :limit => 2147483647
-    t.integer  "hasRecentPornographicInvolvement"
-    t.integer  "pornographicInvolvementMonth"
-    t.integer  "pornographicInvolvementYear"
-    t.text     "pornographicInvolvementExplanation",      :limit => 2147483647
-    t.integer  "hasRecentSexualImmorality"
-    t.integer  "sexualImmoralityMonth"
-    t.integer  "sexualImmoralityYear"
-    t.text     "sexualImmoralityExplanation",             :limit => 2147483647
-    t.integer  "hasOtherDateSinceImmorality"
-    t.text     "singleImmoralityResultsExplanation",      :limit => 2147483647
-    t.text     "marriedImmoralityResultsExplanation",     :limit => 2147483647
-    t.text     "immoralityLifeChangeExplanation",         :limit => 2147483647
-    t.text     "immoralityCurrentStrugglesExplanation",   :limit => 2147483647
-    t.text     "additionalMoralComments",                 :limit => 2147483647
-    t.integer  "isAwareMustRaiseSupport"
-    t.integer  "isInDebt"
-    t.string   "debtNature1",                             :limit => 50
-    t.string   "debtTotal1",                              :limit => 50
-    t.string   "debtMonthlyPayment1",                     :limit => 50
-    t.string   "debtNature2",                             :limit => 50
-    t.string   "debtTotal2",                              :limit => 50
-    t.string   "debtMonthlyPayment2",                     :limit => 50
-    t.string   "debtNature3",                             :limit => 50
-    t.string   "debtTotal3",                              :limit => 50
-    t.string   "debtMonthlyPayment3",                     :limit => 50
-    t.integer  "hasOtherFinancialResponsibility"
-    t.text     "otherFinancialResponsibilityExplanation", :limit => 2147483647
-    t.text     "debtPaymentPlan",                         :limit => 2147483647
-    t.text     "debtPaymentTimeframe",                    :limit => 2147483647
-    t.text     "developingPartnersExplanation",           :limit => 2147483647
-    t.integer  "isWillingDevelopPartners"
-    t.text     "unwillingDevelopPartnersExplanation",     :limit => 2147483647
-    t.integer  "isCommittedDevelopPartners"
-    t.text     "uncommittedDevelopPartnersExplanation",   :limit => 2147483647
-    t.text     "personalTestimonyGrowth",                 :limit => 2147483647
-    t.text     "internshipParticipationExplanation",      :limit => 2147483647
-    t.text     "internshipObjectives",                    :limit => 2147483647
-    t.text     "currentMinistryDescription",              :limit => 2147483647
-    t.text     "personalStrengthA",                       :limit => 2147483647
-    t.text     "personalStrengthB",                       :limit => 2147483647
-    t.text     "personalStrengthC",                       :limit => 2147483647
-    t.text     "personalDevelopmentA",                    :limit => 2147483647
-    t.text     "personalDevelopmentB",                    :limit => 2147483647
-    t.text     "personalDevelopmentC",                    :limit => 2147483647
-    t.text     "personalDescriptionA",                    :limit => 2147483647
-    t.text     "personalDescriptionB",                    :limit => 2147483647
-    t.text     "personalDescriptionC",                    :limit => 2147483647
-    t.text     "familyRelationshipDescription",           :limit => 2147483647
-    t.string   "electronicSignature",                     :limit => 90
-    t.string   "ssn",                                     :limit => 50
-    t.integer  "fk_ssmUserID"
-    t.integer  "fk_PersonID"
-    t.boolean  "isPaid"
-    t.integer  "appFee"
-    t.datetime "dateAppLastChanged"
-    t.datetime "dateAppStarted"
-    t.datetime "dateSubmitted"
-    t.boolean  "isSubmitted"
-    t.string   "appStatus",                               :limit => 15
-    t.integer  "assignedToProject"
-    t.integer  "finalProject"
-    t.string   "siYear",                                  :limit => 50
-    t.datetime "submitDate"
-    t.string   "status",                                  :limit => 22
-    t.string   "appType",                                 :limit => 64
-  end
-
-  add_index "hr_si_application_2004_deprecated", ["fk_PersonID"], :name => "fk_SIPersonID"
-  add_index "hr_si_application_2004_deprecated", ["fk_ssmUserID"], :name => "fk_ssmUserID"
-
-  create_table "hr_si_application_2005_deprecated", :primary_key => "applicationID", :force => true do |t|
-    t.integer  "locationA"
-    t.string   "locationAExplanation",                    :limit => 90
-    t.integer  "locationB"
-    t.string   "locationBExplanation",                    :limit => 90
-    t.integer  "locationC"
-    t.string   "locationCExplanation",                    :limit => 90
-    t.string   "availableMonth",                          :limit => 2
-    t.string   "availableYear",                           :limit => 4
-    t.integer  "hasMinistryConflict"
-    t.text     "ministryConflictExplanation",             :limit => 2147483647
-    t.integer  "hasSpecificLocation"
-    t.string   "specificLocationRecruiterName",           :limit => 50
-    t.text     "teamMembers",                             :limit => 2147483647
-    t.integer  "isDating"
-    t.text     "datingLocation",                          :limit => 2147483647
-    t.integer  "hasCampusPartnership"
-    t.integer  "isDatingStint"
-    t.text     "datingStintName",                         :limit => 2147483647
-    t.string   "language1",                               :limit => 50
-    t.string   "language1YearsStudied",                   :limit => 20
-    t.integer  "language1Fluency"
-    t.string   "language2",                               :limit => 50
-    t.string   "language2YearsStudied",                   :limit => 20
-    t.integer  "language2Fluency"
-    t.text     "previousMinistryExperience",              :limit => 2147483647
-    t.text     "ministryTraining",                        :limit => 2147483647
-    t.text     "evangelismAttitude",                      :limit => 2147483647
-    t.integer  "isEvangelismTrainable"
-    t.text     "participationExplanation",                :limit => 2147483647
-    t.integer  "isFamiliarFourSpiritualLaws"
-    t.integer  "hasExperienceFourSpiritualLaws"
-    t.integer  "confidenceFourSpiritualLaws"
-    t.integer  "isFamiliarLifeAtLarge"
-    t.integer  "hasExperienceLifeAtLarge"
-    t.integer  "confidenceLifeAtLarge"
-    t.integer  "isFamiliarPersonalTestimony"
-    t.integer  "hasExperiencePersonalTestimony"
-    t.integer  "confidencePersonalTestimony"
-    t.integer  "isFamiliarExplainingGospel"
-    t.integer  "hasExperienceExplainingGospel"
-    t.integer  "confidenceExplainingGospel"
-    t.integer  "isFamiliarSharingFaith"
-    t.integer  "hasExperienceSharingFaith"
-    t.integer  "confidenceSharingFaith"
-    t.integer  "isFamiliarHolySpiritBooklet"
-    t.integer  "hasExperienceHolySpiritBooklet"
-    t.integer  "confidenceHolySpiritBooklet"
-    t.integer  "isFamiliarFollowUp"
-    t.integer  "hasExperienceFollowUp"
-    t.integer  "confidenceFollowUp"
-    t.integer  "isFamiliarHelpGrowInFaith"
-    t.integer  "hasExperienceHelpGrowInFaith"
-    t.integer  "confidenceHelpGrowInFaith"
-    t.integer  "isFamiliarTrainShareFaith"
-    t.integer  "hasExperienceTrainShareFaith"
-    t.integer  "confidenceTrainShareFaith"
-    t.integer  "isFamiliarOtherReligions"
-    t.integer  "hasExperienceOtherReligions"
-    t.integer  "confidenceOtherReligions"
-    t.text     "leadershipPositions",                     :limit => 2147483647
-    t.integer  "hasLedDiscipleshipGroup"
-    t.string   "discipleshipGroupSize",                   :limit => 50
-    t.text     "leadershipEvaluation",                    :limit => 2147483647
-    t.integer  "conversionMonth"
-    t.integer  "conversionYear"
-    t.string   "memberChurchDenomination",                :limit => 75
-    t.string   "memberChurchDuration",                    :limit => 50
-    t.string   "attendingChurchDenomination",             :limit => 50
-    t.string   "attendingChurchDuration",                 :limit => 50
-    t.text     "attendingChurchInvolvement",              :limit => 2147483647
-    t.text     "quietTimeQuantity",                       :limit => 2147483647
-    t.text     "quietTimeDescription",                    :limit => 2147483647
-    t.text     "explanationOfSalvation",                  :limit => 2147483647
-    t.text     "explanationOfSpiritFilled",               :limit => 2147483647
-    t.integer  "hasInvolvementSpeakingTongues"
-    t.text     "differenceIndwellingFilled",              :limit => 2147483647
-    t.integer  "hasCrimeConviction"
-    t.text     "crimeConvictionExplanation",              :limit => 2147483647
-    t.integer  "hasDrugUse"
-    t.integer  "isTobaccoUser"
-    t.integer  "isWillingChangeHabits"
-    t.text     "authorityResponseExplanation",            :limit => 2147483647
-    t.text     "alcoholUseFrequency",                     :limit => 2147483647
-    t.text     "alcoholUseDecision",                      :limit => 2147483647
-    t.integer  "isWillingRefrainAlcohol"
-    t.text     "unwillingRefrainAlcoholExplanation",      :limit => 2147483647
-    t.text     "drugUseExplanation",                      :limit => 2147483647
-    t.text     "tobaccoUseExplanation",                   :limit => 2147483647
-    t.integer  "isWillingAbstainTobacco"
-    t.integer  "hasRequestedPhoneCall"
-    t.string   "contactPhoneNumber",                      :limit => 50
-    t.string   "contactBestTime",                         :limit => 50
-    t.string   "contactTimeZone",                         :limit => 50
-    t.text     "sexualInvolvementExplanation",            :limit => 2147483647
-    t.integer  "hasSexualGuidelines"
-    t.text     "sexualGuidelineExplanation",              :limit => 2147483647
-    t.integer  "isCurrentlyDating"
-    t.text     "currentlyDatingLocation",                 :limit => 2147483647
-    t.integer  "hasHomosexualInvolvement"
-    t.text     "homosexualInvolvementExplanation",        :limit => 2147483647
-    t.integer  "hasRecentPornographicInvolvement"
-    t.integer  "pornographicInvolvementMonth"
-    t.integer  "pornographicInvolvementYear"
-    t.text     "pornographicInvolvementExplanation",      :limit => 2147483647
-    t.integer  "hasRecentSexualImmorality"
-    t.integer  "sexualImmoralityMonth"
-    t.integer  "sexualImmoralityYear"
-    t.text     "sexualImmoralityExplanation",             :limit => 2147483647
-    t.integer  "hasOtherDateSinceImmorality"
-    t.text     "singleImmoralityResultsExplanation",      :limit => 2147483647
-    t.text     "marriedImmoralityResultsExplanation",     :limit => 2147483647
-    t.text     "immoralityLifeChangeExplanation",         :limit => 2147483647
-    t.text     "immoralityCurrentStrugglesExplanation",   :limit => 2147483647
-    t.text     "additionalMoralComments",                 :limit => 2147483647
-    t.integer  "isAwareMustRaiseSupport"
-    t.integer  "isInDebt"
-    t.string   "debtNature1",                             :limit => 50
-    t.string   "debtTotal1",                              :limit => 50
-    t.string   "debtMonthlyPayment1",                     :limit => 50
-    t.string   "debtNature2",                             :limit => 50
-    t.string   "debtTotal2",                              :limit => 50
-    t.string   "debtMonthlyPayment2",                     :limit => 50
-    t.string   "debtNature3",                             :limit => 50
-    t.string   "debtTotal3",                              :limit => 50
-    t.string   "debtMonthlyPayment3",                     :limit => 50
-    t.integer  "hasOtherFinancialResponsibility"
-    t.text     "otherFinancialResponsibilityExplanation", :limit => 2147483647
-    t.text     "debtPaymentPlan",                         :limit => 2147483647
-    t.text     "debtPaymentTimeframe",                    :limit => 2147483647
-    t.text     "developingPartnersExplanation",           :limit => 2147483647
-    t.integer  "isWillingDevelopPartners"
-    t.text     "unwillingDevelopPartnersExplanation",     :limit => 2147483647
-    t.integer  "isCommittedDevelopPartners"
-    t.text     "uncommittedDevelopPartnersExplanation",   :limit => 2147483647
-    t.text     "personalTestimonyGrowth",                 :limit => 2147483647
-    t.text     "internshipParticipationExplanation",      :limit => 2147483647
-    t.text     "internshipObjectives",                    :limit => 2147483647
-    t.text     "currentMinistryDescription",              :limit => 2147483647
-    t.text     "personalStrengthA",                       :limit => 2147483647
-    t.text     "personalStrengthB",                       :limit => 2147483647
-    t.text     "personalStrengthC",                       :limit => 2147483647
-    t.text     "personalDevelopmentA",                    :limit => 2147483647
-    t.text     "personalDevelopmentB",                    :limit => 2147483647
-    t.text     "personalDevelopmentC",                    :limit => 2147483647
-    t.text     "personalDescriptionA",                    :limit => 2147483647
-    t.text     "personalDescriptionB",                    :limit => 2147483647
-    t.text     "personalDescriptionC",                    :limit => 2147483647
-    t.text     "familyRelationshipDescription",           :limit => 2147483647
-    t.string   "electronicSignature",                     :limit => 90
-    t.string   "ssn",                                     :limit => 50
-    t.integer  "fk_ssmUserID"
-    t.integer  "fk_PersonID"
-    t.boolean  "isPaid"
-    t.integer  "appFee"
-    t.datetime "dateAppLastChanged"
-    t.datetime "dateAppStarted"
-    t.datetime "dateSubmitted"
-    t.boolean  "isSubmitted"
-    t.string   "appStatus",                               :limit => 15
-    t.integer  "assignedToProject"
-    t.integer  "finalProject"
-    t.string   "siYear",                                  :limit => 50
-    t.datetime "submitDate"
-    t.string   "status",                                  :limit => 22
-    t.string   "appType",                                 :limit => 64
-  end
-
-  add_index "hr_si_application_2005_deprecated", ["fk_PersonID"], :name => "fk_SIPersonID"
-  add_index "hr_si_application_2005_deprecated", ["fk_ssmUserID"], :name => "fk_ssmUserID"
-
-  create_table "hr_si_application_2006_deprecated", :primary_key => "applicationID", :force => true do |t|
-    t.integer  "locationA"
-    t.string   "locationAExplanation",                    :limit => 90
-    t.integer  "locationB"
-    t.string   "locationBExplanation",                    :limit => 90
-    t.integer  "locationC"
-    t.string   "locationCExplanation",                    :limit => 90
-    t.string   "availableMonth",                          :limit => 2
-    t.string   "availableYear",                           :limit => 4
-    t.integer  "hasMinistryConflict"
-    t.text     "ministryConflictExplanation",             :limit => 2147483647
-    t.integer  "hasSpecificLocation"
-    t.string   "specificLocationRecruiterName",           :limit => 50
-    t.text     "teamMembers",                             :limit => 2147483647
-    t.integer  "isDating"
-    t.text     "datingLocation",                          :limit => 2147483647
-    t.integer  "hasCampusPartnership"
-    t.integer  "isDatingStint"
-    t.text     "datingStintName",                         :limit => 2147483647
-    t.string   "language1",                               :limit => 50
-    t.string   "language1YearsStudied",                   :limit => 20
-    t.integer  "language1Fluency"
-    t.string   "language2",                               :limit => 50
-    t.string   "language2YearsStudied",                   :limit => 20
-    t.integer  "language2Fluency"
-    t.text     "previousMinistryExperience",              :limit => 2147483647
-    t.text     "ministryTraining",                        :limit => 2147483647
-    t.text     "evangelismAttitude",                      :limit => 2147483647
-    t.integer  "isEvangelismTrainable"
-    t.text     "participationExplanation",                :limit => 2147483647
-    t.integer  "isFamiliarFourSpiritualLaws"
-    t.integer  "hasExperienceFourSpiritualLaws"
-    t.integer  "confidenceFourSpiritualLaws"
-    t.integer  "isFamiliarLifeAtLarge"
-    t.integer  "hasExperienceLifeAtLarge"
-    t.integer  "confidenceLifeAtLarge"
-    t.integer  "isFamiliarPersonalTestimony"
-    t.integer  "hasExperiencePersonalTestimony"
-    t.integer  "confidencePersonalTestimony"
-    t.integer  "isFamiliarExplainingGospel"
-    t.integer  "hasExperienceExplainingGospel"
-    t.integer  "confidenceExplainingGospel"
-    t.integer  "isFamiliarSharingFaith"
-    t.integer  "hasExperienceSharingFaith"
-    t.integer  "confidenceSharingFaith"
-    t.integer  "isFamiliarHolySpiritBooklet"
-    t.integer  "hasExperienceHolySpiritBooklet"
-    t.integer  "confidenceHolySpiritBooklet"
-    t.integer  "isFamiliarFollowUp"
-    t.integer  "hasExperienceFollowUp"
-    t.integer  "confidenceFollowUp"
-    t.integer  "isFamiliarHelpGrowInFaith"
-    t.integer  "hasExperienceHelpGrowInFaith"
-    t.integer  "confidenceHelpGrowInFaith"
-    t.integer  "isFamiliarTrainShareFaith"
-    t.integer  "hasExperienceTrainShareFaith"
-    t.integer  "confidenceTrainShareFaith"
-    t.integer  "isFamiliarOtherReligions"
-    t.integer  "hasExperienceOtherReligions"
-    t.integer  "confidenceOtherReligions"
-    t.text     "leadershipPositions",                     :limit => 2147483647
-    t.integer  "hasLedDiscipleshipGroup"
-    t.string   "discipleshipGroupSize",                   :limit => 50
-    t.text     "leadershipEvaluation",                    :limit => 2147483647
-    t.integer  "conversionMonth"
-    t.integer  "conversionYear"
-    t.string   "memberChurchDenomination",                :limit => 75
-    t.string   "memberChurchDuration",                    :limit => 50
-    t.string   "attendingChurchDenomination",             :limit => 50
-    t.string   "attendingChurchDuration",                 :limit => 50
-    t.text     "attendingChurchInvolvement",              :limit => 2147483647
-    t.text     "quietTimeQuantity",                       :limit => 2147483647
-    t.text     "quietTimeDescription",                    :limit => 2147483647
-    t.text     "explanationOfSalvation",                  :limit => 2147483647
-    t.text     "explanationOfSpiritFilled",               :limit => 2147483647
-    t.integer  "hasInvolvementSpeakingTongues"
-    t.text     "differenceIndwellingFilled",              :limit => 2147483647
-    t.integer  "hasCrimeConviction"
-    t.text     "crimeConvictionExplanation",              :limit => 2147483647
-    t.integer  "hasDrugUse"
-    t.integer  "isTobaccoUser"
-    t.integer  "isWillingChangeHabits"
-    t.text     "authorityResponseExplanation",            :limit => 2147483647
-    t.text     "alcoholUseFrequency",                     :limit => 2147483647
-    t.text     "alcoholUseDecision",                      :limit => 2147483647
-    t.integer  "isWillingRefrainAlcohol"
-    t.text     "unwillingRefrainAlcoholExplanation",      :limit => 2147483647
-    t.text     "drugUseExplanation",                      :limit => 2147483647
-    t.text     "tobaccoUseExplanation",                   :limit => 2147483647
-    t.integer  "isWillingAbstainTobacco"
-    t.integer  "hasRequestedPhoneCall"
-    t.string   "contactPhoneNumber",                      :limit => 50
-    t.string   "contactBestTime",                         :limit => 50
-    t.string   "contactTimeZone",                         :limit => 50
-    t.text     "sexualInvolvementExplanation",            :limit => 2147483647
-    t.integer  "hasSexualGuidelines"
-    t.text     "sexualGuidelineExplanation",              :limit => 2147483647
-    t.integer  "isCurrentlyDating"
-    t.text     "currentlyDatingLocation",                 :limit => 2147483647
-    t.integer  "hasHomosexualInvolvement"
-    t.text     "homosexualInvolvementExplanation",        :limit => 2147483647
-    t.integer  "hasRecentPornographicInvolvement"
-    t.integer  "pornographicInvolvementMonth"
-    t.integer  "pornographicInvolvementYear"
-    t.text     "pornographicInvolvementExplanation",      :limit => 2147483647
-    t.integer  "hasRecentSexualImmorality"
-    t.integer  "sexualImmoralityMonth"
-    t.integer  "sexualImmoralityYear"
-    t.text     "sexualImmoralityExplanation",             :limit => 2147483647
-    t.integer  "hasOtherDateSinceImmorality"
-    t.text     "singleImmoralityResultsExplanation",      :limit => 2147483647
-    t.text     "marriedImmoralityResultsExplanation",     :limit => 2147483647
-    t.text     "immoralityLifeChangeExplanation",         :limit => 2147483647
-    t.text     "immoralityCurrentStrugglesExplanation",   :limit => 2147483647
-    t.text     "additionalMoralComments",                 :limit => 2147483647
-    t.integer  "isAwareMustRaiseSupport"
-    t.integer  "isInDebt"
-    t.string   "debtNature1",                             :limit => 50
-    t.string   "debtTotal1",                              :limit => 50
-    t.string   "debtMonthlyPayment1",                     :limit => 50
-    t.string   "debtNature2",                             :limit => 50
-    t.string   "debtTotal2",                              :limit => 50
-    t.string   "debtMonthlyPayment2",                     :limit => 50
-    t.string   "debtNature3",                             :limit => 50
-    t.string   "debtTotal3",                              :limit => 50
-    t.string   "debtMonthlyPayment3",                     :limit => 50
-    t.integer  "hasOtherFinancialResponsibility"
-    t.text     "otherFinancialResponsibilityExplanation", :limit => 2147483647
-    t.text     "debtPaymentPlan",                         :limit => 2147483647
-    t.text     "debtPaymentTimeframe",                    :limit => 2147483647
-    t.text     "developingPartnersExplanation",           :limit => 2147483647
-    t.integer  "isWillingDevelopPartners"
-    t.text     "unwillingDevelopPartnersExplanation",     :limit => 2147483647
-    t.integer  "isCommittedDevelopPartners"
-    t.text     "uncommittedDevelopPartnersExplanation",   :limit => 2147483647
-    t.text     "personalTestimonyGrowth",                 :limit => 2147483647
-    t.text     "internshipParticipationExplanation",      :limit => 2147483647
-    t.text     "internshipObjectives",                    :limit => 2147483647
-    t.text     "currentMinistryDescription",              :limit => 2147483647
-    t.text     "personalStrengthA",                       :limit => 2147483647
-    t.text     "personalStrengthB",                       :limit => 2147483647
-    t.text     "personalStrengthC",                       :limit => 2147483647
-    t.text     "personalDevelopmentA",                    :limit => 2147483647
-    t.text     "personalDevelopmentB",                    :limit => 2147483647
-    t.text     "personalDevelopmentC",                    :limit => 2147483647
-    t.text     "personalDescriptionA",                    :limit => 2147483647
-    t.text     "personalDescriptionB",                    :limit => 2147483647
-    t.text     "personalDescriptionC",                    :limit => 2147483647
-    t.text     "familyRelationshipDescription",           :limit => 2147483647
-    t.string   "electronicSignature",                     :limit => 90
-    t.string   "ssn",                                     :limit => 50
-    t.integer  "fk_ssmUserID"
-    t.integer  "fk_personID"
-    t.boolean  "isPaid"
-    t.integer  "appFee"
-    t.datetime "dateAppLastChanged"
-    t.datetime "dateAppStarted"
-    t.datetime "dateSubmitted"
-    t.boolean  "isSubmitted"
-    t.string   "appStatus",                               :limit => 15
-    t.integer  "assignedToProject"
-    t.integer  "finalProject"
-    t.string   "siYear",                                  :limit => 50
-    t.datetime "submitDate"
-    t.string   "status",                                  :limit => 22
-    t.string   "appType",                                 :limit => 64
-  end
-
-  add_index "hr_si_application_2006_deprecated", ["fk_ssmUserID"], :name => "IX_hr_si_Application_2006_1"
 
   create_table "hr_si_applications", :primary_key => "applicationID", :force => true do |t|
     t.integer  "oldApplicationID"
@@ -2195,21 +1134,23 @@ ActiveRecord::Schema.define(:version => 20120822154432) do
     t.string   "electronicSignature",                     :limit => 90
     t.string   "ssn",                                     :limit => 50
     t.integer  "fk_ssmUserID"
-    t.integer  "fk_personID",                                                   :null => false
+    t.integer  "fk_personID",                                                                                  :null => false
     t.boolean  "isPaid"
-    t.integer  "appFee"
+    t.decimal  "appFee",                                                        :precision => 18, :scale => 0
     t.datetime "dateAppLastChanged"
     t.datetime "dateAppStarted"
     t.datetime "dateSubmitted"
     t.boolean  "isSubmitted"
     t.string   "appStatus",                               :limit => 15
     t.integer  "assignedToProject"
-    t.integer  "finalProject"
+    t.decimal  "finalProject",                                                  :precision => 10, :scale => 0
     t.string   "siYear",                                  :limit => 50
     t.datetime "submitDate"
     t.string   "status",                                  :limit => 22
     t.string   "appType",                                 :limit => 64
     t.integer  "apply_id"
+    t.text     "mpd_summer_plans"
+    t.string   "app_type"
   end
 
   add_index "hr_si_applications", ["apply_id"], :name => "apply_id"
@@ -2294,7 +1235,7 @@ ActiveRecord::Schema.define(:version => 20120822154432) do
     t.datetime "leadershipStartDate"
     t.datetime "leadershipEndDate"
     t.datetime "createDate"
-    t.binary   "lastChangedDate",               :limit => 255
+    t.binary   "lastChangedDate",               :limit => 8
     t.integer  "lastChangedBy"
     t.string   "displayLocation"
     t.boolean  "partnershipRegionOnly"
@@ -2470,554 +1411,6 @@ ActiveRecord::Schema.define(:version => 20120822154432) do
   add_index "hr_si_reference", ["oldSIApplicationID"], :name => "IX_hr_si_Reference_2006"
   add_index "hr_si_reference", ["siYear"], :name => "siYear"
 
-  create_table "hr_si_reference_2003_deprecated", :primary_key => "referenceID", :force => true do |t|
-    t.string   "formWorkflowStatus", :limit => 1
-    t.datetime "createDate"
-    t.datetime "lastChangedDate"
-    t.string   "lastChangedBy",      :limit => 30
-    t.boolean  "isFormSubmitted"
-    t.datetime "formSubmittedDate"
-    t.string   "referenceType",      :limit => 2
-    t.string   "title",              :limit => 5
-    t.string   "firstName",          :limit => 30
-    t.string   "lastName",           :limit => 30
-    t.boolean  "isStaff"
-    t.string   "staffNumber",        :limit => 16
-    t.string   "currentAddress1",    :limit => 35
-    t.string   "currentAddress2",    :limit => 35
-    t.string   "currentCity",        :limit => 35
-    t.string   "currentState",       :limit => 6
-    t.string   "currentZip",         :limit => 10
-    t.string   "cellPhone",          :limit => 24
-    t.string   "homePhone",          :limit => 24
-    t.string   "workPhone",          :limit => 24
-    t.string   "currentEmail",       :limit => 50
-    t.string   "howKnown",           :limit => 64
-    t.string   "howLongKnown",       :limit => 64
-    t.integer  "howWellKnown"
-    t.integer  "howWellComm"
-    t.integer  "_rg1"
-    t.integer  "_rg2"
-    t.integer  "_rg3"
-    t.integer  "_rg4"
-    t.integer  "_rg5"
-    t.string   "_rg1c",              :limit => 50
-    t.string   "_rg2c",              :limit => 50
-    t.string   "_rg3c",              :limit => 50
-    t.string   "_rg4c",              :limit => 50
-    t.string   "_rg5c",              :limit => 50
-    t.text     "_rg6",               :limit => 2147483647
-    t.boolean  "_rg7"
-    t.text     "_rg8",               :limit => 2147483647
-    t.text     "_rg9",               :limit => 2147483647
-    t.integer  "_ro1"
-    t.integer  "_ro2"
-    t.integer  "_ro3"
-    t.integer  "_ro4"
-    t.integer  "_ro5"
-    t.integer  "_ro6"
-    t.integer  "_ro7"
-    t.string   "_ro1c",              :limit => 50
-    t.string   "_ro2c",              :limit => 50
-    t.string   "_ro3c",              :limit => 50
-    t.string   "_ro4c",              :limit => 50
-    t.string   "_ro5c",              :limit => 50
-    t.string   "_ro6c",              :limit => 50
-    t.string   "_ro7c",              :limit => 50
-    t.text     "_ro8",               :limit => 2147483647
-    t.text     "_ro9",               :limit => 2147483647
-    t.text     "_ro10",              :limit => 2147483647
-    t.integer  "_dd1"
-    t.integer  "_dd2"
-    t.integer  "_dd3"
-    t.integer  "_dd4"
-    t.string   "_dd1c",              :limit => 50
-    t.string   "_dd2c",              :limit => 50
-    t.string   "_dd3c",              :limit => 50
-    t.string   "_dd4c",              :limit => 50
-    t.text     "_dd5",               :limit => 2147483647
-    t.text     "_dd6",               :limit => 2147483647
-    t.integer  "_if1"
-    t.integer  "_if2"
-    t.integer  "_if3"
-    t.integer  "_if4"
-    t.string   "_if1c",              :limit => 50
-    t.string   "_if2c",              :limit => 50
-    t.string   "_if3c",              :limit => 50
-    t.string   "_if4c",              :limit => 50
-    t.text     "_if5",               :limit => 2147483647
-    t.text     "_if6",               :limit => 2147483647
-    t.integer  "_ch1"
-    t.integer  "_ch2"
-    t.integer  "_ch3"
-    t.integer  "_ch4"
-    t.integer  "_ch5"
-    t.string   "_ch1c",              :limit => 50
-    t.string   "_ch2c",              :limit => 50
-    t.string   "_ch3c",              :limit => 50
-    t.string   "_ch4c",              :limit => 50
-    t.string   "_ch5c",              :limit => 50
-    t.text     "_ch6",               :limit => 2147483647
-    t.text     "_ch7",               :limit => 2147483647
-    t.text     "_ch8",               :limit => 2147483647
-    t.integer  "_ew1"
-    t.integer  "_ew2"
-    t.integer  "_ew3"
-    t.integer  "_ew4"
-    t.integer  "_ew5"
-    t.string   "_ew1c",              :limit => 50
-    t.string   "_ew2c",              :limit => 50
-    t.string   "_ew3c",              :limit => 50
-    t.string   "_ew4c",              :limit => 50
-    t.string   "_ew5c",              :limit => 50
-    t.text     "_ew6",               :limit => 2147483647
-    t.boolean  "_ew7"
-    t.text     "_ew8",               :limit => 2147483647
-    t.boolean  "_ew9"
-    t.text     "_ew10",              :limit => 2147483647
-    t.integer  "_ms1"
-    t.integer  "_ms2"
-    t.integer  "_ms3"
-    t.integer  "_ms4"
-    t.string   "_ms1c",              :limit => 50
-    t.string   "_ms2c",              :limit => 50
-    t.string   "_ms3c",              :limit => 50
-    t.string   "_ms4c",              :limit => 50
-    t.text     "_ms5",               :limit => 2147483647
-    t.integer  "_ls1"
-    t.integer  "_ls2"
-    t.integer  "_ls3"
-    t.integer  "_ls4"
-    t.integer  "_ls5"
-    t.string   "_ls1c",              :limit => 50
-    t.string   "_ls2c",              :limit => 50
-    t.string   "_ls3c",              :limit => 50
-    t.string   "_ls4c",              :limit => 50
-    t.string   "_ls5c",              :limit => 50
-    t.text     "_ls6",               :limit => 2147483647
-    t.text     "_ls7",               :limit => 2147483647
-    t.text     "_ls8",               :limit => 2147483647
-    t.text     "_re1",               :limit => 2147483647
-    t.text     "_re2",               :limit => 2147483647
-    t.text     "_re3",               :limit => 2147483647
-    t.integer  "_re4"
-    t.text     "_re5",               :limit => 2147483647
-    t.integer  "fk_SIApplicationID"
-  end
-
-  add_index "hr_si_reference_2003_deprecated", ["fk_SIApplicationID"], :name => "fk_SIApplicationID"
-
-  create_table "hr_si_reference_2004_deprecated", :primary_key => "referenceID", :force => true do |t|
-    t.string   "formWorkflowStatus", :limit => 1
-    t.datetime "createDate"
-    t.datetime "lastChangedDate"
-    t.string   "lastChangedBy",      :limit => 30
-    t.boolean  "isFormSubmitted"
-    t.datetime "formSubmittedDate"
-    t.string   "referenceType",      :limit => 2
-    t.string   "title",              :limit => 5
-    t.string   "firstName",          :limit => 30
-    t.string   "lastName",           :limit => 30
-    t.boolean  "isStaff"
-    t.string   "staffNumber",        :limit => 16
-    t.string   "currentAddress1",    :limit => 35
-    t.string   "currentAddress2",    :limit => 35
-    t.string   "currentCity",        :limit => 35
-    t.string   "currentState",       :limit => 6
-    t.string   "currentZip",         :limit => 10
-    t.string   "cellPhone",          :limit => 24
-    t.string   "homePhone",          :limit => 24
-    t.string   "workPhone",          :limit => 24
-    t.string   "currentEmail",       :limit => 50
-    t.string   "howKnown",           :limit => 64
-    t.string   "howLongKnown",       :limit => 64
-    t.integer  "howWellKnown"
-    t.integer  "howWellComm"
-    t.integer  "_rg1"
-    t.integer  "_rg2"
-    t.integer  "_rg3"
-    t.integer  "_rg4"
-    t.integer  "_rg5"
-    t.string   "_rg1c",              :limit => 50
-    t.string   "_rg2c",              :limit => 50
-    t.string   "_rg3c",              :limit => 50
-    t.string   "_rg4c",              :limit => 50
-    t.string   "_rg5c",              :limit => 50
-    t.text     "_rg6",               :limit => 2147483647
-    t.boolean  "_rg7"
-    t.text     "_rg8",               :limit => 2147483647
-    t.text     "_rg9",               :limit => 2147483647
-    t.integer  "_ro1"
-    t.integer  "_ro2"
-    t.integer  "_ro3"
-    t.integer  "_ro4"
-    t.integer  "_ro5"
-    t.integer  "_ro6"
-    t.integer  "_ro7"
-    t.string   "_ro1c",              :limit => 50
-    t.string   "_ro2c",              :limit => 50
-    t.string   "_ro3c",              :limit => 50
-    t.string   "_ro4c",              :limit => 50
-    t.string   "_ro5c",              :limit => 50
-    t.string   "_ro6c",              :limit => 50
-    t.string   "_ro7c",              :limit => 50
-    t.text     "_ro8",               :limit => 2147483647
-    t.text     "_ro9",               :limit => 2147483647
-    t.text     "_ro10",              :limit => 2147483647
-    t.integer  "_dd1"
-    t.integer  "_dd2"
-    t.integer  "_dd3"
-    t.integer  "_dd4"
-    t.string   "_dd1c",              :limit => 50
-    t.string   "_dd2c",              :limit => 50
-    t.string   "_dd3c",              :limit => 50
-    t.string   "_dd4c",              :limit => 50
-    t.text     "_dd5",               :limit => 2147483647
-    t.text     "_dd6",               :limit => 2147483647
-    t.integer  "_if1"
-    t.integer  "_if2"
-    t.integer  "_if3"
-    t.integer  "_if4"
-    t.string   "_if1c",              :limit => 50
-    t.string   "_if2c",              :limit => 50
-    t.string   "_if3c",              :limit => 50
-    t.string   "_if4c",              :limit => 50
-    t.text     "_if5",               :limit => 2147483647
-    t.text     "_if6",               :limit => 2147483647
-    t.integer  "_ch1"
-    t.integer  "_ch2"
-    t.integer  "_ch3"
-    t.integer  "_ch4"
-    t.integer  "_ch5"
-    t.string   "_ch1c",              :limit => 50
-    t.string   "_ch2c",              :limit => 50
-    t.string   "_ch3c",              :limit => 50
-    t.string   "_ch4c",              :limit => 50
-    t.string   "_ch5c",              :limit => 50
-    t.text     "_ch6",               :limit => 2147483647
-    t.text     "_ch7",               :limit => 2147483647
-    t.text     "_ch8",               :limit => 2147483647
-    t.integer  "_ew1"
-    t.integer  "_ew2"
-    t.integer  "_ew3"
-    t.integer  "_ew4"
-    t.integer  "_ew5"
-    t.string   "_ew1c",              :limit => 50
-    t.string   "_ew2c",              :limit => 50
-    t.string   "_ew3c",              :limit => 50
-    t.string   "_ew4c",              :limit => 50
-    t.string   "_ew5c",              :limit => 50
-    t.text     "_ew6",               :limit => 2147483647
-    t.boolean  "_ew7"
-    t.text     "_ew8",               :limit => 2147483647
-    t.boolean  "_ew9"
-    t.text     "_ew10",              :limit => 2147483647
-    t.integer  "_ms1"
-    t.integer  "_ms2"
-    t.integer  "_ms3"
-    t.integer  "_ms4"
-    t.string   "_ms1c",              :limit => 50
-    t.string   "_ms2c",              :limit => 50
-    t.string   "_ms3c",              :limit => 50
-    t.string   "_ms4c",              :limit => 50
-    t.text     "_ms5",               :limit => 2147483647
-    t.integer  "_ls1"
-    t.integer  "_ls2"
-    t.integer  "_ls3"
-    t.integer  "_ls4"
-    t.integer  "_ls5"
-    t.string   "_ls1c",              :limit => 50
-    t.string   "_ls2c",              :limit => 50
-    t.string   "_ls3c",              :limit => 50
-    t.string   "_ls4c",              :limit => 50
-    t.string   "_ls5c",              :limit => 50
-    t.text     "_ls6",               :limit => 2147483647
-    t.text     "_ls7",               :limit => 2147483647
-    t.text     "_ls8",               :limit => 2147483647
-    t.text     "_re1",               :limit => 2147483647
-    t.text     "_re2",               :limit => 2147483647
-    t.text     "_re3",               :limit => 2147483647
-    t.integer  "_re4"
-    t.text     "_re5",               :limit => 2147483647
-    t.integer  "fk_SIApplicationID"
-  end
-
-  add_index "hr_si_reference_2004_deprecated", ["fk_SIApplicationID"], :name => "fk_SIApplicationID"
-
-  create_table "hr_si_reference_2005_deprecated", :primary_key => "referenceID", :force => true do |t|
-    t.string   "formWorkflowStatus", :limit => 1
-    t.datetime "createDate"
-    t.datetime "lastChangedDate"
-    t.string   "lastChangedBy",      :limit => 30
-    t.boolean  "isFormSubmitted"
-    t.datetime "formSubmittedDate"
-    t.string   "referenceType",      :limit => 2
-    t.string   "title",              :limit => 5
-    t.string   "firstName",          :limit => 30
-    t.string   "lastName",           :limit => 30
-    t.boolean  "isStaff"
-    t.string   "staffNumber",        :limit => 16
-    t.string   "currentAddress1",    :limit => 35
-    t.string   "currentAddress2",    :limit => 35
-    t.string   "currentCity",        :limit => 35
-    t.string   "currentState",       :limit => 6
-    t.string   "currentZip",         :limit => 10
-    t.string   "cellPhone",          :limit => 24
-    t.string   "homePhone",          :limit => 24
-    t.string   "workPhone",          :limit => 24
-    t.string   "currentEmail",       :limit => 50
-    t.string   "howKnown",           :limit => 64
-    t.string   "howLongKnown",       :limit => 64
-    t.integer  "howWellKnown"
-    t.integer  "howWellComm"
-    t.integer  "_rg1"
-    t.integer  "_rg2"
-    t.integer  "_rg3"
-    t.integer  "_rg4"
-    t.integer  "_rg5"
-    t.string   "_rg1c",              :limit => 50
-    t.string   "_rg2c",              :limit => 50
-    t.string   "_rg3c",              :limit => 50
-    t.string   "_rg4c",              :limit => 50
-    t.string   "_rg5c",              :limit => 50
-    t.text     "_rg6",               :limit => 2147483647
-    t.boolean  "_rg7"
-    t.text     "_rg8",               :limit => 2147483647
-    t.text     "_rg9",               :limit => 2147483647
-    t.integer  "_ro1"
-    t.integer  "_ro2"
-    t.integer  "_ro3"
-    t.integer  "_ro4"
-    t.integer  "_ro5"
-    t.integer  "_ro6"
-    t.integer  "_ro7"
-    t.string   "_ro1c",              :limit => 50
-    t.string   "_ro2c",              :limit => 50
-    t.string   "_ro3c",              :limit => 50
-    t.string   "_ro4c",              :limit => 50
-    t.string   "_ro5c",              :limit => 50
-    t.string   "_ro6c",              :limit => 50
-    t.string   "_ro7c",              :limit => 50
-    t.text     "_ro8",               :limit => 2147483647
-    t.text     "_ro9",               :limit => 2147483647
-    t.text     "_ro10",              :limit => 2147483647
-    t.integer  "_dd1"
-    t.integer  "_dd2"
-    t.integer  "_dd3"
-    t.integer  "_dd4"
-    t.string   "_dd1c",              :limit => 50
-    t.string   "_dd2c",              :limit => 50
-    t.string   "_dd3c",              :limit => 50
-    t.string   "_dd4c",              :limit => 50
-    t.text     "_dd5",               :limit => 2147483647
-    t.text     "_dd6",               :limit => 2147483647
-    t.integer  "_if1"
-    t.integer  "_if2"
-    t.integer  "_if3"
-    t.integer  "_if4"
-    t.string   "_if1c",              :limit => 50
-    t.string   "_if2c",              :limit => 50
-    t.string   "_if3c",              :limit => 50
-    t.string   "_if4c",              :limit => 50
-    t.text     "_if5",               :limit => 2147483647
-    t.text     "_if6",               :limit => 2147483647
-    t.integer  "_ch1"
-    t.integer  "_ch2"
-    t.integer  "_ch3"
-    t.integer  "_ch4"
-    t.integer  "_ch5"
-    t.string   "_ch1c",              :limit => 50
-    t.string   "_ch2c",              :limit => 50
-    t.string   "_ch3c",              :limit => 50
-    t.string   "_ch4c",              :limit => 50
-    t.string   "_ch5c",              :limit => 50
-    t.text     "_ch6",               :limit => 2147483647
-    t.text     "_ch7",               :limit => 2147483647
-    t.text     "_ch8",               :limit => 2147483647
-    t.integer  "_ew1"
-    t.integer  "_ew2"
-    t.integer  "_ew3"
-    t.integer  "_ew4"
-    t.integer  "_ew5"
-    t.string   "_ew1c",              :limit => 50
-    t.string   "_ew2c",              :limit => 50
-    t.string   "_ew3c",              :limit => 50
-    t.string   "_ew4c",              :limit => 50
-    t.string   "_ew5c",              :limit => 50
-    t.text     "_ew6",               :limit => 2147483647
-    t.boolean  "_ew7"
-    t.text     "_ew8",               :limit => 2147483647
-    t.boolean  "_ew9"
-    t.text     "_ew10",              :limit => 2147483647
-    t.integer  "_ms1"
-    t.integer  "_ms2"
-    t.integer  "_ms3"
-    t.integer  "_ms4"
-    t.string   "_ms1c",              :limit => 50
-    t.string   "_ms2c",              :limit => 50
-    t.string   "_ms3c",              :limit => 50
-    t.string   "_ms4c",              :limit => 50
-    t.text     "_ms5",               :limit => 2147483647
-    t.integer  "_ls1"
-    t.integer  "_ls2"
-    t.integer  "_ls3"
-    t.integer  "_ls4"
-    t.integer  "_ls5"
-    t.string   "_ls1c",              :limit => 50
-    t.string   "_ls2c",              :limit => 50
-    t.string   "_ls3c",              :limit => 50
-    t.string   "_ls4c",              :limit => 50
-    t.string   "_ls5c",              :limit => 50
-    t.text     "_ls6",               :limit => 2147483647
-    t.text     "_ls7",               :limit => 2147483647
-    t.text     "_ls8",               :limit => 2147483647
-    t.text     "_re1",               :limit => 2147483647
-    t.text     "_re2",               :limit => 2147483647
-    t.text     "_re3",               :limit => 2147483647
-    t.integer  "_re4"
-    t.text     "_re5",               :limit => 2147483647
-    t.integer  "fk_SIApplicationID"
-  end
-
-  add_index "hr_si_reference_2005_deprecated", ["fk_SIApplicationID"], :name => "fk_SIApplicationID"
-
-  create_table "hr_si_reference_2006_deprecated", :primary_key => "referenceID", :force => true do |t|
-    t.string   "formWorkflowStatus", :limit => 1
-    t.datetime "createDate"
-    t.datetime "lastChangedDate"
-    t.string   "lastChangedBy",      :limit => 30
-    t.boolean  "isFormSubmitted"
-    t.datetime "formSubmittedDate"
-    t.string   "referenceType",      :limit => 2
-    t.string   "title",              :limit => 5
-    t.string   "firstName",          :limit => 30
-    t.string   "lastName",           :limit => 30
-    t.boolean  "isStaff"
-    t.string   "staffNumber",        :limit => 16
-    t.string   "currentAddress1",    :limit => 35
-    t.string   "currentAddress2",    :limit => 35
-    t.string   "currentCity",        :limit => 35
-    t.string   "currentState",       :limit => 6
-    t.string   "currentZip",         :limit => 10
-    t.string   "cellPhone",          :limit => 24
-    t.string   "homePhone",          :limit => 24
-    t.string   "workPhone",          :limit => 24
-    t.string   "currentEmail",       :limit => 50
-    t.string   "howKnown",           :limit => 64
-    t.string   "howLongKnown",       :limit => 64
-    t.integer  "howWellKnown"
-    t.integer  "howWellComm"
-    t.integer  "_rg1"
-    t.integer  "_rg2"
-    t.integer  "_rg3"
-    t.integer  "_rg4"
-    t.integer  "_rg5"
-    t.string   "_rg1c",              :limit => 50
-    t.string   "_rg2c",              :limit => 50
-    t.string   "_rg3c",              :limit => 50
-    t.string   "_rg4c",              :limit => 50
-    t.string   "_rg5c",              :limit => 50
-    t.text     "_rg6",               :limit => 2147483647
-    t.boolean  "_rg7"
-    t.text     "_rg8",               :limit => 2147483647
-    t.text     "_rg9",               :limit => 2147483647
-    t.integer  "_ro1"
-    t.integer  "_ro2"
-    t.integer  "_ro3"
-    t.integer  "_ro4"
-    t.integer  "_ro5"
-    t.integer  "_ro6"
-    t.integer  "_ro7"
-    t.string   "_ro1c",              :limit => 50
-    t.string   "_ro2c",              :limit => 50
-    t.string   "_ro3c",              :limit => 50
-    t.string   "_ro4c",              :limit => 50
-    t.string   "_ro5c",              :limit => 50
-    t.string   "_ro6c",              :limit => 50
-    t.string   "_ro7c",              :limit => 50
-    t.text     "_ro8",               :limit => 2147483647
-    t.text     "_ro9",               :limit => 2147483647
-    t.text     "_ro10",              :limit => 2147483647
-    t.integer  "_dd1"
-    t.integer  "_dd2"
-    t.integer  "_dd3"
-    t.integer  "_dd4"
-    t.string   "_dd1c",              :limit => 50
-    t.string   "_dd2c",              :limit => 50
-    t.string   "_dd3c",              :limit => 50
-    t.string   "_dd4c",              :limit => 50
-    t.text     "_dd5",               :limit => 2147483647
-    t.text     "_dd6",               :limit => 2147483647
-    t.integer  "_if1"
-    t.integer  "_if2"
-    t.integer  "_if3"
-    t.integer  "_if4"
-    t.string   "_if1c",              :limit => 50
-    t.string   "_if2c",              :limit => 50
-    t.string   "_if3c",              :limit => 50
-    t.string   "_if4c",              :limit => 50
-    t.text     "_if5",               :limit => 2147483647
-    t.text     "_if6",               :limit => 2147483647
-    t.integer  "_ch1"
-    t.integer  "_ch2"
-    t.integer  "_ch3"
-    t.integer  "_ch4"
-    t.integer  "_ch5"
-    t.string   "_ch1c",              :limit => 50
-    t.string   "_ch2c",              :limit => 50
-    t.string   "_ch3c",              :limit => 50
-    t.string   "_ch4c",              :limit => 50
-    t.string   "_ch5c",              :limit => 50
-    t.text     "_ch6",               :limit => 2147483647
-    t.text     "_ch7",               :limit => 2147483647
-    t.text     "_ch8",               :limit => 2147483647
-    t.integer  "_ew1"
-    t.integer  "_ew2"
-    t.integer  "_ew3"
-    t.integer  "_ew4"
-    t.integer  "_ew5"
-    t.string   "_ew1c",              :limit => 50
-    t.string   "_ew2c",              :limit => 50
-    t.string   "_ew3c",              :limit => 50
-    t.string   "_ew4c",              :limit => 50
-    t.string   "_ew5c",              :limit => 50
-    t.text     "_ew6",               :limit => 2147483647
-    t.boolean  "_ew7"
-    t.text     "_ew8",               :limit => 2147483647
-    t.boolean  "_ew9"
-    t.text     "_ew10",              :limit => 2147483647
-    t.integer  "_ms1"
-    t.integer  "_ms2"
-    t.integer  "_ms3"
-    t.integer  "_ms4"
-    t.string   "_ms1c",              :limit => 50
-    t.string   "_ms2c",              :limit => 50
-    t.string   "_ms3c",              :limit => 50
-    t.string   "_ms4c",              :limit => 50
-    t.text     "_ms5",               :limit => 2147483647
-    t.integer  "_ls1"
-    t.integer  "_ls2"
-    t.integer  "_ls3"
-    t.integer  "_ls4"
-    t.integer  "_ls5"
-    t.string   "_ls1c",              :limit => 50
-    t.string   "_ls2c",              :limit => 50
-    t.string   "_ls3c",              :limit => 50
-    t.string   "_ls4c",              :limit => 50
-    t.string   "_ls5c",              :limit => 50
-    t.text     "_ls6",               :limit => 2147483647
-    t.text     "_ls7",               :limit => 2147483647
-    t.text     "_ls8",               :limit => 2147483647
-    t.text     "_re1",               :limit => 2147483647
-    t.text     "_re2",               :limit => 2147483647
-    t.text     "_re3",               :limit => 2147483647
-    t.integer  "_re4"
-    t.text     "_re5",               :limit => 2147483647
-    t.integer  "fk_SIApplicationID"
-  end
-
-  add_index "hr_si_reference_2006_deprecated", ["fk_SIApplicationID"], :name => "IX_hr_si_Reference_2006"
-
   create_table "hr_si_users", :primary_key => "siUserID", :force => true do |t|
     t.integer  "fk_ssmUserID"
     t.string   "role",           :limit => 50
@@ -3050,37 +1443,37 @@ ActiveRecord::Schema.define(:version => 20120822154432) do
   end
 
   create_table "linczone_contacts", :primary_key => "ContactID", :force => true do |t|
-    t.datetime "EntryDate"
-    t.string   "FirstName",            :limit => 120
-    t.string   "LastName",             :limit => 120
-    t.string   "HomeAddress",          :limit => 200
-    t.string   "City",                 :limit => 20
-    t.string   "State",                :limit => 20
-    t.string   "Zip",                  :limit => 80
-    t.string   "Email",                :limit => 120
-    t.string   "HighSchool",           :limit => 120
-    t.string   "CampusName",           :limit => 200
-    t.string   "CampusID",             :limit => 80
-    t.string   "ReferrerFirstName",    :limit => 120
-    t.string   "ReferrerLastName",     :limit => 120
-    t.string   "ReferrerRelationship", :limit => 100
-    t.string   "ReferrerEmail",        :limit => 200
-    t.string   "InfoCCC",              :limit => 1,   :default => "F"
-    t.string   "InfoNav",              :limit => 1,   :default => "F"
-    t.string   "InfoIV",               :limit => 1,   :default => "F"
-    t.string   "InfoFCA",              :limit => 1,   :default => "F"
-    t.string   "InfoBSU",              :limit => 1,   :default => "F"
-    t.string   "InfoCACM",             :limit => 1,   :default => "F"
-    t.string   "InfoEFCA",             :limit => 1,   :default => "F"
-    t.string   "InfoGCM",              :limit => 1,   :default => "F"
-    t.string   "InfoWesley",           :limit => 1,   :default => "F"
+    t.timestamp "EntryDate"
+    t.string    "FirstName",            :limit => 120
+    t.string    "LastName",             :limit => 120
+    t.string    "HomeAddress",          :limit => 200
+    t.string    "City",                 :limit => 20
+    t.string    "State",                :limit => 20
+    t.string    "Zip",                  :limit => 80
+    t.string    "Email",                :limit => 120
+    t.string    "HighSchool",           :limit => 120
+    t.string    "CampusName",           :limit => 200
+    t.string    "CampusID",             :limit => 80
+    t.string    "ReferrerFirstName",    :limit => 120
+    t.string    "ReferrerLastName",     :limit => 120
+    t.string    "ReferrerRelationship", :limit => 100
+    t.string    "ReferrerEmail",        :limit => 200
+    t.string    "InfoCCC",              :limit => 1,   :default => "F"
+    t.string    "InfoNav",              :limit => 1,   :default => "F"
+    t.string    "InfoIV",               :limit => 1,   :default => "F"
+    t.string    "InfoFCA",              :limit => 1,   :default => "F"
+    t.string    "InfoBSU",              :limit => 1,   :default => "F"
+    t.string    "InfoCACM",             :limit => 1,   :default => "F"
+    t.string    "InfoEFCA",             :limit => 1,   :default => "F"
+    t.string    "InfoGCM",              :limit => 1,   :default => "F"
+    t.string    "InfoWesley",           :limit => 1,   :default => "F"
   end
 
   create_table "mail_delayed_jobs", :force => true do |t|
     t.integer  "priority",   :default => 0
     t.integer  "attempts",   :default => 0
     t.text     "handler"
-    t.string   "last_error"
+    t.text     "last_error"
     t.datetime "run_at"
     t.datetime "locked_at"
     t.datetime "failed_at"
@@ -3093,14 +1486,15 @@ ActiveRecord::Schema.define(:version => 20120822154432) do
     t.string   "group_id"
     t.string   "group_name"
     t.string   "group_description"
-    t.string   "email_permission",  :default => "Domain"
+    t.string   "email_permission",   :default => "Domain"
     t.text     "email_query"
-    t.boolean  "exists_on_google",  :default => false
+    t.boolean  "exists_on_google",   :default => false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "update_interval",   :default => "Daily"
+    t.string   "update_interval",    :default => "Daily"
     t.string   "contact_id"
     t.integer  "user_id"
+    t.text     "owners_email_query"
   end
 
   add_index "mail_groups", ["group_id"], :name => "index_mail_groups_on_group_id"
@@ -3116,6 +1510,14 @@ ActiveRecord::Schema.define(:version => 20120822154432) do
 
   add_index "mail_members", ["group_id"], :name => "index_mail_members_on_group_id"
 
+  create_table "mail_owners", :force => true do |t|
+    t.integer  "group_id"
+    t.string   "email"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.boolean  "exception",  :default => false
+  end
+
   create_table "mail_users", :force => true do |t|
     t.string   "guid"
     t.string   "email"
@@ -3127,6 +1529,20 @@ ActiveRecord::Schema.define(:version => 20120822154432) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "mail_users", ["guid"], :name => "guid"
+
+  create_table "merge_audits", :force => true do |t|
+    t.integer  "mergeable_id"
+    t.string   "mergeable_type"
+    t.integer  "merge_looser_id"
+    t.string   "merge_looser_type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "merge_audits", ["merge_looser_id", "merge_looser_type"], :name => "merge_looser"
+  add_index "merge_audits", ["mergeable_id", "mergeable_type"], :name => "mergeable"
 
   create_table "ministries", :force => true do |t|
     t.string "name"
@@ -3144,10 +1560,11 @@ ActiveRecord::Schema.define(:version => 20120822154432) do
     t.string   "url"
     t.string   "facebook"
     t.integer  "sent_teamID"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "ministry_activity", ["fk_targetAreaID", "strategy"], :name => "index_ministry_activity_on_fk_targetareaid_and_strategy", :unique => true
-  add_index "ministry_activity", ["fk_targetAreaID"], :name => "FK2600F20F60761BBA"
   add_index "ministry_activity", ["fk_targetAreaID"], :name => "index1"
   add_index "ministry_activity", ["fk_teamID"], :name => "index2"
   add_index "ministry_activity", ["periodBegin"], :name => "index3"
@@ -3160,6 +1577,8 @@ ActiveRecord::Schema.define(:version => 20120822154432) do
     t.datetime "period_begin"
     t.datetime "period_end_deprecated"
     t.string   "trans_username",         :limit => 50
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "ministry_activity_history", ["activity_id"], :name => "activity_id"
@@ -3179,19 +1598,11 @@ ActiveRecord::Schema.define(:version => 20120822154432) do
     t.string   "country",   :limit => 64
   end
 
-  create_table "ministry_assoc_activitycontact", :id => false, :force => true do |t|
-    t.integer "ActivityID",                                 :null => false
-    t.string  "accountNo",  :limit => 11,                   :null => false
-    t.boolean "dbioDummy",                :default => true, :null => false
-  end
-
   create_table "ministry_assoc_dependents", :id => false, :force => true do |t|
     t.integer "DependentID",                                 :null => false
     t.string  "accountNo",   :limit => 11,                   :null => false
     t.boolean "dbioDummy",                 :default => true, :null => false
   end
-
-  add_index "ministry_assoc_dependents", ["DependentID"], :name => "FKAF8D4EBE8191B090"
 
   create_table "ministry_assoc_otherministries", :id => false, :force => true do |t|
     t.string  "NonCccMinID",  :limit => 64,                   :null => false
@@ -3268,49 +1679,57 @@ ActiveRecord::Schema.define(:version => 20120822154432) do
     t.string   "abbrv",                  :limit => 2
     t.string   "hasMultiRegionalAccess"
     t.string   "dept_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "ministry_missional_team_member", :force => true do |t|
-    t.integer "personID"
-    t.integer "teamID"
-    t.boolean "is_people_soft"
-    t.boolean "is_leader"
+    t.integer  "personID"
+    t.integer  "teamID"
+    t.boolean  "is_people_soft"
+    t.boolean  "is_leader"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
+  add_index "ministry_missional_team_member", ["personID"], :name => "personID"
+  add_index "ministry_missional_team_member", ["teamID"], :name => "teamID"
+
   create_table "ministry_movement_contact", :id => false, :force => true do |t|
-    t.integer "personID"
-    t.integer "ActivityID"
+    t.integer  "personID"
+    t.integer  "ActivityID"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "ministry_movement_contact", ["ActivityID"], :name => "ActivityID"
+  add_index "ministry_movement_contact", ["personID", "ActivityID"], :name => "both"
   add_index "ministry_movement_contact", ["personID"], :name => "personID"
 
   create_table "ministry_newaddress", :primary_key => "addressID", :force => true do |t|
-    t.string   "deprecated_startDate", :limit => 25
-    t.string   "deprecated_endDate",   :limit => 25
-    t.string   "address1",             :limit => 55
-    t.string   "address2",             :limit => 55
-    t.string   "address3",             :limit => 55
-    t.string   "address4",             :limit => 55
-    t.string   "city",                 :limit => 50
-    t.string   "state",                :limit => 50
-    t.string   "zip",                  :limit => 15
-    t.string   "country",              :limit => 64
-    t.string   "homePhone",            :limit => 25
-    t.string   "workPhone",            :limit => 25
-    t.string   "cellPhone",            :limit => 25
-    t.string   "fax",                  :limit => 25
-    t.string   "email",                :limit => 200
-    t.string   "url",                  :limit => 100
-    t.string   "contactName",          :limit => 50
-    t.string   "contactRelationship",  :limit => 50
-    t.string   "addressType",          :limit => 20
+    t.string   "address1"
+    t.string   "address2"
+    t.string   "address3",            :limit => 55
+    t.string   "address4",            :limit => 55
+    t.string   "city",                :limit => 50
+    t.string   "state",               :limit => 50
+    t.string   "zip",                 :limit => 15
+    t.string   "country",             :limit => 64
+    t.string   "homePhone",           :limit => 26
+    t.string   "workPhone",           :limit => 250
+    t.string   "cellPhone",           :limit => 25
+    t.string   "fax",                 :limit => 25
+    t.string   "email",               :limit => 200
+    t.string   "url",                 :limit => 100
+    t.string   "contactName"
+    t.string   "contactRelationship", :limit => 50
+    t.string   "addressType",         :limit => 20
     t.datetime "dateCreated"
     t.datetime "dateChanged"
-    t.string   "createdBy",            :limit => 50
-    t.string   "changedBy",            :limit => 50
+    t.string   "createdBy",           :limit => 50
+    t.string   "changedBy",           :limit => 50
     t.integer  "fk_PersonID"
-    t.string   "email2",               :limit => 200
+    t.string   "email2",              :limit => 200
     t.datetime "start_date"
     t.datetime "end_date"
     t.string   "facebook_link"
@@ -3318,57 +1737,16 @@ ActiveRecord::Schema.define(:version => 20120822154432) do
     t.string   "title"
     t.string   "dorm"
     t.string   "room"
-    t.string   "preferredPhone",       :limit => 25
-    t.string   "phone1_type",                         :default => "cell"
-    t.string   "phone2_type",                         :default => "home"
-    t.string   "phone3_type",                         :default => "work"
+    t.string   "preferredPhone",      :limit => 25
+    t.string   "phone1_type",                        :default => "cell"
+    t.string   "phone2_type",                        :default => "home"
+    t.string   "phone3_type",                        :default => "work"
   end
 
   add_index "ministry_newaddress", ["addressType", "fk_PersonID"], :name => "unique_person_addressType", :unique => true
   add_index "ministry_newaddress", ["addressType"], :name => "index_ministry_newAddress_on_addressType"
   add_index "ministry_newaddress", ["email"], :name => "email"
-  add_index "ministry_newaddress", ["fk_PersonID"], :name => "FKAB431D54B5C286E8"
   add_index "ministry_newaddress", ["fk_PersonID"], :name => "fk_PersonID"
-
-  create_table "ministry_newaddress_restore", :primary_key => "addressID", :force => true do |t|
-    t.string   "deprecated_startDate", :limit => 25
-    t.string   "deprecated_endDate",   :limit => 25
-    t.string   "address1",             :limit => 55
-    t.string   "address2",             :limit => 55
-    t.string   "address3",             :limit => 55
-    t.string   "address4",             :limit => 55
-    t.string   "city",                 :limit => 50
-    t.string   "state",                :limit => 50
-    t.string   "zip",                  :limit => 15
-    t.string   "country",              :limit => 64
-    t.string   "homePhone",            :limit => 25
-    t.string   "workPhone",            :limit => 25
-    t.string   "cellPhone",            :limit => 25
-    t.string   "fax",                  :limit => 25
-    t.string   "email",                :limit => 200
-    t.string   "url",                  :limit => 100
-    t.string   "contactName",          :limit => 50
-    t.string   "contactRelationship",  :limit => 50
-    t.string   "addressType"
-    t.datetime "dateCreated"
-    t.datetime "dateChanged"
-    t.string   "createdBy",            :limit => 50
-    t.string   "changedBy",            :limit => 50
-    t.string   "fk_PersonID"
-    t.string   "email2",               :limit => 200
-    t.datetime "start_date"
-    t.datetime "end_date"
-    t.string   "facebook_link"
-    t.string   "myspace_link"
-    t.string   "title"
-    t.string   "dorm"
-    t.string   "room"
-  end
-
-  add_index "ministry_newaddress_restore", ["addressType", "fk_PersonID"], :name => "unique_person_addressType", :unique => true
-  add_index "ministry_newaddress_restore", ["addressType"], :name => "index_ministry_newaddress_restore_on_addressType"
-  add_index "ministry_newaddress_restore", ["email"], :name => "email"
-  add_index "ministry_newaddress_restore", ["fk_PersonID"], :name => "fk_PersonID"
 
   create_table "ministry_noncccmin", :primary_key => "NonCccMinID", :force => true do |t|
     t.string "ministry",    :limit => 50
@@ -3435,9 +1813,9 @@ ActiveRecord::Schema.define(:version => 20120822154432) do
     t.integer  "fk_StaffSiteProfileID"
     t.integer  "fk_spouseID"
     t.integer  "fk_childOf"
-    t.datetime "birth_date"
-    t.datetime "date_became_christian"
-    t.datetime "graduation_date"
+    t.date     "birth_date"
+    t.date     "date_became_christian"
+    t.date     "graduation_date"
     t.string   "level_of_school"
     t.string   "staff_notes"
     t.string   "donor_number",                  :limit => 11
@@ -3447,66 +1825,22 @@ ActiveRecord::Schema.define(:version => 20120822154432) do
     t.integer  "mentor_id"
     t.string   "lastAttended",                  :limit => 20
     t.string   "ministry"
+    t.string   "strategy",                      :limit => 20
+    t.integer  "fb_uid",                        :limit => 8
+    t.datetime "date_attributes_updated"
     t.decimal  "balance_daily",                                       :precision => 10, :scale => 2
+    t.text     "organization_tree_cache"
+    t.text     "org_ids_cache"
   end
 
   add_index "ministry_person", ["accountNo"], :name => "accountNo_ministry_Person"
   add_index "ministry_person", ["campus"], :name => "campus"
-  add_index "ministry_person", ["firstName"], :name => "firstname_ministry_Person"
+  add_index "ministry_person", ["fb_uid"], :name => "index_ministry_person_on_fb_uid"
+  add_index "ministry_person", ["firstName", "lastName"], :name => "firstName_lastName"
   add_index "ministry_person", ["fk_ssmUserId"], :name => "fk_ssmUserId"
   add_index "ministry_person", ["lastName"], :name => "lastname_ministry_Person"
+  add_index "ministry_person", ["org_ids_cache"], :name => "index_ministry_person_on_org_ids_cache", :length => {"org_ids_cache"=>255}
   add_index "ministry_person", ["region"], :name => "region_ministry_Person"
-
-  create_table "ministry_person_aug1", :primary_key => "personID", :force => true do |t|
-    t.string   "accountNo",                      :limit => 11
-    t.string   "lastName",                       :limit => 50
-    t.string   "firstName",                      :limit => 50
-    t.string   "middleName",                     :limit => 50
-    t.string   "preferredName",                  :limit => 50
-    t.string   "gender",                         :limit => 1
-    t.string   "deprecated_birthDate",           :limit => 25
-    t.string   "deprecated_dateBecameChristian", :limit => 35
-    t.string   "region",                         :limit => 5
-    t.boolean  "workInUS",                                             :default => true,  :null => false
-    t.boolean  "usCitizen",                                            :default => true,  :null => false
-    t.string   "citizenship",                    :limit => 50
-    t.boolean  "isStaff",                                              :default => false, :null => false
-    t.string   "title",                          :limit => 5
-    t.string   "campus",                         :limit => 128
-    t.string   "universityState",                :limit => 5
-    t.string   "yearInSchool",                   :limit => 20
-    t.string   "deprecated_graduationDate",      :limit => 25
-    t.string   "major",                          :limit => 70
-    t.string   "minor",                          :limit => 70
-    t.string   "greekAffiliation",               :limit => 50
-    t.string   "maritalStatus",                  :limit => 20
-    t.string   "numberChildren",                 :limit => 2
-    t.boolean  "isChild",                                              :default => false, :null => false
-    t.text     "bio",                            :limit => 2147483647
-    t.string   "image",                          :limit => 100
-    t.string   "occupation",                     :limit => 50
-    t.string   "blogfeed",                       :limit => 200
-    t.datetime "cruCommonsInvite"
-    t.datetime "cruCommonsLastLogin"
-    t.datetime "dateCreated"
-    t.datetime "dateChanged"
-    t.string   "createdBy",                      :limit => 50
-    t.string   "changedBy",                      :limit => 50
-    t.integer  "fk_ssmUserId"
-    t.integer  "fk_StaffSiteProfileID"
-    t.integer  "fk_spouseID"
-    t.integer  "fk_childOf"
-    t.datetime "birth_date"
-    t.datetime "date_became_christian"
-    t.datetime "graduation_date"
-  end
-
-  add_index "ministry_person_aug1", ["accountNo"], :name => "accountNo_ministry_Person"
-  add_index "ministry_person_aug1", ["campus"], :name => "campus"
-  add_index "ministry_person_aug1", ["firstName"], :name => "firstname_ministry_Person"
-  add_index "ministry_person_aug1", ["fk_ssmUserId"], :name => "fk_ssmUserId"
-  add_index "ministry_person_aug1", ["lastName"], :name => "lastname_ministry_Person"
-  add_index "ministry_person_aug1", ["region"], :name => "region_ministry_Person"
 
   create_table "ministry_regionalstat", :primary_key => "RegionalStatID", :force => true do |t|
     t.datetime "periodBegin"
@@ -3552,88 +1886,98 @@ ActiveRecord::Schema.define(:version => 20120822154432) do
   end
 
   create_table "ministry_staff", :force => true do |t|
-    t.string   "accountNo",                :limit => 15,                    :null => false
-    t.string   "firstName",                :limit => 30
-    t.string   "middleInitial",            :limit => 1
-    t.string   "lastName",                 :limit => 30
-    t.string   "isMale",                   :limit => 1
-    t.string   "position",                 :limit => 30
-    t.string   "countryStatus",            :limit => 10
-    t.string   "jobStatus",                :limit => 60
-    t.string   "ministry",                 :limit => 35
-    t.string   "strategy",                 :limit => 20
-    t.string   "isNewStaff",               :limit => 1
-    t.string   "primaryEmpLocState",       :limit => 6
-    t.string   "primaryEmpLocCountry",     :limit => 64
-    t.string   "primaryEmpLocCity",        :limit => 35
-    t.string   "primaryEmpLocDesc",        :limit => 128
-    t.string   "spouseFirstName",          :limit => 22
-    t.string   "spouseMiddleName",         :limit => 15
-    t.string   "spouseLastName",           :limit => 30
-    t.string   "spouseAccountNo",          :limit => 11
-    t.string   "spouseEmail",              :limit => 50
-    t.string   "fianceeFirstName",         :limit => 15
-    t.string   "fianceeMiddleName",        :limit => 15
-    t.string   "fianceeLastName",          :limit => 30
-    t.string   "fianceeAccountno",         :limit => 11
-    t.string   "isFianceeStaff",           :limit => 1
-    t.datetime "fianceeJoinStaffDate"
-    t.string   "isFianceeJoiningNS",       :limit => 1
-    t.string   "joiningNS",                :limit => 1
-    t.string   "homePhone",                :limit => 24
-    t.string   "workPhone",                :limit => 24
-    t.string   "mobilePhone",              :limit => 24
-    t.string   "pager",                    :limit => 24
-    t.string   "email",                    :limit => 50
-    t.string   "isEmailSecure",            :limit => 1
-    t.string   "url"
-    t.datetime "newStaffTrainingdate"
-    t.string   "fax",                      :limit => 24
-    t.string   "note",                     :limit => 2048
-    t.string   "region",                   :limit => 10
-    t.string   "countryCode",              :limit => 3
-    t.string   "ssn",                      :limit => 9
-    t.string   "maritalStatus",            :limit => 1
-    t.string   "deptId",                   :limit => 10
-    t.string   "jobCode",                  :limit => 6
-    t.string   "accountCode",              :limit => 25
-    t.string   "compFreq",                 :limit => 1
-    t.string   "compRate",                 :limit => 20
-    t.string   "compChngAmt",              :limit => 21
-    t.string   "jobTitle",                 :limit => 80
-    t.string   "deptName",                 :limit => 30
-    t.string   "coupleTitle",              :limit => 12
-    t.string   "otherPhone",               :limit => 24
-    t.string   "preferredName",            :limit => 50
-    t.string   "namePrefix",               :limit => 4
-    t.datetime "origHiredate"
-    t.datetime "birthDate"
-    t.datetime "marriageDate"
-    t.datetime "hireDate"
-    t.datetime "rehireDate"
-    t.datetime "loaStartDate"
-    t.datetime "loaEndDate"
-    t.string   "loaReason",                :limit => 80
-    t.integer  "severancePayMonthsReq"
-    t.datetime "serviceDate"
-    t.datetime "lastIncDate"
-    t.datetime "jobEntryDate"
-    t.datetime "deptEntryDate"
-    t.datetime "reportingDate"
-    t.string   "employmentType",           :limit => 20
-    t.string   "resignationReason",        :limit => 80
-    t.datetime "resignationDate"
-    t.string   "contributionsToOtherAcct", :limit => 1
-    t.string   "contributionsToAcntName",  :limit => 80
-    t.string   "contributionsToAcntNo",    :limit => 11
-    t.integer  "fk_primaryAddress"
-    t.integer  "fk_secondaryAddress"
-    t.integer  "fk_teamID"
-    t.string   "isSecure",                 :limit => 1
-    t.string   "isSupported",              :limit => 1
-    t.string   "removedFromPeopleSoft",    :limit => 1,    :default => "N"
-    t.string   "isNonUSStaff",             :limit => 1
-    t.integer  "person_id"
+    t.string  "accountNo",                :limit => 15,                                                  :null => false
+    t.string  "firstName",                :limit => 30
+    t.string  "middleInitial",            :limit => 1
+    t.string  "lastName",                 :limit => 30
+    t.string  "isMale",                   :limit => 1
+    t.string  "position",                 :limit => 30
+    t.string  "countryStatus",            :limit => 10
+    t.string  "jobStatus",                :limit => 60
+    t.string  "ministry",                 :limit => 35
+    t.string  "strategy",                 :limit => 20
+    t.string  "isNewStaff",               :limit => 1
+    t.string  "primaryEmpLocState",       :limit => 6
+    t.string  "primaryEmpLocCountry",     :limit => 64
+    t.string  "primaryEmpLocCity",        :limit => 35
+    t.string  "primaryEmpLocDesc",        :limit => 128
+    t.string  "spouseFirstName",          :limit => 22
+    t.string  "spouseMiddleName",         :limit => 15
+    t.string  "spouseLastName",           :limit => 30
+    t.string  "spouseAccountNo",          :limit => 11
+    t.string  "spouseEmail",              :limit => 50
+    t.string  "fianceeFirstName",         :limit => 15
+    t.string  "fianceeMiddleName",        :limit => 15
+    t.string  "fianceeLastName",          :limit => 30
+    t.string  "fianceeAccountno",         :limit => 11
+    t.string  "isFianceeStaff",           :limit => 1
+    t.date    "fianceeJoinStaffDate"
+    t.string  "isFianceeJoiningNS",       :limit => 1
+    t.string  "joiningNS",                :limit => 1
+    t.string  "homePhone",                :limit => 24
+    t.string  "workPhone",                :limit => 24
+    t.string  "mobilePhone",              :limit => 24
+    t.string  "pager",                    :limit => 24
+    t.string  "email",                    :limit => 50
+    t.string  "isEmailSecure",            :limit => 1
+    t.string  "url"
+    t.date    "newStaffTrainingdate"
+    t.string  "fax",                      :limit => 24
+    t.string  "note",                     :limit => 2048
+    t.string  "region",                   :limit => 10
+    t.string  "countryCode",              :limit => 3
+    t.string  "ssn",                      :limit => 9
+    t.string  "maritalStatus",            :limit => 1
+    t.string  "deptId",                   :limit => 10
+    t.string  "jobCode",                  :limit => 6
+    t.string  "accountCode",              :limit => 25
+    t.string  "compFreq",                 :limit => 1
+    t.decimal "compRate",                                 :precision => 9, :scale => 2
+    t.string  "compChngAmt",              :limit => 21
+    t.string  "jobTitle",                 :limit => 80
+    t.string  "deptName",                 :limit => 30
+    t.string  "coupleTitle",              :limit => 12
+    t.string  "otherPhone",               :limit => 24
+    t.string  "preferredName",            :limit => 50
+    t.string  "namePrefix",               :limit => 4
+    t.date    "origHiredate"
+    t.date    "birthDate"
+    t.date    "marriageDate"
+    t.date    "hireDate"
+    t.date    "rehireDate"
+    t.date    "loaStartDate"
+    t.date    "loaEndDate"
+    t.string  "loaReason",                :limit => 80
+    t.integer "severancePayMonthsReq"
+    t.date    "serviceDate"
+    t.date    "lastIncDate"
+    t.date    "jobEntryDate"
+    t.date    "deptEntryDate"
+    t.date    "reportingDate"
+    t.string  "employmentType",           :limit => 20
+    t.string  "resignationReason",        :limit => 80
+    t.date    "resignationDate"
+    t.string  "contributionsToOtherAcct", :limit => 1
+    t.string  "contributionsToAcntName",  :limit => 80
+    t.string  "contributionsToAcntNo",    :limit => 11
+    t.integer "fk_primaryAddress"
+    t.integer "fk_secondaryAddress"
+    t.integer "fk_teamID"
+    t.string  "isSecure",                 :limit => 1
+    t.string  "isSupported",              :limit => 1
+    t.string  "removedFromPeopleSoft",    :limit => 1,                                  :default => "N"
+    t.string  "isNonUSStaff",             :limit => 1
+    t.integer "person_id"
+    t.string  "middleName",               :limit => 30
+    t.string  "paygroup",                 :limit => 3
+    t.string  "idType",                   :limit => 2
+    t.string  "statusDescr",              :limit => 30
+    t.string  "internationalStatus",      :limit => 3
+    t.decimal "balance",                                  :precision => 9, :scale => 2
+    t.string  "cccHrSendingDept",         :limit => 10
+    t.string  "cccHrCaringDept",          :limit => 10
+    t.string  "cccCaringMinistry",        :limit => 10
+    t.string  "assignmentLength",         :limit => 4
   end
 
   add_index "ministry_staff", ["accountNo"], :name => "accountNo", :unique => true
@@ -3684,6 +2028,7 @@ ActiveRecord::Schema.define(:version => 20120822154432) do
     t.integer  "holySpiritConversations"
     t.integer  "dollars_raised"
     t.integer  "sp_year"
+    t.datetime "created_at"
   end
 
   add_index "ministry_statistic", ["fk_Activity"], :name => "index1"
@@ -3749,6 +2094,8 @@ ActiveRecord::Schema.define(:version => 20120822154432) do
     t.string   "type",                   :limit => 20
     t.string   "county"
     t.boolean  "ongoing_special_event",                 :default => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "ministry_targetarea", ["country"], :name => "index4"
@@ -3759,236 +2106,88 @@ ActiveRecord::Schema.define(:version => 20120822154432) do
   add_index "ministry_targetarea", ["region"], :name => "index6"
   add_index "ministry_targetarea", ["state"], :name => "index3"
 
-  create_table "ministry_targetarea_2009", :primary_key => "targetAreaID", :force => true do |t|
-    t.string   "name",                   :limit => 100
-    t.string   "address1",               :limit => 35
-    t.string   "address2",               :limit => 35
-    t.string   "city",                   :limit => 30
-    t.string   "state",                  :limit => 32
-    t.string   "zip",                    :limit => 10
-    t.string   "country",                :limit => 64
-    t.string   "phone",                  :limit => 24
-    t.string   "fax",                    :limit => 24
-    t.string   "email",                  :limit => 50
-    t.string   "url"
-    t.string   "abbrv",                  :limit => 32
-    t.string   "fice",                   :limit => 32
-    t.string   "mainCampusFice",         :limit => 32
-    t.string   "isNoFiceOK",             :limit => 1
-    t.string   "note"
-    t.string   "altName",                :limit => 100
-    t.string   "isSecure",               :limit => 1
-    t.string   "isClosed",               :limit => 1
-    t.string   "region",                 :limit => 2
-    t.string   "mpta",                   :limit => 30
-    t.string   "urlToLogo"
-    t.string   "enrollment",             :limit => 10
-    t.string   "monthSchoolStarts",      :limit => 10
-    t.string   "monthSchoolStops",       :limit => 10
-    t.string   "isSemester",             :limit => 1
-    t.string   "isApproved",             :limit => 1
-    t.string   "aoaPriority",            :limit => 10
-    t.string   "aoa",                    :limit => 100
-    t.string   "ciaUrl"
-    t.string   "infoUrl"
-    t.string   "calendar",               :limit => 50
-    t.string   "program1",               :limit => 50
-    t.string   "program2",               :limit => 50
-    t.string   "program3",               :limit => 50
-    t.string   "program4",               :limit => 50
-    t.string   "program5",               :limit => 50
-    t.string   "emphasis",               :limit => 50
-    t.string   "sex",                    :limit => 50
-    t.string   "institutionType",        :limit => 50
-    t.string   "highestOffering",        :limit => 65
-    t.string   "affiliation",            :limit => 50
-    t.string   "carnegieClassification", :limit => 100
-    t.string   "irsStatus",              :limit => 50
-    t.integer  "establishedDate"
-    t.integer  "tuition"
-    t.datetime "modified"
-    t.string   "eventType",              :limit => 2
-    t.integer  "eventKeyID"
-    t.string   "type",                   :limit => 20
-    t.string   "county"
-  end
-
-  add_index "ministry_targetarea_2009", ["country"], :name => "index4"
-  add_index "ministry_targetarea_2009", ["isApproved"], :name => "index2"
-  add_index "ministry_targetarea_2009", ["isClosed"], :name => "index7"
-  add_index "ministry_targetarea_2009", ["isSecure"], :name => "index5"
-  add_index "ministry_targetarea_2009", ["name"], :name => "index1"
-  add_index "ministry_targetarea_2009", ["region"], :name => "index6"
-  add_index "ministry_targetarea_2009", ["state"], :name => "index3"
-
-  create_table "ministry_viewactivitycontacts", :id => false, :force => true do |t|
-    t.string   "accountNo",                :limit => 11,                    :null => false
-    t.string   "firstName",                :limit => 30
-    t.string   "middleInitial",            :limit => 1
-    t.string   "lastName",                 :limit => 30
-    t.string   "isMale",                   :limit => 1
-    t.string   "position",                 :limit => 30
-    t.string   "countryStatus",            :limit => 10
-    t.string   "jobStatus",                :limit => 60
-    t.string   "ministry",                 :limit => 35
-    t.string   "strategy",                 :limit => 20
-    t.string   "isNewStaff",               :limit => 1
-    t.string   "primaryEmpLocState",       :limit => 6
-    t.string   "primaryEmpLocCountry",     :limit => 64
-    t.string   "primaryEmpLocCity",        :limit => 35
-    t.string   "spouseFirstName",          :limit => 22
-    t.string   "spouseMiddleName",         :limit => 15
-    t.string   "spouseLastName",           :limit => 30
-    t.string   "spouseAccountNo",          :limit => 11
-    t.string   "spouseEmail",              :limit => 50
-    t.string   "fianceeFirstName",         :limit => 15
-    t.string   "fianceeMiddleName",        :limit => 15
-    t.string   "fianceeLastName",          :limit => 30
-    t.string   "isFianceeStaff",           :limit => 1
-    t.datetime "fianceeJoinStaffDate"
-    t.string   "isFianceeJoiningNS",       :limit => 1
-    t.string   "joiningNS",                :limit => 1
-    t.string   "homePhone",                :limit => 24
-    t.string   "workPhone",                :limit => 24
-    t.string   "mobilePhone",              :limit => 24
-    t.string   "pager",                    :limit => 24
-    t.string   "email",                    :limit => 50
-    t.string   "isEmailSecure",            :limit => 1
-    t.string   "url"
-    t.datetime "newStaffTrainingdate"
-    t.string   "fax",                      :limit => 24
-    t.string   "note",                     :limit => 2048
-    t.string   "region",                   :limit => 10
-    t.string   "countryCode",              :limit => 3
-    t.string   "ssn",                      :limit => 9
-    t.string   "maritalStatus",            :limit => 1
-    t.string   "deptId",                   :limit => 10
-    t.string   "jobCode",                  :limit => 6
-    t.string   "accountCode",              :limit => 25
-    t.string   "compFreq",                 :limit => 1
-    t.string   "compRate",                 :limit => 20
-    t.string   "compChngAmt",              :limit => 21
-    t.string   "jobTitle",                 :limit => 80
-    t.string   "deptName",                 :limit => 30
-    t.string   "coupleTitle",              :limit => 12
-    t.string   "otherPhone",               :limit => 24
-    t.string   "preferredName",            :limit => 50
-    t.string   "namePrefix",               :limit => 4
-    t.datetime "origHiredate"
-    t.datetime "birthDate"
-    t.datetime "marriageDate"
-    t.datetime "hireDate"
-    t.datetime "rehireDate"
-    t.datetime "loaStartDate"
-    t.datetime "loaEndDate"
-    t.string   "loaReason",                :limit => 80
-    t.integer  "severancePayMonthsReq"
-    t.datetime "serviceDate"
-    t.datetime "lastIncDate"
-    t.datetime "jobEntryDate"
-    t.datetime "deptEntryDate"
-    t.datetime "reportingDate"
-    t.string   "employmentType",           :limit => 20
-    t.string   "resignationReason",        :limit => 80
-    t.datetime "resignationDate"
-    t.string   "contributionsToOtherAcct", :limit => 1
-    t.string   "contributionsToAcntName",  :limit => 80
-    t.string   "contributionsToAcntNo",    :limit => 11
-    t.integer  "fk_primaryAddress"
-    t.integer  "fk_secondaryAddress"
-    t.integer  "fk_teamID"
-    t.string   "isSecure",                 :limit => 1
-    t.string   "isSupported",              :limit => 1
-    t.integer  "ActivityID",                                                :null => false
-    t.string   "fianceeAccountno",         :limit => 11
-    t.string   "removedFromPeopleSoft",    :limit => 1,    :default => "N"
-    t.string   "isNonUSStaff",             :limit => 1
-    t.string   "primaryEmpLocDesc",        :limit => 128
-    t.integer  "person_id"
-  end
-
   create_table "ministry_viewdependentsstaff", :id => false, :force => true do |t|
-    t.string   "accountNo",                :limit => 11,                    :null => false
-    t.string   "firstName",                :limit => 30
-    t.string   "middleInitial",            :limit => 1
-    t.string   "lastName",                 :limit => 30
-    t.string   "isMale",                   :limit => 1
-    t.string   "position",                 :limit => 30
-    t.string   "countryStatus",            :limit => 10
-    t.string   "jobStatus",                :limit => 60
-    t.string   "ministry",                 :limit => 35
-    t.string   "strategy",                 :limit => 20
-    t.string   "isNewStaff",               :limit => 1
-    t.string   "primaryEmpLocState",       :limit => 6
-    t.string   "primaryEmpLocCountry",     :limit => 64
-    t.string   "primaryEmpLocCity",        :limit => 35
-    t.string   "spouseFirstName",          :limit => 22
-    t.string   "spouseMiddleName",         :limit => 15
-    t.string   "spouseLastName",           :limit => 30
-    t.string   "spouseAccountNo",          :limit => 11
-    t.string   "spouseEmail",              :limit => 50
-    t.string   "fianceeFirstName",         :limit => 15
-    t.string   "fianceeMiddleName",        :limit => 15
-    t.string   "fianceeLastName",          :limit => 30
-    t.string   "isFianceeStaff",           :limit => 1
-    t.datetime "fianceeJoinStaffDate"
-    t.string   "isFianceeJoiningNS",       :limit => 1
-    t.string   "joiningNS",                :limit => 1
-    t.string   "homePhone",                :limit => 24
-    t.string   "workPhone",                :limit => 24
-    t.string   "mobilePhone",              :limit => 24
-    t.string   "pager",                    :limit => 24
-    t.string   "email",                    :limit => 50
-    t.string   "isEmailSecure",            :limit => 1
-    t.string   "url"
-    t.datetime "newStaffTrainingdate"
-    t.string   "fax",                      :limit => 24
-    t.string   "note",                     :limit => 2048
-    t.string   "region",                   :limit => 10
-    t.string   "countryCode",              :limit => 3
-    t.string   "ssn",                      :limit => 9
-    t.string   "maritalStatus",            :limit => 1
-    t.string   "deptId",                   :limit => 10
-    t.string   "jobCode",                  :limit => 6
-    t.string   "accountCode",              :limit => 25
-    t.string   "compFreq",                 :limit => 1
-    t.string   "compRate",                 :limit => 20
-    t.string   "compChngAmt",              :limit => 21
-    t.string   "jobTitle",                 :limit => 80
-    t.string   "deptName",                 :limit => 30
-    t.string   "coupleTitle",              :limit => 12
-    t.string   "otherPhone",               :limit => 24
-    t.string   "preferredName",            :limit => 50
-    t.string   "namePrefix",               :limit => 4
-    t.datetime "origHiredate"
-    t.datetime "birthDate"
-    t.datetime "marriageDate"
-    t.datetime "hireDate"
-    t.datetime "rehireDate"
-    t.datetime "loaStartDate"
-    t.datetime "loaEndDate"
-    t.string   "loaReason",                :limit => 80
-    t.integer  "severancePayMonthsReq"
-    t.datetime "serviceDate"
-    t.datetime "lastIncDate"
-    t.datetime "jobEntryDate"
-    t.datetime "deptEntryDate"
-    t.datetime "reportingDate"
-    t.string   "employmentType",           :limit => 20
-    t.string   "resignationReason",        :limit => 80
-    t.datetime "resignationDate"
-    t.string   "contributionsToOtherAcct", :limit => 1
-    t.string   "contributionsToAcntName",  :limit => 80
-    t.string   "contributionsToAcntNo",    :limit => 11
-    t.integer  "fk_primaryAddress"
-    t.integer  "fk_secondaryAddress"
-    t.integer  "fk_teamID"
-    t.string   "isSecure",                 :limit => 1
-    t.string   "isSupported",              :limit => 1
-    t.integer  "DependentID",                                               :null => false
-    t.string   "fianceeAccountno",         :limit => 11
-    t.string   "removedFromPeopleSoft",    :limit => 1,    :default => "N"
-    t.string   "primaryEmpLocDesc",        :limit => 128
+    t.string  "accountNo",                :limit => 15,                                                  :null => false
+    t.string  "firstName",                :limit => 30
+    t.string  "middleInitial",            :limit => 1
+    t.string  "lastName",                 :limit => 30
+    t.string  "isMale",                   :limit => 1
+    t.string  "position",                 :limit => 30
+    t.string  "countryStatus",            :limit => 10
+    t.string  "jobStatus",                :limit => 60
+    t.string  "ministry",                 :limit => 35
+    t.string  "strategy",                 :limit => 20
+    t.string  "isNewStaff",               :limit => 1
+    t.string  "primaryEmpLocState",       :limit => 6
+    t.string  "primaryEmpLocCountry",     :limit => 64
+    t.string  "primaryEmpLocCity",        :limit => 35
+    t.string  "spouseFirstName",          :limit => 22
+    t.string  "spouseMiddleName",         :limit => 15
+    t.string  "spouseLastName",           :limit => 30
+    t.string  "spouseAccountNo",          :limit => 11
+    t.string  "spouseEmail",              :limit => 50
+    t.string  "fianceeFirstName",         :limit => 15
+    t.string  "fianceeMiddleName",        :limit => 15
+    t.string  "fianceeLastName",          :limit => 30
+    t.string  "isFianceeStaff",           :limit => 1
+    t.date    "fianceeJoinStaffDate"
+    t.string  "isFianceeJoiningNS",       :limit => 1
+    t.string  "joiningNS",                :limit => 1
+    t.string  "homePhone",                :limit => 24
+    t.string  "workPhone",                :limit => 24
+    t.string  "mobilePhone",              :limit => 24
+    t.string  "pager",                    :limit => 24
+    t.string  "email",                    :limit => 50
+    t.string  "isEmailSecure",            :limit => 1
+    t.string  "url"
+    t.date    "newStaffTrainingdate"
+    t.string  "fax",                      :limit => 24
+    t.string  "note",                     :limit => 2048
+    t.string  "region",                   :limit => 10
+    t.string  "countryCode",              :limit => 3
+    t.string  "ssn",                      :limit => 9
+    t.string  "maritalStatus",            :limit => 1
+    t.string  "deptId",                   :limit => 10
+    t.string  "jobCode",                  :limit => 6
+    t.string  "accountCode",              :limit => 25
+    t.string  "compFreq",                 :limit => 1
+    t.decimal "compRate",                                 :precision => 9, :scale => 2
+    t.string  "compChngAmt",              :limit => 21
+    t.string  "jobTitle",                 :limit => 80
+    t.string  "deptName",                 :limit => 30
+    t.string  "coupleTitle",              :limit => 12
+    t.string  "otherPhone",               :limit => 24
+    t.string  "preferredName",            :limit => 50
+    t.string  "namePrefix",               :limit => 4
+    t.date    "origHiredate"
+    t.date    "birthDate"
+    t.date    "marriageDate"
+    t.date    "hireDate"
+    t.date    "rehireDate"
+    t.date    "loaStartDate"
+    t.date    "loaEndDate"
+    t.string  "loaReason",                :limit => 80
+    t.integer "severancePayMonthsReq"
+    t.date    "serviceDate"
+    t.date    "lastIncDate"
+    t.date    "jobEntryDate"
+    t.date    "deptEntryDate"
+    t.date    "reportingDate"
+    t.string  "employmentType",           :limit => 20
+    t.string  "resignationReason",        :limit => 80
+    t.date    "resignationDate"
+    t.string  "contributionsToOtherAcct", :limit => 1
+    t.string  "contributionsToAcntName",  :limit => 80
+    t.string  "contributionsToAcntNo",    :limit => 11
+    t.integer "fk_primaryAddress"
+    t.integer "fk_secondaryAddress"
+    t.integer "fk_teamID"
+    t.string  "isSecure",                 :limit => 1
+    t.string  "isSupported",              :limit => 1
+    t.integer "DependentID",                                                                             :null => false
+    t.string  "fianceeAccountno",         :limit => 11
+    t.string  "removedFromPeopleSoft",    :limit => 1,                                  :default => "N"
+    t.string  "primaryEmpLocDesc",        :limit => 128
   end
 
   create_table "ministry_viewnoncccmintargetarea", :id => false, :force => true do |t|
@@ -4007,7 +2206,7 @@ ActiveRecord::Schema.define(:version => 20120822154432) do
     t.string  "url"
     t.string  "abbrv",             :limit => 32
     t.string  "fice",              :limit => 32
-    t.string  "note"
+    t.text    "note"
     t.string  "altName",           :limit => 100
     t.string  "isSecure",          :limit => 1
     t.string  "isClosed",          :limit => 1
@@ -4074,11 +2273,21 @@ ActiveRecord::Schema.define(:version => 20120822154432) do
     t.integer  "mpd_contact_id"
     t.integer  "event_id"
     t.float    "gift_amount"
-    t.boolean  "letter_sent",    :default => false
-    t.boolean  "call_made",      :default => false
-    t.boolean  "thankyou_sent",  :default => false
+    t.boolean  "letter_sent",          :default => false
+    t.boolean  "contacted",            :default => false
+    t.boolean  "thankyou_sent",        :default => false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "is_selected_letter"
+    t.boolean  "is_selected_call"
+    t.boolean  "is_selected_thankyou"
+    t.boolean  "postproject_sent",     :default => false
+    t.boolean  "partner_financial",    :default => false
+    t.boolean  "partner_prayer",       :default => false
+    t.boolean  "gift_pledged",         :default => false
+    t.boolean  "gift_received",        :default => false
+    t.string   "date_received"
+    t.string   "form_received",        :default => "Not Received"
   end
 
   add_index "mpd_contact_actions", ["event_id"], :name => "event_id"
@@ -4089,17 +2298,19 @@ ActiveRecord::Schema.define(:version => 20120822154432) do
     t.integer  "mpd_user_id"
     t.integer  "mpd_priority_id"
     t.string   "full_name",                     :default => "", :null => false
-    t.string   "address_1"
+    t.string   "address_1",                     :default => ""
     t.string   "address_2"
-    t.string   "city"
-    t.string   "state"
-    t.string   "zip",             :limit => 10
-    t.string   "phone",           :limit => 15
-    t.string   "email_address"
+    t.string   "city",                          :default => ""
+    t.string   "state",                         :default => ""
+    t.string   "zip",             :limit => 10, :default => ""
+    t.string   "phone",           :limit => 15, :default => ""
+    t.string   "email_address",                 :default => ""
     t.text     "notes"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "salutation"
+    t.string   "phone_2",         :limit => 25, :default => ""
+    t.string   "relationship",                  :default => ""
   end
 
   add_index "mpd_contacts", ["mpd_priority_id"], :name => "mpd_contacts_mpd_priority_id_index"
@@ -4113,6 +2324,7 @@ ActiveRecord::Schema.define(:version => 20120822154432) do
     t.integer  "project_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "current_letter"
   end
 
   add_index "mpd_events", ["mpd_user_id"], :name => "mpd_user_id"
@@ -4135,15 +2347,19 @@ ActiveRecord::Schema.define(:version => 20120822154432) do
   add_index "mpd_expenses", ["mpd_user_id"], :name => "mpd_expenses_mpd_user_id_index"
 
   create_table "mpd_letter_images", :force => true do |t|
-    t.integer "mpd_letter_id"
-    t.string  "image"
-    t.integer "parent_id"
-    t.string  "content_type"
-    t.string  "filename"
-    t.string  "thumbnail"
-    t.integer "size"
-    t.integer "width"
-    t.integer "height"
+    t.integer  "mpd_letter_id"
+    t.string   "image"
+    t.integer  "parent_id"
+    t.string   "content_type"
+    t.string   "filename"
+    t.string   "thumbnail"
+    t.integer  "size"
+    t.integer  "width"
+    t.integer  "height"
+    t.string   "photo_file_name"
+    t.string   "photo_content_type"
+    t.integer  "photo_file_size"
+    t.datetime "photo_updated_at"
   end
 
   add_index "mpd_letter_images", ["mpd_letter_id"], :name => "mpd_letter_id"
@@ -4167,9 +2383,13 @@ ActiveRecord::Schema.define(:version => 20120822154432) do
     t.text    "involve_section"
     t.text    "acknowledge_section"
     t.string  "closing",                :default => "Thank you,"
+    t.string  "printed_name"
+    t.integer "mpd_user_id"
+    t.string  "name"
   end
 
   add_index "mpd_letters", ["mpd_letter_template_id"], :name => "mpd_letters_mpd_letter_template_id_index"
+  add_index "mpd_letters", ["mpd_user_id"], :name => "mpd_letters_mpd_user_id_index"
 
   create_table "mpd_priorities", :force => true do |t|
     t.integer  "mpd_user_id",                 :default => 0,  :null => false
@@ -4194,19 +2414,8 @@ ActiveRecord::Schema.define(:version => 20120822154432) do
   add_index "mpd_roles_users", ["role_id"], :name => "role_id"
   add_index "mpd_roles_users", ["user_id"], :name => "user_id"
 
-  create_table "mpd_sessions", :force => true do |t|
-    t.string   "session_id", :null => false
-    t.text     "data"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "mpd_sessions", ["session_id"], :name => "index_mpd_sessions_on_session_id"
-  add_index "mpd_sessions", ["updated_at"], :name => "index_mpd_sessions_on_updated_at"
-
   create_table "mpd_users", :force => true do |t|
     t.integer  "user_id"
-    t.integer  "mpd_letter_id"
     t.integer  "mpd_role_id"
     t.datetime "last_login"
     t.string   "type"
@@ -4219,7 +2428,6 @@ ActiveRecord::Schema.define(:version => 20120822154432) do
   end
 
   add_index "mpd_users", ["current_event_id"], :name => "current_event_id"
-  add_index "mpd_users", ["mpd_letter_id"], :name => "mpd_users_mpd_letter_id_index"
   add_index "mpd_users", ["mpd_role_id"], :name => "mpd_users_mpd_role_id_index"
   add_index "mpd_users", ["user_id"], :name => "mpd_users_ssm_id_index"
 
@@ -4242,6 +2450,45 @@ ActiveRecord::Schema.define(:version => 20120822154432) do
     t.text   "usersubject"
     t.string "period"
   end
+
+  create_table "oauth_access_grants", :force => true do |t|
+    t.integer  "resource_owner_id", :null => false
+    t.integer  "application_id",    :null => false
+    t.string   "token",             :null => false
+    t.integer  "expires_in",        :null => false
+    t.string   "redirect_uri",      :null => false
+    t.datetime "created_at",        :null => false
+    t.datetime "revoked_at"
+    t.string   "scopes"
+  end
+
+  add_index "oauth_access_grants", ["token"], :name => "index_oauth_access_grants_on_token", :unique => true
+
+  create_table "oauth_access_tokens", :force => true do |t|
+    t.integer  "resource_owner_id", :null => false
+    t.integer  "application_id",    :null => false
+    t.string   "token",             :null => false
+    t.string   "refresh_token"
+    t.integer  "expires_in"
+    t.datetime "revoked_at"
+    t.datetime "created_at",        :null => false
+    t.string   "scopes"
+  end
+
+  add_index "oauth_access_tokens", ["refresh_token"], :name => "index_oauth_access_tokens_on_refresh_token", :unique => true
+  add_index "oauth_access_tokens", ["resource_owner_id"], :name => "index_oauth_access_tokens_on_resource_owner_id"
+  add_index "oauth_access_tokens", ["token"], :name => "index_oauth_access_tokens_on_token", :unique => true
+
+  create_table "oauth_applications", :force => true do |t|
+    t.string   "name",         :null => false
+    t.string   "uid",          :null => false
+    t.string   "secret",       :null => false
+    t.string   "redirect_uri", :null => false
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
+
+  add_index "oauth_applications", ["uid"], :name => "index_oauth_applications_on_uid", :unique => true
 
   create_table "old_wsn_sp_wsnapplication", :primary_key => "WsnApplicationID", :force => true do |t|
     t.string   "oldPrimaryKey",                 :limit => 64
@@ -4490,45 +2737,234 @@ ActiveRecord::Schema.define(:version => 20120822154432) do
   add_index "old_wsn_sp_wsnapplication", ["status"], :name => "index8"
   add_index "old_wsn_sp_wsnapplication", ["wsnYear"], :name => "index9"
 
-  create_table "oncampus_orders", :force => true do |t|
+  create_table "person_accesses", :force => true do |t|
+    t.boolean  "national_access"
+    t.boolean  "regional_access"
+    t.boolean  "ics_access"
+    t.boolean  "intern_access"
+    t.boolean  "stint_access"
+    t.boolean  "mtl_access"
     t.integer  "person_id"
-    t.string   "purpose",                    :limit => 100,                          :null => false
-    t.string   "payment",                    :limit => 100,                          :null => false
-    t.boolean  "format_dvd",                                :default => true,        :null => false
-    t.boolean  "format_quicktime",                          :default => false,       :null => false
-    t.boolean  "format_flash",                              :default => false,       :null => false
-    t.string   "campus",                     :limit => 100,                          :null => false
-    t.string   "campus_state",               :limit => 50,                           :null => false
-    t.string   "commercial_movement_name",   :limit => 200,                          :null => false
-    t.string   "commercial_school_name",     :limit => 200
-    t.text     "commercial_additional_info"
-    t.boolean  "user_agreement",                            :default => false,       :null => false
-    t.string   "status",                     :limit => 20,  :default => "submitted", :null => false
-    t.datetime "created_at",                                                         :null => false
-    t.string   "commercial_website",         :limit => 300
-    t.boolean  "commercial_logo",                           :default => true
-    t.string   "color",                      :limit => 20,  :default => "#FFFFFF"
-    t.datetime "produced_at"
-    t.datetime "shipped_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
-  create_table "oncampus_uses", :force => true do |t|
-    t.integer  "order_id",                                             :null => false
-    t.string   "type",               :limit => 20,                     :null => false
-    t.string   "context",            :limit => 20,                     :null => false
-    t.string   "title",              :limit => 150,                    :null => false
-    t.datetime "date_start"
-    t.datetime "date_end"
-    t.boolean  "single_event",                      :default => false, :null => false
-    t.boolean  "commercial_frisbee",                :default => false, :null => false
-    t.boolean  "commercial_ramen",                  :default => false, :null => false
-    t.text     "description",                                          :null => false
-    t.text     "feedback",                                             :null => false
+  create_table "phone_numbers", :force => true do |t|
+    t.string   "number"
+    t.string   "extension"
+    t.integer  "person_id"
+    t.string   "location",         :default => "mobile"
+    t.boolean  "primary",          :default => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "txt_to_email"
+    t.integer  "carrier_id"
+    t.datetime "email_updated_at"
   end
+
+  add_index "phone_numbers", ["carrier_id"], :name => "index_phone_numbers_on_carrier_id"
+  add_index "phone_numbers", ["number"], :name => "index_phone_numbers_on_number"
+  add_index "phone_numbers", ["person_id", "number"], :name => "index_phone_numbers_on_person_id_and_number"
 
   create_table "plugin_schema_info", :id => false, :force => true do |t|
     t.string  "plugin_name"
     t.integer "version"
+  end
+
+  create_table "pr_admins", :force => true do |t|
+    t.integer  "person_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "pr_answer_sheet_question_sheets", :force => true do |t|
+    t.integer  "answer_sheet_id"
+    t.integer  "question_sheet_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "pr_answer_sheets", :force => true do |t|
+    t.integer  "question_sheet_id", :null => false
+    t.datetime "created_at",        :null => false
+    t.datetime "completed_at"
+  end
+
+  create_table "pr_answers", :force => true do |t|
+    t.integer  "answer_sheet_id",         :null => false
+    t.integer  "question_id",             :null => false
+    t.text     "value"
+    t.string   "short_value"
+    t.integer  "attachment_file_size"
+    t.string   "attachment_content_type"
+    t.string   "attachment_file_name"
+    t.datetime "attachment_updated_at"
+  end
+
+  add_index "pr_answers", ["answer_sheet_id"], :name => "index_pr_answers_on_answer_sheet_id"
+  add_index "pr_answers", ["question_id"], :name => "index_pr_answers_on_question_id"
+  add_index "pr_answers", ["short_value"], :name => "index_pr_answers_on_short_value"
+
+  create_table "pr_conditions", :force => true do |t|
+    t.integer "question_sheet_id", :null => false
+    t.integer "trigger_id",        :null => false
+    t.string  "expression",        :null => false
+    t.integer "toggle_page_id",    :null => false
+    t.integer "toggle_id"
+  end
+
+  create_table "pr_elements", :force => true do |t|
+    t.string   "kind",                      :limit => 40,                      :null => false
+    t.string   "style",                     :limit => 40
+    t.string   "label",                     :limit => 1000
+    t.text     "content"
+    t.boolean  "required"
+    t.string   "slug",                      :limit => 36
+    t.integer  "position"
+    t.string   "object_name"
+    t.string   "attribute_name"
+    t.string   "source"
+    t.string   "value_xpath"
+    t.string   "text_xpath"
+    t.integer  "question_grid_id"
+    t.string   "cols"
+    t.boolean  "is_confidential"
+    t.string   "total_cols"
+    t.string   "css_id"
+    t.string   "css_class"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "related_question_sheet_id"
+    t.integer  "conditional_id"
+    t.text     "tooltip"
+    t.boolean  "hide_label",                                :default => false
+    t.boolean  "hide_option_labels",                        :default => false
+    t.integer  "max_length"
+  end
+
+  add_index "pr_elements", ["position"], :name => "index_pr_elements_on_question_sheet_id_and_position_and_page_id"
+  add_index "pr_elements", ["slug"], :name => "index_pr_elements_on_slug"
+
+  create_table "pr_email_templates", :force => true do |t|
+    t.string   "name",       :limit => 1000, :null => false
+    t.text     "content"
+    t.boolean  "enabled"
+    t.string   "subject"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "pr_email_templates", ["name"], :name => "index_pr_email_templates_on_name", :length => {"name"=>255}
+
+  create_table "pr_page_elements", :force => true do |t|
+    t.integer  "page_id"
+    t.integer  "element_id"
+    t.integer  "position"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "pr_pages", :force => true do |t|
+    t.integer "question_sheet_id",                                   :null => false
+    t.string  "label",             :limit => 100,                    :null => false
+    t.integer "number"
+    t.boolean "no_cache",                         :default => false
+    t.boolean "hidden",                           :default => false
+  end
+
+  create_table "pr_personal_forms", :force => true do |t|
+    t.integer  "person_id"
+    t.integer  "question_sheet_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "pr_question_sheet_pr_infos", :force => true do |t|
+    t.integer  "question_sheet_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "form_type",         :default => "review"
+    t.integer  "summary_form_id"
+  end
+
+  create_table "pr_question_sheets", :force => true do |t|
+    t.string  "label",        :limit => 60,                    :null => false
+    t.boolean "archived",                   :default => false
+    t.boolean "fake_deleted",               :default => false
+  end
+
+  create_table "pr_references", :force => true do |t|
+    t.integer  "question_id"
+    t.integer  "applicant_answer_sheet_id"
+    t.datetime "email_sent_at"
+    t.string   "relationship"
+    t.string   "title"
+    t.string   "first_name"
+    t.string   "last_name"
+    t.string   "phone"
+    t.string   "email"
+    t.string   "status"
+    t.datetime "submitted_at"
+    t.string   "access_key"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "pr_reminders", :force => true do |t|
+    t.integer  "person_id"
+    t.string   "label"
+    t.text     "note"
+    t.date     "reminder_date"
+    t.boolean  "send_email",      :default => false
+    t.integer  "email_days_diff", :default => 0
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.datetime "email_sent_at"
+  end
+
+  create_table "pr_reviewers", :force => true do |t|
+    t.integer  "review_id"
+    t.integer  "person_id"
+    t.datetime "invitation_sent_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "access_key"
+    t.datetime "submitted_at"
+  end
+
+  create_table "pr_reviews", :force => true do |t|
+    t.integer  "subject_id"
+    t.integer  "initiator_id"
+    t.string   "status"
+    t.integer  "percent"
+    t.date     "due"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "name"
+    t.text     "purpose"
+    t.integer  "question_sheet_id"
+    t.datetime "completed_at"
+    t.integer  "show_summary_form_days", :default => 14
+    t.boolean  "fake_deleted",           :default => false
+  end
+
+  create_table "pr_sessions", :force => true do |t|
+    t.text "session_id"
+    t.text "data"
+  end
+
+  create_table "pr_summary_forms", :force => true do |t|
+    t.integer  "person_id"
+    t.integer  "review_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "pr_users", :force => true do |t|
+    t.integer  "ssm_id"
+    t.datetime "last_login"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "profile_pictures", :force => true do |t|
@@ -4559,6 +2995,17 @@ ActiveRecord::Schema.define(:version => 20120822154432) do
     t.boolean "concurrent"
   end
 
+  create_table "rejoicables", :force => true do |t|
+    t.integer  "person_id"
+    t.integer  "created_by_id"
+    t.integer  "organization_id"
+    t.integer  "followup_comment_id"
+    t.string   "what",                :limit => 0
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.datetime "deleted_at"
+  end
+
   create_table "rideshare_event", :force => true do |t|
     t.integer "conference_id"
     t.string  "event_name",    :limit => 50
@@ -4570,17 +3017,17 @@ ActiveRecord::Schema.define(:version => 20120822154432) do
     t.integer "event_id"
     t.integer "driver_ride_id"
     t.integer "person_id"
-    t.string  "address1",          :limit => 50, :null => false
-    t.string  "address2",          :limit => 50, :null => false
-    t.string  "address3",          :limit => 50, :null => false
-    t.string  "address4",          :limit => 50, :null => false
+    t.string  "address1",                        :null => false
+    t.string  "address2",                        :null => false
+    t.string  "address3",                        :null => false
+    t.string  "address4",                        :null => false
     t.string  "city",              :limit => 50, :null => false
     t.string  "state",             :limit => 50, :null => false
     t.string  "zip",               :limit => 20, :null => false
-    t.string  "country",           :limit => 50, :null => false
+    t.string  "country",           :limit => 64, :null => false
     t.float   "latitude"
     t.float   "longitude"
-    t.string  "phone",             :limit => 20, :null => false
+    t.string  "phone",             :limit => 25, :null => false
     t.string  "contact_method",    :limit => 0
     t.integer "number_passengers", :limit => 1
     t.integer "drive_willingness", :limit => 1
@@ -4602,17 +3049,19 @@ ActiveRecord::Schema.define(:version => 20120822154432) do
     t.datetime "updated_at"
   end
 
-  create_table "si_answer_sheets", :force => true do |t|
+  create_table "si_answer_sheet_question_sheets", :force => true do |t|
     t.integer  "question_sheet_id", :null => false
     t.datetime "created_at",        :null => false
     t.datetime "completed_at"
+    t.integer  "answer_sheet_id"
   end
 
-  add_index "si_answer_sheets", ["question_sheet_id"], :name => "question_sheet_id"
+  add_index "si_answer_sheet_question_sheets", ["answer_sheet_id"], :name => "index_si_answer_sheet_question_sheets_on_answer_sheet_id"
+  add_index "si_answer_sheet_question_sheets", ["question_sheet_id"], :name => "question_sheet_id"
 
   create_table "si_answers", :force => true do |t|
-    t.integer "answer_sheet_id", :null => false
-    t.integer "question_id",     :null => false
+    t.integer "answer_sheet_question_sheet_id"
+    t.integer "question_id",                    :null => false
     t.text    "value"
     t.string  "short_value"
     t.integer "size"
@@ -4622,18 +3071,22 @@ ActiveRecord::Schema.define(:version => 20120822154432) do
     t.integer "width"
     t.integer "parent_id"
     t.string  "thumbnail"
+    t.integer "answer_sheet_id",                :null => false
   end
 
-  add_index "si_answers", ["answer_sheet_id"], :name => "answer_sheet_id"
+  add_index "si_answers", ["answer_sheet_id"], :name => "index_si_answers_on_answer_sheet_id"
+  add_index "si_answers", ["answer_sheet_question_sheet_id"], :name => "answer_sheet_id"
+  add_index "si_answers", ["answer_sheet_question_sheet_id"], :name => "index_si_answers_on_answer_sheet_question_sheet_id"
   add_index "si_answers", ["question_id"], :name => "question_id"
   add_index "si_answers", ["short_value"], :name => "index_si_answers_on_short_value"
 
   create_table "si_applies", :force => true do |t|
-    t.integer  "sleeve_id",                  :null => false
+    t.integer  "sleeve_id"
     t.integer  "applicant_id",               :null => false
     t.string   "status",       :limit => 36, :null => false
     t.datetime "created_at",                 :null => false
     t.datetime "submitted_at"
+    t.datetime "updated_at"
   end
 
   add_index "si_applies", ["applicant_id"], :name => "applicant_id"
@@ -4649,24 +3102,6 @@ ActiveRecord::Schema.define(:version => 20120822154432) do
 
   add_index "si_apply_sheets", ["apply_id"], :name => "apply_id"
 
-  create_table "si_character_references", :force => true do |t|
-    t.integer  "apply_id",                                      :null => false
-    t.integer  "sleeve_sheet_id",                               :null => false
-    t.string   "name",                          :default => "", :null => false
-    t.string   "email"
-    t.string   "phone"
-    t.integer  "months_known"
-    t.string   "status",          :limit => 36,                 :null => false
-    t.string   "token",                                         :null => false
-    t.datetime "submitted_at"
-    t.datetime "created_at"
-    t.datetime "started_at"
-    t.datetime "email_sent_at"
-  end
-
-  add_index "si_character_references", ["apply_id"], :name => "apply_id"
-  add_index "si_character_references", ["token"], :name => "index_si_character_references_on_token"
-
   create_table "si_conditions", :force => true do |t|
     t.integer "question_sheet_id", :null => false
     t.integer "trigger_id",        :null => false
@@ -4678,25 +3113,37 @@ ActiveRecord::Schema.define(:version => 20120822154432) do
   add_index "si_conditions", ["trigger_id"], :name => "trigger_id"
 
   create_table "si_elements", :force => true do |t|
-    t.integer "question_sheet_id",                                  :null => false
-    t.integer "page_id",                                            :null => false
-    t.string  "kind",              :limit => 40,                    :null => false
-    t.string  "style",             :limit => 40
-    t.string  "label"
-    t.text    "content"
-    t.boolean "required"
-    t.string  "slug",              :limit => 36
-    t.integer "position",                                           :null => false
-    t.boolean "is_confidential",                 :default => false
-    t.string  "source"
-    t.string  "value_xpath"
-    t.string  "text_xpath"
-    t.string  "object_name"
-    t.string  "attribute_name"
-    t.integer "question_grid_id"
-    t.string  "cols"
+    t.integer  "question_sheet_id",                                          :null => false
+    t.integer  "page_id"
+    t.string   "kind",                      :limit => 40,                    :null => false
+    t.string   "style",                     :limit => 40
+    t.string   "label"
+    t.text     "content"
+    t.boolean  "required"
+    t.string   "slug",                      :limit => 36
+    t.integer  "position",                                                   :null => false
+    t.boolean  "is_confidential",                         :default => false
+    t.string   "source"
+    t.string   "value_xpath"
+    t.string   "text_xpath"
+    t.string   "object_name"
+    t.string   "attribute_name"
+    t.integer  "question_grid_id"
+    t.string   "cols"
+    t.string   "total_cols"
+    t.string   "css_id"
+    t.string   "css_class"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "related_question_sheet_id"
+    t.integer  "conditional_id"
+    t.text     "tooltip"
+    t.boolean  "hide_label",                              :default => false
+    t.boolean  "hide_option_labels",                      :default => false
+    t.integer  "max_length"
   end
 
+  add_index "si_elements", ["position"], :name => "index_si_elements_on_position"
   add_index "si_elements", ["question_sheet_id", "position", "page_id"], :name => "index_si_elements_on_question_sheet_id_and_position_and_page_id"
   add_index "si_elements", ["slug"], :name => "index_si_elements_on_slug"
 
@@ -4706,6 +3153,17 @@ ActiveRecord::Schema.define(:version => 20120822154432) do
     t.boolean "enabled"
     t.string  "subject"
   end
+
+  create_table "si_page_elements", :force => true do |t|
+    t.integer  "page_id"
+    t.integer  "element_id"
+    t.integer  "position"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "si_page_elements", ["element_id"], :name => "index_si_page_elements_on_element_id"
+  add_index "si_page_elements", ["page_id"], :name => "index_si_page_elements_on_page_id"
 
   create_table "si_pages", :force => true do |t|
     t.integer "question_sheet_id",                                   :null => false
@@ -4730,9 +3188,44 @@ ActiveRecord::Schema.define(:version => 20120822154432) do
 
   add_index "si_payments", ["apply_id"], :name => "apply_id"
 
-  create_table "si_question_sheets", :force => true do |t|
-    t.string "label", :limit => 60, :null => false
+  create_table "si_question_options", :force => true do |t|
+    t.integer  "question_id"
+    t.string   "option",      :limit => 50
+    t.string   "value",       :limit => 50
+    t.integer  "position"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
+
+  add_index "si_question_options", ["question_id"], :name => "index_si_question_options_on_question_id"
+
+  create_table "si_question_sheets", :force => true do |t|
+    t.string  "label",    :limit => 60,                    :null => false
+    t.boolean "archived",               :default => false
+  end
+
+  create_table "si_references", :force => true do |t|
+    t.integer  "applicant_answer_sheet_id",                               :null => false
+    t.integer  "question_id",                                             :null => false
+    t.string   "last_name",                               :default => "", :null => false
+    t.string   "email"
+    t.string   "phone"
+    t.integer  "months_known"
+    t.string   "status",                    :limit => 36,                 :null => false
+    t.string   "access_key"
+    t.datetime "submitted_at"
+    t.datetime "created_at"
+    t.datetime "started_at"
+    t.datetime "email_sent_at"
+    t.string   "relationship"
+    t.string   "title"
+    t.string   "first_name"
+    t.datetime "updated_at"
+    t.boolean  "is_staff"
+  end
+
+  add_index "si_references", ["access_key"], :name => "index_si_character_references_on_token"
+  add_index "si_references", ["applicant_answer_sheet_id"], :name => "apply_id"
 
   create_table "si_roles", :force => true do |t|
     t.string "role",       :null => false
@@ -4767,8 +3260,7 @@ ActiveRecord::Schema.define(:version => 20120822154432) do
 
   create_table "simplesecuritymanager_user", :primary_key => "userID", :force => true do |t|
     t.string   "globallyUniqueID",          :limit => 80
-    t.string   "username",                  :limit => 80,                     :null => false
-    t.string   "email_deprecated",          :limit => 64
+    t.string   "username",                  :limit => 200,                    :null => false
     t.string   "password",                  :limit => 80
     t.string   "passwordQuestion",          :limit => 200
     t.string   "passwordAnswer",            :limit => 200
@@ -4782,180 +3274,28 @@ ActiveRecord::Schema.define(:version => 20120822154432) do
     t.boolean  "developer"
     t.string   "facebook_hash"
     t.string   "facebook_username"
+    t.integer  "fb_user_id",                :limit => 8
+    t.string   "password_plain"
+    t.string   "password_reset_key"
+    t.string   "email"
+    t.string   "encrypted_password"
+    t.datetime "remember_created_at"
+    t.integer  "sign_in_count",                            :default => 0
+    t.datetime "current_sign_in_at"
+    t.string   "current_sign_in_ip"
+    t.string   "last_sign_in_ip"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.datetime "last_sign_in_at"
+    t.string   "locale"
+    t.integer  "checked_guid",              :limit => 1,   :default => 0,     :null => false
+    t.text     "settings"
   end
 
+  add_index "simplesecuritymanager_user", ["email"], :name => "index_simplesecuritymanager_user_on_email", :unique => true
+  add_index "simplesecuritymanager_user", ["fb_user_id"], :name => "index_simplesecuritymanager_user_on_fb_user_id"
   add_index "simplesecuritymanager_user", ["globallyUniqueID"], :name => "globallyUniqueID", :unique => true
   add_index "simplesecuritymanager_user", ["username"], :name => "CK_simplesecuritymanager_user_username", :unique => true
-
-  create_table "sitrack_application_all_deprecated", :primary_key => "applicationID", :force => true do |t|
-    t.string   "locationA",                               :limit => 50
-    t.string   "locationAExplanation",                    :limit => 90
-    t.string   "locationB",                               :limit => 50
-    t.string   "locationBExplanation",                    :limit => 90
-    t.string   "locationC",                               :limit => 50
-    t.string   "locationCExplanation",                    :limit => 90
-    t.string   "availableMonth",                          :limit => 2
-    t.string   "availableYear",                           :limit => 4
-    t.integer  "hasMinistryConflict"
-    t.text     "ministryConflictExplanation",             :limit => 2147483647
-    t.integer  "hasSpecificLocation"
-    t.string   "specificLocationRecruiterName",           :limit => 50
-    t.text     "teamMembers",                             :limit => 2147483647
-    t.integer  "isDating"
-    t.text     "datingLocation",                          :limit => 2147483647
-    t.integer  "hasCampusPartnership"
-    t.integer  "isDatingStint"
-    t.text     "datingStintName",                         :limit => 2147483647
-    t.string   "language1",                               :limit => 50
-    t.string   "language1YearsStudied",                   :limit => 20
-    t.integer  "language1Fluency"
-    t.string   "language2",                               :limit => 50
-    t.string   "language2YearsStudied",                   :limit => 20
-    t.integer  "language2Fluency"
-    t.text     "previousMinistryExperience",              :limit => 2147483647
-    t.text     "ministryTraining",                        :limit => 2147483647
-    t.text     "evangelismAttitude",                      :limit => 2147483647
-    t.integer  "isEvangelismTrainable"
-    t.text     "participationExplanation",                :limit => 2147483647
-    t.integer  "isFamiliarFourSpiritualLaws"
-    t.integer  "hasExperienceFourSpiritualLaws"
-    t.integer  "confidenceFourSpiritualLaws"
-    t.integer  "isFamiliarLifeAtLarge"
-    t.integer  "hasExperienceLifeAtLarge"
-    t.integer  "confidenceLifeAtLarge"
-    t.integer  "isFamiliarPersonalTestimony"
-    t.integer  "hasExperiencePersonalTestimony"
-    t.integer  "confidencePersonalTestimony"
-    t.integer  "isFamiliarExplainingGospel"
-    t.integer  "hasExperienceExplainingGospel"
-    t.integer  "confidenceExplainingGospel"
-    t.integer  "isFamiliarSharingFaith"
-    t.integer  "hasExperienceSharingFaith"
-    t.integer  "confidenceSharingFaith"
-    t.integer  "isFamiliarHolySpiritBooklet"
-    t.integer  "hasExperienceHolySpiritBooklet"
-    t.integer  "confidenceHolySpiritBooklet"
-    t.integer  "isFamiliarFollowUp"
-    t.integer  "hasExperienceFollowUp"
-    t.integer  "confidenceFollowUp"
-    t.integer  "isFamiliarHelpGrowInFaith"
-    t.integer  "hasExperienceHelpGrowInFaith"
-    t.integer  "confidenceHelpGrowInFaith"
-    t.integer  "isFamiliarTrainShareFaith"
-    t.integer  "hasExperienceTrainShareFaith"
-    t.integer  "confidenceTrainShareFaith"
-    t.integer  "isFamiliarOtherReligions"
-    t.integer  "hasExperienceOtherReligions"
-    t.integer  "confidenceOtherReligions"
-    t.text     "leadershipPositions",                     :limit => 2147483647
-    t.integer  "hasLedDiscipleshipGroup"
-    t.string   "discipleshipGroupSize",                   :limit => 50
-    t.text     "leadershipEvaluation",                    :limit => 2147483647
-    t.integer  "conversionMonth"
-    t.integer  "conversionYear"
-    t.string   "memberChurchDenomination",                :limit => 75
-    t.string   "memberChurchDuration",                    :limit => 50
-    t.string   "attendingChurchDenomination",             :limit => 50
-    t.string   "attendingChurchDuration",                 :limit => 50
-    t.text     "attendingChurchInvolvement",              :limit => 2147483647
-    t.text     "quietTimeQuantity",                       :limit => 2147483647
-    t.text     "quietTimeDescription",                    :limit => 2147483647
-    t.text     "explanationOfSalvation",                  :limit => 2147483647
-    t.text     "explanationOfSpiritFilled",               :limit => 2147483647
-    t.integer  "hasInvolvementSpeakingTongues"
-    t.text     "differenceIndwellingFilled",              :limit => 2147483647
-    t.integer  "hasCrimeConviction"
-    t.text     "crimeConvictionExplanation",              :limit => 2147483647
-    t.integer  "hasDrugUse"
-    t.integer  "isTobaccoUser"
-    t.integer  "isWillingChangeHabits"
-    t.text     "authorityResponseExplanation",            :limit => 2147483647
-    t.text     "alcoholUseFrequency",                     :limit => 2147483647
-    t.text     "alcoholUseDecision",                      :limit => 2147483647
-    t.integer  "isWillingRefrainAlcohol"
-    t.text     "unwillingRefrainAlcoholExplanation",      :limit => 2147483647
-    t.text     "drugUseExplanation",                      :limit => 2147483647
-    t.text     "tobaccoUseExplanation",                   :limit => 2147483647
-    t.integer  "isWillingAbstainTobacco"
-    t.integer  "hasRequestedPhoneCall"
-    t.string   "contactPhoneNumber",                      :limit => 50
-    t.string   "contactBestTime",                         :limit => 50
-    t.string   "contactTimeZone",                         :limit => 50
-    t.text     "sexualInvolvementExplanation",            :limit => 2147483647
-    t.integer  "hasSexualGuidelines"
-    t.text     "sexualGuidelineExplanation",              :limit => 2147483647
-    t.integer  "isCurrentlyDating"
-    t.text     "currentlyDatingLocation",                 :limit => 2147483647
-    t.integer  "hasHomosexualInvolvement"
-    t.text     "homosexualInvolvementExplanation",        :limit => 2147483647
-    t.integer  "hasRecentPornographicInvolvement"
-    t.integer  "pornographicInvolvementMonth"
-    t.integer  "pornographicInvolvementYear"
-    t.text     "pornographicInvolvementExplanation",      :limit => 2147483647
-    t.integer  "hasRecentSexualImmorality"
-    t.integer  "sexualImmoralityMonth"
-    t.integer  "sexualImmoralityYear"
-    t.text     "sexualImmoralityExplanation",             :limit => 2147483647
-    t.integer  "hasOtherDateSinceImmorality"
-    t.text     "singleImmoralityResultsExplanation",      :limit => 2147483647
-    t.text     "marriedImmoralityResultsExplanation",     :limit => 2147483647
-    t.text     "immoralityLifeChangeExplanation",         :limit => 2147483647
-    t.text     "immoralityCurrentStrugglesExplanation",   :limit => 2147483647
-    t.text     "additionalMoralComments",                 :limit => 2147483647
-    t.integer  "isAwareMustRaiseSupport"
-    t.integer  "isInDebt"
-    t.string   "debtNature1",                             :limit => 50
-    t.string   "debtTotal1",                              :limit => 50
-    t.string   "debtMonthlyPayment1",                     :limit => 50
-    t.string   "debtNature2",                             :limit => 50
-    t.string   "debtTotal2",                              :limit => 50
-    t.string   "debtMonthlyPayment2",                     :limit => 50
-    t.string   "debtNature3",                             :limit => 50
-    t.string   "debtTotal3",                              :limit => 50
-    t.string   "debtMonthlyPayment3",                     :limit => 50
-    t.integer  "hasOtherFinancialResponsibility"
-    t.text     "otherFinancialResponsibilityExplanation", :limit => 2147483647
-    t.text     "debtPaymentPlan",                         :limit => 2147483647
-    t.text     "debtPaymentTimeframe",                    :limit => 2147483647
-    t.text     "developingPartnersExplanation",           :limit => 2147483647
-    t.integer  "isWillingDevelopPartners"
-    t.text     "unwillingDevelopPartnersExplanation",     :limit => 2147483647
-    t.integer  "isCommittedDevelopPartners"
-    t.text     "uncommittedDevelopPartnersExplanation",   :limit => 2147483647
-    t.text     "personalTestimonyGrowth",                 :limit => 2147483647
-    t.text     "internshipParticipationExplanation",      :limit => 2147483647
-    t.text     "internshipObjectives",                    :limit => 2147483647
-    t.text     "currentMinistryDescription",              :limit => 2147483647
-    t.text     "personalStrengthA",                       :limit => 2147483647
-    t.text     "personalStrengthB",                       :limit => 2147483647
-    t.text     "personalStrengthC",                       :limit => 2147483647
-    t.text     "personalDevelopmentA",                    :limit => 2147483647
-    t.text     "personalDevelopmentB",                    :limit => 2147483647
-    t.text     "personalDevelopmentC",                    :limit => 2147483647
-    t.text     "personalDescriptionA",                    :limit => 2147483647
-    t.text     "personalDescriptionB",                    :limit => 2147483647
-    t.text     "personalDescriptionC",                    :limit => 2147483647
-    t.text     "familyRelationshipDescription",           :limit => 2147483647
-    t.string   "electronicSignature",                     :limit => 90
-    t.string   "ssn",                                     :limit => 50
-    t.integer  "fk_ssmUserID"
-    t.integer  "fk_personID"
-    t.boolean  "isPaid"
-    t.integer  "appFee"
-    t.datetime "dateAppLastChanged"
-    t.datetime "dateAppStarted"
-    t.datetime "dateSubmitted"
-    t.boolean  "isSubmitted"
-    t.string   "appStatus",                               :limit => 15
-    t.integer  "assignedToProject"
-    t.integer  "finalProject"
-    t.string   "siYear",                                  :limit => 50
-    t.datetime "submitDate"
-    t.string   "status",                                  :limit => 22
-    t.string   "appType",                                 :limit => 64
-  end
-
-  add_index "sitrack_application_all_deprecated", ["fk_personID"], :name => "fk_PersonID"
 
   create_table "sitrack_children", :force => true do |t|
     t.string   "name",        :limit => 50
@@ -5077,7 +3417,7 @@ ActiveRecord::Schema.define(:version => 20120822154432) do
     t.integer  "owner",                                           :null => false
     t.text     "criteria",   :limit => 2147483647,                :null => false
     t.integer  "saved",      :limit => 1,          :default => 0, :null => false
-    t.text     "options",    :limit => 2147483647
+    t.text     "options",    :limit => 16777215
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -5104,56 +3444,56 @@ ActiveRecord::Schema.define(:version => 20120822154432) do
   create_table "sitrack_tracking", :force => true do |t|
     t.integer  "application_id"
     t.integer  "person_id"
-    t.string   "status",               :limit => 20
-    t.string   "internType",           :limit => 20
-    t.string   "tenure",               :limit => 50
-    t.string   "ssn",                  :limit => 50
-    t.integer  "teamLeader",           :limit => 1
-    t.string   "caringRegion",         :limit => 50
-    t.string   "passportNo",           :limit => 20
-    t.string   "asgYear",              :limit => 9
-    t.string   "asgTeam",              :limit => 50
-    t.string   "asgCity",              :limit => 50
-    t.string   "asgState",             :limit => 50
-    t.string   "asgCountry",           :limit => 50
-    t.string   "asgContinent",         :limit => 50
-    t.string   "asgSchool",            :limit => 90
-    t.string   "spouseName",           :limit => 50
+    t.string   "status",                :limit => 20
+    t.string   "internType",            :limit => 30
+    t.string   "tenure",                :limit => 50
+    t.string   "ssn",                   :limit => 50
+    t.integer  "teamLeader",            :limit => 1
+    t.string   "caringRegion",          :limit => 50
+    t.string   "passportNo",            :limit => 20
+    t.string   "asgYear",               :limit => 9
+    t.string   "asgTeam",               :limit => 50
+    t.string   "asgCity",               :limit => 50
+    t.string   "asgState",              :limit => 50
+    t.string   "asgCountry",            :limit => 50
+    t.string   "asgContinent",          :limit => 50
+    t.string   "asgSchool",             :limit => 90
+    t.string   "spouseName",            :limit => 50
     t.datetime "departureDate"
     t.datetime "terminationDate"
-    t.text     "notes",                :limit => 2147483647
+    t.text     "notes",                 :limit => 2147483647
     t.integer  "changedByPerson"
     t.datetime "appReadyDate"
-    t.string   "evaluator",            :limit => 50
+    t.string   "evaluator",             :limit => 50
     t.datetime "evalStartDate"
     t.datetime "preADate"
     t.datetime "medPsychDate"
     t.datetime "finalADate"
-    t.text     "placementComments",    :limit => 2147483647
+    t.text     "placementComments",     :limit => 2147483647
     t.datetime "expectReturnDate"
     t.datetime "confirmReturnDate"
-    t.string   "maidenName",           :limit => 50
-    t.string   "sendLane",             :limit => 20
+    t.string   "maidenName",            :limit => 50
+    t.string   "sendLane",              :limit => 20
     t.datetime "mpdEmailSent"
-    t.text     "kickoffNotes",         :limit => 2147483647
+    t.text     "kickoffNotes",          :limit => 2147483647
     t.datetime "addFormSent"
     t.datetime "updateFormSent"
-    t.string   "fieldCoach",           :limit => 50
+    t.string   "fieldCoach",            :limit => 50
     t.datetime "medPsychSent"
-    t.integer  "needsDebtCheck",       :limit => 1
+    t.integer  "needsDebtCheck",        :limit => 1
     t.datetime "acceptanceLetter"
     t.datetime "evalDocsRec"
-    t.integer  "oneCard",              :limit => 1
+    t.integer  "oneCard",               :limit => 1
     t.datetime "playbookSent"
-    t.string   "kickoffRoomate",       :limit => 50
-    t.string   "futurePlan",           :limit => 50
+    t.string   "kickoffRoomate",        :limit => 50
+    t.string   "futurePlan",            :limit => 50
     t.datetime "mpReceived"
     t.datetime "physicalSent"
     t.datetime "physicalReceived"
-    t.string   "evalType",             :limit => 10
+    t.string   "evalType",              :limit => 10
     t.datetime "preIKWSent"
-    t.string   "debt",                 :limit => 50
-    t.text     "restint",              :limit => 2147483647
+    t.string   "debt",                  :limit => 50
+    t.text     "restint",               :limit => 2147483647
     t.datetime "evalSummary"
     t.datetime "returnDate"
     t.datetime "effectiveChange"
@@ -5163,18 +3503,19 @@ ActiveRecord::Schema.define(:version => 20120822154432) do
     t.datetime "joinStaffForm"
     t.datetime "readyDate"
     t.datetime "additionalSalaryForm"
-    t.string   "miniPref",             :limit => 50
-    t.string   "birthCity",            :limit => 50
-    t.string   "birthState",           :limit => 50
-    t.string   "ikw_location",         :limit => 100
-    t.string   "summer_preference",    :limit => 100
-    t.string   "summer_assignment",    :limit => 100
+    t.string   "miniPref",              :limit => 50
+    t.string   "birthCity",             :limit => 50
+    t.string   "birthState",            :limit => 50
+    t.string   "ikw_location",          :limit => 100
+    t.string   "summer_preference",     :limit => 100
+    t.string   "summer_assignment",     :limit => 100
     t.string   "trainer"
-    t.text     "trainer_contact",      :limit => 2147483647
+    t.text     "trainer_contact",       :limit => 16777215
     t.string   "vonage"
     t.string   "website"
     t.integer  "send_dept"
-    t.string   "regionOfOrigin",       :limit => 50
+    t.string   "regionOfOrigin",        :limit => 50
+    t.date     "background_check_date"
   end
 
   add_index "sitrack_tracking", ["application_id"], :name => "fk_applicationID"
@@ -5213,382 +3554,49 @@ ActiveRecord::Schema.define(:version => 20120822154432) do
 
   add_index "sitrack_views", ["sitrack_user_id"], :name => "uuid"
 
-  create_table "sn_campus_involvements", :force => true do |t|
-    t.integer "person_id"
-    t.integer "campus_id"
-    t.integer "ministry_id"
-    t.date    "start_date"
-    t.date    "end_date"
-    t.integer "added_by_id"
-    t.date    "graduation_date"
-    t.integer "school_year_id"
-    t.string  "major"
-    t.string  "minor"
-  end
-
-  add_index "sn_campus_involvements", ["campus_id"], :name => "index_sn_campus_involvements_on_campus_id"
-  add_index "sn_campus_involvements", ["ministry_id"], :name => "index_sn_campus_involvements_on_ministry_id"
-  add_index "sn_campus_involvements", ["person_id"], :name => "index_sn_campus_involvements_on_person_id"
-
-  create_table "sn_columns", :force => true do |t|
-    t.string   "title"
-    t.string   "update_clause"
-    t.string   "from_clause"
-    t.text     "select_clause"
-    t.string   "column_type"
-    t.string   "writeable"
-    t.string   "join_clause"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "source_model"
-    t.string   "source_column"
-    t.string   "foreign_key"
-  end
-
-  create_table "sn_correspondence_types", :force => true do |t|
-    t.string  "name"
-    t.integer "overdue_lifespan"
-    t.integer "expiry_lifespan"
-    t.string  "actions_now_task"
-    t.string  "actions_overdue_task"
-    t.string  "actions_followup_task"
-    t.text    "redirect_params"
-    t.string  "redirect_target_id_type"
-  end
-
-  create_table "sn_correspondences", :force => true do |t|
-    t.integer  "correspondence_type_id"
-    t.integer  "person_id"
-    t.string   "receipt"
-    t.string   "state"
-    t.date     "visited"
-    t.date     "completed"
-    t.date     "overdue_at"
-    t.date     "expire_at"
-    t.text     "token_params"
+  create_table "sp_answer_sheet_question_sheets", :force => true do |t|
+    t.integer  "answer_sheet_id"
+    t.integer  "question_sheet_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "sn_correspondences", ["receipt"], :name => "index_sn_correspondences_on_receipt"
+  add_index "sp_answer_sheet_question_sheets", ["answer_sheet_id"], :name => "index_sp_answer_sheet_question_sheets_on_answer_sheet_id"
+  add_index "sp_answer_sheet_question_sheets", ["question_sheet_id"], :name => "index_sp_answer_sheet_question_sheets_on_question_sheet_id"
 
-  create_table "sn_custom_attributes", :force => true do |t|
-    t.integer "ministry_id"
-    t.string  "name"
-    t.string  "value_type"
-    t.string  "description"
-    t.string  "type"
+  create_table "sp_answer_sheets", :force => true do |t|
+    t.integer  "question_sheet_id", :null => false
+    t.datetime "created_at",        :null => false
+    t.datetime "completed_at"
   end
-
-  add_index "sn_custom_attributes", ["ministry_id"], :name => "index_sn_custom_attributes_on_ministry_id"
-  add_index "sn_custom_attributes", ["type"], :name => "index_sn_custom_attributes_on_type"
-
-  create_table "sn_custom_values", :force => true do |t|
-    t.integer "person_id"
-    t.integer "custom_attribute_id"
-    t.string  "value"
-  end
-
-  add_index "sn_custom_values", ["person_id", "custom_attribute_id"], :name => "index_sn_custom_values_on_person_id_and_custom_attribute_id", :unique => true
-
-  create_table "sn_delayed_jobs", :force => true do |t|
-    t.integer  "priority",   :default => 0
-    t.integer  "attempts",   :default => 0
-    t.text     "handler"
-    t.text     "last_error"
-    t.datetime "run_at"
-    t.datetime "locked_at"
-    t.datetime "failed_at"
-    t.string   "locked_by"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "sn_dorms", :force => true do |t|
-    t.integer "campus_id"
-    t.string  "name"
-    t.date    "created_at"
-  end
-
-  add_index "sn_dorms", ["campus_id"], :name => "campus_id"
-
-  create_table "sn_email_templates", :force => true do |t|
-    t.integer  "correspondence_type_id"
-    t.string   "outcome_type"
-    t.string   "subject",                :null => false
-    t.string   "from",                   :null => false
-    t.string   "bcc"
-    t.string   "cc"
-    t.text     "body",                   :null => false
-    t.text     "template"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "sn_emails", :force => true do |t|
-    t.string   "salutation",          :default => "Hi"
-    t.string   "subject"
-    t.text     "body"
-    t.text     "people_ids"
-    t.text     "missing_address_ids"
-    t.integer  "search_id"
-    t.integer  "sender_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "sn_free_times", :force => true do |t|
-    t.integer  "start_time"
-    t.integer  "end_time"
-    t.integer  "day_of_week"
-    t.integer  "timetable_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "css_class"
-    t.decimal  "weight",       :precision => 4, :scale => 2
-  end
-
-  create_table "sn_group_involvements", :force => true do |t|
-    t.integer "person_id"
-    t.integer "group_id"
-    t.string  "level"
-    t.boolean "requested"
-  end
-
-  add_index "sn_group_involvements", ["person_id", "group_id"], :name => "person_group", :unique => true
-
-  create_table "sn_group_types", :force => true do |t|
-    t.integer  "ministry_id"
-    t.string   "group_type"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.boolean  "mentor_priority"
-    t.boolean  "public"
-    t.integer  "unsuitability_leader"
-    t.integer  "unsuitability_coleader"
-    t.integer  "unsuitability_participant"
-  end
-
-  create_table "sn_groups", :force => true do |t|
-    t.string  "name"
-    t.string  "address"
-    t.string  "address_2"
-    t.string  "city"
-    t.string  "state"
-    t.string  "zip"
-    t.string  "country"
-    t.string  "email"
-    t.string  "url"
-    t.integer "dorm_id"
-    t.integer "ministry_id"
-    t.integer "campus_id"
-    t.integer "start_time"
-    t.integer "end_time"
-    t.integer "day"
-    t.integer "group_type_id"
-    t.boolean "needs_approval"
-  end
-
-  add_index "sn_groups", ["campus_id"], :name => "index_sn_groups_on_campus_id"
-  add_index "sn_groups", ["dorm_id"], :name => "index_sn_groups_on_dorm_id"
-  add_index "sn_groups", ["ministry_id"], :name => "index_sn_groups_on_ministry_id"
-
-  create_table "sn_imports", :force => true do |t|
-    t.integer  "person_id"
-    t.integer  "parent_id"
-    t.integer  "size"
-    t.integer  "height"
-    t.integer  "width"
-    t.string   "content_type"
-    t.string   "filename"
-    t.string   "thumbnail"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "sn_ministries", :force => true do |t|
-    t.integer  "parent_id"
-    t.string   "name"
-    t.string   "address"
-    t.string   "city"
-    t.string   "state"
-    t.string   "zip"
-    t.string   "country"
-    t.string   "phone"
-    t.string   "fax"
-    t.string   "email"
-    t.string   "url"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "ministries_count"
-  end
-
-  add_index "sn_ministries", ["parent_id"], :name => "index_sn_ministries_on_parent_id"
-
-  create_table "sn_ministry_campuses", :force => true do |t|
-    t.integer  "ministry_id"
-    t.integer  "campus_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "sn_ministry_campuses", ["ministry_id", "campus_id"], :name => "ministry_campus", :unique => true
-
-  create_table "sn_ministry_involvements", :force => true do |t|
-    t.integer "person_id"
-    t.integer "ministry_id"
-    t.date    "start_date"
-    t.date    "end_date"
-    t.boolean "admin"
-    t.integer "ministry_role_id"
-    t.integer "responsible_person_id"
-  end
-
-  add_index "sn_ministry_involvements", ["ministry_id"], :name => "index_sn_ministry_involvements_on_ministry_id"
-  add_index "sn_ministry_involvements", ["person_id", "ministry_id"], :name => "person_ministry", :unique => true
-
-  create_table "sn_ministry_role_permissions", :force => true do |t|
-    t.integer "permission_id"
-    t.integer "ministry_role_id"
-    t.string  "created_at"
-  end
-
-  create_table "sn_ministry_roles", :force => true do |t|
-    t.integer  "ministry_id"
-    t.string   "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "position"
-    t.string   "description"
-    t.string   "type"
-    t.boolean  "involved"
-  end
-
-  add_index "sn_ministry_roles", ["ministry_id"], :name => "index_sn_ministry_roles_on_ministry_id"
-
-  create_table "sn_permissions", :force => true do |t|
-    t.string "description"
-    t.string "controller"
-    t.string "action"
-  end
-
-  create_table "sn_searches", :force => true do |t|
-    t.integer  "person_id"
-    t.text     "options"
-    t.text     "query"
-    t.text     "tables"
-    t.boolean  "saved"
-    t.string   "name"
-    t.string   "order"
-    t.string   "description"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "sn_sessions", :force => true do |t|
-    t.string   "session_id", :null => false
-    t.text     "data"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "sn_sessions", ["session_id"], :name => "index_sessions_on_session_id"
-  add_index "sn_sessions", ["updated_at"], :name => "index_sessions_on_updated_at"
-
-  create_table "sn_timetables", :force => true do |t|
-    t.integer  "person_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "sn_timetables", ["person_id"], :name => "person_id"
-
-  create_table "sn_training_answers", :force => true do |t|
-    t.integer  "training_question_id"
-    t.integer  "person_id"
-    t.string   "approved_by"
-    t.date     "completed_at"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "sn_training_answers", ["person_id"], :name => "index_sn_training_answers_on_person_id"
-
-  create_table "sn_training_categories", :force => true do |t|
-    t.string   "name"
-    t.integer  "position"
-    t.integer  "ministry_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "sn_training_categories", ["ministry_id"], :name => "index_sn_training_categories_on_ministry_id"
-
-  create_table "sn_training_question_activations", :force => true do |t|
-    t.integer  "ministry_id"
-    t.integer  "training_question_id"
-    t.boolean  "mandate"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "sn_training_questions", :force => true do |t|
-    t.integer  "ministry_id"
-    t.integer  "training_category_id"
-    t.string   "activity"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "sn_training_questions", ["ministry_id"], :name => "index_sn_training_questions_on_ministry_id"
-  add_index "sn_training_questions", ["training_category_id"], :name => "index_sn_training_questions_on_training_category_id"
-
-  create_table "sn_user_group_permissions", :force => true do |t|
-    t.integer "permission_id"
-    t.integer "user_group_id"
-    t.string  "created_at"
-  end
-
-  create_table "sn_user_groups", :force => true do |t|
-    t.string  "name"
-    t.date    "created_at"
-    t.integer "ministry_id"
-  end
-
-  create_table "sn_user_memberships", :force => true do |t|
-    t.integer "user_id"
-    t.integer "user_group_id"
-    t.date    "created_at"
-  end
-
-  create_table "sn_view_columns", :force => true do |t|
-    t.integer  "view_id"
-    t.integer  "column_id"
-    t.integer  "position"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "sn_view_columns", ["column_id"], :name => "index_sn_view_columns_on_column_id"
-  add_index "sn_view_columns", ["view_id", "column_id"], :name => "index_sn_view_columns_on_view_id_and_column_id"
-
-  create_table "sn_views", :force => true do |t|
-    t.string  "title",         :limit => 2000
-    t.text    "select_clause"
-    t.text    "tables_clause"
-    t.integer "ministry_id"
-    t.boolean "default_view"
-  end
-
-  add_index "sn_views", ["ministry_id"], :name => "index_sn_views_on_ministry_id"
 
   create_table "sp_answers", :force => true do |t|
-    t.integer "question_id"
-    t.integer "instance_id"
-    t.text    "answer"
+    t.integer  "answer_sheet_id",         :null => false
+    t.integer  "question_id",             :null => false
+    t.text     "value"
+    t.string   "short_value"
+    t.integer  "attachment_file_size"
+    t.string   "attachment_content_type"
+    t.string   "attachment_file_name"
+    t.datetime "attachment_updated_at"
   end
 
-  add_index "sp_answers", ["instance_id", "question_id"], :name => "question_id", :unique => true
+  add_index "sp_answers", ["answer_sheet_id"], :name => "index_sp_answers_on_answer_sheet_id"
+  add_index "sp_answers", ["question_id", "answer_sheet_id"], :name => "index_on_as_and_q"
+  add_index "sp_answers", ["question_id"], :name => "index_sp_answers_on_question_id"
+  add_index "sp_answers", ["short_value"], :name => "index_sp_answers_on_short_value"
+
+  create_table "sp_application_moves", :force => true do |t|
+    t.integer  "application_id"
+    t.integer  "old_project_id"
+    t.integer  "new_project_id"
+    t.integer  "moved_by_person_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "sp_application_moves", ["new_project_id"], :name => "new_project_id"
+  add_index "sp_application_moves", ["old_project_id"], :name => "old_project_id"
 
   create_table "sp_applications", :force => true do |t|
     t.integer  "person_id"
@@ -5615,34 +3623,100 @@ ActiveRecord::Schema.define(:version => 20120822154432) do
     t.boolean  "applicant_notified"
     t.integer  "account_balance"
     t.datetime "accepted_at"
+    t.string   "previous_status"
   end
 
   add_index "sp_applications", ["person_id"], :name => "index_sp_applications_on_person_id"
+  add_index "sp_applications", ["project_id"], :name => "project_id"
   add_index "sp_applications", ["year"], :name => "index_sp_applications_on_year"
 
-  create_table "sp_donations", :force => true do |t|
-    t.integer "designation_number", :null => false
-    t.float   "amount",             :null => false
+  create_table "sp_conditions", :force => true do |t|
+    t.integer "question_sheet_id", :null => false
+    t.integer "trigger_id",        :null => false
+    t.string  "expression",        :null => false
+    t.integer "toggle_page_id",    :null => false
+    t.integer "toggle_id"
   end
 
-  add_index "sp_donations", ["designation_number"], :name => "sp_donations_designation_number_index"
-
-  create_table "sp_elements", :force => true do |t|
-    t.integer  "parent_id"
-    t.string   "type",            :limit => 50
-    t.text     "text"
-    t.boolean  "is_required"
-    t.string   "question_table",  :limit => 50
-    t.string   "question_column", :limit => 50
-    t.integer  "position"
+  create_table "sp_designation_numbers", :force => true do |t|
+    t.integer  "person_id"
+    t.integer  "project_id"
+    t.string   "designation_number"
+    t.integer  "account_balance",    :default => 0
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "created_by_id"
-    t.integer  "updated_by_id"
-    t.integer  "dependency_id"
-    t.integer  "max_length",                    :default => 0, :null => false
-    t.boolean  "is_confidential"
+    t.integer  "year"
   end
+
+  add_index "sp_designation_numbers", ["person_id", "project_id", "designation_number"], :name => "person_id"
+
+  create_table "sp_donations", :force => true do |t|
+    t.integer "designation_number",                                :null => false
+    t.decimal "amount",             :precision => 10, :scale => 2, :null => false
+    t.string  "people_id"
+    t.string  "donor_name"
+    t.date    "donation_date"
+    t.string  "address1"
+    t.string  "address2"
+    t.string  "address3"
+    t.string  "city"
+    t.string  "state"
+    t.string  "zip"
+    t.string  "phone"
+    t.string  "email_address"
+    t.string  "medium_type"
+    t.string  "donation_id"
+  end
+
+  add_index "sp_donations", ["designation_number"], :name => "index_sp_donations_on_designation_number"
+  add_index "sp_donations", ["designation_number"], :name => "sp_donations_designation_number_index"
+  add_index "sp_donations", ["donation_date"], :name => "index_sp_donations_on_donation_date"
+  add_index "sp_donations", ["donation_id"], :name => "donation_id", :unique => true
+
+  create_table "sp_elements", :force => true do |t|
+    t.string   "kind",                      :limit => 40,                    :null => false
+    t.string   "style",                     :limit => 40
+    t.text     "label"
+    t.text     "content"
+    t.boolean  "required"
+    t.string   "slug",                      :limit => 36
+    t.integer  "position"
+    t.string   "object_name"
+    t.string   "attribute_name"
+    t.string   "source"
+    t.string   "value_xpath"
+    t.string   "text_xpath"
+    t.integer  "question_grid_id"
+    t.string   "cols"
+    t.boolean  "is_confidential"
+    t.string   "total_cols"
+    t.string   "css_id"
+    t.string   "css_class"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "related_question_sheet_id"
+    t.integer  "conditional_id"
+    t.text     "tooltip"
+    t.boolean  "hide_label",                              :default => false
+    t.boolean  "hide_option_labels",                      :default => false
+    t.integer  "max_length"
+  end
+
+  add_index "sp_elements", ["conditional_id"], :name => "index_sp_elements_on_conditional_id"
+  add_index "sp_elements", ["position"], :name => "index_sp_elements_on_question_sheet_id_and_position_and_page_id"
+  add_index "sp_elements", ["question_grid_id"], :name => "index_sp_elements_on_question_grid_id"
+  add_index "sp_elements", ["slug"], :name => "index_sp_elements_on_slug"
+
+  create_table "sp_email_templates", :force => true do |t|
+    t.string   "name",       :limit => 1000, :null => false
+    t.text     "content"
+    t.boolean  "enabled"
+    t.string   "subject"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "sp_email_templates", ["name"], :name => "index_sp_email_templates_on_name", :length => {"name"=>255}
 
   create_table "sp_evaluations", :force => true do |t|
     t.integer "application_id",                        :null => false
@@ -5663,6 +3737,12 @@ ActiveRecord::Schema.define(:version => 20120822154432) do
     t.text    "comments"
   end
 
+  create_table "sp_gospel_in_actions", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "sp_ministry_focuses", :force => true do |t|
     t.string "name"
   end
@@ -5680,15 +3760,18 @@ ActiveRecord::Schema.define(:version => 20120822154432) do
     t.datetime "updated_at"
   end
 
+  add_index "sp_page_elements", ["element_id"], :name => "element_id"
+  add_index "sp_page_elements", ["page_id"], :name => "page_id"
+
   create_table "sp_pages", :force => true do |t|
-    t.string   "title",         :limit => 50
-    t.string   "url_name",      :limit => 50
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "created_by_id"
-    t.integer  "updated_by_id"
-    t.boolean  "hidden"
+    t.integer "question_sheet_id",                                   :null => false
+    t.string  "label",             :limit => 100,                    :null => false
+    t.integer "number"
+    t.boolean "no_cache",                         :default => false
+    t.boolean "hidden",                           :default => false
   end
+
+  add_index "sp_pages", ["question_sheet_id", "number"], :name => "page_number"
 
   create_table "sp_payments", :force => true do |t|
     t.integer  "application_id"
@@ -5700,6 +3783,16 @@ ActiveRecord::Schema.define(:version => 20120822154432) do
     t.string   "status"
     t.datetime "updated_at"
   end
+
+  create_table "sp_project_gospel_in_actions", :force => true do |t|
+    t.integer  "gospel_in_action_id"
+    t.integer  "project_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "sp_project_gospel_in_actions", ["gospel_in_action_id"], :name => "gospel_in_action_id"
+  add_index "sp_project_gospel_in_actions", ["project_id"], :name => "project_id"
 
   create_table "sp_project_versions", :force => true do |t|
     t.integer  "pd_id"
@@ -5772,6 +3865,12 @@ ActiveRecord::Schema.define(:version => 20120822154432) do
     t.integer  "version"
     t.boolean  "use_provided_application",                     :default => true
     t.string   "tertiary_partner"
+    t.date     "staff_start_date"
+    t.date     "staff_end_date"
+    t.string   "project_contact2_name"
+    t.string   "project_contact2_role"
+    t.string   "project_contact2_phone"
+    t.string   "project_contact2_email"
   end
 
   add_index "sp_project_versions", ["aoa"], :name => "index_sp_project_versions_on_aoa"
@@ -5790,77 +3889,109 @@ ActiveRecord::Schema.define(:version => 20120822154432) do
     t.integer  "pd_id"
     t.integer  "apd_id"
     t.integer  "opd_id"
-    t.string   "name",                         :limit => 50
-    t.string   "city",                         :limit => 50
-    t.string   "state",                        :limit => 50
-    t.string   "country",                      :limit => 60
-    t.string   "aoa",                          :limit => 50
-    t.string   "display_location",             :limit => 100
-    t.string   "primary_partner",              :limit => 100
-    t.string   "secondary_partner",            :limit => 100
+    t.string   "name",                               :limit => 200
+    t.string   "city",                               :limit => 50
+    t.string   "state",                              :limit => 50
+    t.string   "country",                            :limit => 60
+    t.string   "world_region",                       :limit => 50
+    t.string   "display_location",                   :limit => 100
+    t.string   "primary_partner",                    :limit => 100
+    t.string   "secondary_partner",                  :limit => 100
     t.boolean  "partner_region_only"
-    t.string   "report_stats_to",              :limit => 50
-    t.datetime "start_date"
-    t.datetime "end_date"
+    t.string   "report_stats_to",                    :limit => 50
+    t.date     "start_date"
+    t.date     "end_date"
     t.integer  "weeks"
     t.integer  "primary_ministry_focus_id"
     t.boolean  "job"
     t.text     "description"
-    t.string   "operating_business_unit",      :limit => 50
-    t.string   "operating_operating_unit",     :limit => 50
-    t.string   "operating_department",         :limit => 50
-    t.string   "operating_project",            :limit => 50
-    t.string   "operating_designation",        :limit => 50
-    t.string   "scholarship_business_unit",    :limit => 50
-    t.string   "scholarship_operating_unit",   :limit => 50
-    t.string   "scholarship_department",       :limit => 50
-    t.string   "scholarship_project",          :limit => 50
-    t.string   "scholarship_designation",      :limit => 50
+    t.string   "operating_business_unit",            :limit => 50
+    t.string   "operating_operating_unit",           :limit => 50
+    t.string   "operating_department",               :limit => 50
+    t.string   "operating_project",                  :limit => 50
+    t.string   "operating_designation",              :limit => 50
+    t.string   "scholarship_business_unit",          :limit => 50
+    t.string   "scholarship_operating_unit",         :limit => 50
+    t.string   "scholarship_department",             :limit => 50
+    t.string   "scholarship_project",                :limit => 50
+    t.string   "scholarship_designation",            :limit => 50
     t.integer  "staff_cost"
     t.integer  "intern_cost"
     t.integer  "student_cost"
-    t.string   "departure_city",               :limit => 60
-    t.datetime "date_of_departure"
-    t.string   "destination_city",             :limit => 60
-    t.datetime "date_of_return"
+    t.string   "departure_city",                     :limit => 60
+    t.date     "date_of_departure"
+    t.string   "destination_city",                   :limit => 60
+    t.date     "date_of_return"
     t.text     "in_country_contact"
-    t.string   "project_contact_name",         :limit => 50
-    t.string   "project_contact_role",         :limit => 40
-    t.string   "project_contact_phone",        :limit => 20
-    t.string   "project_contact_email",        :limit => 100
-    t.integer  "max_student_men_applicants",                   :default => 0,    :null => false
-    t.integer  "max_student_women_applicants",                 :default => 0,    :null => false
-    t.integer  "housing_capacity_men"
-    t.integer  "housing_capacity_women"
-    t.integer  "ideal_staff_men",                              :default => 0,    :null => false
-    t.integer  "ideal_staff_women",                            :default => 0,    :null => false
+    t.string   "project_contact_name",               :limit => 50
+    t.string   "project_contact_role",               :limit => 40
+    t.string   "project_contact_phone",              :limit => 20
+    t.string   "project_contact_email",              :limit => 100
+    t.integer  "max_student_men_applicants",                         :default => 70,           :null => false
+    t.integer  "max_student_women_applicants",                       :default => 70,           :null => false
+    t.integer  "max_accepted_men"
+    t.integer  "max_accepted_women"
+    t.integer  "ideal_staff_men",                                    :default => 0,            :null => false
+    t.integer  "ideal_staff_women",                                  :default => 0,            :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "created_by_id"
     t.integer  "updated_by_id"
-    t.integer  "current_students_men",                         :default => 0
-    t.integer  "current_students_women",                       :default => 0
-    t.integer  "current_applicants_men",                       :default => 0
-    t.integer  "current_applicants_women",                     :default => 0
-    t.integer  "year"
+    t.integer  "current_students_men",                               :default => 0
+    t.integer  "current_students_women",                             :default => 0
+    t.integer  "current_applicants_men",                             :default => 0
+    t.integer  "current_applicants_women",                           :default => 0
+    t.integer  "year",                                                                         :null => false
     t.integer  "coordinator_id"
     t.integer  "old_id"
     t.string   "project_status"
     t.float    "latitude"
     t.float    "longitude"
-    t.string   "url",                          :limit => 1024
+    t.string   "url",                                :limit => 1024
     t.string   "url_title"
-    t.string   "ds_project_code",              :limit => 50
-    t.boolean  "show_on_website",                              :default => true
-    t.datetime "apply_by_date"
+    t.string   "ds_project_code",                    :limit => 50
+    t.boolean  "show_on_website",                                    :default => true
+    t.date     "apply_by_date"
     t.integer  "version"
-    t.boolean  "use_provided_application",                     :default => true
+    t.boolean  "use_provided_application",                           :default => true
     t.string   "tertiary_partner"
+    t.date     "staff_start_date"
+    t.date     "staff_end_date"
+    t.string   "facebook_url"
+    t.string   "blog_url"
+    t.string   "blog_title"
+    t.string   "project_contact2_name"
+    t.string   "project_contact2_role"
+    t.string   "project_contact2_phone"
+    t.string   "project_contact2_email"
+    t.string   "picture_file_name"
+    t.string   "picture_content_type"
+    t.integer  "picture_file_size"
+    t.datetime "picture_updated_at"
+    t.string   "logo_file_name"
+    t.string   "logo_content_type"
+    t.integer  "logo_file_size"
+    t.datetime "logo_updated_at"
+    t.integer  "basic_info_question_sheet_id"
+    t.integer  "template_question_sheet_id"
+    t.integer  "project_specific_question_sheet_id"
+    t.boolean  "high_school",                                        :default => false
+    t.date     "pd_start_date"
+    t.date     "pd_end_date"
+    t.date     "pd_close_start_date"
+    t.date     "pd_close_end_date"
+    t.date     "student_staff_start_date"
+    t.date     "student_staff_end_date"
+    t.boolean  "background_checks_required",                         :default => false
+    t.date     "open_application_date",                              :default => '2012-11-01'
+    t.date     "archive_project_date",                               :default => '2012-08-31'
   end
 
   add_index "sp_projects", ["name"], :name => "sp_projects_name_index", :unique => true
   add_index "sp_projects", ["primary_partner"], :name => "primary_partner"
+  add_index "sp_projects", ["project_status"], :name => "project_status"
   add_index "sp_projects", ["secondary_partner"], :name => "secondary_partner"
+  add_index "sp_projects", ["year"], :name => "year"
 
   create_table "sp_question_options", :force => true do |t|
     t.integer  "question_id"
@@ -5868,6 +3999,11 @@ ActiveRecord::Schema.define(:version => 20120822154432) do
     t.string   "value",       :limit => 50
     t.integer  "position"
     t.datetime "created_at"
+  end
+
+  create_table "sp_question_sheets", :force => true do |t|
+    t.string  "label",    :limit => 1000,                    :null => false
+    t.boolean "archived",                 :default => false
   end
 
   create_table "sp_questionnaire_pages", :force => true do |t|
@@ -5879,27 +4015,25 @@ ActiveRecord::Schema.define(:version => 20120822154432) do
   end
 
   create_table "sp_references", :force => true do |t|
-    t.integer  "application_id"
-    t.string   "type",           :limit => 50
+    t.integer  "question_id"
+    t.integer  "applicant_answer_sheet_id"
     t.datetime "email_sent_at"
-    t.boolean  "is_staff"
+    t.string   "relationship"
     t.string   "title"
     t.string   "first_name"
     t.string   "last_name"
-    t.string   "accountNo"
-    t.string   "home_phone"
+    t.string   "phone"
     t.string   "email"
     t.string   "status"
     t.datetime "submitted_at"
+    t.string   "access_key"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "created_by_id"
-    t.integer  "updated_by_id"
-    t.string   "access_key"
-    t.boolean  "mail",                         :default => false
+    t.boolean  "is_staff",                  :default => false
+    t.datetime "started_at"
   end
 
-  add_index "sp_references", ["application_id"], :name => "application_id"
+  add_index "sp_references", ["question_id"], :name => "question_id"
 
   create_table "sp_roles", :force => true do |t|
     t.string "role",       :limit => 50
@@ -5907,13 +4041,14 @@ ActiveRecord::Schema.define(:version => 20120822154432) do
   end
 
   create_table "sp_staff", :force => true do |t|
-    t.integer "person_id",                                :null => false
-    t.integer "project_id",                               :null => false
-    t.string  "type",       :limit => 10, :default => "", :null => false
+    t.integer "person_id",                                 :null => false
+    t.integer "project_id",                                :null => false
+    t.string  "type",       :limit => 100, :default => "", :null => false
     t.string  "year"
   end
 
-  add_index "sp_staff", ["project_id", "person_id", "year"], :name => "project_staff_person", :unique => true
+  add_index "sp_staff", ["person_id"], :name => "person_id"
+  add_index "sp_staff", ["project_id", "type", "year"], :name => "project_staff_type"
 
   create_table "sp_stats", :force => true do |t|
     t.integer  "project_id"
@@ -5941,16 +4076,33 @@ ActiveRecord::Schema.define(:version => 20120822154432) do
     t.integer  "movements_launched"
   end
 
+  create_table "sp_student_quotes", :force => true do |t|
+    t.integer  "project_id"
+    t.text     "quote"
+    t.text     "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "sp_student_quotes", ["project_id"], :name => "project_id"
+
   create_table "sp_users", :force => true do |t|
     t.integer  "ssm_id"
     t.datetime "last_login"
     t.datetime "created_at"
     t.integer  "created_by_id"
     t.string   "type"
-    t.string   "role"
+    t.integer  "person_id"
   end
 
+  add_index "sp_users", ["person_id"], :name => "person_id"
   add_index "sp_users", ["ssm_id"], :name => "sp_users_ssm_id_index", :unique => true
+
+  create_table "sp_world_regions", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "staffsite_staffsitepref", :primary_key => "StaffSitePrefID", :force => true do |t|
     t.string "name",                :limit => 64
@@ -5982,1314 +4134,13 @@ ActiveRecord::Schema.define(:version => 20120822154432) do
     t.string "code",  :limit => 10
   end
 
-  create_table "summer_placement_preferences", :force => true do |t|
-    t.integer  "person_id"
-    t.datetime "submitted_at"
+  create_table "super_admins", :force => true do |t|
+    t.integer  "user_id"
+    t.string   "site"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "wsn_sp_answer", :primary_key => "answerID", :force => true do |t|
-    t.string  "body",                :limit => 1000
-    t.integer "fk_QuestionID"
-    t.integer "fk_WsnApplicationID"
-  end
-
-  add_index "wsn_sp_answer", ["fk_QuestionID", "fk_WsnApplicationID"], :name => "fk_WsnApplicationID"
-
-  create_table "wsn_sp_answer_deprecated", :primary_key => "answerID", :force => true do |t|
-    t.string  "body",                :limit => 1000
-    t.integer "fk_QuestionID"
-    t.integer "fk_WsnApplicationID"
-  end
-
-  add_index "wsn_sp_answer_deprecated", ["fk_QuestionID", "fk_WsnApplicationID"], :name => "fk_WsnApplicationID"
-
-  create_table "wsn_sp_question", :primary_key => "questionID", :force => true do |t|
-    t.string  "required",          :limit => 1
-    t.integer "displayOrder"
-    t.integer "fk_WsnProjectID"
-    t.integer "fk_QuestionTextID"
-  end
-
-  add_index "wsn_sp_question", ["fk_QuestionTextID"], :name => "fk_QuestionTextID"
-  add_index "wsn_sp_question", ["fk_WsnProjectID"], :name => "fk_WsnProjectID"
-
-  create_table "wsn_sp_question_deprecated", :primary_key => "questionID", :force => true do |t|
-    t.string  "required",          :limit => 1
-    t.integer "displayOrder"
-    t.integer "fk_WsnProjectID"
-    t.integer "fk_QuestionTextID"
-  end
-
-  add_index "wsn_sp_question_deprecated", ["fk_QuestionTextID"], :name => "fk_QuestionTextID"
-  add_index "wsn_sp_question_deprecated", ["fk_WsnProjectID"], :name => "fk_WsnProjectID"
-
-  create_table "wsn_sp_questiontext", :primary_key => "questionTextID", :force => true do |t|
-    t.string "body",       :limit => 250
-    t.string "answerType", :limit => 50
-    t.string "status",     :limit => 50
-  end
-
-  create_table "wsn_sp_questiontext_deprecated", :primary_key => "questionTextID", :force => true do |t|
-    t.string "body",       :limit => 250
-    t.string "answerType", :limit => 50
-    t.string "status",     :limit => 50
-  end
-
-  create_table "wsn_sp_reference", :primary_key => "referenceID", :force => true do |t|
-    t.string   "formWorkflowStatus",  :limit => 1
-    t.datetime "createDate"
-    t.datetime "lastChangedDate"
-    t.string   "lastChangedBy",       :limit => 30
-    t.boolean  "isFormSubmitted"
-    t.datetime "formSubmittedDate"
-    t.string   "referenceType",       :limit => 2
-    t.string   "title",               :limit => 5
-    t.string   "firstName",           :limit => 30
-    t.string   "lastName",            :limit => 30
-    t.boolean  "isStaff"
-    t.string   "staffNumber",         :limit => 16
-    t.string   "currentAddress1",     :limit => 50
-    t.string   "currentAddress2",     :limit => 50
-    t.string   "currentCity",         :limit => 35
-    t.string   "currentState",        :limit => 6
-    t.string   "currentZip",          :limit => 10
-    t.string   "cellPhone",           :limit => 24
-    t.string   "homePhone",           :limit => 24
-    t.string   "workPhone",           :limit => 24
-    t.string   "currentEmail",        :limit => 50
-    t.string   "howKnown",            :limit => 64
-    t.string   "howLongKnown",        :limit => 64
-    t.string   "howWellKnown",        :limit => 64
-    t.boolean  "sendMidEval"
-    t.integer  "_1a"
-    t.integer  "_2a"
-    t.integer  "_3a"
-    t.integer  "_4a"
-    t.integer  "_5a"
-    t.integer  "_6a"
-    t.integer  "_7a"
-    t.integer  "_8a"
-    t.integer  "_9a"
-    t.integer  "_10a"
-    t.integer  "_11a"
-    t.integer  "_12a"
-    t.integer  "_13a"
-    t.integer  "_14a"
-    t.integer  "_15a"
-    t.integer  "_16a"
-    t.integer  "_17a"
-    t.integer  "_18a"
-    t.integer  "_19a"
-    t.integer  "_20a"
-    t.integer  "_21a"
-    t.text     "_1sa"
-    t.text     "_2sa"
-    t.text     "_3sa"
-    t.text     "_4sa"
-    t.text     "_5sa"
-    t.text     "_6sa"
-    t.string   "_6sb",                :limit => 1
-    t.text     "_6sc"
-    t.text     "_7sa"
-    t.text     "_8sa"
-    t.text     "closingRemarks"
-    t.integer  "fk_WsnApplicationID"
-  end
-
-  add_index "wsn_sp_reference", ["fk_WsnApplicationID"], :name => "fk_WsnApplicationID"
-
-  create_table "wsn_sp_reference_deprecated", :primary_key => "referenceID", :force => true do |t|
-    t.string   "formWorkflowStatus",  :limit => 1
-    t.datetime "createDate"
-    t.datetime "lastChangedDate"
-    t.string   "lastChangedBy",       :limit => 30
-    t.boolean  "isFormSubmitted"
-    t.datetime "formSubmittedDate"
-    t.string   "referenceType",       :limit => 2
-    t.string   "title",               :limit => 5
-    t.string   "firstName",           :limit => 30
-    t.string   "lastName",            :limit => 30
-    t.boolean  "isStaff"
-    t.string   "staffNumber",         :limit => 16
-    t.string   "currentAddress1",     :limit => 50
-    t.string   "currentAddress2",     :limit => 50
-    t.string   "currentCity",         :limit => 35
-    t.string   "currentState",        :limit => 6
-    t.string   "currentZip",          :limit => 10
-    t.string   "cellPhone",           :limit => 24
-    t.string   "homePhone",           :limit => 24
-    t.string   "workPhone",           :limit => 24
-    t.string   "currentEmail",        :limit => 50
-    t.string   "howKnown",            :limit => 64
-    t.string   "howLongKnown",        :limit => 64
-    t.string   "howWellKnown",        :limit => 64
-    t.boolean  "sendMidEval"
-    t.integer  "_1a"
-    t.integer  "_2a"
-    t.integer  "_3a"
-    t.integer  "_4a"
-    t.integer  "_5a"
-    t.integer  "_6a"
-    t.integer  "_7a"
-    t.integer  "_8a"
-    t.integer  "_9a"
-    t.integer  "_10a"
-    t.integer  "_11a"
-    t.integer  "_12a"
-    t.integer  "_13a"
-    t.integer  "_14a"
-    t.integer  "_15a"
-    t.integer  "_16a"
-    t.integer  "_17a"
-    t.integer  "_18a"
-    t.integer  "_19a"
-    t.integer  "_20a"
-    t.integer  "_21a"
-    t.text     "_1sa",                :limit => 2147483647
-    t.text     "_2sa",                :limit => 2147483647
-    t.text     "_3sa",                :limit => 2147483647
-    t.text     "_4sa",                :limit => 2147483647
-    t.text     "_5sa",                :limit => 2147483647
-    t.text     "_6sa",                :limit => 2147483647
-    t.string   "_6sb",                :limit => 1
-    t.text     "_6sc",                :limit => 2147483647
-    t.text     "_7sa",                :limit => 2147483647
-    t.text     "_8sa",                :limit => 2147483647
-    t.text     "closingRemarks",      :limit => 2147483647
-    t.integer  "fk_WsnApplicationID"
-  end
-
-  add_index "wsn_sp_reference_deprecated", ["fk_WsnApplicationID"], :name => "fk_WsnApplicationID"
-
-  create_table "wsn_sp_viewapplication", :id => false, :force => true do |t|
-    t.integer  "personID",                                     :default => 0,     :null => false
-    t.string   "region",                        :limit => 5
-    t.string   "legalFirstName",                :limit => 50
-    t.string   "legalLastName",                 :limit => 50
-    t.datetime "birth_date"
-    t.datetime "date_became_christian"
-    t.string   "maritalStatus",                 :limit => 20
-    t.string   "universityFullName",            :limit => 128
-    t.string   "major",                         :limit => 70
-    t.string   "yearInSchool",                  :limit => 20
-    t.datetime "graduation_date"
-    t.boolean  "usCitizen",                                    :default => true,  :null => false
-    t.string   "citizenship",                   :limit => 50
-    t.string   "accountNo",                     :limit => 11
-    t.string   "gender",                        :limit => 1
-    t.boolean  "isStaff"
-    t.boolean  "child",                                        :default => false, :null => false
-    t.integer  "fk_wsnSpouse"
-    t.integer  "fk_childOf"
-    t.integer  "fk_ssmUserId"
-    t.integer  "fk_StaffSiteProfileID"
-    t.integer  "surferID"
-    t.datetime "dateCreated"
-    t.datetime "dateChanged"
-    t.string   "changedBy",                     :limit => 50
-    t.string   "legalMiddleName",               :limit => 50
-    t.string   "title",                         :limit => 5
-    t.string   "universityState",               :limit => 5
-    t.integer  "WsnApplicationID",                             :default => 0,     :null => false
-    t.string   "role",                          :limit => 1
-    t.string   "earliestAvailableDate",         :limit => 22
-    t.string   "dateMustReturn",                :limit => 22
-    t.boolean  "willingForDifferentProject",                   :default => true
-    t.boolean  "isApplicationComplete",                        :default => false
-    t.integer  "projectPref1"
-    t.integer  "projectPref2"
-    t.integer  "projectPref3"
-    t.integer  "projectPref4"
-    t.integer  "projectPref5"
-    t.float    "supportBalance"
-    t.boolean  "insuranceReceived",                            :default => false
-    t.boolean  "waiverReceived",                               :default => false
-    t.boolean  "didGo",                                        :default => false
-    t.boolean  "participantEvaluation",                        :default => false
-    t.string   "arrivalGatewayCityToLocation",  :limit => 22
-    t.string   "locationToGatewayCityFlightNo", :limit => 50
-    t.string   "departLocationToGatewayCity",   :limit => 22
-    t.string   "passportCountry",               :limit => 50
-    t.string   "passportNo",                    :limit => 25
-    t.string   "passportIssueDate",             :limit => 22
-    t.string   "passportExpirationDate",        :limit => 22
-    t.string   "visaCountry",                   :limit => 50
-    t.string   "visaNo",                        :limit => 50
-    t.string   "visaType",                      :limit => 50
-    t.boolean  "visaIsMultipleEntry",                          :default => false
-    t.string   "visaExpirationDate",            :limit => 22
-    t.string   "visaIssueDate",                 :limit => 22
-    t.string   "dateUpdated",                   :limit => 22
-    t.boolean  "prevIsp",                                      :default => false
-    t.string   "status",                        :limit => 22
-    t.string   "wsnYear",                       :limit => 4
-    t.integer  "fk_isMember"
-    t.datetime "springBreakStart"
-    t.datetime "springBreakEnd"
-    t.boolean  "participateEpic"
-    t.boolean  "participateDestino",                           :default => false
-    t.boolean  "participateImpact",                            :default => false
-    t.boolean  "isIntern",                                     :default => false
-    t.boolean  "_1a",                                          :default => false
-    t.boolean  "_1b",                                          :default => false
-    t.boolean  "_1c",                                          :default => false
-    t.boolean  "_1d",                                          :default => false
-    t.boolean  "_1e",                                          :default => false
-    t.text     "_1f"
-    t.boolean  "_2a"
-    t.text     "_2b"
-    t.boolean  "_2c"
-    t.boolean  "_3a"
-    t.boolean  "_3b"
-    t.boolean  "_3c"
-    t.boolean  "_3d"
-    t.boolean  "_3e"
-    t.boolean  "_3f"
-    t.boolean  "_3g"
-    t.text     "_3h"
-    t.boolean  "_4a"
-    t.boolean  "_4b"
-    t.boolean  "_4c"
-    t.boolean  "_4d"
-    t.boolean  "_4e"
-    t.boolean  "_4f"
-    t.boolean  "_4g"
-    t.boolean  "_4h"
-    t.text     "_4i"
-    t.boolean  "_5a"
-    t.boolean  "_5b"
-    t.boolean  "_5c"
-    t.boolean  "_5d"
-    t.text     "_5e"
-    t.boolean  "_5f"
-    t.text     "_5g"
-    t.boolean  "_5h"
-    t.text     "_6"
-    t.text     "_7"
-    t.text     "_8a"
-    t.text     "_8b"
-    t.text     "_9"
-    t.text     "_10"
-    t.boolean  "_11a"
-    t.text     "_11b"
-    t.boolean  "_12a"
-    t.text     "_12b"
-    t.boolean  "_13a"
-    t.boolean  "_13b"
-    t.boolean  "_13c"
-    t.text     "_14"
-    t.boolean  "_15"
-    t.integer  "_16"
-    t.integer  "_17"
-    t.integer  "_18"
-    t.boolean  "_19a"
-    t.boolean  "_19b"
-    t.boolean  "_19c"
-    t.boolean  "_19d"
-    t.boolean  "_19e"
-    t.string   "_19f"
-    t.text     "_20a"
-    t.text     "_20b"
-    t.text     "_20c"
-    t.boolean  "_21a"
-    t.boolean  "_21b"
-    t.boolean  "_21c"
-    t.boolean  "_21d"
-    t.boolean  "_21e"
-    t.boolean  "_21f"
-    t.boolean  "_21g"
-    t.boolean  "_21h"
-    t.text     "_21i"
-    t.string   "_21j",                          :limit => 1
-    t.boolean  "_22a"
-    t.text     "_22b"
-    t.boolean  "_23a"
-    t.text     "_23b"
-    t.boolean  "_24a"
-    t.text     "_24b"
-    t.text     "_25"
-    t.boolean  "_26a"
-    t.text     "_26b"
-    t.boolean  "_27a"
-    t.text     "_27b"
-    t.boolean  "_28a"
-    t.text     "_28b"
-    t.boolean  "_29a"
-    t.text     "_29b"
-    t.boolean  "_29c"
-    t.boolean  "_29d"
-    t.text     "_29e"
-    t.text     "_29f"
-    t.text     "_30"
-    t.text     "_31"
-    t.text     "_32"
-    t.text     "_33"
-    t.text     "_34"
-    t.text     "_35"
-    t.boolean  "isPaid"
-    t.boolean  "isApplyingForStaffInternship"
-    t.datetime "createDate"
-    t.datetime "lastChangedDate"
-    t.integer  "lastChangedBy"
-    t.boolean  "isRecruited"
-    t.integer  "assignedToProject"
-    t.string   "electronicSignature",           :limit => 50
-    t.datetime "submittedDate"
-    t.datetime "acceptedDate"
-    t.string   "preferredContactMethod",        :limit => 1
-    t.string   "howOftenCheckEmail",            :limit => 30
-    t.string   "otherClassDetails",             :limit => 30
-    t.boolean  "participateOtherProjects"
-    t.boolean  "campusHasStaffTeam"
-    t.boolean  "campusHasStaffCoach"
-    t.boolean  "campusHasMetroTeam"
-    t.boolean  "campusHasOther"
-    t.string   "campusHasOtherDetails",         :limit => 30
-    t.boolean  "inSchoolNextFall"
-    t.boolean  "participateCCC"
-    t.boolean  "participateNone"
-    t.boolean  "ciPhoneCallRequested"
-    t.string   "ciPhoneNumber",                 :limit => 24
-    t.string   "ciBestTimeToCall",              :limit => 10
-    t.string   "ciTimeZone",                    :limit => 10
-    t.string   "_26date",                       :limit => 10
-    t.integer  "fk_personID"
-    t.integer  "currentAddressID",                             :default => 0,     :null => false
-    t.datetime "currentStartDate"
-    t.datetime "dateAddressGoodUntil"
-    t.string   "currentAddress",                :limit => 55
-    t.string   "currentAddress2",               :limit => 55
-    t.string   "currentAddress3",               :limit => 55
-    t.string   "currentAddress4",               :limit => 55
-    t.string   "currentCity",                   :limit => 50
-    t.string   "currentState",                  :limit => 50
-    t.string   "currentZip",                    :limit => 15
-    t.string   "currentCountry",                :limit => 64
-    t.string   "currentPhone",                  :limit => 25
-    t.string   "currentWorkPhone",              :limit => 25
-    t.string   "currentCellPhone",              :limit => 25
-    t.string   "currentFax",                    :limit => 25
-    t.string   "currentEmail",                  :limit => 200
-    t.string   "currentUrl",                    :limit => 100
-    t.string   "currentContactName",            :limit => 50
-    t.string   "currentContactRelation",        :limit => 50
-    t.string   "currentAddressType",            :limit => 20
-    t.integer  "currentFk_PersonID"
-    t.integer  "emergAddressID",                               :default => 0,     :null => false
-    t.datetime "emergStartDate"
-    t.datetime "emergEndDate"
-    t.string   "emergAddress",                  :limit => 55
-    t.string   "emergAddress2",                 :limit => 55
-    t.string   "emergAddress3",                 :limit => 55
-    t.string   "emergAddress4",                 :limit => 55
-    t.string   "emergCity",                     :limit => 50
-    t.string   "emergState",                    :limit => 50
-    t.string   "emergZip",                      :limit => 15
-    t.string   "emergCountry",                  :limit => 64
-    t.string   "emergPhone",                    :limit => 25
-    t.string   "emergWorkPhone",                :limit => 25
-    t.string   "emergCellPhone",                :limit => 25
-    t.string   "emergFax",                      :limit => 25
-    t.string   "emergEmail",                    :limit => 200
-    t.string   "emergUrl",                      :limit => 100
-    t.string   "emergName",                     :limit => 50
-    t.string   "emergContactRelation",          :limit => 50
-    t.string   "emergAddressType",              :limit => 20
-    t.integer  "emergFk_PersonID"
-    t.string   "applAccountNo",                 :limit => 11
-    t.string   "createdBy",                     :limit => 50
-    t.string   "projectName"
-    t.string   "scholarshipBusinessUnit"
-    t.string   "scholarshipOperatingUnit"
-    t.string   "scholarshipDeptID"
-    t.string   "scholarshipProjectID"
-    t.string   "scholarshipDesignation"
-  end
-
-  create_table "wsn_sp_viewapplicationlight", :id => false, :force => true do |t|
-    t.integer "WsnApplicationID",                            :default => 0, :null => false
-    t.integer "surferID"
-    t.string  "legalLastName",                :limit => 50
-    t.string  "legalFirstName",               :limit => 50
-    t.string  "wsnYear",                      :limit => 4
-    t.string  "role",                         :limit => 1
-    t.string  "gender",                       :limit => 1
-    t.string  "currentEmail",                 :limit => 200
-    t.integer "fk_isMember"
-    t.integer "assignedToProject"
-    t.string  "status",                       :limit => 22
-    t.boolean "isStaff"
-    t.boolean "isApplyingForStaffInternship"
-  end
-
-  create_table "wsn_sp_viewapplicationlightest", :id => false, :force => true do |t|
-    t.integer "WsnApplicationID",                           :default => 0, :null => false
-    t.integer "fk_isMember"
-    t.string  "status",                       :limit => 22
-    t.boolean "isStaff"
-    t.boolean "isApplyingForStaffInternship"
-    t.string  "role",                         :limit => 1
-    t.string  "gender",                       :limit => 1
-  end
-
-  create_table "wsn_sp_viewcurrentprojects", :id => false, :force => true do |t|
-    t.integer  "WsnProjectID",                        :default => 0, :null => false
-    t.string   "name"
-    t.datetime "studentStartDate"
-    t.datetime "studentEndDate"
-    t.string   "projectType",           :limit => 1
-    t.boolean  "onHold"
-    t.string   "wsnYear"
-    t.string   "partnershipRegion",     :limit => 50
-    t.boolean  "partnershipRegionOnly"
-  end
-
-  create_table "wsn_sp_viewcurrentprojects_maxsfcheck", :id => false, :force => true do |t|
-    t.integer  "WsnProjectID",                        :default => 0, :null => false
-    t.string   "name"
-    t.datetime "studentStartDate"
-    t.boolean  "onHold"
-    t.string   "wsnYear"
-    t.string   "projectType",           :limit => 1
-    t.boolean  "partnershipRegionOnly"
-    t.string   "partnershipRegion",     :limit => 50
-    t.datetime "studentEndDate"
-  end
-
-  create_table "wsn_sp_viewcurrentprojects_maxsmcheck", :id => false, :force => true do |t|
-    t.integer  "WsnProjectID",                        :default => 0, :null => false
-    t.string   "name"
-    t.string   "partnershipRegion",     :limit => 50
-    t.string   "wsnYear"
-    t.string   "projectType",           :limit => 1
-    t.datetime "studentStartDate"
-    t.boolean  "partnershipRegionOnly"
-    t.boolean  "onHold"
-    t.datetime "studentEndDate"
-  end
-
-  create_table "wsn_sp_viewopenprojects", :id => false, :force => true do |t|
-    t.integer  "WsnProjectID",                                :default => 0, :null => false
-    t.string   "name"
-    t.string   "partnershipRegion",             :limit => 50
-    t.datetime "studentStartDate"
-    t.string   "projectType",                   :limit => 1
-    t.boolean  "onHold"
-    t.integer  "maxNoStudents"
-    t.text     "history"
-    t.string   "stopDate"
-    t.string   "startDate"
-    t.string   "city"
-    t.string   "country"
-    t.text     "details"
-    t.string   "status"
-    t.string   "destinationGatewayCity"
-    t.string   "departDateFromGateCity"
-    t.string   "arrivalDateAtLocation"
-    t.string   "locationGatewayCity"
-    t.string   "departureDateFromLocation"
-    t.string   "arrivalDateAtGatewayCity"
-    t.string   "flightBudget"
-    t.string   "locationToGatewayCityFlightNo"
-    t.string   "GatewayCitytoLocationFlightNo"
-    t.string   "inCountryContact"
-    t.string   "scholarshipAccountNo"
-    t.string   "operatingAccountNo"
-    t.string   "AOA"
-    t.string   "MPTA"
-    t.string   "staffCost"
-    t.string   "studentCost"
-    t.boolean  "insuranceFormsReceived"
-    t.boolean  "CAPSFeePaid"
-    t.boolean  "adminFeePaid"
-    t.string   "storiesXX"
-    t.string   "stats"
-    t.boolean  "secure"
-    t.string   "dateCreated"
-    t.string   "lastUpdate"
-    t.integer  "maxNoStaff"
-    t.boolean  "projEvalCompleted"
-    t.integer  "evangelisticExposures"
-    t.integer  "receivedChrist"
-    t.integer  "jesusFilmExposures"
-    t.integer  "jesusFilmReveivedChrist"
-    t.integer  "coverageActivitiesExposures"
-    t.integer  "coverageActivitiesDecisions"
-    t.integer  "holySpiritDecisions"
-    t.string   "website"
-    t.string   "destinationAddress"
-    t.string   "destinationPhone"
-    t.string   "wsnYear"
-    t.integer  "fk_IsCoord"
-    t.integer  "fk_IsPD"
-    t.integer  "fk_IsAPD"
-    t.datetime "studentEndDate"
-    t.datetime "staffStartDate"
-    t.datetime "staffEndDate"
-    t.datetime "leadershipStartDate"
-    t.datetime "leadershipEndDate"
-    t.datetime "createDate"
-    t.datetime "lastChangedDate"
-    t.string   "lastChangedBy",                 :limit => 50
-    t.string   "displayLocation",               :limit => 50
-    t.boolean  "partnershipRegionOnly"
-    t.string   "internCost",                    :limit => 50
-    t.integer  "maxNoStaffMale"
-    t.integer  "maxNoStaffFemale"
-    t.integer  "maxNoStaffCouples"
-    t.integer  "maxNoStaffFamilies"
-    t.integer  "maxNoInternAMale"
-    t.integer  "maxNoInternAFemale"
-    t.integer  "maxNoInternACouples"
-    t.integer  "maxNoInternAFamilies"
-    t.integer  "maxNoInternA"
-    t.integer  "maxNoInternPMale"
-    t.integer  "maxNoInternPFemale"
-    t.integer  "maxNoInternPCouples"
-    t.integer  "maxNoInternPFamilies"
-    t.integer  "maxNoInternP"
-    t.integer  "maxNoStudentAMale"
-    t.integer  "maxNoStudentAFemale"
-    t.integer  "maxNoStudentACouples"
-    t.integer  "maxNoStudentAFamilies"
-    t.integer  "maxNoStudentA"
-    t.integer  "maxNoStudentPMale"
-    t.integer  "maxNoStudentPFemale"
-    t.integer  "maxNoStudentPCouples"
-    t.integer  "maxNoStudentPFamilies"
-    t.string   "operatingBusinessUnit"
-    t.string   "operatingOperatingUnit"
-    t.string   "operatingDeptID"
-    t.string   "operatingProjectID"
-    t.string   "operatingDesignation"
-    t.string   "scholarshipBusinessUnit"
-    t.string   "scholarshipOperatingUnit"
-    t.string   "scholarshipDeptID"
-    t.string   "scholarshipDesignation"
-    t.string   "scholarshipProjectID"
-  end
-
-  create_table "wsn_sp_viewprojectleaders", :id => false, :force => true do |t|
-    t.integer "WsnProjectID",                         :default => 0, :null => false
-    t.string  "name"
-    t.string  "country"
-    t.string  "wsnYear"
-    t.string  "partnershipRegion",     :limit => 50
-    t.integer "PDWsnApplicationID",                   :default => 0
-    t.string  "PDLastName",            :limit => 50
-    t.string  "PDFirstName",           :limit => 50
-    t.string  "PDCurrentEmail",        :limit => 200
-    t.integer "APDWsnApplicationID",                  :default => 0
-    t.string  "APDFirstName",          :limit => 50
-    t.string  "APDLastName",           :limit => 50
-    t.string  "APDCurrentEmail",       :limit => 200
-    t.integer "CoordWsnApplicationID",                :default => 0
-    t.string  "CoordLastName",         :limit => 50
-    t.string  "CoordFirstName",        :limit => 50
-    t.string  "CoordCurrentEmail",     :limit => 200
-    t.integer "fk_IsPD"
-    t.integer "fk_IsAPD"
-    t.integer "fk_IsCoord"
-  end
-
-  create_table "wsn_sp_viewquestion", :id => false, :force => true do |t|
-    t.string  "required",          :limit => 1
-    t.integer "displayOrder"
-    t.integer "fk_WsnProjectID"
-    t.string  "body",              :limit => 250
-    t.string  "answerType",        :limit => 50
-    t.string  "status",            :limit => 50
-    t.integer "questionID",                       :default => 0, :null => false
-    t.integer "fk_QuestionTextID"
-    t.integer "questionTextID",                   :default => 0, :null => false
-  end
-
-  create_table "wsn_sp_wsnapplication", :primary_key => "WsnApplicationID", :force => true do |t|
-    t.string   "surferID",                      :limit => 64
-    t.string   "role",                          :limit => 1
-    t.string   "earliestAvailableDate",         :limit => 22
-    t.string   "dateMustReturn",                :limit => 22
-    t.boolean  "willingForDifferentProject",                  :default => true
-    t.boolean  "usCitizen",                                   :default => true
-    t.boolean  "isApplicationComplete",                       :default => false
-    t.integer  "projectPref1"
-    t.integer  "projectPref2"
-    t.integer  "projectPref3"
-    t.integer  "projectPref4"
-    t.integer  "projectPref5"
-    t.string   "applAccountNo",                 :limit => 11
-    t.float    "supportBalance"
-    t.boolean  "insuranceReceived",                           :default => false
-    t.boolean  "waiverReceived",                              :default => false
-    t.boolean  "didGo",                                       :default => false
-    t.boolean  "participantEvaluation",                       :default => false
-    t.string   "arrivalGatewayCityToLocation",  :limit => 22
-    t.string   "locationToGatewayCityFlightNo", :limit => 50
-    t.string   "departLocationToGatewayCity",   :limit => 22
-    t.string   "passportNo",                    :limit => 25
-    t.string   "passportCountry",               :limit => 50
-    t.string   "passportIssueDate",             :limit => 22
-    t.string   "passportExpirationDate",        :limit => 22
-    t.string   "visaCountry",                   :limit => 50
-    t.string   "visaNo",                        :limit => 50
-    t.string   "visaType",                      :limit => 50
-    t.boolean  "visaIsMultipleEntry",                         :default => false
-    t.string   "visaIssueDate",                 :limit => 22
-    t.string   "visaExpirationDate",            :limit => 22
-    t.string   "dateUpdated",                   :limit => 22
-    t.boolean  "isStaff",                                     :default => false
-    t.boolean  "prevIsp",                                     :default => false
-    t.boolean  "child",                                       :default => false
-    t.string   "status",                        :limit => 22
-    t.string   "wsnYear",                       :limit => 4
-    t.integer  "fk_isMember"
-    t.boolean  "participateImpact",                           :default => false
-    t.boolean  "participateDestino",                          :default => false
-    t.boolean  "participateEpic"
-    t.datetime "springBreakStart"
-    t.datetime "springBreakEnd"
-    t.boolean  "isIntern",                                    :default => false
-    t.boolean  "_1a",                                         :default => false
-    t.boolean  "_1b",                                         :default => false
-    t.boolean  "_1c",                                         :default => false
-    t.boolean  "_1d",                                         :default => false
-    t.boolean  "_1e",                                         :default => false
-    t.text     "_1f"
-    t.boolean  "_2a"
-    t.text     "_2b"
-    t.boolean  "_2c"
-    t.boolean  "_3a"
-    t.boolean  "_3b"
-    t.boolean  "_3c"
-    t.boolean  "_3d"
-    t.boolean  "_3e"
-    t.boolean  "_3f"
-    t.boolean  "_3g"
-    t.text     "_3h"
-    t.boolean  "_4a"
-    t.boolean  "_4b"
-    t.boolean  "_4c"
-    t.boolean  "_4d"
-    t.boolean  "_4e"
-    t.boolean  "_4f"
-    t.boolean  "_4g"
-    t.boolean  "_4h"
-    t.text     "_4i"
-    t.boolean  "_5a"
-    t.boolean  "_5b"
-    t.boolean  "_5c"
-    t.boolean  "_5d"
-    t.text     "_5e"
-    t.boolean  "_5f"
-    t.text     "_5g"
-    t.boolean  "_5h"
-    t.text     "_6"
-    t.text     "_7"
-    t.text     "_8a"
-    t.text     "_8b"
-    t.text     "_9"
-    t.text     "_10"
-    t.boolean  "_11a"
-    t.text     "_11b"
-    t.boolean  "_12a"
-    t.text     "_12b"
-    t.boolean  "_13a"
-    t.boolean  "_13b"
-    t.boolean  "_13c"
-    t.text     "_14"
-    t.boolean  "_15"
-    t.integer  "_16"
-    t.integer  "_17"
-    t.integer  "_18"
-    t.boolean  "_19a"
-    t.boolean  "_19b"
-    t.boolean  "_19c"
-    t.boolean  "_19d"
-    t.boolean  "_19e"
-    t.string   "_19f"
-    t.text     "_20a"
-    t.text     "_20b"
-    t.text     "_20c"
-    t.boolean  "_21a"
-    t.boolean  "_21b"
-    t.boolean  "_21c"
-    t.boolean  "_21d"
-    t.boolean  "_21e"
-    t.boolean  "_21f"
-    t.boolean  "_21g"
-    t.boolean  "_21h"
-    t.text     "_21i"
-    t.string   "_21j",                          :limit => 1
-    t.boolean  "_22a"
-    t.text     "_22b"
-    t.boolean  "_23a"
-    t.text     "_23b"
-    t.boolean  "_24a"
-    t.text     "_24b"
-    t.text     "_25"
-    t.boolean  "_26a"
-    t.text     "_26b"
-    t.boolean  "_27a"
-    t.text     "_27b"
-    t.boolean  "_28a"
-    t.text     "_28b"
-    t.boolean  "_29a"
-    t.text     "_29b"
-    t.boolean  "_29c"
-    t.boolean  "_29d"
-    t.text     "_29e"
-    t.text     "_29f"
-    t.text     "_30"
-    t.text     "_31"
-    t.text     "_32"
-    t.text     "_33"
-    t.text     "_34"
-    t.text     "_35"
-    t.boolean  "isPaid"
-    t.boolean  "isApplyingForStaffInternship"
-    t.datetime "createDate"
-    t.datetime "lastChangedDate"
-    t.integer  "lastChangedBy"
-    t.boolean  "isRecruited"
-    t.integer  "assignedToProject"
-    t.string   "electronicSignature",           :limit => 50
-    t.datetime "submittedDate"
-    t.datetime "assignedDate"
-    t.datetime "acceptedDate"
-    t.datetime "notAcceptedDate"
-    t.datetime "withdrawnDate"
-    t.string   "preferredContactMethod",        :limit => 1
-    t.string   "howOftenCheckEmail",            :limit => 30
-    t.string   "otherClassDetails",             :limit => 30
-    t.boolean  "participateOtherProjects"
-    t.boolean  "campusHasStaffTeam"
-    t.boolean  "campusHasStaffCoach"
-    t.boolean  "campusHasMetroTeam"
-    t.boolean  "campusHasOther"
-    t.string   "campusHasOtherDetails",         :limit => 30
-    t.boolean  "inSchoolNextFall"
-    t.boolean  "participateCCC"
-    t.boolean  "participateNone"
-    t.boolean  "ciPhoneCallRequested"
-    t.string   "ciPhoneNumber",                 :limit => 24
-    t.string   "ciBestTimeToCall",              :limit => 10
-    t.string   "ciTimeZone",                    :limit => 10
-    t.string   "_26date",                       :limit => 10
-    t.integer  "fk_personID"
-  end
-
-  add_index "wsn_sp_wsnapplication", ["applAccountNo"], :name => "index10"
-  add_index "wsn_sp_wsnapplication", ["fk_isMember"], :name => "index_wsn_sp_wsnapplication_on_fk_isMember"
-  add_index "wsn_sp_wsnapplication", ["fk_personID"], :name => "fk_personID"
-  add_index "wsn_sp_wsnapplication", ["role"], :name => "index12"
-  add_index "wsn_sp_wsnapplication", ["status"], :name => "index8"
-  add_index "wsn_sp_wsnapplication", ["wsnYear"], :name => "index9"
-
-  create_table "wsn_sp_wsnapplication_deprecated", :primary_key => "WsnApplicationID", :force => true do |t|
-    t.string   "surferID",                      :limit => 64
-    t.string   "role",                          :limit => 1
-    t.string   "earliestAvailableDate",         :limit => 22
-    t.string   "dateMustReturn",                :limit => 22
-    t.boolean  "willingForDifferentProject",                          :default => true
-    t.boolean  "usCitizen",                                           :default => true
-    t.boolean  "isApplicationComplete",                               :default => false
-    t.integer  "projectPref1"
-    t.integer  "projectPref2"
-    t.integer  "projectPref3"
-    t.integer  "projectPref4"
-    t.integer  "projectPref5"
-    t.string   "applAccountNo",                 :limit => 11
-    t.float    "supportBalance"
-    t.boolean  "insuranceReceived",                                   :default => false
-    t.boolean  "waiverReceived",                                      :default => false
-    t.boolean  "didGo",                                               :default => false
-    t.boolean  "participantEvaluation",                               :default => false
-    t.string   "arrivalGatewayCityToLocation",  :limit => 22
-    t.string   "locationToGatewayCityFlightNo", :limit => 50
-    t.string   "departLocationToGatewayCity",   :limit => 22
-    t.string   "passportNo",                    :limit => 25
-    t.string   "passportCountry",               :limit => 50
-    t.string   "passportIssueDate",             :limit => 22
-    t.string   "passportExpirationDate",        :limit => 22
-    t.string   "visaCountry",                   :limit => 50
-    t.string   "visaNo",                        :limit => 50
-    t.string   "visaType",                      :limit => 50
-    t.boolean  "visaIsMultipleEntry",                                 :default => false
-    t.string   "visaIssueDate",                 :limit => 22
-    t.string   "visaExpirationDate",            :limit => 22
-    t.string   "dateUpdated",                   :limit => 22
-    t.boolean  "isStaff",                                             :default => false
-    t.boolean  "prevIsp",                                             :default => false
-    t.boolean  "child",                                               :default => false
-    t.string   "status",                        :limit => 22
-    t.string   "wsnYear",                       :limit => 4
-    t.integer  "fk_isMember"
-    t.boolean  "participateImpact",                                   :default => false
-    t.boolean  "participateDestino",                                  :default => false
-    t.boolean  "participateEpic"
-    t.datetime "springBreakStart"
-    t.datetime "springBreakEnd"
-    t.boolean  "isIntern",                                            :default => false
-    t.boolean  "_1a",                                                 :default => false
-    t.boolean  "_1b",                                                 :default => false
-    t.boolean  "_1c",                                                 :default => false
-    t.boolean  "_1d",                                                 :default => false
-    t.boolean  "_1e",                                                 :default => false
-    t.text     "_1f",                           :limit => 2147483647
-    t.boolean  "_2a"
-    t.text     "_2b",                           :limit => 2147483647
-    t.boolean  "_2c"
-    t.boolean  "_3a"
-    t.boolean  "_3b"
-    t.boolean  "_3c"
-    t.boolean  "_3d"
-    t.boolean  "_3e"
-    t.boolean  "_3f"
-    t.boolean  "_3g"
-    t.text     "_3h",                           :limit => 2147483647
-    t.boolean  "_4a"
-    t.boolean  "_4b"
-    t.boolean  "_4c"
-    t.boolean  "_4d"
-    t.boolean  "_4e"
-    t.boolean  "_4f"
-    t.boolean  "_4g"
-    t.boolean  "_4h"
-    t.text     "_4i",                           :limit => 2147483647
-    t.boolean  "_5a"
-    t.boolean  "_5b"
-    t.boolean  "_5c"
-    t.boolean  "_5d"
-    t.text     "_5e",                           :limit => 2147483647
-    t.boolean  "_5f"
-    t.text     "_5g",                           :limit => 2147483647
-    t.boolean  "_5h"
-    t.text     "_6",                            :limit => 2147483647
-    t.text     "_7",                            :limit => 2147483647
-    t.text     "_8a",                           :limit => 2147483647
-    t.text     "_8b",                           :limit => 2147483647
-    t.text     "_9",                            :limit => 2147483647
-    t.text     "_10",                           :limit => 2147483647
-    t.boolean  "_11a"
-    t.text     "_11b",                          :limit => 2147483647
-    t.boolean  "_12a"
-    t.text     "_12b",                          :limit => 2147483647
-    t.boolean  "_13a"
-    t.boolean  "_13b"
-    t.boolean  "_13c"
-    t.text     "_14",                           :limit => 2147483647
-    t.boolean  "_15"
-    t.integer  "_16"
-    t.integer  "_17"
-    t.integer  "_18"
-    t.boolean  "_19a"
-    t.boolean  "_19b"
-    t.boolean  "_19c"
-    t.boolean  "_19d"
-    t.boolean  "_19e"
-    t.string   "_19f"
-    t.text     "_20a",                          :limit => 2147483647
-    t.text     "_20b",                          :limit => 2147483647
-    t.text     "_20c",                          :limit => 2147483647
-    t.boolean  "_21a"
-    t.boolean  "_21b"
-    t.boolean  "_21c"
-    t.boolean  "_21d"
-    t.boolean  "_21e"
-    t.boolean  "_21f"
-    t.boolean  "_21g"
-    t.boolean  "_21h"
-    t.text     "_21i",                          :limit => 2147483647
-    t.string   "_21j",                          :limit => 1
-    t.boolean  "_22a"
-    t.text     "_22b",                          :limit => 2147483647
-    t.boolean  "_23a"
-    t.text     "_23b",                          :limit => 2147483647
-    t.boolean  "_24a"
-    t.text     "_24b",                          :limit => 2147483647
-    t.text     "_25",                           :limit => 2147483647
-    t.boolean  "_26a"
-    t.text     "_26b",                          :limit => 2147483647
-    t.boolean  "_27a"
-    t.text     "_27b",                          :limit => 2147483647
-    t.boolean  "_28a"
-    t.text     "_28b",                          :limit => 2147483647
-    t.boolean  "_29a"
-    t.text     "_29b",                          :limit => 2147483647
-    t.boolean  "_29c"
-    t.boolean  "_29d"
-    t.text     "_29e",                          :limit => 2147483647
-    t.text     "_29f",                          :limit => 2147483647
-    t.text     "_30",                           :limit => 2147483647
-    t.text     "_31",                           :limit => 2147483647
-    t.text     "_32",                           :limit => 2147483647
-    t.text     "_33",                           :limit => 2147483647
-    t.text     "_34",                           :limit => 2147483647
-    t.text     "_35",                           :limit => 2147483647
-    t.boolean  "isPaid"
-    t.boolean  "isApplyingForStaffInternship"
-    t.datetime "createDate"
-    t.datetime "lastChangedDate"
-    t.integer  "lastChangedBy"
-    t.boolean  "isRecruited"
-    t.integer  "assignedToProject"
-    t.string   "electronicSignature",           :limit => 50
-    t.datetime "submittedDate"
-    t.datetime "assignedDate"
-    t.datetime "acceptedDate"
-    t.datetime "notAcceptedDate"
-    t.datetime "withdrawnDate"
-    t.string   "preferredContactMethod",        :limit => 1
-    t.string   "howOftenCheckEmail",            :limit => 30
-    t.string   "otherClassDetails",             :limit => 30
-    t.boolean  "participateOtherProjects"
-    t.boolean  "campusHasStaffTeam"
-    t.boolean  "campusHasStaffCoach"
-    t.boolean  "campusHasMetroTeam"
-    t.boolean  "campusHasOther"
-    t.string   "campusHasOtherDetails",         :limit => 30
-    t.boolean  "inSchoolNextFall"
-    t.boolean  "participateCCC"
-    t.boolean  "participateNone"
-    t.boolean  "ciPhoneCallRequested"
-    t.string   "ciPhoneNumber",                 :limit => 24
-    t.string   "ciBestTimeToCall",              :limit => 10
-    t.string   "ciTimeZone",                    :limit => 10
-    t.string   "_26date",                       :limit => 10
-    t.integer  "fk_personID"
-  end
-
-  add_index "wsn_sp_wsnapplication_deprecated", ["applAccountNo"], :name => "index10"
-  add_index "wsn_sp_wsnapplication_deprecated", ["fk_isMember"], :name => "index1"
-  add_index "wsn_sp_wsnapplication_deprecated", ["fk_personID"], :name => "fk_personID"
-  add_index "wsn_sp_wsnapplication_deprecated", ["status"], :name => "index8"
-  add_index "wsn_sp_wsnapplication_deprecated", ["status"], :name => "status"
-  add_index "wsn_sp_wsnapplication_deprecated", ["wsnYear"], :name => "index9"
-
-  create_table "wsn_sp_wsndonations", :primary_key => "WsnDonationsID", :force => true do |t|
-    t.string "accountno",       :limit => 11
-    t.float  "monetary_amount",               :default => 0.0, :null => false
-  end
-
-  add_index "wsn_sp_wsndonations", ["accountno"], :name => "accountno"
-
-  create_table "wsn_sp_wsndonations_deprecated", :primary_key => "WsnDonationsID", :force => true do |t|
-    t.string "accountno",       :limit => 11
-    t.float  "monetary_amount",               :null => false
-  end
-
-  add_index "wsn_sp_wsndonations_deprecated", ["accountno"], :name => "accountno"
-
-  create_table "wsn_sp_wsnevaluation", :primary_key => "evalID", :force => true do |t|
-    t.boolean  "applicantNotified"
-    t.integer  "_Qual1"
-    t.integer  "_Qual2"
-    t.integer  "_Qual3"
-    t.integer  "_Qual4"
-    t.integer  "_Qual5"
-    t.integer  "_Qual6"
-    t.integer  "_Qual7"
-    t.integer  "_Qual8"
-    t.boolean  "_DeQual1"
-    t.boolean  "_DeQual2"
-    t.boolean  "_DeQual3"
-    t.boolean  "_DeQual4"
-    t.boolean  "_DeQual5"
-    t.boolean  "_DeQual6"
-    t.string   "comment",              :limit => 2000
-    t.integer  "score"
-    t.integer  "fk_WsnApplicationID"
-    t.datetime "parent_dateCreated"
-    t.boolean  "parent_haveDiscussed"
-    t.integer  "parent_advice"
-    t.string   "parent_adviceReason",  :limit => 2000
-    t.string   "parent_name",          :limit => 100
-    t.string   "parent_signature",     :limit => 100
-    t.datetime "parent_dateSigned"
-  end
-
-  add_index "wsn_sp_wsnevaluation", ["fk_WsnApplicationID"], :name => "IX_wsn_sp_WsnEvaluation"
-
-  create_table "wsn_sp_wsnevaluation_deprecated", :primary_key => "evalID", :force => true do |t|
-    t.boolean  "applicantNotified"
-    t.integer  "_Qual1"
-    t.integer  "_Qual2"
-    t.integer  "_Qual3"
-    t.integer  "_Qual4"
-    t.integer  "_Qual5"
-    t.integer  "_Qual6"
-    t.integer  "_Qual7"
-    t.integer  "_Qual8"
-    t.boolean  "_DeQual1"
-    t.boolean  "_DeQual2"
-    t.boolean  "_DeQual3"
-    t.boolean  "_DeQual4"
-    t.boolean  "_DeQual5"
-    t.boolean  "_DeQual6"
-    t.string   "comment",              :limit => 2000
-    t.integer  "score"
-    t.integer  "fk_WsnApplicationID"
-    t.datetime "parent_dateCreated"
-    t.boolean  "parent_haveDiscussed"
-    t.integer  "parent_advice"
-    t.string   "parent_adviceReason",  :limit => 2000
-    t.string   "parent_name",          :limit => 100
-    t.string   "parent_signature",     :limit => 100
-    t.datetime "parent_dateSigned"
-  end
-
-  add_index "wsn_sp_wsnevaluation_deprecated", ["fk_WsnApplicationID"], :name => "IX_wsn_sp_WsnEvaluation"
-
-  create_table "wsn_sp_wsnproject", :primary_key => "WsnProjectID", :force => true do |t|
-    t.string   "name"
-    t.string   "partnershipRegion",             :limit => 50
-    t.text     "history"
-    t.string   "startDate"
-    t.string   "stopDate"
-    t.string   "city"
-    t.string   "country"
-    t.text     "details"
-    t.string   "status"
-    t.string   "destinationGatewayCity"
-    t.string   "departDateFromGateCity"
-    t.string   "arrivalDateAtLocation"
-    t.string   "locationGatewayCity"
-    t.string   "departureDateFromLocation"
-    t.string   "arrivalDateAtGatewayCity"
-    t.string   "flightBudget"
-    t.string   "GatewayCitytoLocationFlightNo"
-    t.string   "locationToGatewayCityFlightNo"
-    t.string   "inCountryContact"
-    t.string   "scholarshipAccountNo"
-    t.string   "operatingAccountNo"
-    t.string   "AOA"
-    t.string   "MPTA"
-    t.string   "staffCost"
-    t.string   "studentCost"
-    t.boolean  "insuranceFormsReceived"
-    t.boolean  "CAPSFeePaid"
-    t.boolean  "adminFeePaid"
-    t.string   "storiesXX"
-    t.string   "stats"
-    t.boolean  "secure"
-    t.string   "dateCreated"
-    t.string   "lastUpdate"
-    t.integer  "maxNoStaff"
-    t.integer  "maxNoStudents"
-    t.boolean  "projEvalCompleted"
-    t.integer  "evangelisticExposures"
-    t.integer  "receivedChrist"
-    t.integer  "jesusFilmExposures"
-    t.integer  "jesusFilmReveivedChrist"
-    t.integer  "coverageActivitiesExposures"
-    t.integer  "coverageActivitiesDecisions"
-    t.integer  "holySpiritDecisions"
-    t.string   "website"
-    t.string   "destinationAddress"
-    t.string   "destinationPhone"
-    t.string   "wsnYear"
-    t.integer  "fk_IsCoord"
-    t.integer  "fk_IsAPD"
-    t.integer  "fk_IsPD"
-    t.string   "projectType",                   :limit => 1
-    t.datetime "studentStartDate"
-    t.datetime "studentEndDate"
-    t.datetime "staffStartDate"
-    t.datetime "staffEndDate"
-    t.datetime "leadershipStartDate"
-    t.datetime "leadershipEndDate"
-    t.datetime "createDate"
-    t.datetime "lastChangedDate"
-    t.string   "lastChangedBy",                 :limit => 50
-    t.string   "displayLocation",               :limit => 50
-    t.boolean  "partnershipRegionOnly"
-    t.string   "internCost",                    :limit => 50
-    t.boolean  "onHold"
-    t.integer  "maxNoStaffMale"
-    t.integer  "maxNoStaffFemale"
-    t.integer  "maxNoStaffCouples"
-    t.integer  "maxNoStaffFamilies"
-    t.integer  "maxNoInternAMale"
-    t.integer  "maxNoInternAFemale"
-    t.integer  "maxNoInternACouples"
-    t.integer  "maxNoInternAFamilies"
-    t.integer  "maxNoInternA"
-    t.integer  "maxNoInternPMale"
-    t.integer  "maxNoInternPFemale"
-    t.integer  "maxNoInternPCouples"
-    t.integer  "maxNoInternPFamilies"
-    t.integer  "maxNoInternP"
-    t.integer  "maxNoStudentAMale"
-    t.integer  "maxNoStudentAFemale"
-    t.integer  "maxNoStudentACouples"
-    t.integer  "maxNoStudentAFamilies"
-    t.integer  "maxNoStudentA"
-    t.integer  "maxNoStudentPMale"
-    t.integer  "maxNoStudentPFemale"
-    t.integer  "maxNoStudentPCouples"
-    t.integer  "maxNoStudentPFamilies"
-    t.string   "operatingBusinessUnit"
-    t.string   "operatingOperatingUnit"
-    t.string   "operatingDeptID"
-    t.string   "operatingProjectID"
-    t.string   "operatingDesignation"
-    t.string   "scholarshipBusinessUnit"
-    t.string   "scholarshipOperatingUnit"
-    t.string   "scholarshipDeptID"
-    t.string   "scholarshipProjectID"
-    t.string   "scholarshipDesignation"
-    t.string   "statesideContactName",          :limit => 45
-    t.string   "statesideContactProjectRole",   :limit => 35
-    t.string   "statesideContactPhone",         :limit => 20
-    t.string   "statesideContactEmail",         :limit => 75
-    t.integer  "currentNoStudentAMale"
-    t.integer  "currentNoStudentPMale"
-    t.integer  "currentNoStudentAFemale"
-    t.integer  "currentNoStudentPFemale"
-    t.integer  "numApplicants"
-  end
-
-  add_index "wsn_sp_wsnproject", ["fk_IsAPD"], :name => "index_wsn_sp_wsnproject_on_fk_IsAPD"
-  add_index "wsn_sp_wsnproject", ["fk_IsCoord"], :name => "index3"
-  add_index "wsn_sp_wsnproject", ["fk_IsPD"], :name => "index2"
-  add_index "wsn_sp_wsnproject", ["name"], :name => "index6"
-  add_index "wsn_sp_wsnproject", ["partnershipRegion"], :name => "index7"
-  add_index "wsn_sp_wsnproject", ["status"], :name => "index5"
-  add_index "wsn_sp_wsnproject", ["wsnYear"], :name => "index4"
-
-  create_table "wsn_sp_wsnproject_deprecated", :primary_key => "WsnProjectID", :force => true do |t|
-    t.string   "name"
-    t.string   "partnershipRegion",             :limit => 50
-    t.text     "history",                       :limit => 2147483647
-    t.string   "startDate"
-    t.string   "stopDate"
-    t.string   "city"
-    t.string   "country"
-    t.text     "details",                       :limit => 2147483647
-    t.string   "status"
-    t.string   "destinationGatewayCity"
-    t.string   "departDateFromGateCity"
-    t.string   "arrivalDateAtLocation"
-    t.string   "locationGatewayCity"
-    t.string   "departureDateFromLocation"
-    t.string   "arrivalDateAtGatewayCity"
-    t.string   "flightBudget"
-    t.string   "GatewayCitytoLocationFlightNo"
-    t.string   "locationToGatewayCityFlightNo"
-    t.string   "inCountryContact"
-    t.string   "scholarshipAccountNo"
-    t.string   "operatingAccountNo"
-    t.string   "AOA"
-    t.string   "MPTA"
-    t.string   "staffCost"
-    t.string   "studentCost"
-    t.boolean  "insuranceFormsReceived"
-    t.boolean  "CAPSFeePaid"
-    t.boolean  "adminFeePaid"
-    t.string   "storiesXX"
-    t.string   "stats"
-    t.boolean  "secure"
-    t.string   "dateCreated"
-    t.string   "lastUpdate"
-    t.integer  "maxNoStaff"
-    t.integer  "maxNoStudents"
-    t.boolean  "projEvalCompleted"
-    t.integer  "evangelisticExposures"
-    t.integer  "receivedChrist"
-    t.integer  "jesusFilmExposures"
-    t.integer  "jesusFilmReveivedChrist"
-    t.integer  "coverageActivitiesExposures"
-    t.integer  "coverageActivitiesDecisions"
-    t.integer  "holySpiritDecisions"
-    t.string   "website"
-    t.string   "destinationAddress"
-    t.string   "destinationPhone"
-    t.string   "wsnYear"
-    t.integer  "fk_IsCoord"
-    t.integer  "fk_IsAPD"
-    t.integer  "fk_IsPD"
-    t.string   "projectType",                   :limit => 1
-    t.datetime "studentStartDate"
-    t.datetime "studentEndDate"
-    t.datetime "staffStartDate"
-    t.datetime "staffEndDate"
-    t.datetime "leadershipStartDate"
-    t.datetime "leadershipEndDate"
-    t.datetime "createDate"
-    t.datetime "lastChangedDate"
-    t.string   "lastChangedBy",                 :limit => 50
-    t.string   "displayLocation",               :limit => 50
-    t.boolean  "partnershipRegionOnly"
-    t.string   "internCost",                    :limit => 50
-    t.boolean  "onHold"
-    t.integer  "maxNoStaffMale"
-    t.integer  "maxNoStaffFemale"
-    t.integer  "maxNoStaffCouples"
-    t.integer  "maxNoStaffFamilies"
-    t.integer  "maxNoInternAMale"
-    t.integer  "maxNoInternAFemale"
-    t.integer  "maxNoInternACouples"
-    t.integer  "maxNoInternAFamilies"
-    t.integer  "maxNoInternA"
-    t.integer  "maxNoInternPMale"
-    t.integer  "maxNoInternPFemale"
-    t.integer  "maxNoInternPCouples"
-    t.integer  "maxNoInternPFamilies"
-    t.integer  "maxNoInternP"
-    t.integer  "maxNoStudentAMale"
-    t.integer  "maxNoStudentAFemale"
-    t.integer  "maxNoStudentACouples"
-    t.integer  "maxNoStudentAFamilies"
-    t.integer  "maxNoStudentA"
-    t.integer  "maxNoStudentPMale"
-    t.integer  "maxNoStudentPFemale"
-    t.integer  "maxNoStudentPCouples"
-    t.integer  "maxNoStudentPFamilies"
-    t.string   "operatingBusinessUnit"
-    t.string   "operatingOperatingUnit"
-    t.string   "operatingDeptID"
-    t.string   "operatingProjectID"
-    t.string   "operatingDesignation"
-    t.string   "scholarshipBusinessUnit"
-    t.string   "scholarshipOperatingUnit"
-    t.string   "scholarshipDeptID"
-    t.string   "scholarshipProjectID"
-    t.string   "scholarshipDesignation"
-    t.string   "statesideContactName",          :limit => 45
-    t.string   "statesideContactProjectRole",   :limit => 35
-    t.string   "statesideContactPhone",         :limit => 20
-    t.string   "statesideContactEmail",         :limit => 75
-    t.integer  "currentNoStudentAMale"
-    t.integer  "currentNoStudentPMale"
-    t.integer  "currentNoStudentAFemale"
-    t.integer  "currentNoStudentPFemale"
-    t.integer  "numApplicants"
-  end
-
-  add_index "wsn_sp_wsnproject_deprecated", ["fk_IsAPD"], :name => "index1"
-  add_index "wsn_sp_wsnproject_deprecated", ["fk_IsCoord"], :name => "index3"
-  add_index "wsn_sp_wsnproject_deprecated", ["fk_IsPD"], :name => "index2"
-  add_index "wsn_sp_wsnproject_deprecated", ["name"], :name => "index6"
-  add_index "wsn_sp_wsnproject_deprecated", ["partnershipRegion"], :name => "index7"
-  add_index "wsn_sp_wsnproject_deprecated", ["status"], :name => "index5"
-  add_index "wsn_sp_wsnproject_deprecated", ["wsnYear"], :name => "index4"
-
-  create_table "wsn_sp_wsnusers", :primary_key => "wsnUserID", :force => true do |t|
-    t.string   "ssmUserName",    :limit => 200
-    t.string   "role",           :limit => 50
-    t.datetime "expirationDate"
-  end
-
-  add_index "wsn_sp_wsnusers", ["ssmUserName"], :name => "IX_wsn_sp_WsnUsers_fk_UserName"
-
-  create_table "wsn_sp_wsnusers_deprecated", :primary_key => "wsnUserID", :force => true do |t|
-    t.string   "ssmUserName",    :limit => 200
-    t.string   "role",           :limit => 50
-    t.datetime "expirationDate"
-  end
-
-  add_index "wsn_sp_wsnusers_deprecated", ["ssmUserName"], :name => "IX_wsn_sp_WsnUsers_fk_UserName"
+  add_index "super_admins", ["user_id"], :name => "index_super_admins_on_user_id"
 
 end
