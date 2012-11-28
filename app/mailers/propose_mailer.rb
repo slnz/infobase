@@ -1,6 +1,6 @@
 class ProposeMailer < ActionMailer::Base
   default :from => "help@cru.org",
-          :to => "justin.sabelko@uscm.org"
+          :to => "todd.gross@cojourners.com"
   
   def propose_location(location, person, host)
     @location = location
