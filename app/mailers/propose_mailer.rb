@@ -1,6 +1,6 @@
 class ProposeMailer < ActionMailer::Base
   default :from => "help@cru.org",
-          :to => "todd.gross@uscm.org"
+          :to => "justin.sabelko@uscm.org"
   
   def propose_location(location, person, host)
     @location = location
@@ -10,7 +10,7 @@ class ProposeMailer < ActionMailer::Base
     attributes = @location.attributes
     attributes.each_key do |attribute|
       if !attributes[attribute].blank?
-        @request_params += "target_area[" + attribute.to_s + "]=" + attributes[attribute].to_s + "&"
+        @request_params += "target_area[" + URI::escape(attribute.to_s) + "]=" + URI::escape(attributes[attribute].to_s) + "&"
       end
     end
     @request_params.chop!  # Last charachter will be either '?' or '&'
@@ -25,7 +25,7 @@ class ProposeMailer < ActionMailer::Base
     attributes = @team.attributes
     attributes.each_key do |attribute|
       if !attributes[attribute].blank?
-        @request_params += "team[" + attribute.to_s + "]=" + attributes[attribute].to_s + "&"
+        @request_params += "team[" + URI::escape(attribute.to_s) + "]=" + URI::escape(attributes[attribute].to_s) + "&"
       end
     end
     @request_params.chop!  # Last charachter will be either '?' or '&'
