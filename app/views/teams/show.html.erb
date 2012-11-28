@@ -64,7 +64,7 @@
     <% if person = member.person %>
       <li>
         <% if @info_user.can_remove_team_members? || @current_user.person == person || @team.is_leader?(@current_user.person) %>
-          <%= link_to "", remove_member_team_path(@team) + "/" + person.personID.to_s, :method => :delete, :class => "deletefield" %>
+          <%= link_to "", team_remove_member_path(@team, person.personID.to_s), :method => :delete, :class => "deletefield" %>
         <% end %>
         <%= link_to person.full_name, person_path(person) %>
         <% if address = person.current_address %>
@@ -76,7 +76,7 @@
             <i>
               Team Leader
               <% if @info_user.can_add_team_leaders? %>
-                :&nbsp;<%= link_to "Change to Member", remove_leader_team_path(@team) + "/" + person.personID.to_s, :method => :post %>
+                :&nbsp;<%= link_to "Change to Member", team_remove_leader_path(@team, person.personID.to_s), :method => :post %>
               <% end %>
             </i>
           </div>
@@ -86,7 +86,7 @@
             <i>
               Team Member
               <% if @info_user.can_add_team_leaders? %>
-                :&nbsp;<%= link_to "Change to Leader", add_leader_team_path(@team) + "/" + person.personID.to_s, :method => :post %>
+                :&nbsp;<%= link_to "Change to Leader", team_add_leader_path(@team, person.personID.to_s), :method => :post %>
               <% end %>
             </i>
           </div>
@@ -100,7 +100,7 @@
   <%= link_to "Add a Missional Team Member", search_members_team_path(@team) %><br/>
 <% end %>
 <% if !@team.people.include?(@current_user.person) %>
-  <%= link_to "Join This Missional Team", add_member_team_path(@team) + "/" + current_user.person.personID.to_s, :method => :post %>
+  <%= link_to "Join This Missional Team", team_add_member_path(@team, current_user.person.personID.to_s), :method => :post %>
 <% end %>
 
 <% if !@team.activities.active.empty? %>
@@ -123,7 +123,7 @@
             <td><%= Activity.strategies[activity.strategy] %></td>
             <td><%= Activity.statuses[activity.status] %></td>
             <td><%= activity_size(activity) %></td>
-            <td><%= link_to "Enter Stats", location_movement_path(activity.target_area, activity) + "/stats" %></td>
+            <td><%= link_to "Enter Stats", stats_movement_path(activity.target_area, activity) %></td>
           </tr>
         <% end %>
       </tbody>

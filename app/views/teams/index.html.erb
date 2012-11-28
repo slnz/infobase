@@ -6,8 +6,8 @@
     <% @regions.each do |region| %>
       <tr>
         <td>
-          <%= link_to region.name, region_teams_path + "/" + region.abbrv %>
-          <%= link_to "(all)", region_teams_path + "/" + region.abbrv + "/all" %>
+          <%= link_to region.name, team_region_path(region.abbrv) %>
+          <%= link_to "(all)", team_region_all_path(region.abbrv, "all") %>
         </td>
       </tr>
     <% end %>
@@ -20,7 +20,7 @@
   <tbody>
     <% @strategies.each_key do |strategy| %>
       <tr>
-        <td><%= link_to @strategies[strategy], ministry_teams_path + "/" + strategy %></td>
+        <td><%= link_to @strategies[strategy], team_ministry_path(strategy) %></td>
       </tr>
     <% end %>
   </tbody>

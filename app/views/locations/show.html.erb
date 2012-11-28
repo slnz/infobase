@@ -98,12 +98,12 @@
             <% activity.contacts.each do |contact| %>
               <%= link_to contact.full_name, person_path(contact) %>
               <% if @info_user.can_delete_contacts? || current_user.person.personID == contact.personID || activity.team.is_leader?(@current_user.person) %>
-                <%= link_to "", remove_contact_location_movement_path(@location, activity) + "/" + contact.personID.to_s, :method => :delete, :confirm => "Are you sure?", :class => "deletefield" %>
+                <%= link_to "", movement_remove_contact_path(@location, activity, contact.personID.to_s), :method => :delete, :confirm => "Are you sure?", :class => "deletefield" %>
               <% end %>
               <br/>
             <% end %>
             <% if !activity.contacts.include?(@current_user.person) %>
-              <%= link_to "Become a Contact for this Movement", add_contact_location_movement_path(@location, activity) + "/" + @current_user.person.personID.to_s, :method => :post %><br/>
+              <%= link_to "Become a Contact for this Movement", movement_add_contact_path(@location, activity, @current_user.person.personID.to_s), :method => :post %><br/>
             <% end %>
             <% if @info_user.can_add_contacts? %>
               <%= link_to "Add Contact", search_contacts_location_movement_path(@location, activity) %>
@@ -124,7 +124,7 @@
         <div class="field">
           <label>Size:</label>
           <%= activity_size(activity) %>
-          (<%= link_to "Enter Stats", location_movement_path(@location, activity) + "/stats" %>)
+          (<%= link_to "Enter Stats", stats_movement_path(@location, activity) %>)
         </div>
         <br/>
 
@@ -148,5 +148,5 @@
 <% end %>
  
 <% @open_strategies.each do |strategy| %>
-  <%= link_to "Add " + Activity.strategies[strategy], new_location_movement_path(@location) + "/" + strategy %><br/>
+  <%= link_to "Add " + Activity.strategies[strategy], location_new_strategy_path(@location, strategy) %><br/>
 <% end %>

@@ -99,7 +99,7 @@ class LocationsController < ApplicationController
         @title = "Infobase - Locations in " + State.states[@state]
       end
     else # invalid state
-      redirect_to region_locations_path + "/" + @region
+      redirect_to location_region_path(@region)
     end
   end
   

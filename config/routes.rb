@@ -21,19 +21,19 @@ Infobase::Application.routes.draw do
   end
   match 'teams/validate/:name' => 'teams#validate_name'
   match 'locations/validate/:name' => 'locations#validate_name'
-  match 'teams/region/:region/state/:state/city/:city' => 'teams#city'
-  match 'teams/region/:region/state/:state/:all' => 'teams#state'
-  match 'teams/region/:region/state/:state' => 'teams#state'
-  match 'teams/region/:region/country/:country/city/:city' => 'teams#city'
-  match 'teams/region/:region/country/:country/:all' => 'teams#country'
-  match 'teams/region/:region/country/:country' => 'teams#country'
-  match 'teams/region/:region/:all' => 'teams#region'
-  match 'teams/region/:region' => 'teams#region'
-  match 'teams/ministry/:strategy' => 'teams#ministry'
-  match 'teams/:id/add_member/:person_id' => 'teams#add_member', :via => :post
-  match 'teams/:id/remove_member/:person_id' => 'teams#remove_member', :via => :delete
-  match 'teams/:id/add_leader/:person_id' => 'teams#add_leader', :via => :post
-  match 'teams/:id/remove_leader/:person_id' => 'teams#remove_leader', :via => :post
+  match 'teams/region/:region/state/:state/city/:city' => 'teams#city', :as => :team_city
+  match 'teams/region/:region/state/:state/:all' => 'teams#state', :as => :team_state_all
+  match 'teams/region/:region/state/:state' => 'teams#state', :as => :team_state
+  match 'teams/region/:region/country/:country/city/:city' => 'teams#city', :as => :team_country_city
+  match 'teams/region/:region/country/:country/:all' => 'teams#country', :as => :team_country_all
+  match 'teams/region/:region/country/:country' => 'teams#country', :as => :team_country
+  match 'teams/region/:region/:all' => 'teams#region', :as => :team_region_all
+  match 'teams/region/:region' => 'teams#region', :as => :team_region
+  match 'teams/ministry/:strategy' => 'teams#ministry', :as => :team_ministry
+  match 'teams/:id/add_member/:person_id' => 'teams#add_member', :via => :post, :as => :team_add_member
+  match 'teams/:id/remove_member/:person_id' => 'teams#remove_member', :via => :delete, :as => :team_remove_member
+  match 'teams/:id/add_leader/:person_id' => 'teams#add_leader', :via => :post, :as => :team_add_leader
+  match 'teams/:id/remove_leader/:person_id' => 'teams#remove_leader', :via => :post, :as => :team_remove_leader
 
   resources :locations do
     resources :movements do
@@ -56,18 +56,18 @@ Infobase::Application.routes.draw do
       get :ministry
     end
   end
-  match 'locations/region/:region/state/:state/city/:city' => 'locations#city'
-  match 'locations/region/:region/state/:state/:all' => 'locations#state'
-  match 'locations/region/:region/state/:state' => 'locations#state'
-  match 'locations/region/:region/country/:country/city/:city' => 'locations#city'
-  match 'locations/region/:region/country/:country/:all' => 'locations#country'
-  match 'locations/region/:region/country/:country' => 'locations#country'
-  match 'locations/region/:region/:all' => 'locations#region'
-  match 'locations/region/:region' => 'locations#region'
-  match 'locations/ministry/:strategy' => 'locations#ministry'
-  match 'locations/:location_id/movements/new/:strategy' => 'movements#new'
-  match 'locations/:location_id/movements/:id/remove_contact/:person_id' => 'movements#remove_contact', :via => :delete
-  match 'locations/:location_id/movements/:id/add_contact/:person_id' => 'movements#add_contact', :via => :post
+  match 'locations/region/:region/state/:state/city/:city' => 'locations#city', :as => :location_city
+  match 'locations/region/:region/state/:state/:all' => 'locations#state', :as => :location_state_all
+  match 'locations/region/:region/state/:state' => 'locations#state', :as => :location_state
+  match 'locations/region/:region/country/:country/city/:city' => 'locations#city', :as => :location_country_city
+  match 'locations/region/:region/country/:country/:all' => 'locations#country', :as => :location_country_all
+  match 'locations/region/:region/country/:country' => 'locations#country', :as => :location_country
+  match 'locations/region/:region/:all' => 'locations#region', :as => :location_region_all
+  match 'locations/region/:region' => 'locations#region', :as => :location_region
+  match 'locations/ministry/:strategy' => 'locations#ministry', :as => :location_ministry
+  match 'locations/:location_id/movements/new/:strategy' => 'movements#new', :as => :location_new_strategy
+  match 'locations/:location_id/movements/:id/remove_contact/:person_id' => 'movements#remove_contact', :via => :delete, :as => :movement_remove_contact
+  match 'locations/:location_id/movements/:id/add_contact/:person_id' => 'movements#add_contact', :via => :post, :as => :movement_add_contact
   
   resources :stats do
     collection do
@@ -80,7 +80,7 @@ Infobase::Application.routes.draw do
       put :confirm_digital
     end
   end
-  match 'locations/:location_id/movements/:movement_id/stats' => 'stats#movement'
+  match 'locations/:location_id/movements/:movement_id/stats' => 'stats#movement', :as => :stats_movement
 
   resources :people do
     collection do
@@ -98,7 +98,7 @@ Infobase::Application.routes.draw do
       get :involvement
     end
   end
-  match 'people/roles/:region' => 'people#roles'
+  match 'people/roles/:region' => 'people#roles', :as => :people_roles
   
   match 'reports' => 'reports#create_report', :as => :create_report
   match 'reports/results' => 'reports#do_report', :via => :post, :as => :do_report

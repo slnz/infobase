@@ -1,11 +1,11 @@
 <% content_for :content do %>
   <div id="breadcrumb">
     <%= link_to "Teams Home", teams_path %>&nbsp;
-    <%= link_to ">" + Region.full_name(@region), region_teams_path + "/" + @region if !@region.blank? %>
-    <%= link_to ">" + State.states[@state], region_teams_path + "/" + @region + "/state/" + @state if !@state.blank? && !@region.blank? %>
-    <%= link_to ">" + @city, region_teams_path + "/" + @region + "/state/" + @state + "/city/" + @city if !@state.blank? && !@city.blank? && !@region.blank? %>
-    <%= link_to ">" + Country.full_name(@country).to_s, region_teams_path + "/" + @region + "/country/" + @country if !@country.blank? && !@region.blank? %>
-    <%= link_to ">" + @city, region_teams_path + "/" + @region + "/country/" + @country + "/city/" + @city if !@country.blank? && !@city.blank? && !@region.blank? %>
+    <%= link_to ">" + Region.full_name(@region), team_region_path(@region) if !@region.blank? %>
+    <%= link_to ">" + State.states[@state], team_state_path(@region, @state) if !@state.blank? && !@region.blank? %>
+    <%= link_to ">" + @city, team_city_path(@region, @state, @city) if !@state.blank? && !@city.blank? && !@region.blank? %>
+    <%= link_to ">" + Country.full_name(@country).to_s, team_country_path(@region, @country) if !@country.blank? && !@region.blank? %>
+    <%= link_to ">" + @city, team_country_city_path(@region, @country, @city) if !@country.blank? && !@city.blank? && !@region.blank? %>
     <%= link_to "Advanced Team Search", search_teams_path %>
     <%= link_to "Propose New Team", new_team_path %>
   </div>

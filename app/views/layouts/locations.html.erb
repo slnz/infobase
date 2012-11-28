@@ -1,11 +1,11 @@
 <% content_for :content do %>
   <div id="breadcrumb">
     <%= link_to "Locations Home", locations_path %>&nbsp;
-    <%= link_to ">" + Region.full_name(@region), region_locations_path + "/" + @region if !@region.blank? %>
-    <%= link_to ">" + State.states[@state], region_locations_path + "/" + @region + "/state/" + @state if !@state.blank? && !@region.blank? %>
-    <%= link_to ">" + @city, region_locations_path + "/" + @region + "/state/" + @state + "/city/" + @city if !@state.blank? && !@city.blank? && !@region.blank? %>
-    <%= link_to ">" + Country.full_name(@country).to_s, region_locations_path + "/" + @region + "/country/" + @country if !@country.blank? && !@region.blank? %>
-    <%= link_to ">" + @city, region_locations_path + "/" + @region + "/country/" + @country + "/city/" + @city if !@country.blank? && !@city.blank? && !@region.blank? %>
+    <%= link_to ">" + Region.full_name(@region), location_region_path(@region) if !@region.blank? %>
+    <%= link_to ">" + State.states[@state], location_state_path(@region, @state) if !@state.blank? && !@region.blank? %>
+    <%= link_to ">" + @city, location_city_path(@region, @state, @city) if !@state.blank? && !@city.blank? && !@region.blank? %>
+    <%= link_to ">" + Country.full_name(@country).to_s, location_country_path(@region, @country) if !@country.blank? && !@region.blank? %>
+    <%= link_to ">" + @city, location_country_city_path(@region, @country, @city) if !@country.blank? && !@city.blank? && !@region.blank? %>
     <%= link_to "Advanced Location Search", search_locations_path %>
     <%= link_to "Propose New Location", new_location_path %>
   </div>

@@ -1,12 +1,12 @@
 <h2><%= Region.full_name(@region) %></h2>
 <b>Look for your Location by selecting the State below:</b><br/>
 <% @states.each do |ta| %>
-  <%= link_to State.states[ta.state], region_locations_path + "/" + @region + "/state/" + ta.state %>
-  <%= link_to "(all)", region_locations_path + "/" + @region + "/state/" + ta.state + "/all" %><br/>
+  <%= link_to State.states[ta.state], location_state_path(@region, ta.state) %>
+  <%= link_to "(all)", location_state_all_path(@region, ta.state, "all") %><br/>
 <% end %>
 <br/><br/>
 <b>Or look for your Location in the Countries below:</b><br/>
 <% @countries.each do |ta| %>
-  <%= link_to Country.full_name(ta.country).to_s, region_locations_path + "/" + @region + "/country/" + ta.country %>
-  <%= link_to "(all)", region_locations_path + "/" + @region + "/country/" + ta.country + "/all" %><br/>
+  <%= link_to Country.full_name(ta.country).to_s, location_country_path(@region, ta.country) %>
+  <%= link_to "(all)", location_country_all_path(@region, ta.country, "all") %><br/>
 <% end %>
