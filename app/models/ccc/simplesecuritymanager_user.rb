@@ -37,13 +37,13 @@ class Ccc::SimplesecuritymanagerUser < ActiveRecord::Base
       end
 
       if other.pr_user && pr_user
-        other.pr_user.destroy				
+        other.pr_user.destroy
       elsif other.pr_user
         other.pr_user.update_attribute(:ssm_id, userID)
       end
 
       if other.si_user && si_user
-        other.si_user.destroy				
+        other.si_user.destroy
       elsif other.si_user
         SiUser.where(["ssm_id = ? or created_by_id = ?", other.userID, other.userID]).each do |ua|
           ua.update_attribute(:ssm_id, userID) if ua.ssm_id == other.userID
@@ -51,6 +51,10 @@ class Ccc::SimplesecuritymanagerUser < ActiveRecord::Base
         end
       end
     end
+
+    MergeAudit.create!(mergeable: self, merge_looser: other)
+    other.reload
+    other.destroy
 
     User.connection.execute('SET foreign_key_checks = 1')
 
