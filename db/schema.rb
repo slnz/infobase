@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121107214021) do
+ActiveRecord::Schema.define(:version => 20121205221605) do
 
   create_table "academic_departments", :force => true do |t|
     t.string "name"
@@ -3290,6 +3290,7 @@ ActiveRecord::Schema.define(:version => 20121107214021) do
     t.string   "locale"
     t.integer  "checked_guid",              :limit => 1,   :default => 0,     :null => false
     t.text     "settings"
+    t.string   "needs_merge"
   end
 
   add_index "simplesecuritymanager_user", ["email"], :name => "index_simplesecuritymanager_user_on_email", :unique => true
