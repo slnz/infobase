@@ -17,6 +17,11 @@ class Ccc::SimplesecuritymanagerUser < ActiveRecord::Base
     User.connection.execute('SET foreign_key_checks = 0')
 
     User.transaction do
+      
+      if !other.globallyUniqueID.blank? && self.globallyUniqueID.blank?
+        self.globallyUniqueID = other.globallyUniqueID
+        other.globallyUniqueID = nil
+      end
 
       person.merge(other.person) if person
 
@@ -49,6 +54,13 @@ class Ccc::SimplesecuritymanagerUser < ActiveRecord::Base
           ua.update_attribute(:ssm_id, userID) if ua.ssm_id == other.userID
           ua.update_attribute(:created_by_id, personID) if ua.created_by_id == other.userID
         end
+      end
+      
+      begin
+        other.save(validate: false)
+        save(validate: false)
+      rescue ActiveRecord::ReadOnlyRecord
+
       end
     end
 
