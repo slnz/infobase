@@ -57,7 +57,9 @@ class Ccc::SimplesecuritymanagerUser < ActiveRecord::Base
       end
       
       begin
+        other.needs_merge = nil
         other.save(validate: false)
+        self.needs_merge = nil
         save(validate: false)
       rescue ActiveRecord::ReadOnlyRecord
 
