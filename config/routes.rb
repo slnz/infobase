@@ -21,10 +21,10 @@ Infobase::Application.routes.draw do
   end
   match 'teams/validate/:name' => 'teams#validate_name'
   match 'locations/validate/:name' => 'locations#validate_name'
-  match 'teams/region/:region/state/:state/city/:city' => 'teams#city', :as => :team_city
+  match 'teams/region/:region/state/:state/city/:city' => 'teams#city', :as => :team_city, :constraints => { :city => /.+/ }
   match 'teams/region/:region/state/:state/:all' => 'teams#state', :as => :team_state_all
   match 'teams/region/:region/state/:state' => 'teams#state', :as => :team_state
-  match 'teams/region/:region/country/:country/city/:city' => 'teams#city', :as => :team_country_city
+  match 'teams/region/:region/country/:country/city/:city' => 'teams#city', :as => :team_country_city, :constraints => { :city => /.+/ }
   match 'teams/region/:region/country/:country/:all' => 'teams#country', :as => :team_country_all
   match 'teams/region/:region/country/:country' => 'teams#country', :as => :team_country
   match 'teams/region/:region/:all' => 'teams#region', :as => :team_region_all
@@ -56,10 +56,10 @@ Infobase::Application.routes.draw do
       get :ministry
     end
   end
-  match 'locations/region/:region/state/:state/city/:city' => 'locations#city', :as => :location_city
+  match 'locations/region/:region/state/:state/city/:city' => 'locations#city', :as => :location_city, :constraints => { :city => /.+/ }
   match 'locations/region/:region/state/:state/:all' => 'locations#state', :as => :location_state_all
   match 'locations/region/:region/state/:state' => 'locations#state', :as => :location_state
-  match 'locations/region/:region/country/:country/city/:city' => 'locations#city', :as => :location_country_city
+  match 'locations/region/:region/country/:country/city/:city' => 'locations#city', :as => :location_country_city, :constraints => { :city => /.+/ }
   match 'locations/region/:region/country/:country/:all' => 'locations#country', :as => :location_country_all
   match 'locations/region/:region/country/:country' => 'locations#country', :as => :location_country
   match 'locations/region/:region/:all' => 'locations#region', :as => :location_region_all
