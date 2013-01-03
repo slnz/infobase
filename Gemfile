@@ -26,7 +26,7 @@ end
 gem 'sass-rails'#, "~>3.2.3"
 gem 'sass'#, '=3.1.14'
 group :assets do
-  gem 'therubyracer'
+  # gem 'therubyracer'
   gem 'uglifier'
   gem 'coffee-rails'#, "~> 3.2.1"
 end
