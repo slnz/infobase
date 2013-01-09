@@ -65,7 +65,7 @@ class ApplicationController < ActionController::Base
   
   def search_options
     @search_types = {"Location" => "locations", "Person" => "people", "Team" => "teams"}
-    @states = State::NAMES.insert(0,['',''])
+    @states = State::NAMES.include?(['','']) ? State::NAMES : State::NAMES.insert(0,['',''])
     @countries = {"" => ""}.merge(Country.to_hash_US_first)
     @strategies = Activity.visible_strategies
     @regions = Region.campus_regions
