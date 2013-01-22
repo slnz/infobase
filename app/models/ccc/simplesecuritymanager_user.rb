@@ -14,10 +14,10 @@ class Ccc::SimplesecuritymanagerUser < ActiveRecord::Base
   has_one :person, class_name: 'Ccc::Person', foreign_key: 'fk_ssmUserId'
 
   def merge(other)
-    User.connection.execute('SET foreign_key_checks = 0')
+    Ccc::SimplesecuritymanagerUser.connection.execute('SET foreign_key_checks = 0')
 
-    User.transaction do
-      
+    Ccc::SimplesecuritymanagerUser.transaction do
+
       if !other.globallyUniqueID.blank? && self.globallyUniqueID.blank?
         self.globallyUniqueID = other.globallyUniqueID
         other.globallyUniqueID = nil
@@ -50,12 +50,12 @@ class Ccc::SimplesecuritymanagerUser < ActiveRecord::Base
       if other.si_user && si_user
         other.si_user.destroy
       elsif other.si_user
-        SiUser.where(["ssm_id = ? or created_by_id = ?", other.userID, other.userID]).each do |ua|
+        Ccc::SiUser.where(["ssm_id = ? or created_by_id = ?", other.userID, other.userID]).each do |ua|
           ua.update_attribute(:ssm_id, userID) if ua.ssm_id == other.userID
           ua.update_attribute(:created_by_id, personID) if ua.created_by_id == other.userID
         end
       end
-      
+
       begin
         other.needs_merge = nil
         other.save(validate: false)
@@ -70,7 +70,7 @@ class Ccc::SimplesecuritymanagerUser < ActiveRecord::Base
     other.reload
     other.destroy
 
-    User.connection.execute('SET foreign_key_checks = 1')
+    Ccc::SimplesecuritymanagerUser.connection.execute('SET foreign_key_checks = 1')
 
   end
 end
