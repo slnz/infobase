@@ -23,7 +23,7 @@ class Ccc::SimplesecuritymanagerUser < ActiveRecord::Base
         other.globallyUniqueID = nil
       end
 
-      person.merge(other.person) if person
+      person.merge(other.person) if person && other.person
 
       # Authentications
       other.authentications.collect {|oa| oa.update_attribute(:user_id, id)}
