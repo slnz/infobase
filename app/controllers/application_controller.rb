@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
   before_filter CASClient::Frameworks::Rails3::Filter, AuthenticationFilter, :check_user, :current_user, :except => [:no, :destroy]
   before_filter :log_user, :except => [:destroy]
   protect_from_forgery
-  
+
   def self.application_name
     "Infobase"
   end
@@ -12,9 +12,31 @@ class ApplicationController < ActionController::Base
   def application_name
     ApplicationController.application_name
   end
-  
+
   protected
-  
+
+  def get_key_service_ticket(service_url)
+    parameters = {username: Rails.configuration.key_username,
+                  password: Rails.configuration.key_password}
+    location = RestClient::Request.execute(:method => :post, :url => Rails.configuration.key_url + "/cas/v1/tickets", :payload => parameters, :timeout => -1) { |res, request, result, &block|
+                                                                                                                                                            # check for error response
+                                                                                                                                                            if response.code.to_i == 400
+                                                                                                                                                              raise res.inspect
+                                                                                                                                                            end
+                                                                                                                                                            res
+    }.headers[:location]
+
+    parameters = {service: service_url}
+    ticket = RestClient::Request.execute(:method => :post, :url => location, :payload => parameters, :timeout => -1) { |res, request, result, &block|
+                                                                                                                                                          # check for error response
+                                                                                                                                                          if response.code.to_i != 200
+                                                                                                                                                            raise res.inspect
+                                                                                                                                                          end
+                                                                                                                                                          res
+    }.to_str
+    ticket
+  end
+
   def check_user
     unless @info_user
       if session[:info_user_id]
@@ -37,7 +59,7 @@ class ApplicationController < ActionController::Base
       return false
     end
   end
-  
+
   def current_user
     unless @current_user
       if session[:user_id]
@@ -45,7 +67,7 @@ class ApplicationController < ActionController::Base
         # developer method to override user in session for testing
         if params[:user_id] && params[:su] && (@current_user.developer? || (session[:old_user_id] && old_user = User.find(session[:old_user_id]).developer?))
           session[:old_user_id] = @current_user.id if @current_user.developer?
-          session[:user_id] = params[:user_id] 
+          session[:user_id] = params[:user_id]
           @current_user = User.find(session[:user_id])
         end
       end
@@ -58,11 +80,11 @@ class ApplicationController < ActionController::Base
     end
     @current_user
   end
-  
+
   def log_user
     logger.info "User is " + current_user.username.to_s if current_user
   end
-  
+
   def search_options
     @search_types = {"Location" => "locations", "Person" => "people", "Team" => "teams"}
     @states = State::NAMES.include?(['','']) ? State::NAMES : State::NAMES.insert(0,['',''])

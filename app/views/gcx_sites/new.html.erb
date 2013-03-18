@@ -1,0 +1,31 @@
+<% if @activity.gcx_site.present? %>
+  <%= render 'site_info', activity: @activity %>
+<% else %>
+  <%= form_for(@gcx_site) do |f| %>
+    <%= hidden_field_tag :activity_id, params[:activity_id] %>
+    <h2 style="color:red">Someone needs to figure out help text to put on this page </h2>
+    <% if @gcx_site.errors.full_messages.present? %>
+      <ul>
+        <% @gcx_site.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    <% end %>
+    <table id="styled_form_table">
+      <tr>
+        <td><%= f.label :name, "* URL (http://gcx.org/____):" %></td>
+        <td>
+          <%= f.text_field :name, :autocomplete => 'off' %>
+        </td>
+      </tr>
+      <tr>
+        <td><%= f.label :title, 'Title (this is what gets displayed at the top of your site):' %></td>
+        <td>
+          <%= f.text_field :title %>
+        </td>
+      </tr>
+    </table>
+
+    <%= f.submit 'Create Site' %>
+  <% end %>
+<% end %>

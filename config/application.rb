@@ -17,6 +17,7 @@ module Infobase
 
     # Custom directories with classes and modules you want to be autoloadable.
     # config.autoload_paths += %W(#{config.root}/extras)
+    config.autoload_paths += %W(#{config.root}/app/validators)
 
     # Only load the plugins named here, in the order given (default is alphabetical).
     # :all can be used as a placeholder for all plugins not explicitly named.
@@ -38,7 +39,7 @@ module Infobase
 
     # Configure sensitive parameters which will be filtered from the log file.
     config.filter_parameters += [:password]
-    
+
     # Enable the asset pipeline
     config.assets.enabled = true
 
@@ -46,5 +47,7 @@ module Infobase
     config.assets.version = '1.0'
 
     config.cache_store = :dalli_store, '127.0.0.1'
+
+    config.from_file 'settings.yml'
   end
 end

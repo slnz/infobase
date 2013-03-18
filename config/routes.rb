@@ -1,4 +1,11 @@
 Infobase::Application.routes.draw do
+  get "gcx_site_users/new"
+
+  get "gcx_site_users/create"
+
+  resources :gcx_sites
+  resources :gcx_site_users
+
   resources :teams do
     collection do
       get :search
@@ -68,7 +75,7 @@ Infobase::Application.routes.draw do
   match 'locations/:location_id/movements/new/:strategy' => 'movements#new', :as => :location_new_strategy
   match 'locations/:location_id/movements/:id/remove_contact/:person_id' => 'movements#remove_contact', :via => :delete, :as => :movement_remove_contact
   match 'locations/:location_id/movements/:id/add_contact/:person_id' => 'movements#add_contact', :via => :post, :as => :movement_add_contact
-  
+
   resources :stats do
     collection do
       get :movement
@@ -99,22 +106,22 @@ Infobase::Application.routes.draw do
     end
   end
   match 'people/roles/:region' => 'people#roles', :as => :people_roles
-  
+
   match 'reports' => 'reports#create_report', :as => :create_report
   match 'reports/results' => 'reports#do_report', :via => :post, :as => :do_report
   match 'reports/national' => 'reports#national_report', :as => :national_report
   match 'reports/:region' => 'reports#regional_report', :as => :regional_report
   match 'reports/team/:team_id' => 'reports#team_report', :as => :team_report
   match 'reports/location/:location_id' => 'reports#location_report', :as => :location_report
-  
+
   match 'movement_reports' => 'movement_reports#create_report', :as => :create_movement_report
   match 'movement_reports/results' => 'movement_reports#do_report', :via => :post, :as => :do_movement_report
   match 'movement_reports/movements' => 'movement_reports#movement_report', :as => :movement_report
-  
+
   match 'home' => 'home#index'
   match 'home/search' => 'home#search', :via => :post, :as => :advanced_search_results
   match 'home/no' => 'home#no'
-  
+
   root :to => 'home#index'
 
   # The priority is based upon order of creation:

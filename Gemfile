@@ -12,10 +12,14 @@ gem 'multi_json'
 gem 'aasm'
 gem 'airbrake'
 gem 'coffee-script'
+gem 'choices'
+gem 'ox'
+gem 'rest-client'
 
 gem 'capistrano'
 gem 'capistrano_colors'
 gem 'whenever', '~> 0.7.3'
+gem 'awesome_print'
 
 group :production do
   # gem 'ruby-oci8'

@@ -37,6 +37,7 @@ GEM
       builder
       girl_friday
     arel (2.2.3)
+    awesome_print (1.1.0)
     builder (3.0.4)
     capistrano (2.13.5)
       highline
@@ -54,6 +55,8 @@ GEM
       xpath (~> 1.0.0)
     childprocess (0.3.6)
       ffi (~> 1.0, >= 1.0.6)
+    choices (0.3.0)
+      hashie (>= 0.4.0)
     chronic (0.6.7)
     cocaine (0.4.2)
     coderay (1.0.8)
@@ -91,6 +94,7 @@ GEM
     guard-rspec (2.3.3)
       guard (>= 1.1)
       rspec (~> 2.11)
+    hashie (2.0.0)
     highline (1.6.15)
     hike (1.2.1)
     i18n (0.6.1)
@@ -122,6 +126,7 @@ GEM
       net-ssh (>= 1.99.1)
     newrelic_rpm (3.5.4.34)
     nokogiri (1.5.6)
+    ox (1.8.9)
     paperclip (3.4.0)
       activemodel (>= 3.0.0)
       activerecord (>= 3.0.0)
@@ -163,6 +168,8 @@ GEM
     rb-fsevent (0.9.3)
     rdoc (3.12)
       json (~> 1.4)
+    rest-client (1.6.7)
+      mime-types (>= 1.16)
     rspec (2.12.0)
       rspec-core (~> 2.12.0)
       rspec-expectations (~> 2.12.0)
@@ -226,9 +233,11 @@ DEPENDENCIES
   aasm
   acts_as_state_machine
   airbrake
+  awesome_print
   capistrano
   capistrano_colors
   capybara
+  choices
   coffee-rails
   coffee-script
   dalli
@@ -242,10 +251,12 @@ DEPENDENCIES
   multi_json
   mysql2
   newrelic_rpm (>= 3.5.3.25)
+  ox
   paperclip
   rack-google_analytics
   rails (~> 3.1.6)
   rb-fsevent
+  rest-client
   rspec-rails
   sass
   sass-rails

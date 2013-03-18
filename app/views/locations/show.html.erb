@@ -22,25 +22,25 @@
           <%= @location.country %><br>
         </div>
       </div>
-                        
+
       <div class="field">
         <label>Region:</label>
         <%= Region.full_name(@location.region) %>
       </div>
       <br/>
-      
+
       <div class="field">
         <label>Phone:</label>
-        <%= @location.phone %>                            
+        <%= @location.phone %>
       </div>
       <br/>
 
       <div class="field">
         <label>Email:</label>
-        <%= @location.email %>                            
+        <%= @location.email %>
       </div>
     </div>
-    
+
     <div class="thecolumn">
       <div class="field">
         <label>Enrollment:</label>
@@ -130,15 +130,24 @@
 
         <div class="field">
           <label>Facebook:</label>
-          <%= link_to display_website(activity.facebook), display_website(activity.facebook) if !activity.facebook.blank? %> 
+          <%= link_to display_website(activity.facebook), display_website(activity.facebook) if activity.facebook.present? %>
         </div>
         <br/>
 
         <div class="field">
           <label>Website:</label>
-          <%= link_to display_website(activity.url), display_website(activity.url) if !activity.url.blank? %>
+          <%= link_to display_website(activity.url), display_website(activity.url) if activity.url.present? %>
         </div>
+        <br />
 
+        <div class="field">
+          <label>GCX Site:</label>
+          <% if activity.gcx_site.present? %>
+            <%= link_to("http://gcx.org/#{activity.gcx_site}") %>
+          <% else %>
+            <%= link_to('Click here to set up a GCX site for this movement', new_gcx_site_path(activity_id: activity.id)) %>
+          <% end %>
+        </div>
         <div class="clear"></div>
       </div>
 
@@ -146,7 +155,7 @@
     </div><!-- end detail -->
   </div><!-- end strategy -->
 <% end %>
- 
+
 <% @open_strategies.each do |strategy| %>
   <%= link_to "Add " + Activity.strategies[strategy], location_new_strategy_path(@location, strategy) %><br/>
 <% end %>
