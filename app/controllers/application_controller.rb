@@ -15,28 +15,6 @@ class ApplicationController < ActionController::Base
 
   protected
 
-  def get_key_service_ticket(service_url)
-    parameters = {username: Rails.configuration.key_username,
-                  password: Rails.configuration.key_password}
-    location = RestClient::Request.execute(:method => :post, :url => Rails.configuration.key_url + "/cas/v1/tickets", :payload => parameters, :timeout => -1) { |res, request, result, &block|
-                                                                                                                                                            # check for error response
-                                                                                                                                                            if response.code.to_i == 400
-                                                                                                                                                              raise res.inspect
-                                                                                                                                                            end
-                                                                                                                                                            res
-    }.headers[:location]
-
-    parameters = {service: service_url}
-    ticket = RestClient::Request.execute(:method => :post, :url => location, :payload => parameters, :timeout => -1) { |res, request, result, &block|
-                                                                                                                                                          # check for error response
-                                                                                                                                                          if response.code.to_i != 200
-                                                                                                                                                            raise res.inspect
-                                                                                                                                                          end
-                                                                                                                                                          res
-    }.to_str
-    ticket
-  end
-
   def check_user
     unless @info_user
       if session[:info_user_id]
