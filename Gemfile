@@ -16,6 +16,8 @@ gem 'coffee-script'
 gem 'capistrano'
 gem 'capistrano_colors'
 gem 'whenever', '~> 0.7.3'
+gem 'rest-client'
+gem 'oj'
 
 group :production do
   # gem 'ruby-oci8'
@@ -44,6 +46,7 @@ group :development, :test do
 	gem 'yard'
 	gem 'simplecov', :require => false
 
+  gem 'awesome_print'
 end
 
 # Bundle the extra gems:
