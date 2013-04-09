@@ -20,6 +20,7 @@ gem 'capistrano'
 gem 'capistrano_colors'
 gem 'whenever', '~> 0.7.3'
 gem 'awesome_print'
+gem 'gcx_api', git: 'https://github.com/CruGlobal/gcx_api.git'
 
 group :production do
   # gem 'ruby-oci8'

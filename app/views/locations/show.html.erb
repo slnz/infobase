@@ -140,14 +140,21 @@
         </div>
         <br />
 
-        <div class="field">
-          <label>GCX Site:</label>
-          <% if activity.gcx_site.present? %>
-            <%= link_to("http://gcx.org/#{activity.gcx_site}") %>
-          <% else %>
-            <%= link_to('Click here to set up a GCX site for this movement', new_gcx_site_path(activity_id: activity.id)) %>
-          <% end %>
-        </div>
+        <% if activity.gcx_site.present? %>
+          <div class="field">
+            <label>GCX Site:</label>
+            <%= link_to("http://www.cru.org/s/#{activity.gcx_site}", "http://www.cru.org/s/#{activity.gcx_site}", target: '_blank') %>
+          </div>      <br />
+          <div class="field">
+            <label>Manage GCX Site:</label>
+            <%= link_to("http://www.cru.org/s/#{activity.gcx_site}/wp-admin", "http://www.cru.org/s/#{activity.gcx_site}/wp-admin", target: '_blank') %>
+          </div>
+        <% else %>
+          <div class="field">
+            <label>GCX Site:</label>
+            <%= link_to('Click here to set up a website for this movement (made with GCX)', new_gcx_site_path(activity_id: activity.id)) %>
+          </div>
+        <% end %>
         <div class="clear"></div>
       </div>
 

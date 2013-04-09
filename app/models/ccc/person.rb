@@ -1,5 +1,5 @@
 class Ccc::Person < ActiveRecord::Base
-  
+
   self.table_name = 'ministry_person'
   self.primary_key = 'personID'
 
@@ -44,7 +44,7 @@ class Ccc::Person < ActiveRecord::Base
   has_many :email_addresses, autosave: true
   has_one :primary_phone_number, class_name: "PhoneNumber", foreign_key: "person_id", conditions: {primary: true}
   has_many :ministry_newaddresses, class_name: 'Ccc::MinistryNewaddress', foreign_key: :fk_PersonID, dependent: :destroy
-  
+
   def self.search_by_name(name, organization_ids = nil, scope = nil)
     return scope.where('1 = 0') unless name.present?
     scope ||= Person
@@ -59,7 +59,7 @@ class Ccc::Person < ActiveRecord::Base
     scope = scope.where('organizational_roles.organization_id IN(?)', organization_ids).includes(:organizational_roles) if organization_ids
     scope
   end
-  
+
   def smart_merge(other)
     if user && other.user
       user.merge(other.user)
@@ -107,7 +107,7 @@ class Ccc::Person < ActiveRecord::Base
         pn.merge(opn) if opn
       end
       emails = email_addresses.collect(&:email)
-      other.email_addresses.each do |pn| 
+      other.email_addresses.each do |pn|
         if emails.include?(pn.email)
           pn.destroy
         else
@@ -201,7 +201,7 @@ class Ccc::Person < ActiveRecord::Base
         end
       end
 
-      MergeAudit.create!(mergeable: self, merge_looser: other)
+      Ccc::MergeAudit.create!(mergeable: self, merge_looser: other)
       other.reload
       other.destroy
       begin

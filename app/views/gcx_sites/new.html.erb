@@ -1,31 +1,45 @@
 <% if @activity.gcx_site.present? %>
   <%= render 'site_info', activity: @activity %>
 <% else %>
-  <%= form_for(@gcx_site) do |f| %>
+
+  <%= form_for(@gcx_site, url: gcx_sites_path) do |f| %>
     <%= hidden_field_tag :activity_id, params[:activity_id] %>
-    <h2 style="color:red">Someone needs to figure out help text to put on this page </h2>
+    <h2>Now you can define your specific URL name and title of your new web page.</h2>
     <% if @gcx_site.errors.full_messages.present? %>
       <ul>
         <% @gcx_site.errors.full_messages.each do |msg| %>
-          <li><%= msg %></li>
+          <li style="color:red"><%= msg %></li>
         <% end %>
       </ul>
     <% end %>
     <table id="styled_form_table">
       <tr>
-        <td><%= f.label :name, "* URL (http://gcx.org/____):" %></td>
-        <td>
+        <td width="400">
+          <strong>URL:</strong>
+          Here you will choose the permanent URL name for your site’s landing page. Please note that this is not editable after you leave this page, so please double check spelling before you confirm. The name must start with a letter, can contain letters, numbers, dashes and underscores and must be between 3 and 80 characters.
+          <br /><br />
+          <em>Example for DeVry University - Addison Campus</em> <br />
+          URL: www.cru.org/s/<strong>CruDeVryAddison</strong> (Only enter the last part of the url)
+          <br /><br /><br />
+        </td>
+        <td style="padding-top:50px">
           <%= f.text_field :name, :autocomplete => 'off' %>
         </td>
       </tr>
       <tr>
-        <td><%= f.label :title, 'Title (this is what gets displayed at the top of your site):' %></td>
         <td>
+          <strong>TITLE:</strong>
+          Now you can add in the title of your campus which will appear at the top of your webpage. This title can be longer and more descriptive than your URL. We suggest that you keep it as short and concise as possible since a longer description can be hosted on your page in the text fields.
+          <br /><br />
+          <em>Example for DeVry University - Addison Campus</em> <br />
+          Title: DeVry University (Addison Campus) <br />
+        </td>
+        <td style="padding-top:50px">
           <%= f.text_field :title %>
         </td>
       </tr>
     </table>
-
+    <br /><br />
     <%= f.submit 'Create Site' %>
   <% end %>
 <% end %>

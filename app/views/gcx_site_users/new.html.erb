@@ -1,7 +1,0 @@
-Here you'll find a list of your teammates to add, with some more instructions:
-
-<ul>
-  <% @activity.team.team_members.collect(&:person).each do |person| %>
-    <li><%= person.person %></li>
-  <% end %>
-</ul>
