@@ -10,3 +10,4 @@ public/assets
 vendor/ruby
 vendor/bundle
 coverage/*
+config/settings.local.yml
