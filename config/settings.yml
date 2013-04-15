@@ -5,6 +5,9 @@ defaults: &defaults
 development:
   <<: *defaults
 
+staging: &testing
+  <<: *defaults
+
 test: &testing
   <<: *defaults
 
