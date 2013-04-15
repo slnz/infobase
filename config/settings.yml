@@ -1,6 +1,6 @@
 defaults: &defaults
   gcx_url: 'https://wpdev.gcx.org'
-  key_url: 'https://casdev.gcx.org'
+  cas_url: 'https://casdev.gcx.org'
 
 development:
   <<: *defaults
