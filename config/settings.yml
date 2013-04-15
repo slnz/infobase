@@ -1,8 +1,6 @@
 defaults: &defaults
   gcx_url: 'https://wpdev.gcx.org'
   key_url: 'https://casdev.gcx.org'
-  key_username: 'fake@example.com'
-  key_password: 'fake'
 
 development:
   <<: *defaults
