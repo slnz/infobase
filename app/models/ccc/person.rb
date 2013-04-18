@@ -40,8 +40,8 @@ class Ccc::Person < ActiveRecord::Base
   has_many :profile_pictures, class_name: 'Ccc::ProfilePicture', dependent: :destroy
   has_many :ministry_missional_team_members, class_name: 'Ccc::MinistryMissionalTeamMember', dependent: :destroy, foreign_key: 'personID'
   has_many :sp_designation_numbers, class_name: 'Ccc::SpDesignationNumber', dependent: :destroy
-  has_many :phone_numbers, autosave: true
-  has_many :email_addresses, autosave: true
+  has_many :phone_numbers, autosave: true, dependent: :destroy
+  has_many :email_addresses, autosave: true, dependent: :destroy
   has_one :primary_phone_number, class_name: "PhoneNumber", foreign_key: "person_id", conditions: {primary: true}
   has_many :ministry_newaddresses, class_name: 'Ccc::MinistryNewaddress', foreign_key: :fk_PersonID, dependent: :destroy
   
