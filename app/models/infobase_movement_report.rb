@@ -7,8 +7,9 @@ class InfobaseMovementReport
       where(ActivityHistory.table_name + ".period_begin <= ?", date).
       group(ActivityHistory.table_name + ".activity_id")
     # This query finds the list of activity_history ids that go along with the above query
-    history_ids_query = ActivityHistory.select(ActivityHistory.table_name + ".id").
-      joins("INNER JOIN (" + max_dates_query.to_sql + " ) last_dates ON " + ActivityHistory.table_name + ".activity_id = last_dates.activity_id AND " + ActivityHistory.table_name + ".period_begin = last_dates.period_begin")
+    history_ids_query = ActivityHistory.select("MAX(" + ActivityHistory.table_name + ".id) AS id").select(ActivityHistory.table_name + ".activity_id").
+      joins("INNER JOIN (" + max_dates_query.to_sql + " ) last_dates ON " + ActivityHistory.table_name + ".activity_id = last_dates.activity_id AND " + ActivityHistory.table_name + ".period_begin = last_dates.period_begin").
+      group(ActivityHistory.table_name + ".activity_id")
     rows = []
     result = Activity.includes(:target_area, :team, :activity_histories).
       where(ActivityHistory.table_name + ".id IN (?)", history_ids_query.collect(&:id)).
@@ -20,8 +21,8 @@ class InfobaseMovementReport
     order.each_key do |key|
       result = result.order(translate_order(order[key])) if !order[key].blank?
     end
-    result.each do |result|
-      rows << result
+    result.each do |r|
+      rows << r
     end
     rows
   end
