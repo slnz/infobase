@@ -2030,6 +2030,10 @@ ActiveRecord::Schema.define(:version => 20130610202924) do
     t.integer  "sp_year"
     t.datetime "created_at"
     t.integer  "spiritual_conversations"
+    t.integer  "faculty_sent"
+    t.integer  "faculty_involved"
+    t.integer  "faculty_engaged"
+    t.integer  "faculty_leaders"
   end
 
   add_index "ministry_statistic", ["fk_Activity"], :name => "index1"
