@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121205221605) do
+ActiveRecord::Schema.define(:version => 20130610202924) do
 
   create_table "academic_departments", :force => true do |t|
     t.string "name"
@@ -2029,6 +2029,7 @@ ActiveRecord::Schema.define(:version => 20121205221605) do
     t.integer  "dollars_raised"
     t.integer  "sp_year"
     t.datetime "created_at"
+    t.integer  "spiritual_conversations"
   end
 
   add_index "ministry_statistic", ["fk_Activity"], :name => "index1"
