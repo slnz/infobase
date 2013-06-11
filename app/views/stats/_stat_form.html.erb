@@ -30,7 +30,7 @@
 
       <div class="field">
         <label onMouseOver="infoBox('<%= unique_name(stat) %>','spiritual_conversations',200);" onMouseOut="infoBoxClear('<%= unique_name(stat) %>');" >Spiritual Conversations</label>
-        <%= text_field_tag "stat[" + unique_name(stat) + "[spiritual_conversations]]", stat.evangelisticOneOnOne, :id => "week 1", :class => "totalnumber", :onfocus => "infoBox('#{unique_name(stat)}','spiritual_conversations',200);" %>
+        <%= text_field_tag "stat[" + unique_name(stat) + "[spiritual_conversations]]", stat.spiritual_conversations, :id => "week 1", :class => "totalnumber", :onfocus => "infoBox('#{unique_name(stat)}','spiritual_conversations',200);" %>
       </div>
       
       <div class="field">
@@ -63,7 +63,7 @@
 
       <div class="field">
         <label onMouseOver="infoBox('<%= unique_name(stat) %>','faculty_sent',200);" onMouseOut="infoBoxClear('<%= unique_name(stat) %>');" >Faculty on Mission</label>
-        <%= text_field_tag "stat[" + unique_name(stat) + "[faculty_sent]]", stat.laborersSent, :id => "week 1", :class => "totalnumber", :onfocus => "infoBox('#{unique_name(stat)}','faculty_sent',200);" %>
+        <%= text_field_tag "stat[" + unique_name(stat) + "[faculty_sent]]", stat.faculty_sent, :id => "week 1", :class => "totalnumber", :onfocus => "infoBox('#{unique_name(stat)}','faculty_sent',200);" %>
       </div>
     </div>
 
@@ -91,18 +91,15 @@
       <div class="thecolumn">
         <h4>Faculty</h4>
         <div class="field">
-          <label onMouseOver="infoBox('<%= unique_name(stat) %>','involved_students',200);" onMouseOut="infoBoxClear('<%= unique_name(stat) %>');" >Involved</label>
-          <%= text_field_tag "stat[" + unique_name(stat) + "[faculty_involved]]", stat.invldStudents, :id => "week 1", :class => "totalnumber", :onfocus => "infoBox('#{unique_name(stat)}','involved_students',200);" %>
+          <%= text_field_tag "stat[" + unique_name(stat) + "[faculty_involved]]", stat.faculty_involved, :id => "week 1", :class => "totalnumber", :onfocus => "infoBox('#{unique_name(stat)}','faculty_involved',200);" %>
         </div>
 
         <div class="field">
-          <label onMouseOver="infoBox('<%= unique_name(stat) %>','multipliers',200);" onMouseOut="infoBoxClear('<%= unique_name(stat) %>');" >Engaged Disciples</label>
-          <%= text_field_tag "stat[" + unique_name(stat) + "[faculty_engaged]]", stat.multipliers, :id => "week 1", :class => "totalnumber", :onfocus => "infoBox('#{unique_name(stat)}','multipliers',200);" %>
+          <%= text_field_tag "stat[" + unique_name(stat) + "[faculty_engaged]]", stat.faculty_engaged, :id => "week 1", :class => "totalnumber", :onfocus => "infoBox('#{unique_name(stat)}','faculty_engaged',200);" %>
         </div>
         
         <div class="field">
-          <label onMouseOver="infoBox('<%= unique_name(stat) %>','student_leaders',200);" onMouseOut="infoBoxClear('<%= unique_name(stat) %>');" >Leaders</label>
-          <%= text_field_tag "stat[" + unique_name(stat) + "[faculty_leaders]]", stat.studentLeaders, :id => "week 1", :class => "totalnumber", :onfocus => "infoBox('#{unique_name(stat)}','student_leaders',200);" %>
+          <%= text_field_tag "stat[" + unique_name(stat) + "[faculty_leaders]]", stat.faculty_leaders, :id => "week 1", :class => "totalnumber", :onfocus => "infoBox('#{unique_name(stat)}','faculty_leaders',200);" %>
         </div>
       </div>
       
