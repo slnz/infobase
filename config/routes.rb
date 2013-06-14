@@ -1,4 +1,14 @@
 Infobase::Application.routes.draw do
+  namespace :api, defaults: {format: 'json'} do 
+    namespace :v1 do
+      resources :stats do
+        collection do
+          get :activity
+        end
+      end
+    end
+  end
+  
   resources :teams do
     collection do
       get :search
