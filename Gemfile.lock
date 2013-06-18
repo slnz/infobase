@@ -16,6 +16,8 @@ GEM
       rack-mount (~> 0.8.2)
       rack-test (~> 0.6.1)
       sprockets (~> 2.0.4)
+    active_model_serializers (0.6.0)
+      activemodel (>= 3.0)
     activemodel (3.1.10)
       activesupport (= 3.1.10)
       builder (~> 3.0.0)
@@ -224,6 +226,7 @@ PLATFORMS
 
 DEPENDENCIES
   aasm
+  active_model_serializers
   acts_as_state_machine
   airbrake
   capistrano
