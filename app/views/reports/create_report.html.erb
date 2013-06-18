@@ -1,4 +1,4 @@
-<h1>Success Criteria Report</h1>
+<h1>Movement Indicator Report</h1>
 <%= form_tag do_report_path, :name => "reportCriteria" do %>
   <div class="strategy">
     <div class="details">  
@@ -28,7 +28,7 @@
 
           <div class="box">
             <ul style="list-style:none;background:none;height:auto;">
-              <li><%= radio_button_tag "event_type", "campus", true %>Campus Report (traditional Success Criteria report)</li>
+              <li><%= radio_button_tag "event_type", "campus", true %>Campus Report (traditional Movement Indicator report)</li>
               <li><%= radio_button_tag "event_type", "conference", false, :onClick => "checkAll();" %>Conference Stats</li>
               <li><%= radio_button_tag "event_type", "SP", false, :onClick => "checkAll();" %>Summer Project Stats</li>
               <li><%= radio_button_tag "event_type", "website", false, :disabled => true, :onClick => "checkAll();" %>Website Stats (coming soon)</li>
