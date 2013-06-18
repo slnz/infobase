@@ -14,6 +14,13 @@
     <div class="stats_column_left">
       <h4>Weekly Stats</h4>
       <div class="field">
+        <%= text_field_tag "stat[" + unique_name(stat) + "[spiritual_conversations]]", stat.spiritual_conversations, :id => "week 1", :class => "totalnumber", :onfocus => "infoBox('#{unique_name(stat)}','spiritual_conversations',200);" %>
+        <label onMouseOver="infoBox('<%= unique_name(stat) %>','spiritual_conversations',200);" onMouseOut="infoBoxClear('<%= unique_name(stat) %>');" >Spiritual Conversations</label>
+      </div>
+      
+      <br/>
+      
+      <div class="field">
         <%= text_field_tag "stat[" + unique_name(stat) + "[evangelisticOneOnOne]]", stat.evangelisticOneOnOne, :id => "week 1", :class => "totalnumber", :onfocus => "infoBox('#{unique_name(stat)}','personal_evangelism',200);" %>
         <label onMouseOver="infoBox('<%= unique_name(stat) %>','personal_evangelism',200);" onMouseOut="infoBoxClear('<%= unique_name(stat) %>');" >Personal Evangelism</label>
       </div>
@@ -28,10 +35,7 @@
         <label onMouseOver="infoBox('<%= unique_name(stat) %>','media_exposures',200);" onMouseOut="infoBoxClear('<%= unique_name(stat) %>');" >Media Exposures</label>
       </div>
 
-      <div class="field">
-        <%= text_field_tag "stat[" + unique_name(stat) + "[spiritual_conversations]]", stat.spiritual_conversations, :id => "week 1", :class => "totalnumber", :onfocus => "infoBox('#{unique_name(stat)}','spiritual_conversations',200);" %>
-        <label onMouseOver="infoBox('<%= unique_name(stat) %>','spiritual_conversations',200);" onMouseOut="infoBoxClear('<%= unique_name(stat) %>');" >Spiritual Conversations</label>
-      </div>
+      <br/>
       
       <div class="field">
         <%= text_field_tag "stat[" + unique_name(stat) + "[laborersSent]]", stat.laborersSent, :id => "week 1", :class => "totalnumber", :onfocus => "infoBox('#{unique_name(stat)}','laborers_sent',200);" %>
@@ -41,6 +45,13 @@
     
     <div class="stats_column">
       <h4>&nbsp;</h4>
+      <div class="field">
+        <%= text_field_tag "stat[" + unique_name(stat) + "[holySpiritConversations]]", stat.holySpiritConversations, :id => "week 1", :class => "totalnumber", :onfocus => "infoBox('#{unique_name(stat)}','holy_spirit_conversations',200);" %>
+        <label onMouseOver="infoBox('<%= unique_name(stat) %>','holy_spirit_conversations',200);" onMouseOut="infoBoxClear('<%= unique_name(stat) %>');" >Holy Spirit Presentations</label>
+      </div>
+
+      <br/>
+      
       <div class="field">
         <%= text_field_tag "stat[" + unique_name(stat) + "[decisionsHelpedByOneOnOne]]", stat.decisionsHelpedByOneOnOne, :id => "week 1", :class => "totalnumber", :onfocus => "infoBox('#{unique_name(stat)}','decisions_personal',200);" %>
         <label onMouseOver="infoBox('<%= unique_name(stat) %>','decisions_personal',200);" onMouseOut="infoBoxClear('<%= unique_name(stat) %>');" >Personal Evangelism Decisions</label>
@@ -56,11 +67,8 @@
         <label onMouseOver="infoBox('<%= unique_name(stat) %>','decisions_media',200);" onMouseOut="infoBoxClear('<%= unique_name(stat) %>');" >Media Exposures Decisions</label>
       </div>
       
-      <div class="field">
-        <%= text_field_tag "stat[" + unique_name(stat) + "[holySpiritConversations]]", stat.holySpiritConversations, :id => "week 1", :class => "totalnumber", :onfocus => "infoBox('#{unique_name(stat)}','holy_spirit_conversations',200);" %>
-        <label onMouseOver="infoBox('<%= unique_name(stat) %>','holy_spirit_conversations',200);" onMouseOut="infoBoxClear('<%= unique_name(stat) %>');" >Holy Spirit Presentations</label>
-      </div>
-
+      <br/>
+      
       <div class="field">
         <%= text_field_tag "stat[" + unique_name(stat) + "[faculty_sent]]", stat.faculty_sent, :id => "week 1", :class => "totalnumber", :onfocus => "infoBox('#{unique_name(stat)}','faculty_sent',200);" %>
         <label onMouseOver="infoBox('<%= unique_name(stat) %>','faculty_sent',200);" onMouseOut="infoBoxClear('<%= unique_name(stat) %>');" >Faculty on Mission</label>
