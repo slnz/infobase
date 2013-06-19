@@ -12,7 +12,7 @@
       <%= link_to "Unbookmark", unbookmark_location_movement_path(stat.activity.target_area, stat.activity), {:class => "unbookmark edittext editbtn", :method => :delete} %>
     </h2>
     <div class="stats_column_left">
-      <h4>Weekly Stats</h4>
+      <h4>Weekly Movement Indicators</h4>
       <div class="field">
         <%= text_field_tag "stat[" + unique_name(stat) + "[spiritual_conversations]]", stat.spiritual_conversations, :id => "week 1", :class => "totalnumber", :onfocus => "infoBox('#{unique_name(stat)}','spiritual_conversations',200);" %>
         <label onMouseOver="infoBox('<%= unique_name(stat) %>','spiritual_conversations',200);" onMouseOut="infoBoxClear('<%= unique_name(stat) %>');" >Spiritual Conversations</label>
@@ -76,7 +76,7 @@
     </div>
 
     <div class="stats_column_right">
-      <h4 class="semester">Semester/Quarter Stats**</h4>
+      <h4 class="semester">Semester/Quarter Movement Indicators**</h4>
       <!-- columns are in backwards order to achieve right alignment -->
       <div class="semester_column">
         <h4 class="semester_title">Faculty</h4>
@@ -130,7 +130,7 @@
       <% end %>
 
       <div style="clear:both"/>
-      <p class="semester">**Semester/Quarter stats are prefilled with the most recently entered numbers.  If these numbers have changed, please update them above.</p>
+      <p class="semester">**Semester/Quarter Movement Indicators are prefilled with the most recently entered numbers.  If these numbers have changed, please update them above.</p>
     </div>
 
     <div style="clear:both"></div>
