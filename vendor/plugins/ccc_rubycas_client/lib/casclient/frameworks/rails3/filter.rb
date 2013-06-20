@@ -13,7 +13,6 @@ module CASClient
         
         class << self
           def filter(controller)
-            log.info "in CAS filter"
             raise "Cannot use the CASClient filter because it has not yet been configured." if config.nil?
             
             if @@fake_user
@@ -160,7 +159,6 @@ module CASClient
           # Useful when you want to provide a "Login" link in a GatewayFilter'ed
           # action. 
           def login_url(controller)
-            log.info "in login_url"
             service_url = read_service_url(controller)
             url = client.add_service_to_login_url(service_url)
             log.debug("Generated login url: #{url}")
@@ -313,7 +311,6 @@ module CASClient
           end
           
           def read_service_url(controller)
-            log.info "in read_service_url"
             if config[:service_url]
               log.debug("Using explicitly set service url: #{config[:service_url]}")
               return config[:service_url]
