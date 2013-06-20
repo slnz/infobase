@@ -1,7 +1,7 @@
-source 'http://rubygems.org'
+source 'https://rubygems.org'
 
-gem 'rails', '~> 3.1.6'
-gem 'jquery-rails'
+gem 'rails', '~> 3.2.6'
+gem 'jquery-rails', '>= 3.0.1'
 gem 'mysql2'#, '~> 0.2.0'
 gem 'acts_as_state_machine'
 gem 'dynamic_form'
@@ -27,7 +27,7 @@ end
 gem 'sass-rails'#, "~>3.2.3"
 gem 'sass'#, '=3.1.14'
 group :assets do
-  # gem 'therubyracer'
+  # gem 'therubyracer', :platforms => :ruby
   gem 'uglifier'
   gem 'coffee-rails'#, "~> 3.2.1"
 end
