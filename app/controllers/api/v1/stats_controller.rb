@@ -6,24 +6,6 @@ class Api::V1::StatsController < ApplicationController
   skip_before_filter :log_user
   respond_to :json
   
-  def self.filters(kind = nil)
-    all_filters = _process_action_callbacks
-    all_filters = all_filters.select{|f| f.kind == kind} if kind
-    all_filters.map(&:filter)
-  end
- 
-  def self.before_filters
-    filters(:before)
-  end
- 
-  def self.after_filters
-    filters(:after)
-  end
- 
-  def self.around_filters
-    filters(:around)
-  end
-  
   def activity
     activity = Activity.find(params[:activity_id])
     
