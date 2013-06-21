@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130610202924) do
+ActiveRecord::Schema.define(:version => 20130621194358) do
 
   create_table "academic_departments", :force => true do |t|
     t.string "name"
@@ -22,6 +22,13 @@ ActiveRecord::Schema.define(:version => 20130610202924) do
   end
 
   add_index "aoas", ["name"], :name => "name", :unique => true
+
+  create_table "api_keys", :force => true do |t|
+    t.string   "access_token"
+    t.string   "user"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
 
   create_table "authentications", :force => true do |t|
     t.integer  "user_id"
@@ -3005,7 +3012,7 @@ ActiveRecord::Schema.define(:version => 20130610202924) do
     t.integer  "created_by_id"
     t.integer  "organization_id"
     t.integer  "followup_comment_id"
-    t.string   "what",                :limit => 0
+    t.string   "what",                :limit => 22
     t.datetime "created_at"
     t.datetime "updated_at"
     t.datetime "deleted_at"

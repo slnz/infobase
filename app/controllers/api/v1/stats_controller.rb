@@ -4,6 +4,7 @@ class Api::V1::StatsController < ApplicationController
   skip_before_filter :check_user
   skip_before_filter :current_user
   skip_before_filter :log_user
+  before_filter :restrict_access
   respond_to :json
   
   def activity
@@ -26,12 +27,12 @@ class Api::V1::StatsController < ApplicationController
   end
   
   def update
-    @username = "API"
+    @user ||= "API"
     @stats = []
     params[:statistics].each do |stats|
       @movement = Activity.find(stats[:activity_id])
       stat = @movement.get_stat_for(Date.parse(stats[:period_begin]))
-      stats[:updated_by] = @username
+      stats[:updated_by] = @user
       stat.attributes = stats
       stat.save
       if !stat.errors.empty?
@@ -44,5 +45,15 @@ class Api::V1::StatsController < ApplicationController
         render json: @stats, :root => "statistics"
       }
     end
-  end      
+  end
+  
+  protected
+  
+  def restrict_access
+    authenticate_or_request_with_http_token do |token, options|
+      api_key = ApiKey.find_by_access_token(token)
+      @user = api_key.user if api_key
+      ApiKey.exists?(access_token: token)
+    end
+  end
 end
