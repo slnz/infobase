@@ -26,6 +26,36 @@ class Api::V1::StatsController < ApplicationController
     respond_with [@stat], :root => "statistics"
   end
   
+  def create
+    @user ||= "API"
+    @stats = []
+    params[:statistics].each do |stats|
+      @movement = Activity.find(stats[:activity_id])
+      stat = @movement.get_stat_for(Date.parse(stats[:period_begin]))
+      stats[:updated_by] = @user
+      stat.attributes = stats
+      if stat.id.blank? # Only create records
+        stat.save
+      else
+        stat.valid?
+        errors = stat.errors
+        if stat.id.present?
+          errors["id"] = ["already present with value #{stat.id}"]
+        end
+      end
+      if !stat.errors.empty?
+        errors ||= stat.errors
+        stat_hash = stat.attributes.merge({:errors => errors})
+        @stats << stat_hash
+      end
+    end
+    respond_with @stats do |format|
+      format.json {
+        render json: @stats, :root => "statistics"
+      }
+    end
+  end
+  
   def update
     @user ||= "API"
     @stats = []
