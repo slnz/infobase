@@ -6,6 +6,12 @@ Infobase::Application.routes.draw do
           get :activity
         end
       end
+      
+      resources :people do
+        collection do
+          get :is_staff
+        end
+      end
     end
   end
   
