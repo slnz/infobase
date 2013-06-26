@@ -30,7 +30,7 @@ module ApplicationHelper
   
   def display_website(website)
     if !website.blank?
-      website.include?("http://") ? website : "http://" + website
+      website.start_with?("http") ? website : "http://" + website
     else
       ""
     end
