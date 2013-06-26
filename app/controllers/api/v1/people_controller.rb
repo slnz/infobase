@@ -3,7 +3,6 @@ class Api::V1::PeopleController < Api::V1::BaseController
     results = {}
     person_ids = params[:people]
     person_ids.each do |id|
-      id = id.to_i
       begin
         p = Person.find(id)
         results[id] = p && p.isStaff.present?
@@ -12,6 +11,6 @@ class Api::V1::PeopleController < Api::V1::BaseController
       end
     end
     result = {"people" => results}
-    respond_with result
+    respond_with result.to_json
   end
 end
