@@ -1,16 +1,17 @@
 class Api::V1::PeopleController < Api::V1::BaseController
   def is_staff
     results = {}
-    person_ids = params[:people]
+    person_ids = params[:people].split(',')
+    people = {}
+    Person.where(personID: person_ids).collect {|p| people[p.id] = p}
     person_ids.each do |id|
-      begin
-        p = Person.find(id)
-        results[id] = p && p.isStaff.present?
-      rescue
+      if p = people[id.to_i]
+        results[id] = p.isStaff.present?
+      else
         results[id] = nil
       end
     end
     result = {"people" => results}
-    respond_with result.to_json
+    render json: result
   end
 end

@@ -10,6 +10,7 @@ Infobase::Application.routes.draw do
       resources :people do
         collection do
           get :is_staff
+          post :is_staff
         end
       end
     end
