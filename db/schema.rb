@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130325193717) do
+ActiveRecord::Schema.define(:version => 20130630042944) do
 
   create_table "academic_departments", :force => true do |t|
     t.string "name"
@@ -83,6 +83,13 @@ ActiveRecord::Schema.define(:version => 20130325193717) do
   end
 
   add_index "aoas", ["name"], :name => "name", :unique => true
+
+  create_table "api_keys", :force => true do |t|
+    t.string   "access_token"
+    t.string   "user"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
 
   create_table "api_logs", :force => true do |t|
     t.string   "platform"
@@ -493,13 +500,14 @@ ActiveRecord::Schema.define(:version => 20130325193717) do
   add_index "crs2_phone_numbers", ["person_id"], :name => "index_crs2_phone_numbers_on_person_id"
 
   create_table "crs2_profile", :force => true do |t|
-    t.string   "type",               :limit => 31, :default => "", :null => false
+    t.string   "type",                    :limit => 31, :default => "", :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "version",                                          :null => false
+    t.integer  "version",                                               :null => false
     t.integer  "crs_person_id"
     t.integer  "user_id"
     t.integer  "ministry_person_id"
+    t.string   "spouse_verification_key"
   end
 
   add_index "crs2_profile", ["crs_person_id"], :name => "fk_profile_crs_person_id"
@@ -2002,6 +2010,7 @@ ActiveRecord::Schema.define(:version => 20130325193717) do
     t.integer  "sent_teamID"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "gcx_site"
   end
 
   add_index "ministry_activity", ["fk_targetAreaID", "strategy"], :name => "index_ministry_activity_on_fk_targetareaid_and_strategy", :unique => true
@@ -2273,8 +2282,9 @@ ActiveRecord::Schema.define(:version => 20130325193717) do
     t.datetime "date_attributes_updated"
     t.text     "organization_tree_cache"
     t.text     "org_ids_cache"
-    t.integer  "global_registry_id"
     t.decimal  "balance_daily",                                       :precision => 10, :scale => 2
+    t.string   "sp_gcx_site"
+    t.integer  "global_registry_id"
   end
 
   add_index "ministry_person", ["accountNo"], :name => "accountNo_ministry_Person"
@@ -2282,7 +2292,7 @@ ActiveRecord::Schema.define(:version => 20130325193717) do
   add_index "ministry_person", ["fb_uid"], :name => "index_ministry_person_on_fb_uid"
   add_index "ministry_person", ["firstName"], :name => "firstname_ministry_Person"
   add_index "ministry_person", ["fk_ssmUserId"], :name => "fk_ssmUserId"
-  add_index "ministry_person", ["global_registry_id"], :name => "global_registry_id"
+  add_index "ministry_person", ["global_registry_id"], :name => "index_ministry_person_on_global_registry_id"
   add_index "ministry_person", ["lastName"], :name => "lastname_ministry_Person"
   add_index "ministry_person", ["org_ids_cache"], :name => "index_ministry_person_on_org_ids_cache", :length => {"org_ids_cache"=>255}
   add_index "ministry_person", ["region"], :name => "region_ministry_Person"
@@ -2331,99 +2341,101 @@ ActiveRecord::Schema.define(:version => 20130325193717) do
   end
 
   create_table "ministry_staff", :force => true do |t|
-    t.string  "accountNo",                :limit => 15,                                                  :null => false
-    t.string  "firstName",                :limit => 30
-    t.string  "middleInitial",            :limit => 1
-    t.string  "lastName",                 :limit => 30
-    t.string  "isMale",                   :limit => 1
-    t.string  "position",                 :limit => 30
-    t.string  "countryStatus",            :limit => 10
-    t.string  "jobStatus",                :limit => 60
-    t.string  "ministry",                 :limit => 35
-    t.string  "strategy",                 :limit => 20
-    t.string  "isNewStaff",               :limit => 1
-    t.string  "primaryEmpLocState",       :limit => 6
-    t.string  "primaryEmpLocCountry",     :limit => 64
-    t.string  "primaryEmpLocCity",        :limit => 35
-    t.string  "primaryEmpLocDesc",        :limit => 128
-    t.string  "spouseFirstName",          :limit => 22
-    t.string  "spouseMiddleName",         :limit => 15
-    t.string  "spouseLastName",           :limit => 30
-    t.string  "spouseAccountNo",          :limit => 11
-    t.string  "spouseEmail",              :limit => 50
-    t.string  "fianceeFirstName",         :limit => 15
-    t.string  "fianceeMiddleName",        :limit => 15
-    t.string  "fianceeLastName",          :limit => 30
-    t.string  "fianceeAccountno",         :limit => 11
-    t.string  "isFianceeStaff",           :limit => 1
-    t.date    "fianceeJoinStaffDate"
-    t.string  "isFianceeJoiningNS",       :limit => 1
-    t.string  "joiningNS",                :limit => 1
-    t.string  "homePhone",                :limit => 24
-    t.string  "workPhone",                :limit => 24
-    t.string  "mobilePhone",              :limit => 24
-    t.string  "pager",                    :limit => 24
-    t.string  "email",                    :limit => 50
-    t.string  "isEmailSecure",            :limit => 1
-    t.string  "url"
-    t.date    "newStaffTrainingdate"
-    t.string  "fax",                      :limit => 24
-    t.string  "note",                     :limit => 2048
-    t.string  "region",                   :limit => 10
-    t.string  "countryCode",              :limit => 3
-    t.string  "ssn",                      :limit => 9
-    t.string  "maritalStatus",            :limit => 1
-    t.string  "deptId",                   :limit => 10
-    t.string  "jobCode",                  :limit => 6
-    t.string  "accountCode",              :limit => 25
-    t.string  "compFreq",                 :limit => 1
-    t.string  "compRate",                 :limit => 20
-    t.string  "compChngAmt",              :limit => 21
-    t.string  "jobTitle",                 :limit => 80
-    t.string  "deptName",                 :limit => 30
-    t.string  "coupleTitle",              :limit => 12
-    t.string  "otherPhone",               :limit => 24
-    t.string  "preferredName",            :limit => 50
-    t.string  "namePrefix",               :limit => 4
-    t.date    "origHiredate"
-    t.date    "birthDate"
-    t.date    "marriageDate"
-    t.date    "hireDate"
-    t.date    "rehireDate"
-    t.date    "loaStartDate"
-    t.date    "loaEndDate"
-    t.string  "loaReason",                :limit => 80
-    t.integer "severancePayMonthsReq"
-    t.date    "serviceDate"
-    t.date    "lastIncDate"
-    t.date    "jobEntryDate"
-    t.date    "deptEntryDate"
-    t.date    "reportingDate"
-    t.string  "employmentType",           :limit => 20
-    t.string  "resignationReason",        :limit => 80
-    t.date    "resignationDate"
-    t.string  "contributionsToOtherAcct", :limit => 1
-    t.string  "contributionsToAcntName",  :limit => 80
-    t.string  "contributionsToAcntNo",    :limit => 11
-    t.integer "fk_primaryAddress"
-    t.integer "fk_secondaryAddress"
-    t.integer "fk_teamID"
-    t.string  "isSecure",                 :limit => 1
-    t.string  "isSupported",              :limit => 1
-    t.string  "removedFromPeopleSoft",    :limit => 1,                                  :default => "N"
-    t.string  "isNonUSStaff",             :limit => 1
-    t.integer "person_id"
-    t.string  "middleName",               :limit => 30
-    t.string  "paygroup",                 :limit => 3
-    t.string  "idType",                   :limit => 2
-    t.string  "statusDescr",              :limit => 30
-    t.string  "internationalStatus",      :limit => 3
-    t.decimal "balance",                                  :precision => 9, :scale => 2
-    t.string  "cccHrSendingDept",         :limit => 10
-    t.string  "cccHrCaringDept",          :limit => 10
-    t.string  "cccCaringMinistry",        :limit => 10
-    t.string  "assignmentLength",         :limit => 4
-    t.integer "global_registry_id"
+    t.string   "accountNo",                :limit => 15,                                                  :null => false
+    t.string   "firstName",                :limit => 30
+    t.string   "middleInitial",            :limit => 1
+    t.string   "lastName",                 :limit => 30
+    t.string   "isMale",                   :limit => 1
+    t.string   "position",                 :limit => 30
+    t.string   "countryStatus",            :limit => 10
+    t.string   "jobStatus",                :limit => 60
+    t.string   "ministry",                 :limit => 35
+    t.string   "strategy",                 :limit => 20
+    t.string   "isNewStaff",               :limit => 1
+    t.string   "primaryEmpLocState",       :limit => 6
+    t.string   "primaryEmpLocCountry",     :limit => 64
+    t.string   "primaryEmpLocCity",        :limit => 35
+    t.string   "primaryEmpLocDesc",        :limit => 128
+    t.string   "spouseFirstName",          :limit => 22
+    t.string   "spouseMiddleName",         :limit => 15
+    t.string   "spouseLastName",           :limit => 30
+    t.string   "spouseAccountNo",          :limit => 11
+    t.string   "spouseEmail",              :limit => 50
+    t.string   "fianceeFirstName",         :limit => 15
+    t.string   "fianceeMiddleName",        :limit => 15
+    t.string   "fianceeLastName",          :limit => 30
+    t.string   "fianceeAccountno",         :limit => 11
+    t.string   "isFianceeStaff",           :limit => 1
+    t.date     "fianceeJoinStaffDate"
+    t.string   "isFianceeJoiningNS",       :limit => 1
+    t.string   "joiningNS",                :limit => 1
+    t.string   "homePhone",                :limit => 24
+    t.string   "workPhone",                :limit => 24
+    t.string   "mobilePhone",              :limit => 24
+    t.string   "pager",                    :limit => 24
+    t.string   "email",                    :limit => 50
+    t.string   "isEmailSecure",            :limit => 1
+    t.string   "url"
+    t.date     "newStaffTrainingdate"
+    t.string   "fax",                      :limit => 24
+    t.string   "note",                     :limit => 2048
+    t.string   "region",                   :limit => 10
+    t.string   "countryCode",              :limit => 3
+    t.string   "ssn",                      :limit => 9
+    t.string   "maritalStatus",            :limit => 1
+    t.string   "deptId",                   :limit => 10
+    t.string   "jobCode",                  :limit => 6
+    t.string   "accountCode",              :limit => 25
+    t.string   "compFreq",                 :limit => 1
+    t.string   "compRate",                 :limit => 20
+    t.string   "compChngAmt",              :limit => 21
+    t.string   "jobTitle",                 :limit => 80
+    t.string   "deptName",                 :limit => 30
+    t.string   "coupleTitle",              :limit => 12
+    t.string   "otherPhone",               :limit => 24
+    t.string   "preferredName",            :limit => 50
+    t.string   "namePrefix",               :limit => 4
+    t.date     "origHiredate"
+    t.date     "birthDate"
+    t.date     "marriageDate"
+    t.date     "hireDate"
+    t.date     "rehireDate"
+    t.date     "loaStartDate"
+    t.date     "loaEndDate"
+    t.string   "loaReason",                :limit => 80
+    t.integer  "severancePayMonthsReq"
+    t.date     "serviceDate"
+    t.date     "lastIncDate"
+    t.date     "jobEntryDate"
+    t.date     "deptEntryDate"
+    t.date     "reportingDate"
+    t.string   "employmentType",           :limit => 20
+    t.string   "resignationReason",        :limit => 80
+    t.date     "resignationDate"
+    t.string   "contributionsToOtherAcct", :limit => 1
+    t.string   "contributionsToAcntName",  :limit => 80
+    t.string   "contributionsToAcntNo",    :limit => 11
+    t.integer  "fk_primaryAddress"
+    t.integer  "fk_secondaryAddress"
+    t.integer  "fk_teamID"
+    t.string   "isSecure",                 :limit => 1
+    t.string   "isSupported",              :limit => 1
+    t.string   "removedFromPeopleSoft",    :limit => 1,                                  :default => "N"
+    t.string   "isNonUSStaff",             :limit => 1
+    t.integer  "person_id"
+    t.string   "middleName",               :limit => 30
+    t.string   "paygroup",                 :limit => 3
+    t.string   "idType",                   :limit => 2
+    t.string   "statusDescr",              :limit => 30
+    t.string   "internationalStatus",      :limit => 3
+    t.decimal  "balance",                                  :precision => 9, :scale => 2
+    t.string   "cccHrSendingDept",         :limit => 10
+    t.string   "cccHrCaringDept",          :limit => 10
+    t.string   "cccCaringMinistry",        :limit => 10
+    t.string   "assignmentLength",         :limit => 4
+    t.integer  "global_registry_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "ministry_staff", ["accountNo"], :name => "accountNo", :unique => true
@@ -2475,6 +2487,11 @@ ActiveRecord::Schema.define(:version => 20130325193717) do
     t.integer  "dollars_raised"
     t.integer  "sp_year"
     t.datetime "created_at"
+    t.integer  "spiritual_conversations"
+    t.integer  "faculty_sent"
+    t.integer  "faculty_involved"
+    t.integer  "faculty_engaged"
+    t.integer  "faculty_leaders"
   end
 
   add_index "ministry_statistic", ["fk_Activity"], :name => "index1"
@@ -4721,21 +4738,23 @@ ActiveRecord::Schema.define(:version => 20130325193717) do
   end
 
   create_table "sp_donations", :force => true do |t|
-    t.integer "designation_number",                                :null => false
-    t.decimal "amount",             :precision => 10, :scale => 2, :null => false
-    t.string  "people_id"
-    t.string  "donor_name"
-    t.date    "donation_date"
-    t.string  "address1"
-    t.string  "address2"
-    t.string  "address3"
-    t.string  "city"
-    t.string  "state"
-    t.string  "zip"
-    t.string  "phone"
-    t.string  "email_address"
-    t.string  "medium_type"
-    t.string  "donation_id"
+    t.integer  "designation_number",                                :null => false
+    t.decimal  "amount",             :precision => 10, :scale => 2, :null => false
+    t.string   "people_id"
+    t.string   "donor_name"
+    t.date     "donation_date"
+    t.string   "address1"
+    t.string   "address2"
+    t.string   "address3"
+    t.string   "city"
+    t.string   "state"
+    t.string   "zip"
+    t.string   "phone"
+    t.string   "email_address"
+    t.string   "medium_type"
+    t.string   "donation_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "sp_donations", ["designation_number"], :name => "index_sp_donations_on_designation_number"
@@ -4993,6 +5012,8 @@ ActiveRecord::Schema.define(:version => 20130325193717) do
     t.string   "destination_city",                   :limit => 60
     t.date     "date_of_return"
     t.text     "in_country_contact"
+    t.string   "medical_clinic"
+    t.string   "medical_clinic_location"
     t.string   "project_contact_name",               :limit => 50
     t.string   "project_contact_role",               :limit => 40
     t.string   "project_contact_phone",              :limit => 20
@@ -5102,6 +5123,7 @@ ActiveRecord::Schema.define(:version => 20130325193717) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "is_staff",                  :default => false
+    t.datetime "started_at"
   end
 
   add_index "sp_references", ["question_id"], :name => "question_id"
