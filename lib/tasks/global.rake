@@ -6,6 +6,10 @@ task :global => :environment do
   RestClient.post('http://api.leadingwithinformation.com/entity_types?access_token=a', {entity_type: {name: 'foreign_id', field_type: 'integer', parent_id: sp_entity_type_id}}.to_json, :content_type => :json)
   response = RestClient.post('http://api.leadingwithinformation.com/entity_types?access_token=a', {entity_type: {name: 'summer_project_application'}}.to_json, :content_type => :json)
   sp_application_type_id = Oj.load(response)['entity_type']['id'].to_i
+  RestClient.post('http://api.leadingwithinformation.com/entity_types?access_token=a', {entity_type: {name: 'project', field_type: 'enum', parent_id: sp_application_type_id}}.to_json, :content_type => :json)
+  RestClient.post('http://api.leadingwithinformation.com/entity_types?access_token=a', {entity_type: {name: 'year', field_type: 'integer', parent_id: sp_application_type_id}}.to_json, :content_type => :json)
+  RestClient.post('http://api.leadingwithinformation.com/entity_types?access_token=a', {entity_type: {name: 'status', field_type: 'string', parent_id: sp_application_type_id}}.to_json, :content_type => :json)
+  RestClient.post('http://api.leadingwithinformation.com/entity_types?access_token=a', {entity_type: {name: 'foreign_id', field_type: 'integer', parent_id: sp_application_type_id}}.to_json, :content_type => :json)
 
   SpProject.all.each do |p|
     project_hash = {entity: {summer_project: {
@@ -40,6 +44,10 @@ task :global => :environment do
 
   response = RestClient.post('http://api.leadingwithinformation.com/entity_types?access_token=a', {entity_type: {name: 'internship'}}.to_json, :content_type => :json)
   si_application_type_id = Oj.load(response)['entity_type']['id'].to_i
+  RestClient.post('http://api.leadingwithinformation.com/entity_types?access_token=a', {entity_type: {name: 'team', field_type: 'enum', parent_id: si_application_type_id}}.to_json, :content_type => :json)
+  RestClient.post('http://api.leadingwithinformation.com/entity_types?access_token=a', {entity_type: {name: 'year', field_type: 'integer', parent_id: si_application_type_id}}.to_json, :content_type => :json)
+  RestClient.post('http://api.leadingwithinformation.com/entity_types?access_token=a', {entity_type: {name: 'intern_type', field_type: 'string', parent_id: si_application_type_id}}.to_json, :content_type => :json)
+  RestClient.post('http://api.leadingwithinformation.com/entity_types?access_token=a', {entity_type: {name: 'foreign_id', field_type: 'integer', parent_id: si_application_type_id}}.to_json, :content_type => :json)
 
   HrSiProject.all.each do |p|
     project_hash = {entity: {internship_location: {
@@ -50,7 +58,6 @@ task :global => :environment do
                        secure: p.secure,
                        foreign_id: p.id
                    }}}
-
 
     json = project_hash.to_json
     if p.global_registry_id
@@ -123,10 +130,47 @@ task :global => :environment do
   RestClient.post('http://api.leadingwithinformation.com/entity_types?access_token=a', {entity_type: {name: 'account_number', field_type: 'string', parent_id: person_entity_type_id}}.to_json, :content_type => :json)
   RestClient.post('http://api.leadingwithinformation.com/entity_types?access_token=a', {entity_type: {name: 'foreign_id', field_type: 'integer', parent_id: person_entity_type_id}}.to_json, :content_type => :json)
 
-  #SpApplication.accepted.find_each do |a|
+  # Email
+  response = RestClient.post('http://api.leadingwithinformation.com/entity_types?access_token=a', {entity_type: {name: 'email_address'}}.to_json, :content_type => :json)
+  email_address_entity_type_id = Oj.load(response)['entity_type']['id'].to_i
+  RestClient.post('http://api.leadingwithinformation.com/entity_types?access_token=a', {entity_type: {name: 'email', field_type: 'string', parent_id: email_address_entity_type_id}}.to_json, :content_type => :json)
+  RestClient.post('http://api.leadingwithinformation.com/entity_types?access_token=a', {entity_type: {name: 'primary', field_type: 'boolean', parent_id: email_address_entity_type_id}}.to_json, :content_type => :json)
+  RestClient.post('http://api.leadingwithinformation.com/entity_types?access_token=a', {entity_type: {name: 'foreign_id', field_type: 'integer', parent_id: email_address_entity_type_id}}.to_json, :content_type => :json)
+
+  # phone number
+  response = RestClient.post('http://api.leadingwithinformation.com/entity_types?access_token=a', {entity_type: {name: 'phone_number'}}.to_json, :content_type => :json)
+  phone_number_entity_type_id = Oj.load(response)['entity_type']['id'].to_i
+  RestClient.post('http://api.leadingwithinformation.com/entity_types?access_token=a', {entity_type: {name: 'number', field_type: 'string', parent_id: phone_number_entity_type_id}}.to_json, :content_type => :json)
+  RestClient.post('http://api.leadingwithinformation.com/entity_types?access_token=a', {entity_type: {name: 'extension', field_type: 'string', parent_id: phone_number_entity_type_id}}.to_json, :content_type => :json)
+  RestClient.post('http://api.leadingwithinformation.com/entity_types?access_token=a', {entity_type: {name: 'location', field_type: 'string', parent_id: phone_number_entity_type_id}}.to_json, :content_type => :json)
+  RestClient.post('http://api.leadingwithinformation.com/entity_types?access_token=a', {entity_type: {name: 'primary', field_type: 'boolean', parent_id: phone_number_entity_type_id}}.to_json, :content_type => :json)
+  RestClient.post('http://api.leadingwithinformation.com/entity_types?access_token=a', {entity_type: {name: 'foreign_id', field_type: 'integer', parent_id: phone_number_entity_type_id}}.to_json, :content_type => :json)
+
+  # Address
+  response = RestClient.post('http://api.leadingwithinformation.com/entity_types?access_token=a', {entity_type: {name: 'address'}}.to_json, :content_type => :json)
+  address_entity_type_id = Oj.load(response)['entity_type']['id'].to_i
+  RestClient.post('http://api.leadingwithinformation.com/entity_types?access_token=a', {entity_type: {name: 'city', field_type: 'string', parent_id: address_entity_type_id}}.to_json, :content_type => :json)
+  RestClient.post('http://api.leadingwithinformation.com/entity_types?access_token=a', {entity_type: {name: 'state', field_type: 'string', parent_id: address_entity_type_id}}.to_json, :content_type => :json)
+  RestClient.post('http://api.leadingwithinformation.com/entity_types?access_token=a', {entity_type: {name: 'postal_code', field_type: 'string', parent_id: address_entity_type_id}}.to_json, :content_type => :json)
+  RestClient.post('http://api.leadingwithinformation.com/entity_types?access_token=a', {entity_type: {name: 'country', field_type: 'string', parent_id: address_entity_type_id}}.to_json, :content_type => :json)
+  RestClient.post('http://api.leadingwithinformation.com/entity_types?access_token=a', {entity_type: {name: 'dorm', field_type: 'string', parent_id: address_entity_type_id}}.to_json, :content_type => :json)
+  RestClient.post('http://api.leadingwithinformation.com/entity_types?access_token=a', {entity_type: {name: 'room', field_type: 'string', parent_id: address_entity_type_id}}.to_json, :content_type => :json)
+  RestClient.post('http://api.leadingwithinformation.com/entity_types?access_token=a', {entity_type: {name: 'line1', field_type: 'string', parent_id: address_entity_type_id}}.to_json, :content_type => :json)
+  RestClient.post('http://api.leadingwithinformation.com/entity_types?access_token=a', {entity_type: {name: 'line2', field_type: 'string', parent_id: address_entity_type_id}}.to_json, :content_type => :json)
+  RestClient.post('http://api.leadingwithinformation.com/entity_types?access_token=a', {entity_type: {name: 'line3', field_type: 'string', parent_id: address_entity_type_id}}.to_json, :content_type => :json)
+  RestClient.post('http://api.leadingwithinformation.com/entity_types?access_token=a', {entity_type: {name: 'line4', field_type: 'string', parent_id: address_entity_type_id}}.to_json, :content_type => :json)
+  RestClient.post('http://api.leadingwithinformation.com/entity_types?access_token=a', {entity_type: {name: 'primary', field_type: 'boolean', parent_id: address_entity_type_id}}.to_json, :content_type => :json)
+  RestClient.post('http://api.leadingwithinformation.com/entity_types?access_token=a', {entity_type: {name: 'foreign_id', field_type: 'integer', parent_id: address_entity_type_id}}.to_json, :content_type => :json)
+
+  # Team membership
+  response = RestClient.post('http://api.leadingwithinformation.com/entity_types?access_token=a', {entity_type: {name: 'team_membership'}}.to_json, :content_type => :json)
+  team_membership_entity_type_id = Oj.load(response)['entity_type']['id'].to_i
+
+  RestClient.post('http://api.leadingwithinformation.com/entity_types?access_token=a', {entity_type: {name: 'team', field_type: 'enum', parent_id: team_membership_entity_type_id}}.to_json, :content_type => :json)
+  RestClient.post('http://api.leadingwithinformation.com/entity_types?access_token=a', {entity_type: {name: 'is_leader', field_type: 'boolean', parent_id: team_membership_entity_type_id}}.to_json, :content_type => :json)
+  RestClient.post('http://api.leadingwithinformation.com/entity_types?access_token=a', {entity_type: {name: 'foreign_id', field_type: 'integer', parent_id: team_membership_entity_type_id}}.to_json, :content_type => :json)
+
   Person.find_each do |p|
-  #Person.where(personID: 111308).each do |p|
-    #p = a.person
     gender = [1,0,'1','0'].include?(p.gender) ? (p.gender.to_i == 1 ? 'male' : 'female') : nil
     isSecure = 0 if p.isSecure == 'F'
     isSecure = 1 if p.isSecure == 'T'
@@ -158,17 +202,17 @@ task :global => :environment do
                       ministry: p.ministry,
                       strategy: p.strategy,
                       account_number: p.accountNo,
-                      forieng_id: p.id
+                      foreign_id: p.id
                     }
                   }}
 
     person_hash.select! { |_,v| v.present? }
 
     if p.sp_applications.accepted.present?
-      person_hash[:person][:summer_project_application] = []
+      person_hash[:entity][:person][:summer_project_application] = []
       p.sp_applications.accepted.each do |a|
         if a.project
-          person_hash[:person][:summer_project_application] << {
+          person_hash[:entity][:person][:summer_project_application] << {
             project: a.project.global_registry_id,
             year: a.year,
             status: a.status,
@@ -180,7 +224,7 @@ task :global => :environment do
 
     trackings = p.sitrack_trackings.where("asgTeam is not null")
     if trackings.present?
-      person_hash[:person][:internship] = []
+      person_hash[:entity][:person][:internship] = []
       trackings.each do |tracking|
         a = tracking.hr_si_application
         team = if tracking.asgTeam.to_i > 0
@@ -189,7 +233,7 @@ task :global => :environment do
                  Team.where(name: tracking.asgTeam).first
                end
         if team
-          person_hash[:person][:internship] << {
+          person_hash[:entity][:person][:internship] << {
             team: team.global_registry_id,
             year: tracking.asgYear,
             intern_type: tracking.internType,
@@ -199,81 +243,59 @@ task :global => :environment do
       end
     end
 
+    # team assignments
+    person_hash[:entity][:person][:team_membership] = []
+    p.team_members.each do |team_membership|
+      person_hash[:entity][:person][:team_membership] << {
+        team: team_membership.team.global_registry_id,
+        is_leader: team_membership.is_leader,
+        foreign_id: team_membership.id
+      }
+    end
+
     # add email addresses
     if p.email_addresses.present?
-      person_hash[:person][:email_address] ||= []
+      person_hash[:entity][:person][:email_address] ||= []
       p.email_addresses.each do |e|
-        person_hash[:person][:email_address] << {
+        person_hash[:entity][:person][:email_address] << {
           email: e.email,
-          primary: e.primary
+          primary: e.primary,
+          foreign_id: e.id
         }
       end
     end
 
-    # add phoen numbers
+    # add phone numbers
     if p.phone_numbers.present?
-      person_hash[:person][:phone_number] ||= []
-      p.phone_numbers.each do |p|
-        person_hash[:person][:phone_number] << {
-          number: p.number,
-          primary: p.primary,
-          extension: p.extension,
-          location: p.location
+      person_hash[:entity][:person][:phone_number] ||= []
+      p.phone_numbers.each do |pn|
+        person_hash[:entity][:person][:phone_number] << {
+          number: pn.number,
+          primary: pn.primary,
+          extension: pn.extension,
+          location: pn.location,
+          foreign_id: pn.id
         }
       end
     end
 
     a = p.addresses.where("addressType = 'current'").first
     if a
-      person_hash[:person][:address] ||= []
       address_hash = {city: a.city,
                       state: a.state,
-                      postal_code: a.zip
-      }
+                      postal_code: a.zip,
+                      foreign_id: a.id}
+
       address_hash[:country] = a.country if a.country.present?
       address_hash[:dorm] = a.dorm if a.dorm.present?
       address_hash[:room] = a.room if a.room.present?
 
-      address_hash[:line] = []
-      address_hash[:line] << a.address1 if a.address1.present?
-      address_hash[:line] << a.address2 if a.address2.present?
-      address_hash[:line] << a.address3 if a.address3.present?
-      address_hash[:line] << a.address4 if a.address4.present?
+      address_hash[:line1] = a.address1 if a.address1.present?
+      address_hash[:line2] = a.address2 if a.address2.present?
+      address_hash[:line3] = a.address3 if a.address3.present?
+      address_hash[:line4] = a.address4 if a.address4.present?
 
-      person_hash[:person][:address] << address_hash
-
-      # Phone numbers
-      if a.homePhone.present?
-        person_hash[:person][:phone_number] ||= []
-        person_hash[:person][:phone_number] << {
-          number: a.homePhone,
-          location: 'home'
-        }
-      end
-
-      if a.workPhone.present?
-        person_hash[:person][:phone_number] ||= []
-        person_hash[:person][:phone_number] << {
-          number: a.workPhone,
-          location: 'work'
-        }
-      end
-
-      if a.cellPhone.present?
-        person_hash[:person][:phone_number] ||= []
-        person_hash[:person][:phone_number] << {
-          number: a.cellPhone,
-          location: 'mobile'
-        }
-      end
-
-      # Email address
-      if a.email.present?
-        person_hash[:person][:email_address] ||= []
-        person_hash[:person][:email_address] << {
-          email: a.email
-        }
-      end
+      person_hash[:entity][:person][:address] = address_hash
     end
 
 
@@ -284,8 +306,8 @@ task :global => :environment do
     else
       response = RestClient.post('http://api.leadingwithinformation.com/entities?access_token=a', json, :content_type => :json)
     end
-    p.update_column(:global_registry_id, Oj.load(response)['person']['id']) unless p.global_registry_id
-  end
+    p.update_column(:global_registry_id, Oj.load(response)['entity']['id']) unless p.global_registry_id
+  end; nil
 end
 
 
