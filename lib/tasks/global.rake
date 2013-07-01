@@ -1,8 +1,10 @@
 task :global => :environment do
   # create summer project entity type
-  response = RestClient.post('http://localhost:3000/entity_types?access_token=a', {entity_type: {name: 'summer_project'}}.to_json, :content_type => :json)
+  response = RestClient.post('http://api.leadingwithinformation.com/entity_types?access_token=a', {entity_type: {name: 'summer_project'}}.to_json, :content_type => :json)
   sp_entity_type_id = Oj.load(response)['entity_type']['id'].to_i
-  response = RestClient.post('http://localhost:3000/entity_types?access_token=a', {entity_type: {name: 'summer_project_application'}}.to_json, :content_type => :json)
+  RestClient.post('http://api.leadingwithinformation.com/entity_types?access_token=a', {entity_type: {name: 'name', field_type: 'string', parent_id: sp_entity_type_id}}.to_json, :content_type => :json)
+  RestClient.post('http://api.leadingwithinformation.com/entity_types?access_token=a', {entity_type: {name: 'foreign_id', field_type: 'integer', parent_id: sp_entity_type_id}}.to_json, :content_type => :json)
+  response = RestClient.post('http://api.leadingwithinformation.com/entity_types?access_token=a', {entity_type: {name: 'summer_project_application'}}.to_json, :content_type => :json)
   sp_application_type_id = Oj.load(response)['entity_type']['id'].to_i
 
   SpProject.all.each do |p|
@@ -13,9 +15,9 @@ task :global => :environment do
 
     json = project_hash.to_json
     if p.global_registry_id
-      response = RestClient.put("http://localhost:3000/entities/#{p.global_registry_id}?access_token=a", json, :content_type => :json)
+      response = RestClient.put("http://api.leadingwithinformation.com/entities/#{p.global_registry_id}?access_token=a", json, :content_type => :json)
     else
-      response = RestClient.post('http://localhost:3000/entities?access_token=a', json, :content_type => :json)
+      response = RestClient.post('http://api.leadingwithinformation.com/entities?access_token=a', json, :content_type => :json)
     end
     id = Oj.load(response)['entity']['id']
     Rails.logger.debug(response)
@@ -23,13 +25,20 @@ task :global => :environment do
 
     # Add enum value
     json = {enum_value: {entity_type_id: sp_entity_type_id, entity_id: id}}
-    response = RestClient.post('http://localhost:3000/enum_values?access_token=a', json, :content_type => :json)
+    response = RestClient.post('http://api.leadingwithinformation.com/enum_values?access_token=a', json, :content_type => :json)
   end
 
   # create si entity type
-  response = RestClient.post('http://localhost:3000/entity_types?access_token=a', {entity_type: {name: 'internship_location'}}.to_json, :content_type => :json)
+  response = RestClient.post('http://api.leadingwithinformation.com/entity_types?access_token=a', {entity_type: {name: 'internship_location'}}.to_json, :content_type => :json)
   si_entity_type_id = Oj.load(response)['entity_type']['id'].to_i
-  response = RestClient.post('http://localhost:3000/entity_types?access_token=a', {entity_type: {name: 'internship'}}.to_json, :content_type => :json)
+  RestClient.post('http://api.leadingwithinformation.com/entity_types?access_token=a', {entity_type: {name: 'name', field_type: 'string', parent_id: si_entity_type_id}}.to_json, :content_type => :json)
+  RestClient.post('http://api.leadingwithinformation.com/entity_types?access_token=a', {entity_type: {name: 'partnership_region', field_type: 'string', parent_id: si_entity_type_id}}.to_json, :content_type => :json)
+  RestClient.post('http://api.leadingwithinformation.com/entity_types?access_token=a', {entity_type: {name: 'city', field_type: 'string', parent_id: si_entity_type_id}}.to_json, :content_type => :json)
+  RestClient.post('http://api.leadingwithinformation.com/entity_types?access_token=a', {entity_type: {name: 'country', field_type: 'string', parent_id: si_entity_type_id}}.to_json, :content_type => :json)
+  RestClient.post('http://api.leadingwithinformation.com/entity_types?access_token=a', {entity_type: {name: 'secure', field_type: 'boolean', parent_id: si_entity_type_id}}.to_json, :content_type => :json)
+  RestClient.post('http://api.leadingwithinformation.com/entity_types?access_token=a', {entity_type: {name: 'foreign_id', field_type: 'integer', parent_id: si_entity_type_id}}.to_json, :content_type => :json)
+
+  response = RestClient.post('http://api.leadingwithinformation.com/entity_types?access_token=a', {entity_type: {name: 'internship'}}.to_json, :content_type => :json)
   si_application_type_id = Oj.load(response)['entity_type']['id'].to_i
 
   HrSiProject.all.each do |p|
@@ -45,9 +54,9 @@ task :global => :environment do
 
     json = project_hash.to_json
     if p.global_registry_id
-      response = RestClient.put("http://localhost:3000/entities/#{p.global_registry_id}?access_token=a", json, :content_type => :json)
+      response = RestClient.put("http://api.leadingwithinformation.com/entities/#{p.global_registry_id}?access_token=a", json, :content_type => :json)
     else
-      response = RestClient.post('http://localhost:3000/entities?access_token=a', json, :content_type => :json)
+      response = RestClient.post('http://api.leadingwithinformation.com/entities?access_token=a', json, :content_type => :json)
     end
     id = Oj.load(response)['entity']['id']
     Rails.logger.debug(response)
@@ -55,24 +64,27 @@ task :global => :environment do
 
     # Add enum value
     json = {enum_value: {entity_type_id: si_entity_type_id, entity_id: id}}
-    response = RestClient.post('http://localhost:3000/enum_values?access_token=a', json, :content_type => :json)
+    response = RestClient.post('http://api.leadingwithinformation.com/enum_values?access_token=a', json, :content_type => :json)
   end
 
   # create teams
-  response = RestClient.post('http://localhost:3000/entity_types?access_token=a', {entity_type: {name: 'team'}}.to_json, :content_type => :json)
+  response = RestClient.post('http://api.leadingwithinformation.com/entity_types?access_token=a', {entity_type: {name: 'team'}}.to_json, :content_type => :json)
   team_entity_type_id = Oj.load(response)['entity_type']['id'].to_i
+  RestClient.post('http://api.leadingwithinformation.com/entity_types?access_token=a', {entity_type: {name: 'name', field_type: 'string', parent_id: team_entity_type_id}}.to_json, :content_type => :json)
+  RestClient.post('http://api.leadingwithinformation.com/entity_types?access_token=a', {entity_type: {name: 'foreign_id', field_type: 'integer', parent_id: team_entity_type_id}}.to_json, :content_type => :json)
 
   Team.all.each do |p|
     project_hash = {entity: {team: {
-                       name: p.name
+                       name: p.name,
+                       foreign_id: p.id
                    }}}
 
 
     json = project_hash.to_json
     if p.global_registry_id
-      response = RestClient.put("http://localhost:3000/entities/#{p.global_registry_id}?access_token=a", json, :content_type => :json)
+      response = RestClient.put("http://api.leadingwithinformation.com/entities/#{p.global_registry_id}?access_token=a", json, :content_type => :json)
     else
-      response = RestClient.post('http://localhost:3000/entities?access_token=a', json, :content_type => :json)
+      response = RestClient.post('http://api.leadingwithinformation.com/entities?access_token=a', json, :content_type => :json)
     end
     id = Oj.load(response)['entity']['id']
     Rails.logger.debug(response)
@@ -80,9 +92,36 @@ task :global => :environment do
 
     # Add enum value
     json = {enum_value: {entity_type_id: team_entity_type_id, entity_id: id}}
-    response = RestClient.post('http://localhost:3000/enum_values?access_token=a', json, :content_type => :json)
+    response = RestClient.post('http://api.leadingwithinformation.com/enum_values?access_token=a', json, :content_type => :json)
   end
 
+  response = RestClient.post('http://api.leadingwithinformation.com/entity_types?access_token=a', {entity_type: {name: 'person'}}.to_json, :content_type => :json)
+  person_entity_type_id = Oj.load(response)['entity_type']['id'].to_i
+  RestClient.post('http://api.leadingwithinformation.com/entity_types?access_token=a', {entity_type: {name: 'first_name', field_type: 'string', parent_id: person_entity_type_id}}.to_json, :content_type => :json)
+  RestClient.post('http://api.leadingwithinformation.com/entity_types?access_token=a', {entity_type: {name: 'last_name', field_type: 'string', parent_id: person_entity_type_id}}.to_json, :content_type => :json)
+  RestClient.post('http://api.leadingwithinformation.com/entity_types?access_token=a', {entity_type: {name: 'middle_name', field_type: 'string', parent_id: person_entity_type_id}}.to_json, :content_type => :json)
+  RestClient.post('http://api.leadingwithinformation.com/entity_types?access_token=a', {entity_type: {name: 'preferred_name', field_type: 'string', parent_id: person_entity_type_id}}.to_json, :content_type => :json)
+  RestClient.post('http://api.leadingwithinformation.com/entity_types?access_token=a', {entity_type: {name: 'gender', field_type: 'string', parent_id: person_entity_type_id}}.to_json, :content_type => :json)
+  RestClient.post('http://api.leadingwithinformation.com/entity_types?access_token=a', {entity_type: {name: 'region', field_type: 'string', parent_id: person_entity_type_id}}.to_json, :content_type => :json)
+  RestClient.post('http://api.leadingwithinformation.com/entity_types?access_token=a', {entity_type: {name: 'work_in_us', field_type: 'boolean', parent_id: person_entity_type_id}}.to_json, :content_type => :json)
+  RestClient.post('http://api.leadingwithinformation.com/entity_types?access_token=a', {entity_type: {name: 'us_citizen', field_type: 'boolean', parent_id: person_entity_type_id}}.to_json, :content_type => :json)
+  RestClient.post('http://api.leadingwithinformation.com/entity_types?access_token=a', {entity_type: {name: 'citizenship', field_type: 'string', parent_id: person_entity_type_id}}.to_json, :content_type => :json)
+  RestClient.post('http://api.leadingwithinformation.com/entity_types?access_token=a', {entity_type: {name: 'is_staff', field_type: 'boolean', parent_id: person_entity_type_id}}.to_json, :content_type => :json)
+  RestClient.post('http://api.leadingwithinformation.com/entity_types?access_token=a', {entity_type: {name: 'title', field_type: 'string', parent_id: person_entity_type_id}}.to_json, :content_type => :json)
+  RestClient.post('http://api.leadingwithinformation.com/entity_types?access_token=a', {entity_type: {name: 'campus', field_type: 'string', parent_id: person_entity_type_id}}.to_json, :content_type => :json)
+  RestClient.post('http://api.leadingwithinformation.com/entity_types?access_token=a', {entity_type: {name: 'university_state', field_type: 'string', parent_id: person_entity_type_id}}.to_json, :content_type => :json)
+  RestClient.post('http://api.leadingwithinformation.com/entity_types?access_token=a', {entity_type: {name: 'year_in_school', field_type: 'string', parent_id: person_entity_type_id}}.to_json, :content_type => :json)
+  RestClient.post('http://api.leadingwithinformation.com/entity_types?access_token=a', {entity_type: {name: 'major', field_type: 'string', parent_id: person_entity_type_id}}.to_json, :content_type => :json)
+  RestClient.post('http://api.leadingwithinformation.com/entity_types?access_token=a', {entity_type: {name: 'greek_affiliation', field_type: 'string', parent_id: person_entity_type_id}}.to_json, :content_type => :json)
+  RestClient.post('http://api.leadingwithinformation.com/entity_types?access_token=a', {entity_type: {name: 'marital_status', field_type: 'string', parent_id: person_entity_type_id}}.to_json, :content_type => :json)
+  RestClient.post('http://api.leadingwithinformation.com/entity_types?access_token=a', {entity_type: {name: 'birth_date', field_type: 'date', parent_id: person_entity_type_id}}.to_json, :content_type => :json)
+  RestClient.post('http://api.leadingwithinformation.com/entity_types?access_token=a', {entity_type: {name: 'date_became_christian', field_type: 'date', parent_id: person_entity_type_id}}.to_json, :content_type => :json)
+  RestClient.post('http://api.leadingwithinformation.com/entity_types?access_token=a', {entity_type: {name: 'graduation_date', field_type: 'date', parent_id: person_entity_type_id}}.to_json, :content_type => :json)
+  RestClient.post('http://api.leadingwithinformation.com/entity_types?access_token=a', {entity_type: {name: 'is_secure', field_type: 'boolean', parent_id: person_entity_type_id}}.to_json, :content_type => :json)
+  RestClient.post('http://api.leadingwithinformation.com/entity_types?access_token=a', {entity_type: {name: 'ministry', field_type: 'string', parent_id: person_entity_type_id}}.to_json, :content_type => :json)
+  RestClient.post('http://api.leadingwithinformation.com/entity_types?access_token=a', {entity_type: {name: 'strategy', field_type: 'string', parent_id: person_entity_type_id}}.to_json, :content_type => :json)
+  RestClient.post('http://api.leadingwithinformation.com/entity_types?access_token=a', {entity_type: {name: 'account_number', field_type: 'string', parent_id: person_entity_type_id}}.to_json, :content_type => :json)
+  RestClient.post('http://api.leadingwithinformation.com/entity_types?access_token=a', {entity_type: {name: 'foreign_id', field_type: 'integer', parent_id: person_entity_type_id}}.to_json, :content_type => :json)
 
   #SpApplication.accepted.find_each do |a|
   Person.find_each do |p|
@@ -118,7 +157,8 @@ task :global => :environment do
                       is_secure: isSecure,
                       ministry: p.ministry,
                       strategy: p.strategy,
-                      account_number: p.accountNo
+                      account_number: p.accountNo,
+                      forieng_id: p.id
                     }
                   }}
 
@@ -240,9 +280,9 @@ task :global => :environment do
     json = person_hash.to_json
 
     if p.global_registry_id
-      response = RestClient.put("http://localhost:3000/entities/#{p.global_registry_id}?access_token=a", json, :content_type => :json)
+      response = RestClient.put("http://api.leadingwithinformation.com/entities/#{p.global_registry_id}?access_token=a", json, :content_type => :json)
     else
-      response = RestClient.post('http://localhost:3000/entities?access_token=a', json, :content_type => :json)
+      response = RestClient.post('http://api.leadingwithinformation.com/entities?access_token=a', json, :content_type => :json)
     end
     p.update_column(:global_registry_id, Oj.load(response)['person']['id']) unless p.global_registry_id
   end
