@@ -61,6 +61,11 @@
         <label onMouseOver="infoBox('<%= unique_name(stat) %>','decisions_media',200);" onMouseOut="infoBoxClear('<%= unique_name(stat) %>');" >Media Exposures Decisions</label>
         <%= text_field_tag "stat[" + unique_name(stat) + "[decisionsHelpedByMedia]]", stat["decisionsHelpedByMedia"], :id => "week 1", :class => "totalnumber", :onfocus => "infoBox('#{unique_name(stat)}','decisions_media',200);" %>
       </div>
+
+      <div class="field">
+        <label onMouseOver="infoBox('<%= unique_name(stat) %>','spiritual_conversations',200);" onMouseOut="infoBoxClear('<%= unique_name(stat) %>');" >Spiritual Conversations</label>
+        <%= text_field_tag "stat[" + unique_name(stat) + "[spiritual_conversations]]", stat["spiritual_conversations"], :id => "week 1", :class => "totalnumber", :onfocus => "infoBox('#{unique_name(stat)}','spiritual_conversations',200);" %>
+      </div>
     </div>
 
     <div style="clear:both"></div>
