@@ -1,4 +1,21 @@
 Infobase::Application.routes.draw do
+  namespace :api, defaults: {format: 'json'} do 
+    namespace :v1 do
+      resources :stats do
+        collection do
+          get :activity
+        end
+      end
+      
+      resources :people do
+        collection do
+          get :is_staff
+          post :is_staff
+        end
+      end
+    end
+  end
+  
   resources :teams do
     collection do
       get :search
@@ -172,5 +189,5 @@ Infobase::Application.routes.draw do
 
   # This is a legacy wild controller route that's not recommended for RESTful applications.
   # Note: This route will make all actions in every controller accessible via GET requests.
-  # match ':controller(/:action(/:id(.:format)))'
+  # match ':controller(/:action(/:id))(.:format)'
 end
