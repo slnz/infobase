@@ -11,7 +11,7 @@ task :global => :environment do
   RestClient.post('http://api.leadingwithinformation.com/entity_types?access_token=a', {entity_type: {name: 'status', field_type: 'string', parent_id: sp_application_type_id}}.to_json, :content_type => :json)
   RestClient.post('http://api.leadingwithinformation.com/entity_types?access_token=a', {entity_type: {name: 'foreign_id', field_type: 'integer', parent_id: sp_application_type_id}}.to_json, :content_type => :json)
 
-  SpProject.all.each do |p|
+  SpProject.where("global_registry_id is NULL").each do |p|
     project_hash = {entity: {summer_project: {
                        name: p.name,
                        foreign_id: p.id
@@ -49,7 +49,7 @@ task :global => :environment do
   RestClient.post('http://api.leadingwithinformation.com/entity_types?access_token=a', {entity_type: {name: 'intern_type', field_type: 'string', parent_id: si_application_type_id}}.to_json, :content_type => :json)
   RestClient.post('http://api.leadingwithinformation.com/entity_types?access_token=a', {entity_type: {name: 'foreign_id', field_type: 'integer', parent_id: si_application_type_id}}.to_json, :content_type => :json)
 
-  HrSiProject.all.each do |p|
+  HrSiProject.where("global_registry_id is NULL").each do |p|
     project_hash = {entity: {internship_location: {
                        name: p.name,
                        partnership_region: p.partnershipRegion,
@@ -80,7 +80,7 @@ task :global => :environment do
   RestClient.post('http://api.leadingwithinformation.com/entity_types?access_token=a', {entity_type: {name: 'name', field_type: 'string', parent_id: team_entity_type_id}}.to_json, :content_type => :json)
   RestClient.post('http://api.leadingwithinformation.com/entity_types?access_token=a', {entity_type: {name: 'foreign_id', field_type: 'integer', parent_id: team_entity_type_id}}.to_json, :content_type => :json)
 
-  Team.all.each do |p|
+  Team.where("global_registry_id is NULL").each do |p|
     project_hash = {entity: {team: {
                        name: p.name,
                        foreign_id: p.id
@@ -170,7 +170,7 @@ task :global => :environment do
   RestClient.post('http://api.leadingwithinformation.com/entity_types?access_token=a', {entity_type: {name: 'is_leader', field_type: 'boolean', parent_id: team_membership_entity_type_id}}.to_json, :content_type => :json)
   RestClient.post('http://api.leadingwithinformation.com/entity_types?access_token=a', {entity_type: {name: 'foreign_id', field_type: 'integer', parent_id: team_membership_entity_type_id}}.to_json, :content_type => :json)
 
-  Person.find_each do |p|
+  Person.where("global_registry_id is NULL").find_each do |p|
     gender = [1,0,'1','0'].include?(p.gender) ? (p.gender.to_i == 1 ? 'male' : 'female') : nil
     isSecure = 0 if p.isSecure == 'F'
     isSecure = 1 if p.isSecure == 'T'
