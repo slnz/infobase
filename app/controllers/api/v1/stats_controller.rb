@@ -1,20 +1,28 @@
 class Api::V1::StatsController < Api::V1::BaseController
   def activity
-    activity = Activity.find(params[:activity_id])
+    activity = Activity.where("activityid = ?", params[:activity_id]).first
     
     begin_date = Date.parse(params[:begin_date])
     end_date = Date.parse(params[:end_date])
     
-    @stats = activity.get_stats_for_dates(begin_date, end_date)
+    if activity
+      @stats = activity.get_stats_for_dates(begin_date, end_date)
+    else
+      @stats = []
+    end
     respond_with @stats, :root => "statistics"
   end
   
   def show
-    activity = Activity.find(params[:activity_id])
+    activity = Activity.where("activityid = ?", params[:activity_id]).first
     
     date = Date.parse(params[:date])
 
-    @stat = activity.get_stat_for(date)
+    if activity
+      @stat = activity.get_stat_for(date)
+    else
+      @stat = nil
+    end
     respond_with [@stat], :root => "statistics"
   end
   
