@@ -1,5 +1,5 @@
 class Ccc::Person < ActiveRecord::Base
-  
+
   self.table_name = 'ministry_person'
   self.primary_key = 'personID'
 
@@ -44,7 +44,7 @@ class Ccc::Person < ActiveRecord::Base
   has_many :email_addresses, autosave: true, dependent: :destroy
   has_one :primary_phone_number, class_name: "PhoneNumber", foreign_key: "person_id", conditions: {primary: true}
   has_many :ministry_newaddresses, class_name: 'Ccc::MinistryNewaddress', foreign_key: :fk_PersonID, dependent: :destroy
-  
+
   def self.search_by_name(name, organization_ids = nil, scope = nil)
     return scope.where('1 = 0') unless name.present?
     scope ||= Person
@@ -59,7 +59,7 @@ class Ccc::Person < ActiveRecord::Base
     scope = scope.where('organizational_roles.organization_id IN(?)', organization_ids).includes(:organizational_roles) if organization_ids
     scope
   end
-  
+
   def smart_merge(other)
     if user && other.user
       user.merge(other.user)
@@ -107,7 +107,7 @@ class Ccc::Person < ActiveRecord::Base
         pn.merge(opn) if opn
       end
       emails = email_addresses.collect(&:email)
-      other.email_addresses.each do |pn| 
+      other.email_addresses.each do |pn|
         if emails.include?(pn.email)
           pn.destroy
         else
@@ -140,17 +140,17 @@ class Ccc::Person < ActiveRecord::Base
 
 
       # Panorama
-      other.pr_reviewers.each { |ua| ua.update_column(:person_id, personID) }
+      other.pr_reviewers.update_all(person_id: personID)
 
       Ccc::PrReview.where(["subject_id = ? or initiator_id = ?", other.id, other.id]).each do |ua|
-        ua.update_attribute(:subject_id, personID) if ua.subject_id == other.id
-        ua.update_attribute(:initiator_id, personID) if ua.initiator_id == other.id
+        ua.update_column(:subject_id, personID) if ua.subject_id == other.id
+        ua.update_column(:initiator_id, personID) if ua.initiator_id == other.id
       end
 
-      other.pr_admins.each { |ua| ua.update_attribute(:person_id, personID) }
-      other.pr_summary_forms.each { |ua| ua.update_attribute(:person_id, personID) }
-      other.pr_reminders.each { |ua| ua.update_attribute(:person_id, personID) }
-      other.pr_personal_forms.each { |ua| ua.update_attribute(:person_id, personID) }
+      other.pr_admins.update_all(person_id: personID)
+      other.pr_summary_forms.update_all(person_id: personID)
+      other.pr_reminders.update_all(person_id: personID)
+      other.pr_personal_forms.update_all(person_id: personID)
 
       # end Panorama
 

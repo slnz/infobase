@@ -4,8 +4,7 @@ class Ccc::PrPersonalForm < AnswerSheet
 
   self.table_name = "pr_personal_forms"
 
-  belongs_to :person
-  belongs_to :question_sheet
+  belongs_to :person, class_name: "Ccc::Person"
 
   def question_sheets
     [ question_sheet ]
