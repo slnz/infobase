@@ -1,9 +1,8 @@
 class InfobaseReportRow
-  include ActiveModel::SerializerSupport
-  attr_accessor :name, :key, :bridges_rows, :no_link, :personal_exposures, 
-    :personal_evangelism, :group_exposures, :group_evangelism, :media_exposures, :holy_spirit_presentations,
-    :personal_decisions, :group_decisions, :media_decisions, :graduating_on_mission, :faculty_on_mission,
-    :laborers_sent, :students_involved, :students_engaged, :student_leaders
+  include ActiveModel::Conversion
+  extend  ActiveModel::Naming
+
+  attr_accessor :name, :key, :bridges_rows, :no_link
   Statistic.event_stats.each do |stat_type|
     attr_accessor stat_type.to_sym
   end
@@ -11,26 +10,33 @@ class InfobaseReportRow
     attr_accessor stat_type.to_sym
   end
   
-  #alias_attribute :spiritual_conversations, :spiritual_conversations
-  alias_attribute :personal_exposures, :evangelisticOneOnOne
-  alias_attribute :personal_evangelism, :evangelisticOneOnOne
-  alias_attribute :group_exposures, :evangelisticGroup
-  alias_attribute :group_evangelism, :evangelisticGroup
-  alias_attribute :media_exposures, :exposuresViaMedia
-  alias_attribute :holy_spirit_presentations, :holySpiritConversations
-  alias_attribute :personal_decisions, :decisionsHelpedByOneOnOne
-  alias_attribute :group_decisions, :decisionsHelpedByGroup
-  alias_attribute :media_decisions, :decisionsHelpedByMedia
-  alias_attribute :graduating_on_mission, :laborersSent
-  alias_attribute :faculty_on_mission, :faculty_sent
-  alias_attribute :laborers_sent, :laborersSent
-  alias_attribute :students_involved, :invldStudents
-  alias_attribute :students_engaged, :multipliers
-  alias_attribute :student_leaders, :studentLeaders
-  #alias_attribute :faculty_involved, :faculty_involved
-  #alias_attribute :faculty_engaged, :faculty_engaged
-  #alias_attribute :facutly_leaders, :facutly_leaders
-  alias_attribute :seekers, :ongoingEvangReln
+  def as_json(options = {})
+    {
+      :spiritual_conversations => spiritual_conversations,
+      :personal_exposures => evangelisticOneOnOne,
+      :personal_evangelism => evangelisticOneOnOne,
+      :group_exposures => evangelisticGroup,
+      :group_evangelism => evangelisticGroup,
+      :media_exposures => exposuresViaMedia,
+      :holy_spirit_presentations => holySpiritConversations,
+      :personal_decisions => decisionsHelpedByOneOnOne,
+      :group_decisions => decisionsHelpedByGroup,
+      :media_decisions => decisionsHelpedByMedia,
+      :graduating_on_mission => laborersSent,
+      :faculty_on_mission => faculty_sent,
+      :laborers_sent => laborersSent,
+      :students_involved => invldStudents,
+      :students_engaged => multipliers,
+      :student_leaders => studentLeaders,
+      :faculty_involved => faculty_involved,
+      :faculty_engaged => faculty_engaged,
+      :facutly_leaders => faculty_leaders,
+    }
+  end
+  
+  def persisted?
+    false
+  end
 
   def initialize(name = "Totals", stats = nil, last_stats = [], key = nil, bridges_rows = nil, no_link = false)
     @name = name

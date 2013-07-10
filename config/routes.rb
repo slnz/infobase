@@ -17,6 +17,8 @@ Infobase::Application.routes.draw do
     end
   end
   
+  resources :infobase_report_rows
+  
   resources :teams do
     collection do
       get :search
