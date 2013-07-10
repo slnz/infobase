@@ -34,6 +34,21 @@ class InfobaseReport
     @totals
   end
   
+  def self.create_report(from_date, to_date, semester_date, activity_ids)
+    stats = start_stats_query(from_date, to_date)
+    stats = add_activities_clause(stats, activity_ids)
+    stats = sum_weekly_stats(stats)
+    
+    first_sem_date = semester_date - 6.months
+    last_end_date_ids = get_last_end_date_ids(first_sem_date, semester_date)
+    last_stats = start_stats_query(first_sem_date, semester_date)
+    last_stats = add_activities_clause(last_stats, activity_ids).
+      where(Statistic.table_name + ".statisticID IN (?)", last_end_date_ids.collect(&:statisticID))
+    last_stats = sum_semester_stats(last_stats)
+    
+    InfobaseReport.new([InfobaseReportRow.new("stats", stats.first, last_stats)], "stats")
+  end
+  
   def self.create_national_report(from_date, to_date, strategies, type)
     rows = []
     regions = Region.standard_region_codes
@@ -262,6 +277,10 @@ class InfobaseReport
   
   def self.add_activity_clause(relation, activity)
     relation.where(Activity.table_name + ".ActivityId = ?", activity.id)
+  end
+  
+  def self.add_activities_clause(relation, activity_ids)
+    relation.where(Statistic.table_name + ".fk_Activity IN (?)", activity_ids)
   end
   
   def self.add_group_clause(relation, group)
