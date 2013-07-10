@@ -4,7 +4,7 @@ Infobase::Application.routes.draw do
       resources :stats do
         collection do
           get :activity
-          get :collate_stats
+          post :collate_stats
         end
       end
       
