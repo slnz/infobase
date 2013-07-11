@@ -29,9 +29,10 @@ class Api::V1::StatsController < Api::V1::BaseController
   def collate_stats
     begin_date = Date.parse(params[:begin_date])
     end_date = Date.parse(params[:end_date])
+    semester_date = Date.parse(params[:semester_date])
     activity_ids = params[:activity_ids]
     
-    report = InfobaseReport.create_report(begin_date, end_date, end_date, activity_ids)
+    report = InfobaseReport.create_report(begin_date, end_date, semester_date, activity_ids)
     respond_with report.rows.first, :root => "statistics"
   end
   

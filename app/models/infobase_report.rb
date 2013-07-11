@@ -39,7 +39,7 @@ class InfobaseReport
     stats = add_activities_clause(stats, activity_ids)
     stats = sum_weekly_stats(stats)
     
-    first_sem_date = semester_date - 6.months
+    first_sem_date = semester_date - 1.year
     last_end_date_ids = get_last_end_date_ids(first_sem_date, semester_date)
     last_stats = start_stats_query(first_sem_date, semester_date)
     last_stats = add_activities_clause(last_stats, activity_ids).
