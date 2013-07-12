@@ -8,7 +8,7 @@
         <%= link_to "Ministry", locations_path %>
       </li>
       <li <%= @menubar == "stats" ? "class='selected'" : "" %>>
-        <%= link_to "Enter Stats", stats_path %>
+        <%= link_to "Enter Movement Indicators", stats_path %>
       </li>
       <li <%= @menubar == "reports" ? "class='selected'" : "" %>>
         <%= link_to "View Reports", create_report_path %>
@@ -40,7 +40,7 @@
       <% elsif @menubar == "reports" %>
         <li class="report">&nbsp;</li>
         <li>
-          <%= link_to "Success Criteria", create_report_path, :class => (@submenu == "reports" ? "active" : "") %>
+          <%= link_to "Movement Indicators", create_report_path, :class => (@submenu == "reports" ? "active" : "") %>
         </li>
         <li>
           <%= link_to "Movement Tracker", create_movement_report_path, :class => (@submenu == "movements" ? "active" : "") %>

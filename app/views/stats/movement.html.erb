@@ -1,21 +1,4 @@
-<script type="text/javascript" language="javascript">
-  var infoTimer;
-  var infoBoxEl;
-  function infoBox(mW,info,left) {
-    document.getElementById(mW+'_info_box').innerHTML=document.getElementById(info+'_info_box').innerHTML;
-    infoBoxEl=document.getElementById(mW+'_info_box');
-    infoBoxEl.style.left=left+'px';
-    infoTimer=setTimeout("infoBoxEl.style.display='block';",200);
-  }
-
-  function infoBoxClear(mW) {
-    clearTimeout(infoTimer);
-    document.getElementById(mW+'_info_box').style.display='none';
-    document.getElementById(mW+'_info_box').innerHTML='';
-  }
-</script>
-
-<h1 class="multi"><span class="title">Enter Stats for</span> <%= display_date(@requested_week) %> to <%= display_date(@requested_week + 6.days) %></h1>
+<h1 class="multi"><span class="title">Enter Movement Indicators for</span> <%= display_date(@requested_week) %> to <%= display_date(@requested_week + 6.days) %></h1>
 <div class="enter_stat" id="enter_stat">
   <!-- Dates on top -->
   <div style="float:right;">
@@ -54,117 +37,17 @@
     <% if !@stats.blank? || !@movements.blank? %>
       <center>
         <div class="stats_submit_surround">
-          <%= image_submit_tag "submit_bon.gif" %>
+          <%= image_submit_tag "submit.png" %>
         </div>
       </center>
     <% else %>
       <center>
         <div class="field">
-          You have no activities bookmarked to enter stats for.  You need to search for a location to enter stats for before you can use this feature.
+          You have no activities bookmarked to enter Movement Indicators for.  You need to search for a location to enter Movement Indicators for before you can use this feature.
         </div>
       </center>
     <% end %>
   <% end %>
 </div>
 
-<script type="text/javascript" language="javascript">
-  $('#0').toggleClass('selected');
-</script>
-
-<noscript>
-  <style type="text/css">
-    ul.results li{
-      height: auto;
-    }
-  </style>
-</noscript>
-
-<div class="stats_input_key" id="input_key">
-  <h4>Input Key</h4>
-  <h5 style="margin:0px;margin-top:10px;">Personal Evangelism</h5>
-  <div style="display:block" id="personal_evangelism_info_box">
-    <div class="keyitem">How many people have heard the gospel through personal evangelism? <br/>
-    (Includes both staff and student evangelism
-     and personal internet evangelism.)</div>
-  </div>
-  <h5 style="margin:0px;margin-top:10px;">Group Evangelism</h5>
-  <div style="display:block" id="group_evangelism_info_box">
-    
-    <div class="keyitem">What was the total number of people who heard the gospel through group evangelism? 
-    <br/>(For instance: team meetings; evangelistic presentations; etc.)</div>
-    
-  </div>
-  
-  <h5 style="margin:0px;margin-top:10px;">Media Exposures</h5>
-  <div style="display:block" id="media_exposures_info_box">
-    
-    <div class="keyitem">How many people have been exposed to significant gospel content with opportunities 
-    to respond in the last month through media exposures? (For instance: myeverystudent.com/ES.com, FSKs; Bible, book or magazine giveaways; etc.)</div>
-    
-  </div>
-  <h5 style="margin:0px;margin-top:10px;">Personal Evangelism Decisions</h5>
-  <div style="display:block" id="decisions_personal_info_box">
-    
-    <div class="keyitem">How many people have indicated a decision to receive Christ as their Savior and Lord through Personal Evangelism?</div>
-    
-  </div>
-  <h5 style="margin:0px;margin-top:10px;">Group Evangelism Decisions</h5>
-  <div style="display:block" id="decisions_group_info_box">
-    
-    <div class="keyitem">How many people have indicated a decision to receive Christ as their Savior and Lord through Group Evangelism?</div>
-    
-  </div>
-  <h5 style="margin:0px;margin-top:10px;">Media Exposure Decisions</h5>
-  <div style="display:block" id="decisions_media_info_box">
-    
-    <div class="keyitem">How many people have indicated a decision to receive Christ as their Savior and Lord through Media Exposures?</div>
-    
-  </div>
-  <h5 style="margin:0px;margin-top:10px;">Involved Students</h5>
-  <div style="display:block" id="involved_students_info_box">
-    
-    <div class="keyitem">How many students are regularly involved in Cru?<br/>
-    (Should be updated quarterly).</div>
-    
-  </div>
-  <h5 style="margin:0px;margin-top:10px;">Student Leaders</h5>
-  <div style="display:block" id="student_leaders_info_box">
-    
-    <div class="keyitem">How many student leaders are leading small groups of Win, Build, Send ministry? 
-    <br/>(For instance:  groups focused on reaching target audiences, launching movements, etc)</div>
-    
-  </div>
-  <h5 style="margin:0px;margin-top:10px;">Multipliers</h5>
-  <div style="display:block" id="multipliers_info_box">
-    
-    <div class="keyitem">How many students are currently involved in spiritual multiplication at the most organic level? 
-    That is: (a) seeking to grow in Christ; and (b) seeking to share their faith 
-    and pass on to others the foundational concepts of the Christian living 
-    they are receiving?</div>
-    
-  </div>
-  <h5 style="margin:0px;margin-top:10px;">Laborers Sent</h5>
-  <div style="display:block" id="laborers_sent_info_box">
-    
-    <div class="keyitem">A graduated Christ-centered laborer (non-staff and staff) is someone who is growing in his/her faith, 
-    is multiplying his/her life, and has been sent with a personal strategy to help fulfill the 
-    Great Commission.</div>
-    
-  </div>
-  <h5 style="margin:0px;margin-top:10px;">Holy Spirit Presentations</h5>
-  <div style="display:block" id="holy_spirit_conversations_info_box">
-    
-    <div class="keyitem">How many people have heard a presentation of the ministry of the Holy Spirit
-    with the opportunity to respond?</div>
-    
-  </div>
-  <h5 style="margin:0px;margin-top:10px;">Seekers</h5>
-  <div style="display:block" id="seekers_info_box">
-    
-    <div class="keyitem">This statistic is for Bridges movements only.</div>
-    
-  </div>
-</div>
-<script type="text/javascript" language="javascript">
-  document.getElementById("input_key").style.display="none";
-</script>
+<%= render :partial => "infobox_js" %>

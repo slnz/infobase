@@ -175,7 +175,7 @@
               <td><%= Activity.strategies[activity.strategy] %></td>
               <td><%= Activity.statuses[activity.status] %></td>
               <td><%= activity_size(activity) %></td>
-              <td><%= link_to "Enter Stats", location_movement_path(activity.target_area, activity) + "/stats" %></td>
+              <td><%= link_to "Enter Movement Indicators", location_movement_path(activity.target_area, activity) + "/stats" %></td>
             </tr>
           <% end %>
         <% end %>

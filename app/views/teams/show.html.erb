@@ -123,7 +123,7 @@
             <td><%= Activity.strategies[activity.strategy] %></td>
             <td><%= Activity.statuses[activity.status] %></td>
             <td><%= activity_size(activity) %></td>
-            <td><%= link_to "Enter Stats", stats_movement_path(activity.target_area, activity) %></td>
+            <td><%= link_to "Enter Movement Indicators", stats_movement_path(activity.target_area, activity) %></td>
           </tr>
         <% end %>
       </tbody>

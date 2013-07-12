@@ -1,4 +1,7 @@
 class InfobaseReportRow
+  include ActiveModel::Conversion
+  extend  ActiveModel::Naming
+
   attr_accessor :name, :key, :bridges_rows, :no_link
   Statistic.event_stats.each do |stat_type|
     attr_accessor stat_type.to_sym
@@ -7,6 +10,34 @@ class InfobaseReportRow
     attr_accessor stat_type.to_sym
   end
   
+  def as_json(options = {})
+    {
+      :spiritual_conversations => spiritual_conversations,
+      :personal_exposures => evangelisticOneOnOne,
+      :personal_evangelism => evangelisticOneOnOne,
+      :group_exposures => evangelisticGroup,
+      :group_evangelism => evangelisticGroup,
+      :media_exposures => exposuresViaMedia,
+      :holy_spirit_presentations => holySpiritConversations,
+      :personal_decisions => decisionsHelpedByOneOnOne,
+      :group_decisions => decisionsHelpedByGroup,
+      :media_decisions => decisionsHelpedByMedia,
+      :graduating_on_mission => laborersSent,
+      :faculty_on_mission => faculty_sent,
+      :laborers_sent => laborersSent,
+      :students_involved => invldStudents,
+      :students_engaged => multipliers,
+      :student_leaders => studentLeaders,
+      :faculty_involved => faculty_involved,
+      :faculty_engaged => faculty_engaged,
+      :facutly_leaders => faculty_leaders,
+    }
+  end
+  
+  def persisted?
+    false
+  end
+
   def initialize(name = "Totals", stats = nil, last_stats = [], key = nil, bridges_rows = nil, no_link = false)
     @name = name
     @stats = stats

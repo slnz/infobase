@@ -40,8 +40,8 @@ class Ccc::Person < ActiveRecord::Base
   has_many :profile_pictures, class_name: 'Ccc::ProfilePicture', dependent: :destroy
   has_many :ministry_missional_team_members, class_name: 'Ccc::MinistryMissionalTeamMember', dependent: :destroy, foreign_key: 'personID'
   has_many :sp_designation_numbers, class_name: 'Ccc::SpDesignationNumber', dependent: :destroy
-  has_many :phone_numbers, autosave: true
-  has_many :email_addresses, autosave: true
+  has_many :phone_numbers, autosave: true, dependent: :destroy
+  has_many :email_addresses, autosave: true, dependent: :destroy
   has_one :primary_phone_number, class_name: "PhoneNumber", foreign_key: "person_id", conditions: {primary: true}
   has_many :ministry_newaddresses, class_name: 'Ccc::MinistryNewaddress', foreign_key: :fk_PersonID, dependent: :destroy
 
@@ -140,17 +140,17 @@ class Ccc::Person < ActiveRecord::Base
 
 
       # Panorama
-      other.pr_reviewers.each { |ua| ua.update_column(:person_id, personID) }
+      other.pr_reviewers.update_all(person_id: personID)
 
       Ccc::PrReview.where(["subject_id = ? or initiator_id = ?", other.id, other.id]).each do |ua|
-        ua.update_attribute(:subject_id, personID) if ua.subject_id == other.id
-        ua.update_attribute(:initiator_id, personID) if ua.initiator_id == other.id
+        ua.update_column(:subject_id, personID) if ua.subject_id == other.id
+        ua.update_column(:initiator_id, personID) if ua.initiator_id == other.id
       end
 
-      other.pr_admins.each { |ua| ua.update_attribute(:person_id, personID) }
-      other.pr_summary_forms.each { |ua| ua.update_attribute(:person_id, personID) }
-      other.pr_reminders.each { |ua| ua.update_attribute(:person_id, personID) }
-      other.pr_personal_forms.each { |ua| ua.update_attribute(:person_id, personID) }
+      other.pr_admins.update_all(person_id: personID)
+      other.pr_summary_forms.update_all(person_id: personID)
+      other.pr_reminders.update_all(person_id: personID)
+      other.pr_personal_forms.update_all(person_id: personID)
 
       # end Panorama
 
