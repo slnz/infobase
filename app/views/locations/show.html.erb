@@ -143,11 +143,11 @@
         <% if activity.gcx_site.present? %>
           <div class="field">
             <label>GCX Site:</label>
-            <%= link_to("http://www.cru.org/s/#{activity.gcx_site}", "http://www.cru.org/s/#{activity.gcx_site}", target: '_blank') %>
+            <%= link_to("http://www.gcx.org/#{activity.gcx_site}", "http://www.gcx.org/#{activity.gcx_site}", target: '_blank') %>
           </div>      <br />
           <div class="field">
             <label>Manage GCX Site:</label>
-            <%= link_to("http://www.cru.org/s/#{activity.gcx_site}/wp-admin", "http://www.cru.org/s/#{activity.gcx_site}/wp-admin", target: '_blank') %>
+            <%= link_to("http://www.gcx.org/#{activity.gcx_site}/wp-admin", "http://www.gcx.org/#{activity.gcx_site}/wp-admin", target: '_blank') %>
           </div>
         <% else %>
           <div class="field">
