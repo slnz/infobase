@@ -5,6 +5,7 @@ Infobase::Application.routes.draw do
         collection do
           get :activity
           post :collate_stats
+          post :movement_stages
         end
       end
       
