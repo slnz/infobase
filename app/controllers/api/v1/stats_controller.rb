@@ -36,6 +36,22 @@ class Api::V1::StatsController < Api::V1::BaseController
     respond_with report.rows.first, :root => "statistics"
   end
   
+  def movement_stages
+    activity_ids = params[:activity_ids]
+    query = Activity.where("ActivityID in (?)", activity_ids).count(:group => "status")
+    
+    result = {}
+    query.each_key do |key|
+      result[Activity.statuses[key]] = query[key]
+    end
+    
+    respond_with result do |format|
+      format.json {
+        render json: result, :root => "statistics"
+      }
+    end
+  end
+  
   def create
     @user ||= "API"
     @stats = []
