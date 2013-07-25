@@ -11,11 +11,11 @@
 <strong>WordPress:</strong> WordPress is a free 3rd party blogging tool that allows you to customize your own web page. We host our themes (backgrounds and layouts) through this site. It is the industry standard for user-friendly, personal web site creation. GCX was built on top of WordPress.
 </p>
 
-Here is the link to manage your site: <%= link_to("http://#{Rails.env.production? ? 'www' : 'wpdev' }.gcx.org/#{activity.gcx_site}/wp-admin", "http://#{Rails.env.production? ? 'www' : 'wpdev'}.gcx.org/#{activity.gcx_site}/wp-admin", target: '_blank') %>
+Here is the link to manage your site: <%= link_to("#{Rails.configuration.gcx_url}/#{activity.gcx_site}/wp-admin", "#{Rails.configuration.gcx_url}.gcx.org/#{activity.gcx_site}/wp-admin", target: '_blank') %>
 <br /><br />
 Please bookmark that link for future reference. <br /><br />
 <strong>Once you get to your administrative dashboard, you'll find additional instructions under 'Cru Help', which you'll find at the top of the left-hand of the sidebar.
 <br /><br />
-Please bookmark this Wiki page for details on creating and managing your page: 
+Please bookmark this Wiki page for details on creating and managing your page:
 <%= link_to('http://wiki.uscm.org/display/RnD/How+To+for+Campus+Wordpress+Blog', 'http://wiki.uscm.org/display/RnD/How+To+for+Campus+Wordpress+Blog') %>
 </strong>

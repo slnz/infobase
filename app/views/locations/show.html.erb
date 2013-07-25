@@ -133,13 +133,13 @@
           <%= link_to display_website(activity.facebook), display_website(activity.facebook) if activity.facebook.present? %>
         </div>
         <br/>
-
-        <div class="field">
-          <label>Website:</label>
-          <%= link_to display_website(activity.url), display_website(activity.url) if activity.url.present? %>
-        </div>
-        <br />
-
+        <% if activity.url.present? && activity.gcx_site.blank? %>
+          <div class="field">
+            <label>Website:</label>
+            <%= link_to display_website(activity.url), display_website(activity.url) if activity.url.present? %>
+          </div>
+          <br />
+        <% end %>
         <% if activity.gcx_site.present? %>
           <div class="field">
             <label>GCX Site:</label>
