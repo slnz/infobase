@@ -1,4 +1,6 @@
 class Api::V1::PeopleController < Api::V1::BaseController
+  skip_before_filter :verify_authenticity_token
+
   def is_staff
     results = {}
     person_ids = params[:people].split(',')
