@@ -1,7 +1,6 @@
-<%= bridges ? "<tr class='row'".html_safe : "<tr class='row_short-".html_safe + id.to_s + "'".html_safe %><%= hide ? " style='display: none;'>".html_safe : ">".html_safe%>
+<tr class='row_short-<%= id.to_s.html_safe %>'<%= hide ? " style='display: none;'".html_safe : ""%>>
   <td class="label">
     <% @team ||= nil %>
-    <% bridges ||= nil %>
     <% no_link ||= row.no_link %>
     
     <% if no_link %>
@@ -10,7 +9,6 @@
       <%= link_to row.name.to_s, create_zoom_in_link(row, report.row_type, @from_date, @to_date, @strategies_list, @type, @team) %>
     <% end %>
     
-    <%= link_to "(+/-)", "#", :id => id if (bridges && bridges == "split") %>
   </td>
   <% light = true %>
   <% if type == "campus" %>

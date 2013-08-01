@@ -118,16 +118,12 @@ class InfobaseReport
         stats = sum_event_stats(stats)
       end
       
-      if activity.is_bridges? && type == "campus"
-        bridges_rows = get_bridges_rows(from_date, to_date, activity, type)
-      end
-      
       if activity.is_active? || !stats.empty?
         row_header = activity.target_area.name.to_s 
         row_header += "<br/>(" + activity.target_area.enrollment.to_s + " enrolled)" if !activity.target_area.enrollment.blank?
         row_header += "<br/><i>" + Activity.strategies[activity.strategy].to_s + "</i>"
         row_header += "<br/><font color='red'>Inactive Movement</font>" if type == "campus" && !activity.is_active?
-        rows << InfobaseReportRow.new(row_header.html_safe, stats.first, last_stats, activity.target_area.id, bridges_rows)
+        rows << InfobaseReportRow.new(row_header.html_safe, stats.first, last_stats, activity.target_area.id)
       end
     end
     InfobaseReport.new(rows, "Ministry Location")
@@ -151,13 +147,9 @@ class InfobaseReport
       end
       
       stats.each do |stat|
-        if activity.is_bridges? && type == "campus"
-          bridges_rows = get_bridges_rows(stat.periodBegin, stat.periodEnd, activity, type)
-        end
-        
-        rows << InfobaseReportRow.new(stat.periodBegin.to_s + " - " + stat.periodEnd.to_s, stat, [stat], stat.statisticID.to_s, bridges_rows, true)
+        rows << InfobaseReportRow.new(stat.periodBegin.to_s + " - " + stat.periodEnd.to_s, stat, [stat], stat.statisticID.to_s, true)
       end
-      
+
       if activity.is_active? || !rows.empty?
         report_header = activity.target_area.name.to_s + " - <br/>" + Activity.strategies[activity.strategy].to_s
         report_header += "<br/><font color='red'>Inactive Movement</font>" if type == "campus" && !activity.is_active?
@@ -221,26 +213,6 @@ class InfobaseReport
     stats = add_type_clause(stats, type)
     stats = add_joins(stats)
     stats
-  end
-  
-  def self.get_bridges_rows(from_date, to_date, activity, type)
-    rows = []
-    Statistic.people_groups.each do |group|
-      stats = start_team_query(from_date, to_date, [Activity.bridges], activity, type).
-        group(Activity.table_name + ".ActivityId")
-      stats = add_group_clause(stats, group)
-      stats = sum_weekly_stats(stats)
-      
-      max_end_date = activity.statistics.between_dates(from_date, to_date).
-        where(Statistic.table_name + ".peopleGroup = ?", group).maximum(Statistic.table_name + ".periodEnd")
-      last_stats = start_team_query(from_date, to_date, [Activity.bridges], activity, type).
-        where(Statistic.table_name + ".periodEnd = ?", max_end_date)
-      last_stats = add_group_clause(last_stats, group)
-      last_stats = sum_semester_stats(last_stats)
-      
-      rows << InfobaseReportRow.new(group.to_s, stats.first, last_stats, activity.target_area.id, nil, true)
-    end
-    rows
   end
   
   def self.get_event_activities(type, region)

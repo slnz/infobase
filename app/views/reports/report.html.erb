@@ -18,21 +18,6 @@
     </p>
 
     <% @reports.each do |report| %>
-      <script type="text/javascript" language="javascript">
-        $(document).ready(function() {
-          var rows = $('table.reporttable tr');
-          
-          <% report.rows.each do |row| %>
-            <% if row.is_bridges? %>
-              $('#<%= row.key %>').click(function() {
-                rows.filter('.row_short-<%= row.key %>').toggle();
-                return false;
-              });
-            <% end %>
-          <% end %>
-        });
-      </script>
-
       <table class="reporttable">
         <% if @type == "campus" %>
           <%= render :partial => 'report_header_bar', :locals => { :row_type => report.row_type } %>
@@ -41,11 +26,7 @@
         <% end %>
       
         <% report.rows.each do |row| %>
-          <% if row.is_bridges? %>
-            <%= render :partial => 'bridges_report_row', :locals => { :report => report, :row => row, :type => @type } %>
-          <% else %>
-            <%= render :partial => 'report_row', :locals => { :report => report, :row => row, :bridges => nil, :type => @type, :id => nil, :hide => false } %>
-          <% end %>
+          <%= render :partial => 'report_row', :locals => { :report => report, :row => row, :type => @type, :id => nil, :hide => false } %>
         <% end %>
     
         <% if @type == "campus" %>

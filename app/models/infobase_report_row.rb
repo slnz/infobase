@@ -2,7 +2,7 @@ class InfobaseReportRow
   include ActiveModel::Conversion
   extend  ActiveModel::Naming
 
-  attr_accessor :name, :key, :bridges_rows, :no_link
+  attr_accessor :name, :key, :no_link
   Statistic.event_stats.each do |stat_type|
     attr_accessor stat_type.to_sym
   end
@@ -30,7 +30,7 @@ class InfobaseReportRow
       :student_leaders => studentLeaders,
       :faculty_involved => faculty_involved,
       :faculty_engaged => faculty_engaged,
-      :facutly_leaders => faculty_leaders,
+      :faculty_leaders => faculty_leaders,
     }
   end
   
@@ -38,18 +38,13 @@ class InfobaseReportRow
     false
   end
 
-  def initialize(name = "Totals", stats = nil, last_stats = [], key = nil, bridges_rows = nil, no_link = false)
+  def initialize(name = "Totals", stats = nil, last_stats = [], key = nil, no_link = false)
     @name = name
     @stats = stats
     @last_stats = last_stats || []
     @key = key
-    @bridges_rows = bridges_rows
     @no_link = no_link
     set_stats
-  end
-  
-  def is_bridges?
-    !@bridges_rows.blank?
   end
   
   private
