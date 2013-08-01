@@ -35,17 +35,17 @@
     </ul>
     
     <% if !@stats.blank? || !@movements.blank? %>
-      <center>
+      <div style="text-align: center;">
         <div class="stats_submit_surround">
           <%= image_submit_tag "submit.png" %>
         </div>
-      </center>
+      </div>
     <% else %>
-      <center>
+      <div style="text-align: center;">
         <div class="field">
           You have no activities bookmarked to enter Movement Indicators for.  You need to search for a location to enter Movement Indicators for before you can use this feature.
         </div>
-      </center>
+      </div>
     <% end %>
   <% end %>
 </div>
