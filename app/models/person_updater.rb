@@ -1,3 +1,5 @@
+#This PpersonUpdater model is OLD. This code was copied over to the oracle_feeds repository in thelabtech account in mid-2012, so this code here is outdated and NOT used.
+
 class PersonUpdater
   def self.update_people_from_ps
     pu = PersonUpdater.new # Even though this could be a fully static class, I think it's more readable to deal with variables within an instance
