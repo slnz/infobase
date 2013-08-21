@@ -3,6 +3,8 @@ class BridgesPeopleGroupCondensing < ActiveRecord::Migration
     execute("create table ministry_statistic_before_pg_merge like ministry_statistic;")
     execute("insert ministry_statistic_before_pg_merge select * from ministry_statistic;")
 
+    ActiveRecord::Base.record_timestamps = false
+
     migrations = Statistic.where("peopleGroup is not null AND peopleGroup != ''")
     migrations.each do |stat|
       s = Statistic.where("fk_Activity = #{stat.fk_Activity}").where("periodBegin = '#{stat.periodBegin}'").where("peopleGroup is null OR peopleGroup = ''").first
@@ -11,6 +13,9 @@ class BridgesPeopleGroupCondensing < ActiveRecord::Migration
         s.fk_Activity = stat.fk_Activity
         s.periodBegin = stat.periodBegin
         s.periodEnd = stat.periodEnd
+        s.updated_by = stat.updated_by
+        s.updated_at = stat.updated_at
+        s.created_at = stat.created_at
       end
 
       s.evangelisticOneOnOne = s.evangelisticOneOnOne.to_i + stat.evangelisticOneOnOne.to_i
@@ -33,6 +38,8 @@ class BridgesPeopleGroupCondensing < ActiveRecord::Migration
       s.save!
       stat.destroy
     end
+
+    ActiveRecord::Base.record_timestamps = true
   end
 
   def down
