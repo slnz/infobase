@@ -3,18 +3,18 @@ task :global => :environment do
   response = RestClient.post('http://api.leadingwithinformation.com/entity_types?access_token=a', {entity_type: {name: 'summer_project'}}.to_json, :content_type => :json)
   sp_entity_type_id = Oj.load(response)['entity_type']['id'].to_i
   RestClient.post('http://api.leadingwithinformation.com/entity_types?access_token=a', {entity_type: {name: 'name', field_type: 'string', parent_id: sp_entity_type_id}}.to_json, :content_type => :json)
-  RestClient.post('http://api.leadingwithinformation.com/entity_types?access_token=a', {entity_type: {name: 'foreign_id', field_type: 'integer', parent_id: sp_entity_type_id}}.to_json, :content_type => :json)
+  RestClient.post('http://api.leadingwithinformation.com/entity_types?access_token=a', {entity_type: {name: 'client_integration_id', field_type: 'integer', parent_id: sp_entity_type_id}}.to_json, :content_type => :json)
   response = RestClient.post('http://api.leadingwithinformation.com/entity_types?access_token=a', {entity_type: {name: 'summer_project_application'}}.to_json, :content_type => :json)
   sp_application_type_id = Oj.load(response)['entity_type']['id'].to_i
   RestClient.post('http://api.leadingwithinformation.com/entity_types?access_token=a', {entity_type: {name: 'project', field_type: 'enum', parent_id: sp_application_type_id}}.to_json, :content_type => :json)
   RestClient.post('http://api.leadingwithinformation.com/entity_types?access_token=a', {entity_type: {name: 'year', field_type: 'integer', parent_id: sp_application_type_id}}.to_json, :content_type => :json)
   RestClient.post('http://api.leadingwithinformation.com/entity_types?access_token=a', {entity_type: {name: 'status', field_type: 'string', parent_id: sp_application_type_id}}.to_json, :content_type => :json)
-  RestClient.post('http://api.leadingwithinformation.com/entity_types?access_token=a', {entity_type: {name: 'foreign_id', field_type: 'integer', parent_id: sp_application_type_id}}.to_json, :content_type => :json)
+  RestClient.post('http://api.leadingwithinformation.com/entity_types?access_token=a', {entity_type: {name: 'client_integration_id', field_type: 'integer', parent_id: sp_application_type_id}}.to_json, :content_type => :json)
 
   SpProject.where("global_registry_id is NULL").each do |p|
     project_hash = {entity: {summer_project: {
                        name: p.name,
-                       foreign_id: p.id
+                       client_integration_id: p.id
                    }}}
 
     json = project_hash.to_json
@@ -40,14 +40,14 @@ task :global => :environment do
   RestClient.post('http://api.leadingwithinformation.com/entity_types?access_token=a', {entity_type: {name: 'city', field_type: 'string', parent_id: si_entity_type_id}}.to_json, :content_type => :json)
   RestClient.post('http://api.leadingwithinformation.com/entity_types?access_token=a', {entity_type: {name: 'country', field_type: 'string', parent_id: si_entity_type_id}}.to_json, :content_type => :json)
   RestClient.post('http://api.leadingwithinformation.com/entity_types?access_token=a', {entity_type: {name: 'secure', field_type: 'boolean', parent_id: si_entity_type_id}}.to_json, :content_type => :json)
-  RestClient.post('http://api.leadingwithinformation.com/entity_types?access_token=a', {entity_type: {name: 'foreign_id', field_type: 'integer', parent_id: si_entity_type_id}}.to_json, :content_type => :json)
+  RestClient.post('http://api.leadingwithinformation.com/entity_types?access_token=a', {entity_type: {name: 'client_integration_id', field_type: 'integer', parent_id: si_entity_type_id}}.to_json, :content_type => :json)
 
   response = RestClient.post('http://api.leadingwithinformation.com/entity_types?access_token=a', {entity_type: {name: 'internship'}}.to_json, :content_type => :json)
   si_application_type_id = Oj.load(response)['entity_type']['id'].to_i
   RestClient.post('http://api.leadingwithinformation.com/entity_types?access_token=a', {entity_type: {name: 'team', field_type: 'enum', parent_id: si_application_type_id}}.to_json, :content_type => :json)
   RestClient.post('http://api.leadingwithinformation.com/entity_types?access_token=a', {entity_type: {name: 'year', field_type: 'integer', parent_id: si_application_type_id}}.to_json, :content_type => :json)
   RestClient.post('http://api.leadingwithinformation.com/entity_types?access_token=a', {entity_type: {name: 'intern_type', field_type: 'string', parent_id: si_application_type_id}}.to_json, :content_type => :json)
-  RestClient.post('http://api.leadingwithinformation.com/entity_types?access_token=a', {entity_type: {name: 'foreign_id', field_type: 'integer', parent_id: si_application_type_id}}.to_json, :content_type => :json)
+  RestClient.post('http://api.leadingwithinformation.com/entity_types?access_token=a', {entity_type: {name: 'client_integration_id', field_type: 'integer', parent_id: si_application_type_id}}.to_json, :content_type => :json)
 
   HrSiProject.where("global_registry_id is NULL").each do |p|
     project_hash = {entity: {internship_location: {
@@ -56,7 +56,7 @@ task :global => :environment do
                        city: p.city,
                        country: p.country,
                        secure: p.secure,
-                       foreign_id: p.id
+                       client_integration_id: p.id
                    }}}
 
     json = project_hash.to_json
@@ -78,12 +78,12 @@ task :global => :environment do
   response = RestClient.post('http://api.leadingwithinformation.com/entity_types?access_token=a', {entity_type: {name: 'team'}}.to_json, :content_type => :json)
   team_entity_type_id = Oj.load(response)['entity_type']['id'].to_i
   RestClient.post('http://api.leadingwithinformation.com/entity_types?access_token=a', {entity_type: {name: 'name', field_type: 'string', parent_id: team_entity_type_id}}.to_json, :content_type => :json)
-  RestClient.post('http://api.leadingwithinformation.com/entity_types?access_token=a', {entity_type: {name: 'foreign_id', field_type: 'integer', parent_id: team_entity_type_id}}.to_json, :content_type => :json)
+  RestClient.post('http://api.leadingwithinformation.com/entity_types?access_token=a', {entity_type: {name: 'client_integration_id', field_type: 'integer', parent_id: team_entity_type_id}}.to_json, :content_type => :json)
 
   Team.where("global_registry_id is NULL").each do |p|
     project_hash = {entity: {team: {
                        name: p.name,
-                       foreign_id: p.id
+                       client_integration_id: p.id
                    }}}
 
 
@@ -128,14 +128,14 @@ task :global => :environment do
   RestClient.post('http://api.leadingwithinformation.com/entity_types?access_token=a', {entity_type: {name: 'ministry', field_type: 'string', parent_id: person_entity_type_id}}.to_json, :content_type => :json)
   RestClient.post('http://api.leadingwithinformation.com/entity_types?access_token=a', {entity_type: {name: 'strategy', field_type: 'string', parent_id: person_entity_type_id}}.to_json, :content_type => :json)
   RestClient.post('http://api.leadingwithinformation.com/entity_types?access_token=a', {entity_type: {name: 'account_number', field_type: 'string', parent_id: person_entity_type_id}}.to_json, :content_type => :json)
-  RestClient.post('http://api.leadingwithinformation.com/entity_types?access_token=a', {entity_type: {name: 'foreign_id', field_type: 'integer', parent_id: person_entity_type_id}}.to_json, :content_type => :json)
+  RestClient.post('http://api.leadingwithinformation.com/entity_types?access_token=a', {entity_type: {name: 'client_integration_id', field_type: 'integer', parent_id: person_entity_type_id}}.to_json, :content_type => :json)
 
   # Email
   response = RestClient.post('http://api.leadingwithinformation.com/entity_types?access_token=a', {entity_type: {name: 'email_address'}}.to_json, :content_type => :json)
   email_address_entity_type_id = Oj.load(response)['entity_type']['id'].to_i
   RestClient.post('http://api.leadingwithinformation.com/entity_types?access_token=a', {entity_type: {name: 'email', field_type: 'string', parent_id: email_address_entity_type_id}}.to_json, :content_type => :json)
   RestClient.post('http://api.leadingwithinformation.com/entity_types?access_token=a', {entity_type: {name: 'primary', field_type: 'boolean', parent_id: email_address_entity_type_id}}.to_json, :content_type => :json)
-  RestClient.post('http://api.leadingwithinformation.com/entity_types?access_token=a', {entity_type: {name: 'foreign_id', field_type: 'integer', parent_id: email_address_entity_type_id}}.to_json, :content_type => :json)
+  RestClient.post('http://api.leadingwithinformation.com/entity_types?access_token=a', {entity_type: {name: 'client_integration_id', field_type: 'integer', parent_id: email_address_entity_type_id}}.to_json, :content_type => :json)
 
   # phone number
   response = RestClient.post('http://api.leadingwithinformation.com/entity_types?access_token=a', {entity_type: {name: 'phone_number'}}.to_json, :content_type => :json)
@@ -144,7 +144,7 @@ task :global => :environment do
   RestClient.post('http://api.leadingwithinformation.com/entity_types?access_token=a', {entity_type: {name: 'extension', field_type: 'string', parent_id: phone_number_entity_type_id}}.to_json, :content_type => :json)
   RestClient.post('http://api.leadingwithinformation.com/entity_types?access_token=a', {entity_type: {name: 'location', field_type: 'string', parent_id: phone_number_entity_type_id}}.to_json, :content_type => :json)
   RestClient.post('http://api.leadingwithinformation.com/entity_types?access_token=a', {entity_type: {name: 'primary', field_type: 'boolean', parent_id: phone_number_entity_type_id}}.to_json, :content_type => :json)
-  RestClient.post('http://api.leadingwithinformation.com/entity_types?access_token=a', {entity_type: {name: 'foreign_id', field_type: 'integer', parent_id: phone_number_entity_type_id}}.to_json, :content_type => :json)
+  RestClient.post('http://api.leadingwithinformation.com/entity_types?access_token=a', {entity_type: {name: 'client_integration_id', field_type: 'integer', parent_id: phone_number_entity_type_id}}.to_json, :content_type => :json)
 
   # Address
   response = RestClient.post('http://api.leadingwithinformation.com/entity_types?access_token=a', {entity_type: {name: 'address'}}.to_json, :content_type => :json)
@@ -160,7 +160,7 @@ task :global => :environment do
   RestClient.post('http://api.leadingwithinformation.com/entity_types?access_token=a', {entity_type: {name: 'line3', field_type: 'string', parent_id: address_entity_type_id}}.to_json, :content_type => :json)
   RestClient.post('http://api.leadingwithinformation.com/entity_types?access_token=a', {entity_type: {name: 'line4', field_type: 'string', parent_id: address_entity_type_id}}.to_json, :content_type => :json)
   RestClient.post('http://api.leadingwithinformation.com/entity_types?access_token=a', {entity_type: {name: 'primary', field_type: 'boolean', parent_id: address_entity_type_id}}.to_json, :content_type => :json)
-  RestClient.post('http://api.leadingwithinformation.com/entity_types?access_token=a', {entity_type: {name: 'foreign_id', field_type: 'integer', parent_id: address_entity_type_id}}.to_json, :content_type => :json)
+  RestClient.post('http://api.leadingwithinformation.com/entity_types?access_token=a', {entity_type: {name: 'client_integration_id', field_type: 'integer', parent_id: address_entity_type_id}}.to_json, :content_type => :json)
 
   # Team membership
   response = RestClient.post('http://api.leadingwithinformation.com/entity_types?access_token=a', {entity_type: {name: 'team_membership'}}.to_json, :content_type => :json)
@@ -168,7 +168,7 @@ task :global => :environment do
 
   RestClient.post('http://api.leadingwithinformation.com/entity_types?access_token=a', {entity_type: {name: 'team', field_type: 'enum', parent_id: team_membership_entity_type_id}}.to_json, :content_type => :json)
   RestClient.post('http://api.leadingwithinformation.com/entity_types?access_token=a', {entity_type: {name: 'is_leader', field_type: 'boolean', parent_id: team_membership_entity_type_id}}.to_json, :content_type => :json)
-  RestClient.post('http://api.leadingwithinformation.com/entity_types?access_token=a', {entity_type: {name: 'foreign_id', field_type: 'integer', parent_id: team_membership_entity_type_id}}.to_json, :content_type => :json)
+  RestClient.post('http://api.leadingwithinformation.com/entity_types?access_token=a', {entity_type: {name: 'client_integration_id', field_type: 'integer', parent_id: team_membership_entity_type_id}}.to_json, :content_type => :json)
 
   Person.where("global_registry_id is NULL").find_each do |p|
     gender = [1,0,'1','0'].include?(p.gender) ? (p.gender.to_i == 1 ? 'male' : 'female') : nil
@@ -202,7 +202,7 @@ task :global => :environment do
                       ministry: p.ministry,
                       strategy: p.strategy,
                       account_number: p.accountNo,
-                      foreign_id: p.id
+                      client_integration_id: p.id
                     }
                   }}
 
@@ -216,7 +216,7 @@ task :global => :environment do
             project: a.project.global_registry_id,
             year: a.year,
             status: a.status,
-            foreign_id: a.id
+            client_integration_id: a.id
           }
         end
       end
@@ -237,7 +237,7 @@ task :global => :environment do
             team: team.global_registry_id,
             year: tracking.asgYear,
             intern_type: tracking.internType,
-            foreign_id: a.id
+            client_integration_id: a.id
           }
         end
       end
@@ -249,7 +249,7 @@ task :global => :environment do
       person_hash[:entity][:person][:team_membership] << {
         team: team_membership.team.global_registry_id,
         is_leader: team_membership.is_leader,
-        foreign_id: team_membership.id
+        client_integration_id: team_membership.id
       }
     end
 
@@ -260,7 +260,7 @@ task :global => :environment do
         person_hash[:entity][:person][:email_address] << {
           email: e.email,
           primary: e.primary,
-          foreign_id: e.id
+          client_integration_id: e.id
         }
       end
     end
@@ -274,7 +274,7 @@ task :global => :environment do
           primary: pn.primary,
           extension: pn.extension,
           location: pn.location,
-          foreign_id: pn.id
+          client_integration_id: pn.id
         }
       end
     end
@@ -284,7 +284,7 @@ task :global => :environment do
       address_hash = {city: a.city,
                       state: a.state,
                       postal_code: a.zip,
-                      foreign_id: a.id}
+                      client_integration_id: a.id}
 
       address_hash[:country] = a.country if a.country.present?
       address_hash[:dorm] = a.dorm if a.dorm.present?

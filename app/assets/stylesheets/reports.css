@@ -149,7 +149,7 @@ td.event_block {
   width:900px;
 }
 
-ul.micro {
+ul.micro, ul.micro_event {
   width:100%;
   border:none;
   padding:0px;
@@ -162,6 +162,16 @@ ul.micro li {
   margin:0px;
   display:block;
   width:43px;
+  float:left;
+  overflow:hidden;
+}
+
+ul.micro_event li {
+  border:none;
+  padding:0px;
+  margin:0px;
+  display:block;
+  width:58px;
   float:left;
   overflow:hidden;
 }
