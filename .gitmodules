@@ -1,4 +1,0 @@
-[submodule "vendor/plugins/common_engine"]
-	path = vendor/plugins/common_engine
-	url = git@github.com:thelabtech/common_engine.git
-	
