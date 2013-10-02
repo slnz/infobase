@@ -96,6 +96,9 @@
           <label>Contacts:</label>
           <div class="box">
             <% activity.contacts.each do |contact| %>
+              <% if contact.isSecure.to_s == 'T' %>
+                <img src="/assets/icons/flag_yellow.png" title="Secure Contact" />
+              <% end %>
               <%= link_to contact.full_name, person_path(contact) %>
               <% if @info_user.can_delete_contacts? || current_user.person.personID == contact.personID || activity.team.is_leader?(@current_user.person) %>
                 <%= link_to "", movement_remove_contact_path(@location, activity, contact.personID.to_s), :method => :delete, :confirm => "Are you sure?", :class => "deletefield" %>
