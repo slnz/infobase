@@ -1,9 +1,12 @@
 require 'authenticated_system'
 class ApplicationController < ActionController::Base
+  # Prevent CSRF attacks by raising an exception.
+  # For APIs, you may want to use :null_session instead.
+  protect_from_forgery with: :exception
+
   include AuthenticatedSystem
   before_filter :cas_filter, AuthenticationFilter, :check_user, :current_user, :except => [:no, :destroy]
   before_filter :log_user, :except => [:destroy]
-  protect_from_forgery
 
   def self.application_name
     "Infobase"
