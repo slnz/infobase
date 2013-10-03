@@ -8,7 +8,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   include AuthenticatedSystem
-  before_filter :cas_filter, AuthenticationFilter, :check_user, :current_user, :except => [:no, :destroy]
+  before_filter :cas_filter, :authentication_filter, :check_user, :current_user, :except => [:no, :destroy]
   before_filter :log_user, :except => [:destroy]
 
   def self.application_name
@@ -23,6 +23,10 @@ class ApplicationController < ActionController::Base
   
   def cas_filter
     CASClient::Frameworks::Rails::Filter.filter(self)
+  end
+
+  def authentication_filter
+    AuthenticationFilter.filter(self)
   end
   
   def check_user

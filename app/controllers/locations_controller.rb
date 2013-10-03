@@ -27,7 +27,7 @@ class LocationsController < ApplicationController
   
   def create
     @location = TargetArea.new
-    @location.attributes = params[:target_area]
+    @location.attributes = target_area_params
     if @location.valid?
       if @info_user.can_create_locations?
         @location.save!
@@ -51,7 +51,7 @@ class LocationsController < ApplicationController
   end
   
   def update
-    @location.update_attributes(params[:target_area])
+    @location.update_attributes(target_area_params)
     if @location.errors.empty?
       redirect_to location_path(@location), :notice => "#{@location.name} was updated successfully."
     else
@@ -152,7 +152,7 @@ class LocationsController < ApplicationController
       @locations = @locations.where("region IN (?)", params[:regions])
     end
     if !params[:strategies].blank?
-      @locations = @locations.where(Activity.table_name + ".strategy IN (?)", params[:strategies])
+      @locations = @locations.where(Activity.table_name + ".strategy IN (?)", params[:strategies]).references(:activities)
     end
     @title = "Infobase - Search Results"
   end
@@ -189,5 +189,9 @@ class LocationsController < ApplicationController
       params[:regions] = [params[:region]]
       search_results
       render :search_results
+    end
+
+    def target_area_params
+      params.fetch(:target_area).permit(:region, :name, :altName, :abbrv, :address1, :address2, :city, :state, :zip, :country, :url, :infoUrl, :enrollment, :urlToLogo, :monthSchoolStarts, :monthSchoolStops, :isSecure, :type, :note)
     end
 end
