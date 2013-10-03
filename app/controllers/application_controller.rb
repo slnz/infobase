@@ -1,4 +1,7 @@
-require 'authenticated_system'
+require 'common_engine'
+require_dependency 'authenticated_system'
+require_dependency 'authentication_filter'
+
 class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
@@ -19,7 +22,7 @@ class ApplicationController < ActionController::Base
   protected
   
   def cas_filter
-    CASClient::Frameworks::Rails3::Filter.filter(self)
+    CASClient::Frameworks::Rails::Filter.filter(self)
   end
   
   def check_user
