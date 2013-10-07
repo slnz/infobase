@@ -13,7 +13,7 @@ class MovementsController < ApplicationController
   
   def create
     @movement = Activity.new
-    @movement.attributes = params[:activity]
+    @movement.attributes = activity_params
     if @movement.valid?
       @movement.save_create_history(@current_user)
       redirect_to location_path(@location), :notice => "Your request was submitted successfully."
@@ -29,7 +29,7 @@ class MovementsController < ApplicationController
   end
   
   def update
-    @movement.update_attributes_add_history(params[:activity], @current_user)
+    @movement.update_attributes_add_history(activity_params, @current_user)
     if @movement.errors.empty?
       redirect_to location_path(@location), :notice => "#{@location.name}, #{@movement.strategy} was updated successfully."
     else
@@ -67,7 +67,7 @@ class MovementsController < ApplicationController
     @last_name = params[:last_name]
     if !@last_name.blank? && @last_name.size > 1
       @results = Person.not_secure.where("lastName like ?", @last_name + '%').
-        includes(:current_address).where(Address.table_name + ".email is not null").
+        includes(:current_address).where(Address.table_name + ".email is not null").references(:current_address).
         order(:lastName).order(:firstName)
       @results = @results - @movement.contacts
       render :search_contacts
@@ -91,9 +91,9 @@ class MovementsController < ApplicationController
       @person = Person.new
       @person.current_address = Address.new
       @person.current_address.addressType = "current"
-      @person.current_address.attributes = params[:person][:address]
+      @person.current_address.attributes = current_address_params
       params[:person].delete(:address)
-      @person.attributes = params[:person]
+      @person.attributes = person_params
       if @person.current_address.valid? && @person.valid? && !@person.lastName.blank? && !@person.email.blank? && !@person.phone.blank?
         @person.save
         params[:person_id] = @person.personID
@@ -154,5 +154,17 @@ class MovementsController < ApplicationController
     @menubar = "ministry"
     @submenu = "locations"
     @title = "Infobase - Location Home"
+  end
+
+  def activity_params
+    params.fetch(:activity).permit(:strategy, :fk_targetAreaID, :status, :periodBegin, :fk_teamID, :url, :facebook)
+  end
+
+  def person_params
+    params.fetch(:person).permit(:firstName, :lastName, :gender)
+  end
+
+  def current_address_params
+    params.fetch(:person).fetch(:address).permit(:email, :homePhone)
   end
 end
