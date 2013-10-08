@@ -56,7 +56,7 @@ class InfobaseReportRow
     end
     event_stats.each do |stat_type|
       instance_variable_set("@#{stat_type}", 0)
-      instance_variable_set("@#{stat_type}", @stats.send(stat_type)) if @stats && @stats[stat_type]
+      instance_variable_set("@#{stat_type}", @stats.send(stat_type)) if @stats && @stats.has_attribute?(stat_type) && @stats[stat_type].present?
     end
 
     Statistic.semester_stats.each do |stat_type|

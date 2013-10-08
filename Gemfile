@@ -88,6 +88,9 @@ group :development, :test do
 	gem 'simplecov', :require => false
 
   gem 'awesome_print'
+
+  gem "better_errors"
+  #gem "binding_of_caller"
 end
 
 # Bundle the extra gems:
