@@ -60,8 +60,6 @@ gem 'choices'
 gem 'ox'
 gem 'rest-client'
 
-gem 'capistrano'
-gem 'capistrano_colors'
 gem 'whenever'
 gem 'awesome_print'
 gem 'gcx_api', git: 'https://github.com/CruGlobal/gcx_api.git'
