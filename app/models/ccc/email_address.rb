@@ -2,7 +2,7 @@ class Ccc::EmailAddress < ActiveRecord::Base
 
   belongs_to :person, class_name: 'Ccc::Person'
   validates_presence_of :email, on: :create, message: "can't be blank"
-  validates_format_of :email, with: /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i
+  validates_format_of :email, with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i
   before_validation :set_primary, on: :create
   after_destroy :set_new_primary
   validates_uniqueness_of :email, on: :create, message: "already taken"
