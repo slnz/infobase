@@ -125,7 +125,7 @@ class StatsController < ApplicationController
         stat = @movement.get_stat_for(Date.parse(stats[:periodBegin]), stats[:peopleGroup])
       end
       stats[:updated_by] = @username
-      stat.attributes = stats
+      stat.attributes = stats_params(key)
       stat.save
       if !stat.errors.empty?
         @stats << stat
@@ -207,12 +207,16 @@ class StatsController < ApplicationController
     end
     if result # check to make sure stats are valid
       stats = params[:stat][:stat]
-      stat = Statistic.new(stat)
+      stat = Statistic.new(stats_params(:stat))
       if !stat.valid?
         @stats = [stat]
         result = false
       end
     end
     result
+  end
+
+  def stats_params(key)
+    params.fetch(:stat).fetch(key).permit(:fk_Activity, :periodBegin, :periodEnd, :peopleGroup, :spiritual_conversations, :evangelisticOneOnOne, :evangelisticGroup, :exposuresViaMedia, :laborersSent, :holySpiritConversations, :decisionsHelpedByOneOnOne, :decisionsHelpedByGroup, :decisionsHelpedByMedia, :faculty_sent, :faculty_involved, :faculty_engaged, :faculty_leaders, :invldStudents, :multipliers, :studentLeaders, :updated_by)
   end
 end
