@@ -22,7 +22,7 @@ class TeamsController < ApplicationController
 
   def create
     @team = Team.new
-    @team.attributes = params[:team]
+    @team.attributes = team_params
     if @team.valid?
       if @info_user.can_create_teams?
         @team.isActive = "T"
@@ -47,7 +47,7 @@ class TeamsController < ApplicationController
   end
 
   def update
-    @team.update_attributes(params[:team])
+    @team.update_attributes(team_params)
     if @team.errors.empty?
       redirect_to team_path(@team), :notice => "#{@team.name} was updated successfully."
     else
@@ -88,7 +88,7 @@ class TeamsController < ApplicationController
       first = query.first
       last = query.last
       @results = Person.not_secure.includes(:current_address).where(Address.table_name + ".email is not null").
-        order(:lastName).order(:firstName)
+        order(:lastName).order(:firstName).references(:current_address)
       if query.size > 1 #search both last AND first names, TODO: refactor into Person class
         @results = @results.where(Person.table_name + ".lastName like ?", "#{last}%")
         @results = @results.where(Person.table_name + ".firstName like ? or " + Person.table_name + ".preferredName like ?", "#{first}%", "#{first}%")
@@ -117,9 +117,9 @@ class TeamsController < ApplicationController
       @person = Person.new
       @person.current_address = Address.new
       @person.current_address.addressType = "current"
-      @person.current_address.attributes = params[:person][:address]
+      @person.current_address.attributes = current_address_params
       params[:person].delete(:address)
-      @person.attributes = params[:person]
+      @person.attributes = person_params
       if @person.current_address.valid? && @person.valid? && !@person.lastName.blank? && !@person.email.blank? && !@person.phone.blank?
         @person.save
         params[:person_id] = @person.personID
@@ -280,5 +280,17 @@ class TeamsController < ApplicationController
       params[:regions] = [params[:region]]
       search_results
       render :search_results
+    end
+
+    def team_params
+      params.fetch(:team).permit(:name, :lane, :region, :address1, :address2, :city, :state, :zip, :country, :phone, :fax, :email, :url, :note)
+    end
+
+    def current_address_params
+      params.fetch(:person).fetch(:address).permit(:email, :homePhone)
+    end
+
+    def person_params
+      params.fetch(:person).permit(:firstName, :lastName, :gender)
     end
 end

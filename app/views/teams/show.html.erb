@@ -60,7 +60,7 @@
 
 <h3 >Team Members</h3>
 <ul style="list-style:none;background:none;height:auto;">
-  <% @team.team_members.each do |member| %>
+  <% @team.team_members.includes(:person => :current_address).each do |member| %>
     <% if person = member.person %>
       <li>
         <% if @info_user.can_remove_team_members? || @current_user.person == person || @team.is_leader?(@current_user.person) %>
@@ -117,7 +117,7 @@
           <th>Size</th>
           <th>&nbsp;</th>
         </tr>
-        <% @team.activities.active.each do |activity| %>
+        <% @team.activities.active.includes(:target_area).each do |activity| %>
           <tr>
             <td><%= link_to activity.target_area.name, location_path(activity.target_area) %></td>
             <td><%= Activity.strategies[activity.strategy] %></td>
