@@ -14,6 +14,10 @@ class Api::V1::StatsController < Api::V1::BaseController
     end
     respond_with @stats, :root => "statistics"
   end
+
+  def index
+    show
+  end
   
   def show
     activity = Activity.where("activityid = ?", params[:activity_id]).first
@@ -35,7 +39,14 @@ class Api::V1::StatsController < Api::V1::BaseController
     activity_ids = params[:activity_ids]
     
     report = InfobaseReport.create_report(begin_date, end_date, semester_date, activity_ids)
-    respond_with report.rows.first, :root => "statistics"
+
+    result = { "statistics" => report.rows.first }
+
+    respond_with result do |format|
+      format.json {
+        render json: result
+      }
+    end
   end
   
   def movement_stages
@@ -46,10 +57,12 @@ class Api::V1::StatsController < Api::V1::BaseController
     query.each_key do |key|
       result[Activity.statuses[key]] = query[key]
     end
+
+    result = {"statistics" => result}
     
     respond_with result do |format|
       format.json {
-        render json: result, :root => "statistics"
+        render json: result
       }
     end
   end
@@ -61,6 +74,7 @@ class Api::V1::StatsController < Api::V1::BaseController
       @movement = Activity.find(stats[:activity_id])
       stat = @movement.get_stat_for(Date.parse(stats[:period_begin]))
       stats[:updated_by] = @user
+      stats.delete(:id) # Just in case an ID has been passed in; We're only creating records
       stat.attributes = stats
       if stat.id.blank? # Only create records
         stat.save
