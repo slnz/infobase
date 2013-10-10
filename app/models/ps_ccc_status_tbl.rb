@@ -1,6 +1,6 @@
 class PsCccStatusTbl < ActiveRecord::Base
   establish_connection :peoplesoft
-  set_table_name "SYSADM.PS_CCC_STATUS_TBL"
+  self.table_name = "SYSADM.PS_CCC_STATUS_TBL"
   
   def self.translate_status(ps_status)
     @@statuses ||= init_statuses

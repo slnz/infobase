@@ -1,6 +1,6 @@
 class PsDeptTbl < ActiveRecord::Base
   establish_connection :peoplesoft
-  set_table_name "SYSADM.PS_DEPT_TBL"
+  self.table_name = "SYSADM.PS_DEPT_TBL"
   
   def self.translate_ministry(ps_ministry)
     @@ministries ||= init_ministries

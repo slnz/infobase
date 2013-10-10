@@ -1,6 +1,6 @@
 class PsRespScope < ActiveRecord::Base
   establish_connection :peoplesoft
-  set_table_name "SYSADM.PSXLATITEM"
+  self.table_name = "SYSADM.PSXLATITEM"
   
   def self.translate_resp_scope(ps_scope)
     @@scopes ||= init_positions
