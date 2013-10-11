@@ -9,7 +9,7 @@
   <style>
     /* Banner bar background style */
     #bannerBar {
-      background: url("/assets/header_images/<%= random_banner_image %>") no-repeat;
+      background: url(<%= asset_path "header_images/" + random_banner_image %>) no-repeat;
       height: 116px;
       clear: both;
       border-bottom: 3px solid #969f5e;
