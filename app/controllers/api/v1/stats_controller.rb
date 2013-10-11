@@ -40,6 +40,8 @@ class Api::V1::StatsController < Api::V1::BaseController
     
     report = InfobaseReport.create_report(begin_date, end_date, semester_date, activity_ids)
 
+    result = report.rows.first
+
     respond_with result do |format|
       format.json {
         render json: result
