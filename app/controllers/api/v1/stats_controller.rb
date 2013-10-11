@@ -52,8 +52,6 @@ class Api::V1::StatsController < Api::V1::BaseController
       result[Activity.statuses[key]] = query[key]
     end
 
-    result = {"statistics" => result}
-
     respond_with result do |format|
       format.json {
         render json: result
