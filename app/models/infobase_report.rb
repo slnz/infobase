@@ -75,7 +75,7 @@ class InfobaseReport
 
   def self.create_regional_report(region, from_date, to_date, strategies)
     rows = []
-    teams = Team.where("region = ? OR hasMultiRegionalAccess = 'T'", region).includes(:activities).order(:name)
+    teams = Team.where("region = ? OR hasMultiRegionalAccess = 'T'", region).includes(:activities => :target_area).order(:name)
     teams.each do |team|
       stats = start_regional_query(from_date, to_date, strategies, region, team).
         group(Activity.table_name + ".fk_teamID")

@@ -45,8 +45,8 @@ end
 # gem 'debugger', group: [:development, :test]
 
 #gem 'common_engine', path: '/home/justin/cmde/work_rails/common_engine'
-gem 'qe', git: 'https://github.com/CruGlobal/qe.git'
 gem 'common_engine', git: 'https://github.com/CruGlobal/common_engine.git'
+gem 'qe', git: 'https://github.com/CruGlobal/qe.git'
 gem 'mysql2'
 gem 'dynamic_form'
 gem 'dalli'

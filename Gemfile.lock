@@ -1,12 +1,12 @@
 GIT
   remote: https://github.com/CruGlobal/common_engine.git
-  revision: 5ef0ac7fda536dd5863b822b3c15cae762f7ce41
+  revision: 529256fb94f3dfd6cd1860929296a2b21d3b17bc
   specs:
     common_engine (0.0.1)
       aasm (~> 3.0.9)
       acts_as_list (~> 0.3.0)
+      auto_strip_attributes (~> 2.0)
       global_registry
-      qe
       rails (>= 3.0.0)
       rubycas-client
       sidekiq
@@ -64,6 +64,8 @@ GEM
       json
     arel (4.0.0)
     atomic (1.1.14)
+    auto_strip_attributes (2.0.4)
+      activerecord (>= 3.0)
     awesome_print (1.2.0)
     better_errors (1.0.1)
       coderay (>= 1.0.0)
@@ -208,8 +210,8 @@ GEM
     sdoc (0.3.20)
       json (>= 1.1.3)
       rdoc (~> 3.10)
-    sidekiq (2.15.1)
-      celluloid (>= 0.15.1)
+    sidekiq (2.15.2)
+      celluloid (>= 0.15.2)
       connection_pool (>= 1.0.0)
       json
       redis (>= 3.0.4)

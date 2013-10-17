@@ -13,7 +13,7 @@ class GcxSitesController < ApplicationController
     if @gcx_site.valid?
       @gcx_site.create
 
-      parameters = (@activity.team.team_members.collect(&:person).collect(&:user) + [current_user]).compact.uniq.collect do |user|
+      parameters = (@activity.team.team_members_ordered.collect(&:person).collect(&:user) + [current_user]).compact.uniq.collect do |user|
         {relayGuid: user.globallyUniqueID, role: 'administrator'}
       end
 
