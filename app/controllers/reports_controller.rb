@@ -5,24 +5,25 @@ class ReportsController < ApplicationController
   
   def create_report
     @strategies = Activity.event_strategies
+    @statuses = Activity.visible_statuses
   end
   
   def do_report
     from_date = Date.civil(params["from(1i)"].to_i, params["from(2i)"].to_i, params["from(3i)"].to_i)
     to_date = Date.civil(params["to(1i)"].to_i, params["to(2i)"].to_i, params["to(3i)"].to_i) + 1.month - 1.day
-    redirect_to national_report_path({:from => from_date, :to => to_date, :strategies => params[:strategies], :event_type => params[:event_type]})
+    redirect_to national_report_path({:from => from_date, :to => to_date, :strategies => params[:strategies], :movementstatus => params[:movementstatus], :event_type => params[:event_type]})
   end
   
   def national_report
     @report_type = @type.capitalize + " National"
-    @reports = [InfobaseReport.create_national_report(@from_date, @to_date, @strategies_list, @type)]
+    @reports = [InfobaseReport.create_national_report(@from_date, @to_date, @strategies_list, @type, @movement_status_list)]
     render :report
   end
   
   def regional_report
     @region = params[:region]
     @report_type = Region.full_name(@region).to_s + " Regional"
-    @reports = [InfobaseReport.create_regional_report(@region, @from_date, @to_date, @strategies_list)]
+    @reports = [InfobaseReport.create_regional_report(@region, @from_date, @to_date, @strategies_list, @movement_status_list)]
     render :report
   end
 
@@ -35,7 +36,7 @@ class ReportsController < ApplicationController
       @region = params[:team_id]
       @report_type = @type.capitalize + " " + Region.full_name(@region).to_s + " Regional"
     end
-    @reports = [InfobaseReport.create_team_report(@team, @from_date, @to_date, @strategies_list, @type, @region)]
+    @reports = [InfobaseReport.create_team_report(@team, @from_date, @to_date, @strategies_list, @type, @region, @movement_status_list)]
     render :report
   end
   
@@ -56,8 +57,8 @@ class ReportsController < ApplicationController
   end
   
   def check_params
-    if params[:from].blank? || params[:to].blank? || params[:strategies].blank?
-      redirect_to create_report_path, :notice => "You must set the dates for the report and have at least one strategy checked."
+    if params[:from].blank? || params[:to].blank? || params[:strategies].blank? || params[:movementstatus].blank?
+      redirect_to create_report_path, :notice => "You must set the dates for the report, have at least one strategy checked and have at least one movement status checked."
       return false;
     elsif params[:from] > params[:to]
       redirect_to create_report_path, :notice => "From date cannot be after To date."
@@ -70,5 +71,6 @@ class ReportsController < ApplicationController
     @to_date = Date.parse(params[:to])
     @strategies_list = params[:strategies]
     @type = params[:event_type]
+    @movement_status_list = params[:movementstatus]
   end
 end

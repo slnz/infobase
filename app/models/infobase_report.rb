@@ -49,19 +49,19 @@ class InfobaseReport
     InfobaseReport.new([InfobaseReportRow.new("stats", stats.first, last_stats)], "stats")
   end
   
-  def self.create_national_report(from_date, to_date, strategies, type)
+  def self.create_national_report(from_date, to_date, strategies, type, status)
     rows = []
     regions = Region.standard_region_codes
     regions << "nil" if type != "campus"
     regions.uniq!
     Region.standard_region_codes.each do |region|
-      stats = start_national_query(from_date, to_date, strategies, region, type)
-      
+      stats = start_national_query(from_date, to_date, strategies, region, type, status)
+
       if type == "campus"
         stats = sum_weekly_stats(stats)
 
         last_end_date_ids = get_last_end_date_ids(from_date, to_date)
-        last_stats = start_national_query(from_date, to_date, strategies, region, type).
+        last_stats = start_national_query(from_date, to_date, strategies, region, type, status).
           where(Statistic.table_name + ".statisticID IN (?)", last_end_date_ids.collect(&:statisticID))
         last_stats = sum_semester_stats(last_stats)
       else
@@ -73,16 +73,16 @@ class InfobaseReport
     InfobaseReport.new(rows, "Region")
   end
 
-  def self.create_regional_report(region, from_date, to_date, strategies)
+  def self.create_regional_report(region, from_date, to_date, strategies, status)
     rows = []
     teams = Team.where("region = ? OR hasMultiRegionalAccess = 'T'", region).includes(:activities).order(:name)
     teams.each do |team|
-      stats = start_regional_query(from_date, to_date, strategies, region, team).
+      stats = start_regional_query(from_date, to_date, strategies, region, team, status).
         group(Activity.table_name + ".fk_teamID")
       stats = sum_weekly_stats(stats)
       
       last_end_date_ids = get_last_end_date_ids(from_date, to_date)
-      last_stats = start_regional_query(from_date, to_date, strategies, region, team).
+      last_stats = start_regional_query(from_date, to_date, strategies, region, team, status).
         where(Statistic.table_name + ".statisticID IN (?)", last_end_date_ids.collect(&:statisticID))
       last_stats = sum_semester_stats(last_stats)
       
@@ -95,7 +95,7 @@ class InfobaseReport
     InfobaseReport.new(rows, "Team")
   end
   
-  def self.create_team_report(team, from_date, to_date, strategies, type, region = nil)
+  def self.create_team_report(team, from_date, to_date, strategies, type, region = nil, status)
     rows = []
     if type == "campus"
       activities = team.get_activities_for_strategies(strategies)
@@ -104,14 +104,14 @@ class InfobaseReport
     end
 
     activities.each do |activity|
-      stats = start_team_query(from_date, to_date, strategies, activity, type).
+      stats = start_team_query(from_date, to_date, strategies, activity, type, status).
         group(Activity.table_name + ".ActivityId")
       
       if type == "campus"
         stats = sum_weekly_stats(stats)
         
         max_end_date = activity.statistics.between_dates(from_date, to_date).maximum(Statistic.table_name + ".periodEnd")
-        last_stats = start_team_query(from_date, to_date, strategies, activity, type).
+        last_stats = start_team_query(from_date, to_date, strategies, activity, type, status).
           where(Statistic.table_name + ".periodEnd = ?", max_end_date)
         last_stats = sum_semester_stats(last_stats)
       else
@@ -191,24 +191,26 @@ class InfobaseReport
     stats
   end
   
-  def self.start_national_query(from_date, to_date, strategies, region, type)
+  def self.start_national_query(from_date, to_date, strategies, region, type, status)
     stats = start_stats_query(from_date, to_date)
     stats = add_strategies_clause(stats, strategies)
+    stats = add_status_clause(stats, status)
     stats = add_region_clause(stats, region)
     stats = add_type_clause(stats, type)
     stats = add_joins(stats)
     stats
   end
   
-  def self.start_regional_query(from_date, to_date, strategies, region, team)
-    stats = start_national_query(from_date, to_date, strategies, region, "campus")
+  def self.start_regional_query(from_date, to_date, strategies, region, team, status)
+    stats = start_national_query(from_date, to_date, strategies, region, "campus", status)
     stats = add_team_clause(stats, team)
     stats
   end
   
-  def self.start_team_query(from_date, to_date, strategies, activity, type)
+  def self.start_team_query(from_date, to_date, strategies, activity, type, status)
     stats = start_stats_query(from_date, to_date)
     stats = add_strategies_clause(stats, strategies)
+    stats = add_status_clause(stats, status)
     stats = add_activity_clause(stats, activity)
     stats = add_type_clause(stats, type)
     stats = add_joins(stats)
@@ -233,6 +235,10 @@ class InfobaseReport
   
   def self.add_strategies_clause(relation, strategies)
     relation.where(Activity.table_name + ".strategy IN (?)", strategies)
+  end
+
+  def self.add_status_clause(relation, status)
+    relation.where(Activity.table_name + ".status IN (?)", status)
   end
   
   def self.add_region_clause(relation, region)
