@@ -40,7 +40,7 @@ class StatsController < ApplicationController
     @type = "C2"
     render :event
   end
-  
+
   def digital
     @submenu = "events"
     @strategies = {"" => ""}.merge(Activity.event_strategies.invert)
@@ -113,6 +113,7 @@ class StatsController < ApplicationController
     @strategy = params[:strategy]
     @redirect = params[:redirect]
     @stats = []
+    @totalLeaderInvolvement = 0
     params[:stat].each_key do |key|
       stats = params[:stat][key]
       @movement = Activity.find(stats[:fk_Activity])
@@ -131,12 +132,36 @@ class StatsController < ApplicationController
         @stats << stat
         @current_week = Date.parse(stats[:periodBegin])
       end
+
+      @totalInvolvement = params[:stat][key]['invldStudents'].to_i + params[:stat][key]['faculty_involved'].to_i
+      @totalLeaderInvolvement = params[:stat][key]['faculty_leaders'].to_i + params[:stat][key]['studentLeaders'].to_i
+      if @totalInvolvement > 49 && @totalLeaderInvolvement > 5
+        @totalInvolvement = "MU"
+      elsif @totalLeaderInvolvement > 4
+        @totalInvolvement = "LA"
+      elsif @totalLeaderInvolvement > 0
+        @totalInvolvement = "KE"
+      elsif @totalLeaderInvolvement == 0
+        @totalInvolvement = "PI"
+      else
+        @totalInvolvement = ""
+      end
+
+      if @totalInvolvement != ""
+        if @movement.status != @totalInvolvement
+          @movementStatusMessage = " Your movement status has been updated to: " + Activity.statuses[@totalInvolvement].to_s
+        else
+          @movementStatusMessage = ""
+        end
+
+        @movement.update_attributes_add_history({:status => @totalInvolvement, "periodBegin(1i)" => Time.now.year.to_s, "periodBegin(2i)" => Time.now.month.to_s, "periodBegin(3i)" => Time.now.day.to_s}, @current_user)
+      end
     end
     if @stats.empty? && @redirect
       redirect_to @redirect
     elsif @stats.empty?
       date = "?date=" + @requested_week.to_s if @requested_week
-      redirect_to stats_path + date.to_s, :notice => "Your stats have been saved successfully."
+      redirect_to stats_path + date.to_s, :notice => "Your stats have been saved successfully." + @movementStatusMessage
     else
       if @redirect
         @strategies = {"" => ""}.merge(Activity.event_strategies.invert)
