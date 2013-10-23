@@ -7,10 +7,10 @@ describe InfobaseUser do
 		@user.person = @person
 		@person.create_staff(accountNo: 123456)
 	end
-  
+
   describe "authentication" do
     describe "special" do
-      before(:each) do 
+      before(:each) do
         StaffsiteProfile.create!(userName: @user.username)
       end
       it "hr director" do
@@ -35,7 +35,7 @@ describe InfobaseUser do
         StaffsiteProfile.create!(userName: @user.username)
         info = InfobaseUser.determine_infobase_user(@user)
         info.class.should == InfobaseUser
-      end    
+      end
       it "not removed from peopleSoft" do
         info = InfobaseUser.determine_infobase_user(@user)
         info.class.should == InfobaseUser
@@ -45,8 +45,8 @@ describe InfobaseUser do
         staff.update_attributes(removedFromPeopleSoft: "Y")
         info = InfobaseUser.determine_infobase_user(@user)
         info.should be(nil)
-        
-        team = Team.create!(name: 'team', region: 'region', country: 'usa', lane: 'lane')
+
+        team = Team.create!(name: 'team', region: 'MA', country: 'usa', lane: 'lane')
         team_member = @person.team_members.create!(team: team)
         info = InfobaseUser.determine_infobase_user(@user)
         info.class.should == InfobaseUser

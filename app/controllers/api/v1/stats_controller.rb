@@ -1,5 +1,4 @@
 class Api::V1::StatsController < Api::V1::BaseController
-  skip_before_filter :verify_authenticity_token
 
   def activity
     activity = Activity.where("activityid = ?", params[:activity_id]).first
@@ -60,53 +59,21 @@ class Api::V1::StatsController < Api::V1::BaseController
   end
   
   def create
-    @user ||= "API"
     @stats = []
     params[:statistics].each do |stats|
       @movement = Activity.find(stats[:activity_id])
       stat = @movement.get_stat_for(Date.parse(stats[:period_begin]))
-      stats[:updated_by] = @user
-      stats.delete(:id) # Just in case an ID has been passed in; We're only creating records
-      stat.attributes = stats
-      if stat.id.blank? # Only create records
-        stat.save
-      else
-        stat.valid?
-        errors = stat.errors
-        if stat.id.present?
-          errors["id"] = ["already present with value #{stat.id}"]
-        end
-      end
-      if !stat.errors.empty?
-        errors ||= stat.errors
-        stat_hash = stat.attributes.merge({:errors => errors})
-        @stats << stat_hash
-      end
-    end
-    respond_with @stats do |format|
-      format.json {
-        render json: @stats, :root => "statistics"
-      }
-    end
-  end
-  
-  def update
-    @user ||= "API"
-    @stats = []
-    params[:statistics].each do |stats|
-      @movement = Activity.find(stats[:activity_id])
-      stat = @movement.get_stat_for(Date.parse(stats[:period_begin]))
-      stats[:updated_by] = @user
-      stat.attributes = stats
+      stats[:updated_by] = current_user
+      stat.attributes = stats.except(:id)
       stat.save
-      if !stat.errors.empty?
-        stat_hash = stat.attributes.merge({:errors => stat.errors.to_hash})
-        @stats << stat_hash
+      if stat.errors.present?
+        @stats << stat.attributes.merge({:errors => stat.errors.to_hash})
       end
     end
+
     respond_with @stats do |format|
       format.json {
-        render json: @stats, :root => "statistics"
+        render json: @stats, :root => "statistics", status: :created
       }
     end
   end

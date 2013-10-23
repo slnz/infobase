@@ -1,6 +1,8 @@
 defaults: &defaults
   gcx_url: 'https://wpdev.gcx.org'
   cas_url: 'https://casdev.gcx.org'
+  secret_token: '33ae336d666743306209b77850c0f059052008630e1278709189e73614c17df7114e395e1894e39e'
+  secret_key_base: 'd7fc1390a860942cb0555be5d65bfb4d8fbf95c598272aef11fe83c299065d3e33ed7a2ad8d3ed58'
 
 development:
   <<: *defaults
