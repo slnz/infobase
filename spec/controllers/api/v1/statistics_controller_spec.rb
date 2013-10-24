@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Api::V1::StatsController do
+describe Api::V1::StatisticsController do
   let(:api_key) { create(:api_key) }
   let!(:activity) { create(:activity) }
 
