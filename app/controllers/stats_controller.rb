@@ -135,13 +135,13 @@ class StatsController < ApplicationController
 
       @totalInvolvement = params[:stat][key]['invldStudents'].to_i + params[:stat][key]['faculty_involved'].to_i
       @totalLeaderInvolvement = params[:stat][key]['faculty_leaders'].to_i + params[:stat][key]['studentLeaders'].to_i
-      if @totalInvolvement > 49 && @totalLeaderInvolvement > 5
+      if @totalInvolvement > Activity::MULITPLYING_INVOLVEMENT_LEVEL && @totalLeaderInvolvement > Activity::MULITPLYING_LEADER_INVOLVEMENT_LEVEL
         @totalInvolvement = "MU"
-      elsif @totalLeaderInvolvement > 4
+      elsif @totalLeaderInvolvement > Activity::LAUNCHED_LEADER_INVOLVEMENT_LEVEL
         @totalInvolvement = "LA"
-      elsif @totalLeaderInvolvement > 0
+      elsif @totalLeaderInvolvement >= Activity::KEYLEADER_LEADER_INVOLVEMENT_LEVEL
         @totalInvolvement = "KE"
-      elsif @totalLeaderInvolvement == 0
+      elsif @totalLeaderInvolvement == Activity::PIONEERING_LEADER_INVOLVEMENT_LEVEL
         @totalInvolvement = "PI"
       else
         @totalInvolvement = ""
