@@ -1,4 +1,4 @@
-class Api::V1::StatsController < Api::V1::BaseController
+class Api::V1::StatisticsController < Api::V1::BaseController
 
   def activity
     activity = Activity.where("activityid = ?", params[:activity_id]).first
@@ -15,7 +15,9 @@ class Api::V1::StatsController < Api::V1::BaseController
   end
 
   def index
-    show
+    statistics = StatisticFilter.new(params[:filters]).filter(Statistic.all)
+
+    render render_options(statistics)
   end
   
   def show

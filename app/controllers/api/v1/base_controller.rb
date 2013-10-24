@@ -40,15 +40,13 @@ class Api::V1::BaseController < ApplicationController
   end
 
   def add_includes_and_order(resource, options = {})
+    options[:order] ||= params[:order]
     # eager loading is a waste of time if the 'since' parameter is passed
     unless params[:since]
-      available_includes.each do |rel|
-        resource = resource.includes(rel.to_sym) if includes.include?(rel.to_s)
-      end
+      resource = resource.includes(available_includes) if available_includes.present?
     end
     resource = resource.where("#{resource.table.name}.updated_at > ?", Time.at(params[:since].to_i)) if params[:since].to_i > 0
-    resource = resource.limit(params[:limit]) if params[:limit]
-    resource = resource.offset(params[:offset]) if params[:offset]
+    resource = resource.paginate(:page => params[:page] || 1, per_page: params[:per_page] || 100)
     resource = resource.order(options[:order]) if options[:order]
     resource
   end
@@ -61,5 +59,22 @@ class Api::V1::BaseController < ApplicationController
   # Each controller should override this method
   def available_includes
     []
+  end
+
+  def render_options(collection, order = nil)
+    if collection.is_a?(ActiveRecord::Relation)
+      collection = add_includes_and_order(collection, order: order)
+    end
+
+    res = {
+      json: collection,
+      callback: params[:callback],
+      scope: {include: includes, since: params[:since]}
+    }
+    if collection.respond_to?(:total_entries)
+      res.merge!(meta: {total: collection.total_entries, from: collection.offset + 1,
+                        to: collection.offset + collection.length, page: (params[:page] || 1).to_i})
+    end
+    res
   end
 end

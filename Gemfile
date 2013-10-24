@@ -57,11 +57,12 @@ gem 'coffee-script'
 gem 'choices'
 gem 'ox'
 gem 'rest-client'
-
+gem 'versionist', '~> 1.2.1'
 gem 'whenever'
 gem 'awesome_print'
 gem 'gcx_api', git: 'https://github.com/CruGlobal/gcx_api.git'
 gem 'oj'
+gem 'will_paginate'
 
 group :production do
   # gem 'ruby-oci8'

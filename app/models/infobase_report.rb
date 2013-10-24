@@ -216,7 +216,7 @@ class InfobaseReport
   end
   
   def self.get_event_activities(type, region)
-    relation = Activity.scoped
+    relation = Activity
     relation = add_type_clause(relation, type)
     relation = add_region_clause(relation, region)
     relation = relation.joins(:target_area)
