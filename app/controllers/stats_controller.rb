@@ -113,7 +113,7 @@ class StatsController < ApplicationController
     @strategy = params[:strategy]
     @redirect = params[:redirect]
     @stats = []
-    @totalLeaderInvolvement = 0
+    total_leader_involvement = 0
     params[:stat].each_key do |key|
       stats = params[:stat][key]
       @movement = Activity.find(stats[:fk_Activity])
@@ -133,28 +133,29 @@ class StatsController < ApplicationController
         @current_week = Date.parse(stats[:periodBegin])
       end
 
-      @totalInvolvement = params[:stat][key]['invldStudents'].to_i + params[:stat][key]['faculty_involved'].to_i
-      @totalLeaderInvolvement = params[:stat][key]['faculty_leaders'].to_i + params[:stat][key]['studentLeaders'].to_i
-      if @totalInvolvement > Activity::MULITPLYING_INVOLVEMENT_LEVEL && @totalLeaderInvolvement > Activity::MULITPLYING_LEADER_INVOLVEMENT_LEVEL
-        @totalInvolvement = "MU"
-      elsif @totalLeaderInvolvement > Activity::LAUNCHED_LEADER_INVOLVEMENT_LEVEL
-        @totalInvolvement = "LA"
-      elsif @totalLeaderInvolvement >= Activity::KEYLEADER_LEADER_INVOLVEMENT_LEVEL
-        @totalInvolvement = "KE"
-      elsif @totalLeaderInvolvement == Activity::PIONEERING_LEADER_INVOLVEMENT_LEVEL
-        @totalInvolvement = "PI"
-      else
-        @totalInvolvement = ""
+      total_involvement = params[:stat][key]['invldStudents'].to_i + params[:stat][key]['faculty_involved'].to_i
+      total_leader_involvement = params[:stat][key]['faculty_leaders'].to_i + params[:stat][key]['studentLeaders'].to_i
+      case
+        when total_involvement > Activity::MULITPLYING_INVOLVEMENT_LEVEL && total_leader_involvement > Activity::MULITPLYING_LEADER_INVOLVEMENT_LEVEL
+          total_involvement = "MU"
+        when total_leader_involvement > Activity::LAUNCHED_LEADER_INVOLVEMENT_LEVEL
+          total_involvement = "LA"
+        when total_leader_involvement >= Activity::KEYLEADER_LEADER_INVOLVEMENT_LEVEL
+          total_involvement = "KE"
+        when total_leader_involvement == Activity::PIONEERING_LEADER_INVOLVEMENT_LEVEL
+          total_involvement = "PI"
+        else
+          total_involvement = ""
       end
 
-      if @totalInvolvement != ""
-        if @movement.status != @totalInvolvement
-          @movementStatusMessage = " Your movement status has been updated to: " + Activity.statuses[@totalInvolvement].to_s
+      if total_involvement != ""
+        if @movement.status != total_involvement
+          @movementStatusMessage = " Your movement status has been updated to: " + Activity.statuses[total_involvement].to_s
         else
           @movementStatusMessage = ""
         end
 
-        @movement.update_attributes_add_history({:status => @totalInvolvement, "periodBegin(1i)" => Time.now.year.to_s, "periodBegin(2i)" => Time.now.month.to_s, "periodBegin(3i)" => Time.now.day.to_s}, @current_user)
+        @movement.update_attributes_add_history({:status => total_involvement, "periodBegin(1i)" => Time.now.year.to_s, "periodBegin(2i)" => Time.now.month.to_s, "periodBegin(3i)" => Time.now.day.to_s}, @current_user)
       end
     end
     if @stats.empty? && @redirect
