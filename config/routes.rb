@@ -6,16 +6,22 @@ Infobase::Application.routes.draw do
   resources :gcx_sites
   resources :gcx_site_users
 
-  namespace :api, defaults: {format: 'json'} do 
-    namespace :v1 do
-      resources :stats do
+  namespace :api, defaults: {format: 'json'} do
+    api_version(module: 'V1', header: {name: 'API-VERSION', value: 'v1'}, parameter: {name: "version", value: 'v1'}, path: {value: 'v1'}) do
+      resources :ministries
+      resources :regions
+      resources :teams
+      resources :users
+      resources :activities
+
+      resources :statistics do
         collection do
           get :activity
           post :collate_stats
           post :movement_stages
         end
       end
-      
+
       resources :people do
         collection do
           get :is_staff

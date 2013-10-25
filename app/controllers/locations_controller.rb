@@ -21,7 +21,7 @@ class LocationsController < ApplicationController
   
   def new
     @location = TargetArea.new
-    @location.attributes = params[:target_area]
+    @location.attributes = target_area_params
     @title = "Infobase - Propose New Location"
   end
   

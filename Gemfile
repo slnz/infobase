@@ -1,4 +1,4 @@
-source 'https://rubygems.org'
+source 'http://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 4.0.0'
@@ -23,9 +23,6 @@ gem 'jquery-rails'
 
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 gem 'turbolinks'
-
-# Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
-gem 'jbuilder', '~> 1.2'
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
@@ -60,12 +57,12 @@ gem 'coffee-script'
 gem 'choices'
 gem 'ox'
 gem 'rest-client'
-
+gem 'versionist', '~> 1.2.1'
 gem 'whenever'
 gem 'awesome_print'
 gem 'gcx_api', git: 'https://github.com/CruGlobal/gcx_api.git'
-gem 'rest-client'
 gem 'oj'
+gem 'will_paginate'
 
 group :production do
   # gem 'ruby-oci8'
@@ -77,8 +74,11 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'factory_girl_rails'
   gem 'capybara'
+  gem 'guard', '>=2.1.0'
   gem 'guard-rspec'
   gem 'guard-rails'
+  gem 'guard-spork'
+  gem 'spork-rails', '>=4.0'
   gem 'rb-fsevent'
   gem 'database_cleaner'
   gem 'launchy'

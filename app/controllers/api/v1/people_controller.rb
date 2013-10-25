@@ -1,5 +1,4 @@
 class Api::V1::PeopleController < Api::V1::BaseController
-  skip_before_filter :verify_authenticity_token
 
   def is_staff
     results = {}
@@ -8,12 +7,12 @@ class Api::V1::PeopleController < Api::V1::BaseController
     Person.where(personID: person_ids).collect {|p| people[p.id] = p}
     person_ids.each do |id|
       if p = people[id.to_i]
-        results[id] = p.isStaff.present?
+        results[id] = p.isStaff?
       else
         results[id] = nil
       end
     end
-    result = {"people" => results}
-    render json: result
+
+    render json: {people: results}
   end
 end
