@@ -36,32 +36,32 @@ class ActiveModel::Serializer
       end
     end
 
-    def attributes
-      if self.class.const_defined?(:ATTRIBUTES)
-        attribs_const = self.class.const_get(:ATTRIBUTES)
-        includes = scope[:include].clone if scope.is_a?(Hash) && scope[:include]
-        class_name = object.class.name
-        if includes.present?
-          includes.map! do |value|
-            parts = value.split('.')
-            parts[1] if parts[0] == class_name
-          end
-          includes.compact!
-          attributes = includes.map(&:to_sym) & attribs_const
-        else
-          attributes = attribs_const
-        end
+    #def attributes
+      #begin
+        #attribs_const = self.class::ATTRIBUTES
+        #includes = scope[:include].clone if scope.is_a?(Hash) && scope[:include]
+        #class_name = object.class.name
+        #if includes.present?
+          #includes.map! do |value|
+            #parts = value.split('.')
+            #parts[1] if parts[0] == class_name
+          #end
+          #includes.compact!
+          #attributes = includes.map(&:to_sym) & attribs_const
+        #else
+          #attributes = attribs_const
+        #end
 
-        hash = {}
-        attributes.each do |rel|
-          value = send(rel.to_sym)
-          hash[rel.to_sym] = value if value
-        end
+        #hash = {}
+        #attributes.each do |rel|
+          #value = send(rel.to_sym)
+          #hash[rel.to_sym] = value if value
+        #end
 
-        hash
-      else
-        original_attributes
-      end
-    end
+        #hash
+      #rescue NameError
+        #original_attributes
+      #end
+    #end
   end
 end
