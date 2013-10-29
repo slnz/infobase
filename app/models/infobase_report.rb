@@ -1,15 +1,15 @@
 class InfobaseReport
   attr_accessor :rows, :row_type
-  
+
   def initialize(rows, row_type)
     @rows = rows
     @row_type = row_type
   end
-  
+
   def self.reports_to_add_semester_stats
     ["Region", "Team", "Ministry Location"]
   end
-  
+
   def get_totals
     unless @totals
       @totals = InfobaseReportRow.new
@@ -33,22 +33,35 @@ class InfobaseReport
     end
     @totals
   end
-  
+
   def self.create_report(from_date, to_date, semester_date, activity_ids)
     stats = start_stats_query(from_date, to_date)
     stats = add_activities_clause(stats, activity_ids)
     stats = sum_weekly_stats(stats)
-    
+
     first_sem_date = semester_date - 1.year
     last_end_date_ids = get_last_end_date_ids(first_sem_date, semester_date)
     last_stats = start_stats_query(first_sem_date, semester_date)
     last_stats = add_activities_clause(last_stats, activity_ids).
-      where(Statistic.table_name + ".statisticID IN (?)", last_end_date_ids.collect(&:statisticID))
+        where(Statistic.table_name + ".statisticID IN (?)", last_end_date_ids.collect(&:statisticID))
     last_stats = sum_semester_stats(last_stats)
-    
+
     InfobaseReport.new([InfobaseReportRow.new("stats", stats.first, last_stats)], "stats")
   end
-  
+
+  def self.create_report_intervals(from_date, to_date, activity_ids)
+    stats = start_stats_query(from_date, to_date)
+    stats = add_activities_clause(stats, activity_ids)
+    stats = sum_all_stats(stats)
+    stats = add_intervals_clause(stats)
+
+    rows = []
+    stats.each do |stat|
+      rows << InfobaseReportRow.new(stat.periodBegin.to_s, stat, [stat], nil, true)
+    end
+    InfobaseReport.new(rows, "Weekly")
+  end
+
   def self.create_national_report(from_date, to_date, strategies, type, status)
     rows = []
     regions = Region.standard_region_codes
@@ -62,12 +75,12 @@ class InfobaseReport
 
         last_end_date_ids = get_last_end_date_ids(from_date, to_date)
         last_stats = start_national_query(from_date, to_date, strategies, region, type, status).
-          where(Statistic.table_name + ".statisticID IN (?)", last_end_date_ids.collect(&:statisticID))
+            where(Statistic.table_name + ".statisticID IN (?)", last_end_date_ids.collect(&:statisticID))
         last_stats = sum_semester_stats(last_stats)
       else
         stats = sum_event_stats(stats)
       end
-      
+
       rows << InfobaseReportRow.new(Region.full_name(region), stats.first, last_stats, region)
     end
     InfobaseReport.new(rows, "Region")
@@ -78,14 +91,14 @@ class InfobaseReport
     teams = Team.where("region = ? OR hasMultiRegionalAccess = 'T'", region).includes(:activities => :target_area).order(:name)
     teams.each do |team|
       stats = start_regional_query(from_date, to_date, strategies, region, team, status).
-        group(Activity.table_name + ".fk_teamID")
+          group(Activity.table_name + ".fk_teamID")
       stats = sum_weekly_stats(stats)
-      
+
       last_end_date_ids = get_last_end_date_ids(from_date, to_date)
       last_stats = start_regional_query(from_date, to_date, strategies, region, team, status).
-        where(Statistic.table_name + ".statisticID IN (?)", last_end_date_ids.collect(&:statisticID))
+          where(Statistic.table_name + ".statisticID IN (?)", last_end_date_ids.collect(&:statisticID))
       last_stats = sum_semester_stats(last_stats)
-      
+
       if (team.is_active? && team.is_responsible_for_strategies_in_region?(strategies, region)) || !stats.empty?
         row_header = team.name.to_s
         row_header += "<font color='red'> - Inactive Team</font>" unless team.is_active?
@@ -94,7 +107,7 @@ class InfobaseReport
     end
     InfobaseReport.new(rows, "Team")
   end
-  
+
   def self.create_team_report(team, from_date, to_date, strategies, type, region = nil, status)
     rows = []
     if type == "campus"
@@ -105,21 +118,21 @@ class InfobaseReport
 
     activities.each do |activity|
       stats = start_team_query(from_date, to_date, strategies, activity, type, status).
-        group(Activity.table_name + ".ActivityId")
-      
+          group(Activity.table_name + ".ActivityId")
+
       if type == "campus"
         stats = sum_weekly_stats(stats)
-        
+
         max_end_date = activity.statistics.between_dates(from_date, to_date).maximum(Statistic.table_name + ".periodEnd")
         last_stats = start_team_query(from_date, to_date, strategies, activity, type, status).
-          where(Statistic.table_name + ".periodEnd = ?", max_end_date)
+            where(Statistic.table_name + ".periodEnd = ?", max_end_date)
         last_stats = sum_semester_stats(last_stats)
       else
         stats = sum_event_stats(stats)
       end
-      
+
       if activity.is_active? || !stats.empty?
-        row_header = activity.target_area.name.to_s 
+        row_header = activity.target_area.name.to_s
         row_header += "<br/>(" + activity.target_area.enrollment.to_s + " enrolled)" if !activity.target_area.enrollment.blank?
         row_header += "<br/><i>" + Activity.strategies[activity.strategy].to_s + "</i>"
         row_header += "<br/><font color='red'>Inactive Movement</font>" if type == "campus" && !activity.is_active?
@@ -128,24 +141,24 @@ class InfobaseReport
     end
     InfobaseReport.new(rows, "Ministry Location")
   end
-  
+
   def self.create_location_reports(location, from_date, to_date, strategies, type, team = nil)
     reports = []
     activities = location.get_activities_for_strategies(strategies)
     activities.each do |activity|
       rows = []
       stats = activity.statistics.between_dates(from_date, to_date).
-        group(Statistic.table_name + ".periodBegin").
-        select(Statistic.table_name + ".periodBegin").
-        select(Statistic.table_name + ".periodEnd").
-        select(Statistic.table_name + ".statisticID")
-      
+          group(Statistic.table_name + ".periodBegin").
+          select(Statistic.table_name + ".periodBegin").
+          select(Statistic.table_name + ".periodEnd").
+          select(Statistic.table_name + ".statisticID")
+
       if type == "campus"
         stats = sum_all_stats(stats)
       else
         stats = sum_event_stats(stats)
       end
-      
+
       stats.each do |stat|
         rows << InfobaseReportRow.new(stat.periodBegin.to_s + " - " + stat.periodEnd.to_s, stat, [stat], stat.statisticID.to_s, true)
       end
@@ -161,23 +174,23 @@ class InfobaseReport
     end
     reports
   end
-  
+
   private
-  
+
   def self.sum_weekly_stats(stats)
     Statistic.weekly_stats.each do |stat|
       stats = stats.select("SUM(#{stat}) AS #{stat}")
     end
     stats
   end
-  
+
   def self.sum_semester_stats(stats)
     Statistic.semester_stats.each do |stat|
       stats = stats.select("SUM(#{stat}) AS #{stat}")
     end
     stats
   end
-  
+
   def self.sum_event_stats(stats)
     Statistic.event_stats.each do |stat|
       stats = stats.select("SUM(#{stat}) AS #{stat}")
@@ -190,7 +203,7 @@ class InfobaseReport
     stats = sum_semester_stats(stats)
     stats
   end
-  
+
   def self.start_national_query(from_date, to_date, strategies, region, type, status)
     stats = start_stats_query(from_date, to_date)
     stats = add_strategies_clause(stats, strategies)
@@ -200,13 +213,13 @@ class InfobaseReport
     stats = add_joins(stats)
     stats
   end
-  
+
   def self.start_regional_query(from_date, to_date, strategies, region, team, status)
     stats = start_national_query(from_date, to_date, strategies, region, "campus", status)
     stats = add_team_clause(stats, team)
     stats
   end
-  
+
   def self.start_team_query(from_date, to_date, strategies, activity, type, status)
     stats = start_stats_query(from_date, to_date)
     stats = add_strategies_clause(stats, strategies)
@@ -216,7 +229,7 @@ class InfobaseReport
     stats = add_joins(stats)
     stats
   end
-  
+
   def self.get_event_activities(type, region)
     relation = Activity
     relation = add_type_clause(relation, type)
@@ -224,15 +237,15 @@ class InfobaseReport
     relation = relation.joins(:target_area)
     relation
   end
-  
+
   def self.start_stats_query(from_date, to_date)
     Statistic.between_dates(from_date, to_date)
   end
-  
+
   def self.add_joins(relation)
     relation.joins(:activity => :target_area)
   end
-  
+
   def self.add_strategies_clause(relation, strategies)
     relation.where(Activity.table_name + ".strategy IN (?)", strategies)
   end
@@ -240,7 +253,7 @@ class InfobaseReport
   def self.add_status_clause(relation, status)
     relation.where(Activity.table_name + ".status IN (?)", status)
   end
-  
+
   def self.add_region_clause(relation, region)
     if region == "nil"
       relation.where(TargetArea.table_name + ".region is null OR " + TargetArea.table_name + ".region = ''")
@@ -248,43 +261,47 @@ class InfobaseReport
       relation.where(TargetArea.table_name + ".region = ?", region)
     end
   end
-  
+
   def self.add_team_clause(relation, team)
     relation.where(Activity.table_name + ".fk_teamID = ?", team.id)
   end
-  
+
   def self.add_activity_clause(relation, activity)
     relation.where(Activity.table_name + ".ActivityId = ?", activity.id)
   end
-  
+
   def self.add_activities_clause(relation, activity_ids)
     relation.where(Statistic.table_name + ".fk_Activity IN (?)", activity_ids)
   end
-  
+
   def self.add_group_clause(relation, group)
     relation.where(Statistic.table_name + ".peopleGroup = ?", group)
   end
-  
+
+  def self.add_intervals_clause(relation)
+    relation.group(Statistic.table_name + ".periodBegin").select(Statistic.table_name + ".periodBegin")
+  end
+
   def self.add_type_clause(relation, type)
     case type
-    when "campus"
-      relation.where(TargetArea.table_name + ".type = 'College' OR " + TargetArea.table_name + ".type = 'HighSchool' OR " + TargetArea.table_name + ".type = 'Business'")
-    when "SP"
-      relation.where(TargetArea.table_name + ".type = 'Event'").where(TargetArea.table_name + ".eventType = 'SP'")
-    when "conference"
-      relation.where(TargetArea.table_name + ".type = 'Event'").where(TargetArea.table_name + ".eventType = 'C2' OR " + TargetArea.table_name + ".eventType = 'CS'")
+      when "campus"
+        relation.where(TargetArea.table_name + ".type = 'College' OR " + TargetArea.table_name + ".type = 'HighSchool' OR " + TargetArea.table_name + ".type = 'Business'")
+      when "SP"
+        relation.where(TargetArea.table_name + ".type = 'Event'").where(TargetArea.table_name + ".eventType = 'SP'")
+      when "conference"
+        relation.where(TargetArea.table_name + ".type = 'Event'").where(TargetArea.table_name + ".eventType = 'C2' OR " + TargetArea.table_name + ".eventType = 'CS'")
     end
   end
-  
+
   def self.get_last_end_date_ids(from_date, to_date)
     # This query finds the latest date for each statistic that was before the given date
     max_dates_query = Statistic.between_dates(from_date, to_date).
-      select(Statistic.table_name + ".fk_Activity").
-      select("MAX(" + Statistic.table_name + ".periodEnd) as periodEnd").
-      group(Statistic.table_name + ".fk_Activity")
+        select(Statistic.table_name + ".fk_Activity").
+        select("MAX(" + Statistic.table_name + ".periodEnd) as periodEnd").
+        group(Statistic.table_name + ".fk_Activity")
     # This query finds the list of statistic ids that go along with the above query
     stats_ids_query = Statistic.select(Statistic.table_name + ".statisticID").
-      joins("INNER JOIN (" + max_dates_query.to_sql + " ) last_dates ON " + Statistic.table_name + ".fk_activity = last_dates.fk_activity AND " + Statistic.table_name + ".periodEnd = last_dates.periodEnd")
+        joins("INNER JOIN (" + max_dates_query.to_sql + " ) last_dates ON " + Statistic.table_name + ".fk_activity = last_dates.fk_activity AND " + Statistic.table_name + ".periodEnd = last_dates.periodEnd")
     stats_ids_query
   end
 end

@@ -15,7 +15,7 @@ class TeamsController < ApplicationController
   
   def new
     @team = Team.new
-    @team.attributes = params[:team]
+    @team.attributes = team_params
     @strategies = Activity.strategies
     @title = "Infobase - Propose New Team"
   end
@@ -283,7 +283,7 @@ class TeamsController < ApplicationController
     end
 
     def team_params
-      params.fetch(:team).permit(:name, :lane, :region, :address1, :address2, :city, :state, :zip, :country, :phone, :fax, :email, :url, :note)
+      params.fetch(:team).permit(:name, :lane, :region, :address1, :address2, :city, :state, :zip, :country, :phone, :fax, :email, :url, :note) if params.has_key?(:team)
     end
 
     def current_address_params
