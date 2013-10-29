@@ -18,6 +18,7 @@ Infobase::Application.routes.draw do
         collection do
           get :activity
           post :collate_stats
+          post :collate_stats_intervals
           post :movement_stages
         end
       end
