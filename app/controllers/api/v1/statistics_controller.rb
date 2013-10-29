@@ -49,13 +49,29 @@ class Api::V1::StatisticsController < Api::V1::BaseController
     end_date = Date.parse(params[:end_date])
     activity_ids = params[:activity_ids]
     interval = params[:interval] if params.has_key?(:interval)
-    interval ||= 1
+    interval ||= 1 # in weeks
 
     report = InfobaseReport.create_report_intervals(begin_date, end_date, activity_ids)
 
     response = {}
+    first_date = Date.parse(report.rows.first.name)
+    temp_row = InfobaseReportRow.new
     report.rows.each do |row|
-      response[row.name] = row
+      if interval == 1  # No need to do any row adding if interval is 1
+        response[row.name] = row
+      else
+        date = Date.parse(row.name)
+        if date - first_date >= (interval * 7) # Days in a week
+          response[temp_row.name] = temp_row
+          first_date = date
+          temp_row = row
+        elsif report.rows.last == row # Last row.  Add 'em and report.
+          temp_row = row + temp_row
+          response[temp_row.name] = temp_row
+        else # Still in interval, just add.
+          temp_row = row + temp_row
+        end
+      end
     end
     render json: response.to_json
   end

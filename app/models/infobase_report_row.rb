@@ -46,6 +46,20 @@ class InfobaseReportRow
     @no_link = no_link
     set_stats
   end
+
+  def + (row)
+    new = self.clone
+    Statistic.event_stats.each do |stat_type|
+      if new.instance_variable_get("@#{stat_type}").present? && row.instance_variable_get("@#{stat_type}").present?
+        new.instance_variable_set("@#{stat_type}", new.instance_variable_get("@#{stat_type}") + row.instance_variable_get("@#{stat_type}"))
+      elsif new.instance_variable_get("@#{stat_type}").present?
+        new.instance_variable_set("@#{stat_type}", new.instance_variable_get("@#{stat_type}"))
+      elsif row.instance_variable_get("@#{stat_type}").present?
+        new.instance_variable_set("@#{stat_type}", row.instance_variable_get("@#{stat_type}"))
+      end
+    end
+    new
+  end
   
   private
   
