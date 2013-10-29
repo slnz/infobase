@@ -55,7 +55,7 @@ class Api::V1::StatisticsController < Api::V1::BaseController
 
     response = {}
     report.rows.each do |row|
-      response[row.name] = row.to_json
+      response[row.name] = row
     end
     render json: response.to_json
   end
