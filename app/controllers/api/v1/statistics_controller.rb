@@ -57,20 +57,16 @@ class Api::V1::StatisticsController < Api::V1::BaseController
     period_end_date = begin_date.end_of_week(:sunday) + interval.weeks
     temp_row = InfobaseReportRow.new(period_end_date.to_s)
     report.rows.each do |row|
-      if interval == 1  # No need to do any row adding if interval is 1
-        response[row.name] = row
-      else
-        date = Date.parse(row.name)
-        if date >= period_end_date
-          response[period_end_date] = temp_row
-          period_end_date = bump_period_end_date(period_end_date, interval, date, response)
-          temp_row = row
-        elsif report.rows.last == row # Last row.  Add 'em and report.
-          temp_row = row + temp_row
-          response[temp_row.name] = temp_row
-        else # Still in interval, just add.
-          temp_row = row + temp_row
-        end
+      date = Date.parse(row.name)
+      if date >= period_end_date
+        response[period_end_date] = temp_row
+        period_end_date = bump_period_end_date(period_end_date, interval, date, response)
+        temp_row = row
+      elsif report.rows.last == row # Last row.  Add 'em and report.
+        temp_row = row + temp_row
+        response[temp_row.name] = temp_row
+      else # Still in interval, just add.
+        temp_row = row + temp_row
       end
     end
     render json: response.to_json
