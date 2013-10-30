@@ -54,10 +54,11 @@ class InfobaseReport
     stats = add_activities_clause(stats, activity_ids)
     stats = sum_all_stats(stats)
     stats = add_intervals_clause(stats)
+    stats = stats.order(Statistic.table_name + ".periodEnd")
 
     rows = []
     stats.each do |stat|
-      rows << InfobaseReportRow.new(stat.periodBegin.to_s, stat, [stat], nil, true)
+      rows << InfobaseReportRow.new(stat.periodEnd.to_s, stat, [stat], nil, true)
     end
     InfobaseReport.new(rows, "Weekly")
   end
@@ -279,7 +280,7 @@ class InfobaseReport
   end
 
   def self.add_intervals_clause(relation)
-    relation.group(Statistic.table_name + ".periodBegin").select(Statistic.table_name + ".periodBegin")
+    relation.group(Statistic.table_name + ".periodEnd").select(Statistic.table_name + ".periodEnd")
   end
 
   def self.add_type_clause(relation, type)
