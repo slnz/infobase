@@ -1,6 +1,6 @@
 class InfobaseReportRow
   include ActiveModel::Conversion
-  extend  ActiveModel::Naming
+  extend ActiveModel::Naming
 
   attr_accessor :name, :key, :no_link
   Statistic.event_stats.each do |stat_type|
@@ -9,31 +9,31 @@ class InfobaseReportRow
   Statistic.semester_stats.each do |stat_type|
     attr_accessor stat_type.to_sym
   end
-  
+
   def as_json(options = {})
     {
-      :spiritual_conversations => spiritual_conversations,
-      :personal_exposures => evangelisticOneOnOne,
-      :personal_evangelism => evangelisticOneOnOne,
-      :group_exposures => evangelisticGroup,
-      :group_evangelism => evangelisticGroup,
-      :media_exposures => exposuresViaMedia,
-      :holy_spirit_presentations => holySpiritConversations,
-      :personal_decisions => decisionsHelpedByOneOnOne,
-      :group_decisions => decisionsHelpedByGroup,
-      :media_decisions => decisionsHelpedByMedia,
-      :graduating_on_mission => laborersSent,
-      :faculty_on_mission => faculty_sent,
-      :laborers_sent => laborersSent,
-      :students_involved => invldStudents,
-      :students_engaged => multipliers,
-      :student_leaders => studentLeaders,
-      :faculty_involved => faculty_involved,
-      :faculty_engaged => faculty_engaged,
-      :faculty_leaders => faculty_leaders,
+        :spiritual_conversations => spiritual_conversations,
+        :personal_exposures => evangelisticOneOnOne,
+        :personal_evangelism => evangelisticOneOnOne,
+        :group_exposures => evangelisticGroup,
+        :group_evangelism => evangelisticGroup,
+        :media_exposures => exposuresViaMedia,
+        :holy_spirit_presentations => holySpiritConversations,
+        :personal_decisions => decisionsHelpedByOneOnOne,
+        :group_decisions => decisionsHelpedByGroup,
+        :media_decisions => decisionsHelpedByMedia,
+        :graduating_on_mission => laborersSent,
+        :faculty_on_mission => faculty_sent,
+        :laborers_sent => laborersSent,
+        :students_involved => invldStudents,
+        :students_engaged => multipliers,
+        :student_leaders => studentLeaders,
+        :faculty_involved => faculty_involved,
+        :faculty_engaged => faculty_engaged,
+        :faculty_leaders => faculty_leaders,
     }
   end
-  
+
   def persisted?
     false
   end
@@ -49,7 +49,7 @@ class InfobaseReportRow
 
   def + (row)
     new = self.clone
-    Statistic.event_stats.each do |stat_type|
+    Statistic.weekly_stats.each do |stat_type|
       if new.instance_variable_get("@#{stat_type}").present? && row.instance_variable_get("@#{stat_type}").present?
         new.instance_variable_set("@#{stat_type}", new.instance_variable_get("@#{stat_type}") + row.instance_variable_get("@#{stat_type}"))
       elsif new.instance_variable_get("@#{stat_type}").present?
@@ -60,9 +60,9 @@ class InfobaseReportRow
     end
     new
   end
-  
+
   private
-  
+
   def set_stats
     event_stats = Statistic.event_stats
     if !@last_stats.empty?

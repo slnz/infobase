@@ -52,13 +52,30 @@ class InfobaseReport
   def self.create_report_intervals(from_date, to_date, activity_ids)
     stats = start_stats_query(from_date, to_date)
     stats = add_activities_clause(stats, activity_ids)
-    stats = sum_all_stats(stats)
+    stats = sum_weekly_stats(stats)
     stats = add_intervals_clause(stats)
-    stats = stats.order(Statistic.table_name + ".periodEnd")
+    stats = stats.order(Statistic.table_name + ".periodEnd").load
+
+    sem_results = []
+    from_date.step(to_date, 7) do |date|
+      last_end_date_ids = get_last_end_date_ids(date - 1.year, date)
+      sem_stats = start_stats_query(date - 1.year, date)
+      sem_stats = add_activities_clause(sem_stats, activity_ids)
+      sem_stats = sum_semester_stats(sem_stats)
+      sem_stats = sem_stats.where(Statistic.table_name + ".statisticID IN(?)", last_end_date_ids.collect(&:statisticID)).first
+      sem_stats.periodEnd = date.end_of_week(:sunday) if sem_stats
+      sem_results << sem_stats if sem_stats
+    end
+    sem_results.compact!
 
     rows = []
-    stats.each do |stat|
-      rows << InfobaseReportRow.new(stat.periodEnd.to_s, stat, [stat], nil, true)
+    from_date.step(to_date, 7) do |date|
+      date = date.end_of_week(:sunday)
+      stat = get_stat_record(stats, date)
+      semester_stats = get_stat_record(sem_results, date)
+      name = stat.periodEnd.to_s if stat
+      name ||= semester_stats.periodEnd.to_s if semester_stats
+      rows << InfobaseReportRow.new(name, stat, [semester_stats].compact, nil, true) if name
     end
     InfobaseReport.new(rows, "Weekly")
   end
@@ -304,5 +321,15 @@ class InfobaseReport
     stats_ids_query = Statistic.select(Statistic.table_name + ".statisticID").
         joins("INNER JOIN (" + max_dates_query.to_sql + " ) last_dates ON " + Statistic.table_name + ".fk_activity = last_dates.fk_activity AND " + Statistic.table_name + ".periodEnd = last_dates.periodEnd")
     stats_ids_query
+  end
+
+  def self.get_stat_record(stats_array, date)
+    while !stats_array.empty? && stats_array.first.periodEnd < date do
+      stats_array.shift
+    end
+
+    result = nil
+    result = stats_array.first if !stats_array.empty? && stats_array.first.periodEnd == date
+    result
   end
 end
