@@ -52,10 +52,10 @@ class Api::V1::StatisticsController < Api::V1::BaseController
     interval = params[:interval] if params.has_key?(:interval)
     interval ||= 1 # in weeks
 
-    report = InfobaseReport.create_report_intervals(begin_date, end_date, activity_ids, semester_needed)
+    report = InfobaseReport.create_report_intervals(begin_date, end_date, activity_ids, semester_needed, interval)
 
     response = {}
-    period_end_date = begin_date.end_of_week(:sunday) + interval.weeks
+    period_end_date = begin_date.end_of_week(:sunday) + (interval - 1).weeks
     temp_row = InfobaseReportRow.new(period_end_date.to_s)
     report.rows.each do |row|
       date = Date.parse(row.name)

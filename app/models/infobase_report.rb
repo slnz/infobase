@@ -49,7 +49,7 @@ class InfobaseReport
     InfobaseReport.new([InfobaseReportRow.new("stats", stats.first, last_stats)], "stats")
   end
 
-  def self.create_report_intervals(from_date, to_date, activity_ids, semester_needed = true)
+  def self.create_report_intervals(from_date, to_date, activity_ids, semester_needed = true, interval = 1)
     stats = start_stats_query(from_date, to_date)
     stats = add_activities_clause(stats, activity_ids)
     stats = sum_weekly_stats(stats)
@@ -58,7 +58,8 @@ class InfobaseReport
 
     sem_results = []
     if semester_needed
-      from_date.step(to_date, 7) do |date|
+      first_week = from_date + (interval - 1).weeks
+      first_week.step(to_date, interval * 7) do |date|
         last_end_date_ids = get_last_end_date_ids(date - 1.year, date)
         sem_stats = start_stats_query(date - 1.year, date)
         sem_stats = add_activities_clause(sem_stats, activity_ids)
