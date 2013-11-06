@@ -49,7 +49,7 @@ class InfobaseReport
     InfobaseReport.new([InfobaseReportRow.new("stats", stats.first, last_stats)], "stats")
   end
 
-  def self.create_report_intervals(from_date, to_date, activity_ids)
+  def self.create_report_intervals(from_date, to_date, activity_ids, semester_needed = true)
     stats = start_stats_query(from_date, to_date)
     stats = add_activities_clause(stats, activity_ids)
     stats = sum_weekly_stats(stats)
@@ -57,16 +57,18 @@ class InfobaseReport
     stats = stats.order(Statistic.table_name + ".periodEnd").load
 
     sem_results = []
-    from_date.step(to_date, 7) do |date|
-      last_end_date_ids = get_last_end_date_ids(date - 1.year, date)
-      sem_stats = start_stats_query(date - 1.year, date)
-      sem_stats = add_activities_clause(sem_stats, activity_ids)
-      sem_stats = sum_semester_stats(sem_stats)
-      sem_stats = sem_stats.where(Statistic.table_name + ".statisticID IN(?)", last_end_date_ids).first
-      sem_stats.periodEnd = date.end_of_week(:sunday) if sem_stats
-      sem_results << sem_stats if sem_stats
+    if semester_needed
+      from_date.step(to_date, 7) do |date|
+        last_end_date_ids = get_last_end_date_ids(date - 1.year, date)
+        sem_stats = start_stats_query(date - 1.year, date)
+        sem_stats = add_activities_clause(sem_stats, activity_ids)
+        sem_stats = sum_semester_stats(sem_stats)
+        sem_stats = sem_stats.where(Statistic.table_name + ".statisticID IN(?)", last_end_date_ids).first
+        sem_stats.periodEnd = date.end_of_week(:sunday) if sem_stats
+        sem_results << sem_stats if sem_stats
+      end
+      sem_results.compact!
     end
-    sem_results.compact!
 
     rows = []
     from_date.step(to_date, 7) do |date|
