@@ -43,7 +43,7 @@ class InfobaseReport
     last_end_date_ids = get_last_end_date_ids(first_sem_date, semester_date)
     last_stats = start_stats_query(first_sem_date, semester_date)
     last_stats = add_activities_clause(last_stats, activity_ids).
-        where(Statistic.table_name + ".statisticID IN (?)", last_end_date_ids.collect(&:statisticID))
+        where(Statistic.table_name + ".statisticID IN (?)", last_end_date_ids)
     last_stats = sum_semester_stats(last_stats)
 
     InfobaseReport.new([InfobaseReportRow.new("stats", stats.first, last_stats)], "stats")
@@ -62,7 +62,7 @@ class InfobaseReport
       sem_stats = start_stats_query(date - 1.year, date)
       sem_stats = add_activities_clause(sem_stats, activity_ids)
       sem_stats = sum_semester_stats(sem_stats)
-      sem_stats = sem_stats.where(Statistic.table_name + ".statisticID IN(?)", last_end_date_ids.collect(&:statisticID)).first
+      sem_stats = sem_stats.where(Statistic.table_name + ".statisticID IN(?)", last_end_date_ids).first
       sem_stats.periodEnd = date.end_of_week(:sunday) if sem_stats
       sem_results << sem_stats if sem_stats
     end
@@ -93,7 +93,7 @@ class InfobaseReport
 
         last_end_date_ids = get_last_end_date_ids(from_date, to_date)
         last_stats = start_national_query(from_date, to_date, strategies, region, type).
-            where(Statistic.table_name + ".statisticID IN (?)", last_end_date_ids.collect(&:statisticID))
+            where(Statistic.table_name + ".statisticID IN (?)", last_end_date_ids)
         last_stats = sum_semester_stats(last_stats)
       else
         stats = sum_event_stats(stats)
@@ -114,7 +114,7 @@ class InfobaseReport
 
       last_end_date_ids = get_last_end_date_ids(from_date, to_date)
       last_stats = start_regional_query(from_date, to_date, strategies, region, team).
-          where(Statistic.table_name + ".statisticID IN (?)", last_end_date_ids.collect(&:statisticID))
+          where(Statistic.table_name + ".statisticID IN (?)", last_end_date_ids)
       last_stats = sum_semester_stats(last_stats)
 
       if (team.is_active? && team.is_responsible_for_strategies_in_region?(strategies, region)) || !stats.empty?
@@ -312,8 +312,9 @@ class InfobaseReport
         select("MAX(" + Statistic.table_name + ".periodEnd) as periodEnd").
         group(Statistic.table_name + ".fk_Activity")
     # This query finds the list of statistic ids that go along with the above query
-    stats_ids_query = Statistic.select(Statistic.table_name + ".statisticID").
-        joins("INNER JOIN (" + max_dates_query.to_sql + " ) last_dates ON " + Statistic.table_name + ".fk_activity = last_dates.fk_activity AND " + Statistic.table_name + ".periodEnd = last_dates.periodEnd")
+    stats_ids_query = Statistic.
+        joins("INNER JOIN (" + max_dates_query.to_sql + " ) last_dates ON " + Statistic.table_name + ".fk_activity = last_dates.fk_activity AND " + Statistic.table_name + ".periodEnd = last_dates.periodEnd").
+        pluck(:statisticID)
     stats_ids_query
   end
 
