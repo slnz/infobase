@@ -2,7 +2,7 @@ class Api::V1::TeamsController < Api::V1::BaseController
 
   def index
     order = params[:order] || 'name'
-    teams = params[:include_inactive] == 'true' ? Team.active : Team.all
+    teams = params[:include_inactive] == 'true' ? Team.all : Team.active
     
     teams = TeamFilter.new(params[:filters]).filter(teams)
 
@@ -12,7 +12,7 @@ class Api::V1::TeamsController < Api::V1::BaseController
   private
 
   def available_includes
-    {people: [:phone_numbers, :email_addresses]}
+    [{people: [:phone_numbers, :email_addresses]}, :activities]
   end
 
 end
