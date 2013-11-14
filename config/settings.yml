@@ -3,6 +3,7 @@ defaults: &defaults
   cas_url: 'https://casdev.gcx.org'
   secret_key_base: '830c37d4854f286d31e8ce512723aa435027cb0486a60429aa45ee907e66c62f08ab4faf8b8559b4'
   secret_token: '91a12aadddea7ffa57a1eba4e13a867e2ffffcf6c75964d2b58f24b79d24b34eba040b88a411d069'
+  geocode_key: 'fake'
 
 development:
   <<: *defaults

@@ -1,12 +1,13 @@
 GIT
   remote: https://github.com/CruGlobal/common_engine.git
-  revision: b889f36b0beca0f2345f11b29e1d09959ff662d3
-  ref: b889f36b0beca0f2345f11b29e1d09959ff662d3
+  revision: 1358f85ca8577cebd6ef5069b2c3167651e78106
+  ref: 1358f85
   specs:
     common_engine (0.0.1)
       aasm (~> 3.0.9)
       acts_as_list (~> 0.3.0)
       auto_strip_attributes (~> 2.0)
+      geocoder
       global_registry
       rails (>= 3.0.0)
       rubycas-client
@@ -115,6 +116,7 @@ GEM
       railties (>= 3.0.0)
     ffi (1.9.3)
     formatador (0.2.4)
+    geocoder (1.1.8)
     global_registry (1.0.1)
       activesupport
       oj (~> 2.1.0)
@@ -299,6 +301,7 @@ DEPENDENCIES
   dynamic_form
   factory_girl_rails
   gcx_api!
+  geocoder
   guard (>= 2.1.0)
   guard-rails
   guard-rspec
