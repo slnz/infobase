@@ -65,11 +65,7 @@ gem 'oj'
 gem 'will_paginate'
 gem 'geocoder'
 
-group :production do
-  # gem 'ruby-oci8'
-  # gem 'activerecord-oracle_enhanced-adapter'
-  gem 'rack-google_analytics', :require => "rack/google_analytics"
-end
+gem 'rack-google_analytics', :require => "rack/google_analytics"
 
 group :development, :test do
   gem 'rspec-rails'
