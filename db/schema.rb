@@ -2244,8 +2244,8 @@ ActiveRecord::Schema.define(version: 20131114162222) do
     t.boolean  "ongoing_special_event",                                       default: false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.decimal  "lat",                                precision: 11, scale: 7
-    t.decimal  "lon",                                precision: 11, scale: 7
+    t.decimal  "latitude",                           precision: 11, scale: 7
+    t.decimal  "longitude",                          precision: 11, scale: 7
   end
 
   add_index "ministry_targetarea", ["country"], name: "index4", using: :btree
@@ -2997,7 +2997,7 @@ ActiveRecord::Schema.define(version: 20131114162222) do
   add_index "pr_elements", ["slug"], name: "index_pr_elements_on_slug", using: :btree
 
   create_table "pr_email_templates", force: true do |t|
-    t.string   "name",       limit: 1000, null: false
+    t.string   "name",       limit: 100, default: "", null: false
     t.text     "content"
     t.boolean  "enabled"
     t.string   "subject"
@@ -3005,7 +3005,7 @@ ActiveRecord::Schema.define(version: 20131114162222) do
     t.datetime "updated_at"
   end
 
-  add_index "pr_email_templates", ["name"], name: "index_pr_email_templates_on_name", length: {"name"=>255}, using: :btree
+  add_index "pr_email_templates", ["name"], name: "index_pr_email_templates_on_name", using: :btree
 
   create_table "pr_page_elements", force: true do |t|
     t.integer  "page_id"
@@ -3268,7 +3268,6 @@ ActiveRecord::Schema.define(version: 20131114162222) do
   add_index "si_conditions", ["trigger_id"], name: "trigger_id", using: :btree
 
   create_table "si_elements", force: true do |t|
-    t.integer  "question_sheet_id",                                    null: false
     t.integer  "page_id"
     t.string   "kind",                      limit: 40,                 null: false
     t.string   "style",                     limit: 40
@@ -3276,7 +3275,6 @@ ActiveRecord::Schema.define(version: 20131114162222) do
     t.text     "content"
     t.boolean  "required"
     t.string   "slug",                      limit: 36
-    t.integer  "position",                                             null: false
     t.boolean  "is_confidential",                      default: false
     t.string   "source"
     t.string   "value_xpath"
@@ -3298,8 +3296,7 @@ ActiveRecord::Schema.define(version: 20131114162222) do
     t.integer  "max_length"
   end
 
-  add_index "si_elements", ["position"], name: "index_si_elements_on_position", using: :btree
-  add_index "si_elements", ["question_sheet_id", "position", "page_id"], name: "index_si_elements_on_question_sheet_id_and_position_and_page_id", using: :btree
+  add_index "si_elements", ["page_id"], name: "index_si_elements_on_question_sheet_id_and_position_and_page_id", using: :btree
   add_index "si_elements", ["slug"], name: "index_si_elements_on_slug", using: :btree
 
   create_table "si_email_templates", force: true do |t|
@@ -3331,7 +3328,7 @@ ActiveRecord::Schema.define(version: 20131114162222) do
   add_index "si_pages", ["question_sheet_id", "number"], name: "page_number", unique: true, using: :btree
 
   create_table "si_payments", force: true do |t|
-    t.integer  "apply_id",           null: false
+    t.integer  "answer_sheet_id",    null: false
     t.string   "payment_type"
     t.string   "amount"
     t.string   "payment_account_no"
@@ -3341,7 +3338,7 @@ ActiveRecord::Schema.define(version: 20131114162222) do
     t.datetime "updated_at"
   end
 
-  add_index "si_payments", ["apply_id"], name: "apply_id", using: :btree
+  add_index "si_payments", ["answer_sheet_id"], name: "apply_id", using: :btree
 
   create_table "si_question_options", force: true do |t|
     t.integer  "question_id"
@@ -3446,12 +3443,10 @@ ActiveRecord::Schema.define(version: 20131114162222) do
     t.text     "settings"
     t.string   "needs_merge"
     t.string   "password_plain"
-    t.integer  "global_registry_id",        limit: 8
   end
 
   add_index "simplesecuritymanager_user", ["email"], name: "index_simplesecuritymanager_user_on_email", unique: true, using: :btree
   add_index "simplesecuritymanager_user", ["fb_user_id"], name: "index_simplesecuritymanager_user_on_fb_user_id", using: :btree
-  add_index "simplesecuritymanager_user", ["global_registry_id"], name: "index_simplesecuritymanager_user_on_global_registry_id", using: :btree
   add_index "simplesecuritymanager_user", ["globallyUniqueID"], name: "globallyUniqueID", unique: true, using: :btree
   add_index "simplesecuritymanager_user", ["username"], name: "CK_simplesecuritymanager_user_username", unique: true, using: :btree
 
@@ -3872,7 +3867,7 @@ ActiveRecord::Schema.define(version: 20131114162222) do
   add_index "sp_elements", ["slug"], name: "index_sp_elements_on_slug", using: :btree
 
   create_table "sp_email_templates", force: true do |t|
-    t.string   "name",       limit: 1000, null: false
+    t.string   "name",       limit: 100, default: "", null: false
     t.text     "content"
     t.boolean  "enabled"
     t.string   "subject"
@@ -3880,7 +3875,7 @@ ActiveRecord::Schema.define(version: 20131114162222) do
     t.datetime "updated_at"
   end
 
-  add_index "sp_email_templates", ["name"], name: "index_sp_email_templates_on_name", length: {"name"=>255}, using: :btree
+  add_index "sp_email_templates", ["name"], name: "index_sp_email_templates_on_name", using: :btree
 
   create_table "sp_evaluations", force: true do |t|
     t.integer "application_id",                     null: false

@@ -11,6 +11,7 @@ Infobase::Application.routes.draw do
       resources :ministries
       resources :regions
       resources :teams
+      resources :target_areas
       resources :users
       resources :activities
 
@@ -31,9 +32,9 @@ Infobase::Application.routes.draw do
       end
     end
   end
-  
+
   resources :infobase_report_rows
-  
+
   resources :teams do
     collection do
       get :search
