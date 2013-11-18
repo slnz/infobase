@@ -32,6 +32,6 @@ class Api::V1::PeopleController < Api::V1::BaseController
   private
 
   def available_includes
-    [:addresses, :email_addresses, :phone_numbers, :addresses]
+    [:current_address, :email_addresses, :phone_numbers]
   end
 end

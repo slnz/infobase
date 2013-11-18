@@ -27,7 +27,15 @@ module CruEnhancements
       includes.each do |rel|
         include!(rel.to_sym) if self.class::INCLUDES.include?(rel.to_sym)
       end
+    else
+      super
     end
+  end
+
+  def attributes
+    hash = super
+    hash.delete_if {|k, v| v.blank?}
+    hash
   end
 
 end

@@ -9,6 +9,12 @@ class PersonSerializer < ActiveModel::Serializer
              :birth_date, :date_became_christian, :graduation_date, :is_secure,
              :ministry, :strategy, :fb_uid, :siebel_contact_id, :global_registry_id, :user_id
 
+  has_one :address
+
+  def address
+    object.current_address
+  end
+
   def is_staff
     object.isStaff?
   end
