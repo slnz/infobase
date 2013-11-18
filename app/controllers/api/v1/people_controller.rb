@@ -1,5 +1,18 @@
 class Api::V1::PeopleController < Api::V1::BaseController
 
+  def index
+    order = params[:order] || 'lastName, firstName'
+
+    filtered_people = Person.where("firstName is not null and firstName <> ''")
+    unless params[:include_secure] == 'true'
+      filtered_people = filtered_people.not_secure
+    end
+
+    filtered_people = PersonFilter.new(params[:filters]).filter(filtered_people)
+
+    render render_options(filtered_people, order)
+  end
+
   def is_staff
     results = {}
     person_ids = params[:people].split(',')
@@ -14,5 +27,11 @@ class Api::V1::PeopleController < Api::V1::BaseController
     end
 
     render json: {people: results}
+  end
+
+  private
+
+  def available_includes
+    [:addresses, :email_addresses, :phone_numbers, :addresses]
   end
 end
