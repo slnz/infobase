@@ -1,3 +1,5 @@
+require_dependency 'cru_enhancements'
+
 class UserSerializer < ActiveModel::Serializer
   INCLUDES = [:authentications]
   include CruEnhancements

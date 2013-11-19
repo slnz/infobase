@@ -1,3 +1,5 @@
+require_dependency 'cru_enhancements'
+
 class PersonSerializer < ActiveModel::Serializer
   INCLUDES = [:phone_numbers, :email_addresses]
   include CruEnhancements

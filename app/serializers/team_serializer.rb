@@ -1,4 +1,5 @@
 require_dependency 'cru_enhancements'
+
 class TeamSerializer < ActiveModel::Serializer
   INCLUDES = [:people, :activities]
   include CruEnhancements
