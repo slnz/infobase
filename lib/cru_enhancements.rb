@@ -2,9 +2,6 @@ module CruEnhancements
   extend ActiveSupport::Concern
 
   included do |c|
-    alias_method :original_attributes, :attributes
-    alias_method :old_include_associations!, :include_associations!
-
     if defined?(c::INCLUDES)
       has_many *c::INCLUDES
 
@@ -12,17 +9,6 @@ module CruEnhancements
         define_method(relationship) do
           add_since(object.send(relationship))
         end
-      end
-    end
-
-    def include_associations!
-      includes = scope[:include] if scope.is_a? Hash
-      if includes.present? && defined?(self.class::INCLUDES)
-        includes.each do |rel|
-          include!(rel.to_sym) if self.class::INCLUDES.include?(rel.to_sym)
-        end
-      else
-        old_include_associations!
       end
     end
   end
@@ -33,6 +19,23 @@ module CruEnhancements
     else
       rel
     end
+  end
+
+  def include_associations!
+    includes = scope[:include] if scope.is_a? Hash
+    if includes.present? && defined?(self.class::INCLUDES)
+      includes.each do |rel|
+        include!(rel.to_sym) if self.class::INCLUDES.include?(rel.to_sym)
+      end
+    else
+      super
+    end
+  end
+
+  def attributes
+    hash = super
+    hash.delete_if {|k, v| v.blank?}
+    hash
   end
 
 end

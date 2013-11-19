@@ -42,7 +42,7 @@ end
 # gem 'debugger', group: [:development, :test]
 
 #gem 'common_engine', path: '/home/justin/cmde/work_rails/common_engine'
-gem 'common_engine', git: 'https://github.com/CruGlobal/common_engine.git', ref: 'b889f36b0beca0f2345f11b29e1d09959ff662d3'
+gem 'common_engine', git: 'https://github.com/CruGlobal/common_engine.git', ref: '8c1a384'
 gem 'qe', git: 'https://github.com/CruGlobal/qe.git', ref: '4421d63824f2f07fa9050c1971a3bae97844cfd3'
 gem 'mysql2'
 gem 'dynamic_form'
@@ -63,12 +63,9 @@ gem 'awesome_print'
 gem 'gcx_api', git: 'https://github.com/CruGlobal/gcx_api.git'
 gem 'oj'
 gem 'will_paginate'
+gem 'geocoder'
 
-group :production do
-  # gem 'ruby-oci8'
-  # gem 'activerecord-oracle_enhanced-adapter'
-  gem 'rack-google_analytics', :require => "rack/google_analytics"
-end
+gem 'rack-google_analytics', :require => "rack/google_analytics"
 
 group :development, :test do
   gem 'rspec-rails'
@@ -88,7 +85,7 @@ group :development, :test do
 
   gem 'awesome_print'
 
-  gem "better_errors"
+  gem 'better_errors'
   #gem "binding_of_caller"
 end
 

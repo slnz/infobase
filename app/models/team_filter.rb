@@ -12,7 +12,7 @@ class TeamFilter
     filtered_teams = teams
 
     if @filters[:name]
-      filtered_teams = filtered_teams.where("#{Team.table_name}.name" => @filters[:name])
+      filtered_teams = filtered_teams.where("#{Team.table_name}.name like ?", "%#{@filters[:name]}%")
     end
 
     filtered_teams
