@@ -42,7 +42,7 @@ end
 # gem 'debugger', group: [:development, :test]
 
 #gem 'common_engine', path: '/home/justin/cmde/work_rails/common_engine'
-gem 'common_engine', git: 'https://github.com/CruGlobal/common_engine.git', ref: '8c1a384'
+gem 'common_engine', git: 'https://github.com/CruGlobal/common_engine.git'
 gem 'qe', git: 'https://github.com/CruGlobal/qe.git', ref: '4421d63824f2f07fa9050c1971a3bae97844cfd3'
 gem 'mysql2'
 gem 'dynamic_form'
