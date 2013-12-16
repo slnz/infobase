@@ -27,6 +27,6 @@
     As entered by <%= @person.full_name %>, <%= @person.email %> on <%= Time.now.to_s %><br/>
     <br/>
     Please click to approve/edit this proposal: <br/>
-    <%= link_to "Proposed New Team", new_location_url(:host => @host) + @request_params %>
+    <%= link_to "Proposed New Location", new_location_url(:host => @host) + @request_params %>
   </body>
 </html>

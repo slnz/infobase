@@ -6,4 +6,9 @@ class Api::V1::MinistriesController < Api::V1::BaseController
     render render_options(ministries, params[:order] || 'name')
   end
 
+  def show
+    ministry = Ministry.find(params[:id])
+
+    render render_options(ministry)
+  end
 end

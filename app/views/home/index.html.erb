@@ -23,7 +23,7 @@
   <h3 class="body-header">Type of Information:</h3>   
   <%= form_tag advanced_search_results_path do %>
     <div class="formText">
-      <%= radio_button_tag :type, "people" %>&nbsp;&nbsp;Person<br/>
+      <%= radio_button_tag :type, "people", checked: true %>&nbsp;&nbsp;Person<br/>
       <%= radio_button_tag :type, "locations" %>&nbsp;&nbsp;Location<br/>
       <%= radio_button_tag :type, "teams" %>&nbsp;&nbsp;Team<br/>
       <br/>

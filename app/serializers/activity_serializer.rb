@@ -1,3 +1,5 @@
+require_dependency 'cru_enhancements'
+
 class ActivitySerializer < ActiveModel::Serializer
   has_one :target_area
 

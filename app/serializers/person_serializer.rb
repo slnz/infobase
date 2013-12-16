@@ -1,3 +1,4 @@
+require_dependency 'cru_enhancements'
 class PersonSerializer < ActiveModel::Serializer
   INCLUDES = [:phone_numbers, :email_addresses]
   include CruEnhancements
@@ -7,6 +8,12 @@ class PersonSerializer < ActiveModel::Serializer
              :marital_status, :is_child, :created_at, :updated_at, :created_by, :changed_by,
              :birth_date, :date_became_christian, :graduation_date, :is_secure,
              :ministry, :strategy, :fb_uid, :siebel_contact_id, :global_registry_id, :user_id
+
+  has_one :address
+
+  def address
+    object.current_address
+  end
 
   def is_staff
     object.isStaff?

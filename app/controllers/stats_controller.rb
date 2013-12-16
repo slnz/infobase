@@ -108,7 +108,7 @@ class StatsController < ApplicationController
   end
 
   def update
-    @requested_week = Time.parse(params[:date]).beginning_of_week(:sunday) if params[:date]
+    @requested_week = Date.parse(params[:date]).beginning_of_week(:sunday) if params[:date]
     @username = current_user.username
     @strategy = params[:strategy]
     @redirect = params[:redirect]
@@ -156,8 +156,8 @@ class StatsController < ApplicationController
   end
   
   def get_date_params
-    @current_week = Time.now.beginning_of_week(:sunday)
-    @requested_week = Time.parse(params[:date]).beginning_of_week(:sunday) if params[:date]
+    @current_week = Time.now.to_date.beginning_of_week(:sunday)
+    @requested_week = Date.parse(params[:date]).beginning_of_week(:sunday) if params[:date]
     @requested_week ||= @current_week
   end
   
