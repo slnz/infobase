@@ -151,11 +151,10 @@ class StatsController < ApplicationController
       if total_involvement != ""
         if @movement.status != total_involvement
           movement_status_message = " Your movement status has been updated to: " + Activity.statuses[total_involvement].to_s
+          @movement.update_attributes_add_history({:status => total_involvement, "periodBegin(1i)" => Time.now.year.to_s, "periodBegin(2i)" => Time.now.month.to_s, "periodBegin(3i)" => Time.now.day.to_s}, @current_user)
         else
           movement_status_message = ""
         end
-
-        @movement.update_attributes_add_history({:status => total_involvement, "periodBegin(1i)" => Time.now.year.to_s, "periodBegin(2i)" => Time.now.month.to_s, "periodBegin(3i)" => Time.now.day.to_s}, @current_user)
       end
     end
     if @stats.empty? && @redirect
