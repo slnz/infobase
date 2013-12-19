@@ -5,12 +5,13 @@ class MovementReportsController < ApplicationController
   def create_report
     @regions = {"All" => "National"}.merge(Region.standard_regions_hash)
     @strategies = Activity.visible_strategies
+    @statuses = Activity.visible_statuses
   end
 
   def do_report
     date = Date.civil(params["date(1i)"].to_i, params["date(2i)"].to_i, params["date(3i)"].to_i)
     date = date.end_of_month
-    redirect_to movement_report_path({:type => params[:type], :date => date, :strategies => params[:strategies], :order => params[:order], :regions => params[:region]})
+    redirect_to movement_report_path({:type => params[:type], :date => date, :strategies => params[:strategies], :order => params[:order], :regions => params[:region], :movementstatus => params[:movementstatus],})
   end
   
   def movement_report
@@ -19,11 +20,12 @@ class MovementReportsController < ApplicationController
     @strategies_list = params[:strategies]
     @order = params[:order]
     @region = params[:regions]
+    @movement_status_list = params[:movementstatus]
     if @region == "National"
       @region = Region.campus_region_codes
     end
     @report_title = title(@type)
-    @rows = InfobaseMovementReport.report(@type, @region, @date, @strategies_list, @order)
+    @rows = InfobaseMovementReport.report(@type, @region, @date, @strategies_list, @order, @movement_status_list)
     @enrollment_total = sum_enrollment(@rows, @type)
   end
 
