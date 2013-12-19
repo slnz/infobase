@@ -1,6 +1,6 @@
 class InfobaseMovementReport
   
-  def self.report(type, region, date, strategies, order)
+  def self.report(type, region, date, strategies, order, status)
     # This query finds the latest date for each activity_id that was before the given date
     max_dates_query = ActivityHistory.select(ActivityHistory.table_name + ".activity_id").
       select("MAX(" + ActivityHistory.table_name + ".period_begin) as period_begin").
@@ -15,7 +15,7 @@ class InfobaseMovementReport
       where(ActivityHistory.table_name + ".id IN (?)", history_ids_query.collect(&:id)).
       where(Activity.table_name + ".strategy IN (?)", strategies).
       where(TargetArea.table_name + ".isClosed is null OR " + TargetArea.table_name + ".isClosed = ''").
-      where(ActivityHistory.table_name + ".status IN (?)", Activity.active_statuses)
+      where(ActivityHistory.table_name + ".status IN (?)", status)
     result = region_clause(result, type, region)
     result = group_clause(result, type)
     order.each_key do |key|
