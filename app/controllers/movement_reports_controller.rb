@@ -18,6 +18,7 @@ class MovementReportsController < ApplicationController
     @type = params[:type]
     @date = params[:date]
     @strategies_list = params[:strategies]
+    @movement_status_list = params[:movementstatus]
     @order = params[:order]
     @region = params[:regions]
     @movement_status_list = params[:movementstatus]
