@@ -65,7 +65,7 @@ class Api::V1::StatisticsController < Api::V1::BaseController
         temp_row = row
       elsif report.rows.last == row # Last row.  Add 'em and report.
         temp_row = row + temp_row
-        response[temp_row.name] = temp_row
+        response[period_end_date] = temp_row
       else # Still within interval, just add records together.
         temp_row = row + temp_row
       end
