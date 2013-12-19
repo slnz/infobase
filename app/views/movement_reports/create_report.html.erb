@@ -36,6 +36,20 @@
             </ul>
           </div>
         </div>
+
+        <div class="field">
+          <label>Movement Status:</label>
+
+          <div class="box">
+            <ul style="list-style:none;background:none;height:auto;">
+              <% @statuses.each_key do |status| %>
+                  <li>
+                    <%= check_box_tag("movementstatus[]", status, {:checked=>true}) %><%=  Activity.statuses[status] %>
+                  </li>
+              <% end%>
+            </ul>
+          </div>
+        </div>
   
         <div class="clear"></div>
       </div>
