@@ -70,6 +70,10 @@ class PersonFilter
 
       filtered_people = filtered_people.where(gender: gender)
     end
+    
+    if @filters[:strategy]
+      filtered_people = filtered_people.where('strategy' => @filters[:strategy].split(','))
+    end
 
     filtered_people
   end
