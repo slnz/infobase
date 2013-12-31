@@ -6,7 +6,7 @@
     <% if no_link %>
       <%= row.name.to_s %>
     <% else %>
-      <%= link_to row.name.to_s, create_zoom_in_link(row, report.row_type, @from_date, @to_date, @strategies_list, @type, @team) %>
+      <%= link_to row.name.to_s, create_zoom_in_link(row, report.row_type, @from_date, @to_date, @strategies_list, @type, @team, @movement_status_list) %>
     <% end %>
     
   </td>

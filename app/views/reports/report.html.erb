@@ -15,6 +15,14 @@
       <% if !strategies.blank? %>
         Including strategies: <%= strategies.chop.chop %>
       <% end %>
+        <br/><br/>
+      <% statuses = "" %>
+      <% @movement_status_list.each do |status| %>
+          <% statuses += Activity.statuses[status] + ", " %>
+      <% end %>
+      <% if !statuses.blank? %>
+          Including movement statuses: <%= statuses.chop.chop %>
+      <% end %>
     </p>
 
     <% @reports.each do |report| %>
@@ -54,8 +62,8 @@
       <br/>
     <% end %>
     
-    <%= link_to "[Zoom Out to Team]<br/>".html_safe, team_report_path(@team.id, {:from => @from_date, :to => @to_date, :strategies => @strategies_list, :event_type => @type}) if @location && @team %>
-    <%= link_to "[Zoom Out to Regional]<br/>".html_safe, regional_report_path(@region, {:from => @from_date, :to => @to_date, :strategies => @strategies_list, :event_type => @type}) if @team %>
-    <%= link_to "[Zoom Out to National]<br/>".html_safe, national_report_path({:from => @from_date, :to => @to_date, :strategies => @strategies_list, :event_type => @type}) if @region %>
+    <%= link_to "[Zoom Out to Team]<br/>".html_safe, team_report_path(@team.id, {:from => @from_date, :to => @to_date, :strategies => @strategies_list, :movementstatus => @movement_status_list, :event_type => @type}) if @location && @team %>
+    <%= link_to "[Zoom Out to Regional]<br/>".html_safe, regional_report_path(@region, {:from => @from_date, :to => @to_date, :strategies => @strategies_list, :movementstatus => @movement_status_list, :event_type => @type}) if @team %>
+    <%= link_to "[Zoom Out to National]<br/>".html_safe, national_report_path({:from => @from_date, :to => @to_date, :strategies => @strategies_list, :movementstatus => @movement_status_list, :event_type => @type}) if @region %>
   </div>
 </div>

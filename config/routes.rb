@@ -58,10 +58,10 @@ Infobase::Application.routes.draw do
   end
   get 'teams/validate/:name' => 'teams#validate_name'
   get 'locations/validate/:name' => 'locations#validate_name'
-  get 'teams/region/:region/state/:state/city/:city' => 'teams#city', :as => :team_city, :constraints => { :city => /.+/ }
+  get 'teams/region/:region/state/:state/city/:city' => 'teams#city', :as => :team_city, :constraints => {:city => /.+/}
   get 'teams/region/:region/state/:state/:all' => 'teams#state', :as => :team_state_all
   get 'teams/region/:region/state/:state' => 'teams#state', :as => :team_state
-  get 'teams/region/:region/country/:country/city/:city' => 'teams#city', :as => :team_country_city, :constraints => { :city => /.+/ }
+  get 'teams/region/:region/country/:country/city/:city' => 'teams#city', :as => :team_country_city, :constraints => {:city => /.+/}
   get 'teams/region/:region/country/:country/:all' => 'teams#country', :as => :team_country_all
   get 'teams/region/:region/country/:country' => 'teams#country', :as => :team_country
   get 'teams/region/:region/:all' => 'teams#region', :as => :team_region_all
@@ -93,10 +93,10 @@ Infobase::Application.routes.draw do
       get :ministry
     end
   end
-  get 'locations/region/:region/state/:state/city/:city' => 'locations#city', :as => :location_city, :constraints => { :city => /.+/ }
+  get 'locations/region/:region/state/:state/city/:city' => 'locations#city', :as => :location_city, :constraints => {:city => /.+/}
   get 'locations/region/:region/state/:state/:all' => 'locations#state', :as => :location_state_all
   get 'locations/region/:region/state/:state' => 'locations#state', :as => :location_state
-  get 'locations/region/:region/country/:country/city/:city' => 'locations#city', :as => :location_country_city, :constraints => { :city => /.+/ }
+  get 'locations/region/:region/country/:country/city/:city' => 'locations#city', :as => :location_country_city, :constraints => {:city => /.+/}
   get 'locations/region/:region/country/:country/:all' => 'locations#country', :as => :location_country_all
   get 'locations/region/:region/country/:country' => 'locations#country', :as => :location_country
   get 'locations/region/:region/:all' => 'locations#region', :as => :location_region_all
