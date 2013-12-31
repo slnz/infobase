@@ -63,6 +63,9 @@ class Api::V1::StatisticsController < Api::V1::BaseController
         response[period_end_date] = temp_row
         period_end_date = bump_period_end_date(period_end_date, interval, date, response)
         temp_row = row
+        if report.rows.last == row # Last row as well.  Need to add to report.
+          response[period_end_date] = temp_row
+        end
       elsif report.rows.last == row # Last row.  Add 'em and report.
         temp_row = row + temp_row
         response[period_end_date] = temp_row
