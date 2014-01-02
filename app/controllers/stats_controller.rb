@@ -114,6 +114,7 @@ class StatsController < ApplicationController
     @redirect = params[:redirect]
     @stats = []
     total_leader_involvement = 0
+    movement_status_message = ""
     params[:stat].each_key do |key|
       stats = params[:stat][key]
       @movement = Activity.find(stats[:fk_Activity])
@@ -148,7 +149,6 @@ class StatsController < ApplicationController
           total_involvement = ""
       end
 
-      movement_status_message = ""
       if total_involvement != ""
         if @movement.status != total_involvement
           movement_status_message = " Your movement status has been updated to: " + Activity.statuses[total_involvement].to_s
