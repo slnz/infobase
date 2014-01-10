@@ -144,7 +144,6 @@ class InfobaseReport
 
       if type == "campus"
         stats = sum_weekly_stats(stats)
-
         max_end_date = activity.statistics.between_dates(from_date, to_date).maximum(Statistic.table_name + ".periodEnd")
         last_stats = start_team_query(from_date, to_date, strategies, activity, type, status).
             where(Statistic.table_name + ".periodEnd = ?", max_end_date)
