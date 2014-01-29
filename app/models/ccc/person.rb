@@ -21,6 +21,9 @@ class Ccc::Person < ActiveRecord::Base
   has_many :pr_summary_forms, class_name: 'Ccc::PrSummaryForm', dependent: :destroy
   has_many :pr_reminders, class_name: 'Ccc::PrReminder', dependent: :destroy
   has_many :pr_personal_forms, class_name: 'Ccc::PrPersonalForm', dependent: :destroy
+  has_many :person_accesses, class_name: 'Ccc::PersonAccess', dependent: :destroy
+  has_many :individual_accesses, class_name: 'Ccc::IndividualAccess', foreign_key: :person_id #dependent: :destroy
+
 
   has_many :sp_applications, class_name: 'Ccc::SpApplication'
   has_many :summer_projects, -> { where "sp_applications.status IN('accepted_as_participant', 'accepted_as_student_staff')" }, :class_name => "Ccc::SpProject", through: :sp_applications, source: :sp_project
@@ -145,6 +148,28 @@ class Ccc::Person < ActiveRecord::Base
       Ccc::PrReview.where(["subject_id = ? or initiator_id = ?", other.id, other.id]).each do |ua|
         ua.update_column(:subject_id, personID) if ua.subject_id == other.id
         ua.update_column(:initiator_id, personID) if ua.initiator_id == other.id
+      end
+
+      Ccc::IndividualAccess.where(["person_id = ? or grant_person_id = ?", other.id, other.id]).each do |ua|
+        ua.update_column(:person_id, personID) if ua.person_id == other.id
+        ua.update_column(:grant_person_id, personID) if ua.grant_person_id == other.id
+      end
+
+      loser = other.person_accesses
+      winner = person_accesses
+      if winner && loser
+        winner.national_access = loser.national_access if loser.national_access == 1
+        winner.regional_access = loser.regional_access if loser.regional_access == 1
+        winner.ics_access = loser.ics_access if loser.ics_access == 1
+        winner.intern_access = loser.intern_access if loser.intern_access == 1
+        winner.stint_access = loser.stint_access if loser.stint_access == 1
+        winner.mtl_access = loser.mtl_access if loser.mtl_access == 1
+        winner.individual_access = loser.individual_access if loser.individual_access == 1
+        winner.grant_individual_access = loser.grant_individual_access if loser.grant_individual_access == 1
+
+        winner.save  #???
+      elsif loser
+        loser.update_column(:person_id, personID)
       end
 
       other.pr_admins.update_all(person_id: personID)
