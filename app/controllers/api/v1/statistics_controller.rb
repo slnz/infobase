@@ -17,6 +17,17 @@ class Api::V1::StatisticsController < Api::V1::BaseController
   def index
     statistics = StatisticFilter.new(params[:filters]).filter(Statistic.all)
 
+    if params[:filters] && params[:filters][:period_begin] && params[:filters][:period_end]
+      statistics = case params[:collate_by]
+                     when 'activity'
+                       statistics.group('fk_Activity')
+                     else
+                       statistics.joins(activity: :target_area)
+                                 .includes(activity: :target_area)
+                                 .group('fk_targetAreaID')
+                   end
+    end
+
     render render_options(statistics)
   end
 
