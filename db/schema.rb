@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140123011640) do
+ActiveRecord::Schema.define(version: 20140201193451) do
 
   create_table "academic_departments", force: true do |t|
     t.string "name"
@@ -2238,6 +2238,7 @@ ActiveRecord::Schema.define(version: 20140123011640) do
 
   create_table "ministries", force: true do |t|
     t.string "name"
+    t.string "abbreviation"
   end
 
   create_table "ministry_activity", primary_key: "ActivityID", force: true do |t|
