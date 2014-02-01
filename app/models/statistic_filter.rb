@@ -11,8 +11,8 @@ class StatisticFilter
   def filter(statistics)
     filtered_statistics = statistics
 
-    if @filters[:period_begin]
-      if @filters[:period_end]
+    if @filters[:period_begin].present?
+      if @filters[:period_end].present?
         from_date = Date.parse(@filters[:period_begin]).beginning_of_week(:sunday)
         to_date = Date.parse(@filters[:period_end]).beginning_of_week(:sunday)
 
@@ -22,19 +22,19 @@ class StatisticFilter
       end
     end
 
-    if @filters[:activity_id]
+    if @filters[:activity_id].present?
       filtered_statistics = filtered_statistics.where("#{Statistic.table_name}.fk_Activity IN(?)", @filters[:activity_id].split(','))
     end
 
-    if @filters[:target_area_id]
+    if @filters[:target_area_id].present?
       filtered_statistics = filtered_statistics.joins(:activity).where("#{Activity.table_name}.fk_targetAreaID IN(?)", @filters[:target_area_id].split(','))
     end
 
-    if @filters[:movement_status]
+    if @filters[:movement_status].present?
       filtered_statistics = filtered_statistics.joins(:activity).where("#{Activity.table_name}.status IN(?)", @filters[:movement_status].split(','))
     end
 
-    if @filters[:ministry]
+    if @filters[:ministry].present?
       filtered_statistics = filtered_statistics.joins(:activity).where("#{Activity.table_name}.strategy IN(?)", @filters[:ministry].split(','))
     end
 
