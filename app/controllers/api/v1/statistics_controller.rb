@@ -17,7 +17,7 @@ class Api::V1::StatisticsController < Api::V1::BaseController
   def index
     statistics = StatisticFilter.new(params[:filters])
                                 .filter(Statistic.all)
-
+                                .includes(activity: :target_area)
 
     if params[:filters] && params[:filters][:period_begin] && params[:filters][:period_end]
       statistics = case params[:collate_by]
