@@ -31,7 +31,11 @@ class StatisticFilter
     end
 
     if @filters[:movement_status]
-      filtered_statistics = filtered_statistics.joins(:activity).where("#{Statistic.table_name}.status IN(?)", @filters[:movement_status].split(','))
+      filtered_statistics = filtered_statistics.joins(:activity).where("#{Activity.table_name}.status IN(?)", @filters[:movement_status].split(','))
+    end
+
+    if @filters[:ministry]
+      filtered_statistics = filtered_statistics.joins(:activity).where("#{Activity.table_name}.strategy IN(?)", @filters[:ministry].split(','))
     end
 
     filtered_statistics
