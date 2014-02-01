@@ -23,7 +23,7 @@ module CruEnhancements
 
   def include_associations!
     includes = scope[:include] if scope.is_a? Hash
-    if includes.present? && defined?(self.class::INCLUDES)
+    if includes && defined?(self.class::INCLUDES)
       includes.each do |rel|
         include!(rel.to_sym) if self.class::INCLUDES.include?(rel.to_sym)
       end
