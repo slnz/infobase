@@ -8,7 +8,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   include AuthenticatedSystem
-  before_filter :cas_filter, :authentication_filter, :check_user, :current_user, :except => [:no, :destroy]
+  before_filter :cas_filter, :authentication_filter, :check_user, :current_user, :except => ['no', 'destroy', 'logout', 'expire']
   before_filter :log_user, :except => [:destroy]
 
   def self.application_name
