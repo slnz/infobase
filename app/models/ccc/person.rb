@@ -155,22 +155,24 @@ class Ccc::Person < ActiveRecord::Base
         ua.update_column(:grant_person_id, personID) if ua.grant_person_id == other.id
       end
 
-      loser = other.person_accesses
-      winner = person_accesses
-      if winner && loser
-        winner.national_access = loser.national_access if loser.national_access == 1
-        winner.regional_access = loser.regional_access if loser.regional_access == 1
-        winner.ics_access = loser.ics_access if loser.ics_access == 1
-        winner.intern_access = loser.intern_access if loser.intern_access == 1
-        winner.stint_access = loser.stint_access if loser.stint_access == 1
-        winner.mtl_access = loser.mtl_access if loser.mtl_access == 1
-        winner.individual_access = loser.individual_access if loser.individual_access == 1
-        winner.grant_individual_access = loser.grant_individual_access if loser.grant_individual_access == 1
+      #if person_accesses && other.person_accesses                 #TODO - Tests in rspec for merge process!?!
+      #  person_accesses.merge(other.person_accesses)
+      #elsif other.person_accesses
+      #  other.person_accesses.update_column(:person_id, personID)
+      #end
 
-        winner.save  #???
-      elsif loser
-        loser.update_column(:person_id, personID)
+
+      Ccc::Person.where("personID = 103326").first.person_accesses   #TODO   DELETE
+      Ccc::PersonAccess.where("person_id = 103326").first
+
+      if other.person_accesses.first && person_accesses.first            #TODO - Tests in rspec for merge process!?!
+        person_accesses.each do |pa|
+          other.person_accesses.each { |opa| pa.merge(opa) }
+        end
+      elsif other.person_accesses
+        other.person_accesses.update_all(person_id: personID)
       end
+
 
       other.pr_admins.update_all(person_id: personID)
       other.pr_summary_forms.update_all(person_id: personID)
@@ -201,12 +203,21 @@ class Ccc::Person < ActiveRecord::Base
 
       other.sp_staff.each { |ua| ua.update_attribute(:person_id, personID) }
       other.sp_application_moves.each { |ua| ua.update_attribute(:moved_by_person_id, personID) }
+
+      other.sp_designation_numbers.each do |d|
+        begin
+          d.update_attribute(:person_id, personID)
+        rescue ActiveRecord::RecordNotUnique
+        end
+      end
       # end Summer Project Tool
 
-      other.si_applies.each { |ua| ua.update_attribute(:applicant_id, personID) }
 
+      # ministry staff table
       other.ministry_staff.each { |ua| ua.update_attribute(:person_id, personID) }
 
+
+      # STINT/Intern tools
       other.hr_si_applications.each do |ua|
         ua.update_attribute(:fk_personID, personID)
         ua.update_attribute(:fk_ssmUserID, fk_ssmUserId)
@@ -215,16 +226,13 @@ class Ccc::Person < ActiveRecord::Base
       other.si_applies.each { |ua| ua.update_attribute(:applicant_id, personID) }
       other.sitrack_mpd.each { |ua| ua.update_attribute(:person_id, personID) }
       other.sitrack_tracking.each { |ua| ua.update_attribute(:person_id, personID) }
+      # end STINT/Intern tools
+
 
       other.profile_pictures.each { |ua| ua.update_attribute(:person_id, personID) }
       other.ministry_missional_team_members.each { |ua| ua.update_attribute(:personID, personID) }
+
       other.rideshare_rides.each {|ua| ua.update_attribute(:person_id, personID) }
-      other.sp_designation_numbers.each do |d|
-        begin
-          d.update_attribute(:person_id, personID)
-        rescue ActiveRecord::RecordNotUnique
-        end
-      end
 
       Ccc::MergeAudit.create!(mergeable: self, merge_looser: other)
       other.reload

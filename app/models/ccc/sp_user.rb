@@ -7,12 +7,12 @@ class Ccc::SpUser < ActiveRecord::Base
 
   def merge(other)
 		roles = %w{SpNationalCoordinator SpDonationServices SpRegionalCoordinator SpDirector SpEvaluator SpProjectStaff SpGeneralStaff}
-		if other.type != nil && type != nil && roles.index(other.type) < roles.index(type)    #this last type is from self, but doesn't call it I guess - what is guideline of when to put self & when not to? - Ask Justin... #TODO
-   		self.type = other.type                                                            #self.type is used here
+		if other.type != nil && type != nil && roles.index(other.type) < roles.index(type)    # this last '(type)' call refers to self
+   		self.type = other.type                                                    # self.type is used explicitly here
 		end	
     other.reload
    	other.destroy
-		save                                                                          #save is called without using 'self' here...Ask Justin...
+		save                                                                  # this call to 'save' refers to self
   end
 
 end

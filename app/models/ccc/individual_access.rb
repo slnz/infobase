@@ -1,3 +1,6 @@
-class IndividualAccess < ActiveRecord::Base
-  belongs_to :person
+class Ccc::IndividualAccess < ActiveRecord::Base
+
+  self.table_name = 'individual_accesses'
+  #belongs_to :person, class_name: 'Ccc::Person'
+
 end
