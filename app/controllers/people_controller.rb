@@ -101,6 +101,10 @@ class PeopleController < ApplicationController
   def merge_preview
     render :nothing => true and return false unless params[:id].to_i > 0
     @person = Ccc::Person.find_by_personID(params[:id])
+    @emails = @person.email_addresses.pluck(:email) + @person.ministry_newaddresses.pluck(:email)
+    @emails = @emails.compact.reject(&:empty?).uniq.join(", ")
+    @phone_numbers = @person.phone_numbers.pluck(:number) + @person.ministry_newaddresses.pluck(:homePhone) + @person.ministry_newaddresses.pluck(:workPhone) + @person.ministry_newaddresses.pluck(:cellPhone)
+    @phone_numbers = @phone_numbers.compact.reject(&:empty?).uniq.join(", ")
     respond_to do |wants|
       wants.js {  }
     end
