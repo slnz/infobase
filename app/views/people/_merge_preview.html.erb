@@ -1,4 +1,8 @@
 <% if person %>
+    <% emails = person.email_addresses.pluck(:email) + person.ministry_newaddresses.pluck(:email)
+       emails = emails.compact.reject(&:empty?).uniq.join(", ")
+       phone_numbers = person.phone_numbers.pluck(:number) + person.ministry_newaddresses.pluck(:homePhone) + person.ministry_newaddresses.pluck(:workPhone) + person.ministry_newaddresses.pluck(:cellPhone)
+       phone_numbers = phone_numbers.compact.reject(&:empty?).uniq.join(", ") %>
     <strong>Person ID: <%= person.personID %></strong><br/>
     <strong>First Name:</strong> <%= person.firstName %><br/>
     <strong>Last Name:</strong> <%= person.lastName %><br/>
