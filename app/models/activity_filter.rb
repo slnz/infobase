@@ -20,6 +20,10 @@ class ActivityFilter
     if @filters[:team_id]
       filtered_activities = filtered_activities.where("#{Activity.table_name}.fk_teamID IN(?)", @filters[:team_id].split(','))
     end
+    
+    if @filters[:strategy]
+      filtered_activities = filtered_activities.where('strategy' => @filters[:strategy].split(','))
+    end
 
     filtered_activities
   end
