@@ -155,15 +155,6 @@ class Ccc::Person < ActiveRecord::Base
         ua.update_column(:grant_person_id, personID) if ua.grant_person_id == other.id
       end
 
-      #if person_accesses && other.person_accesses                 #TODO - Tests in rspec for merge process!?!
-      #  person_accesses.merge(other.person_accesses)
-      #elsif other.person_accesses
-      #  other.person_accesses.update_column(:person_id, personID)
-      #end
-
-
-      Ccc::Person.where("personID = 103326").first.person_accesses   #TODO   DELETE
-      Ccc::PersonAccess.where("person_id = 103326").first
 
       if other.person_accesses.first && person_accesses.first            #TODO - Tests in rspec for merge process!?!
         person_accesses.each do |pa|
