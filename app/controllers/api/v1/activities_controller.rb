@@ -9,6 +9,6 @@ class Api::V1::ActivitiesController < Api::V1::BaseController
   private
 
   def available_includes
-    [:target_area]
+    [:target_area, :contacts]
   end
 end
