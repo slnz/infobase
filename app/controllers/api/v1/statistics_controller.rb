@@ -110,7 +110,7 @@ class Api::V1::StatisticsController < Api::V1::BaseController
       @movement = Activity.find(stats[:activity_id])
       stat = @movement.get_stat_for(Date.parse(stats[:period_begin]))
       stats[:updated_by] = current_user
-      stat.attributes = stats.except(:id)
+      stat.attributes = stat_params(stats.except(:id))
       stat.save
       if stat.errors.present?
         @stats << stat.attributes.merge({:errors => stat.errors.to_hash})
@@ -133,5 +133,9 @@ class Api::V1::StatisticsController < Api::V1::BaseController
       result = result + interval.weeks
     end
     result
+  end
+
+  def stat_params(stat)
+    stat.permit(:activity_id, :period_begin, :period_end, :students_involved, :faculty_involved, :students_engaged, :faculty_engaged, :student_leaders, :spiritual_conversations, :holy_spirit_presentations, :personal_evangelism, :personal_decisions, :graduating_on_mission, :faculty_on_mission, :updated_by)
   end
 end
