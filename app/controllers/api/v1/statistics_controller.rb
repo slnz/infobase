@@ -136,6 +136,6 @@ class Api::V1::StatisticsController < Api::V1::BaseController
   end
 
   def stat_params(stat)
-    stat.permit(:activity_id, :period_begin, :period_end, :students_involved, :faculty_involved, :students_engaged, :faculty_engaged, :student_leaders, :spiritual_conversations, :holy_spirit_presentations, :personal_evangelism, :personal_decisions, :graduating_on_mission, :faculty_on_mission, :updated_by)
+    stat.permit(:activity_id, :period_begin, :period_end, :students_involved, :faculty_involved, :students_engaged, :faculty_engaged, :student_leaders, :faculty_leaders, :spiritual_conversations, :holy_spirit_presentations, :personal_evangelism, :personal_decisions, :graduating_on_mission, :faculty_on_mission, :group_evangelism, :group_decisions, :media_exposures, :media_decisions, :updated_by)
   end
 end
