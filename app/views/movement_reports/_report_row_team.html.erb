@@ -1,6 +1,8 @@
 <% klass = "muster_cell"%>
 <tr>
   <td class="<%= klass %>"><%= link_to row.team.name, team_path(row.team) %></td>
+  <td></td>
+  <td></td>
   <td class="<%= klass %>"><%= Region.full_name(row.team.region) %></td>
   <td class="<%= klass %>"><%= row.team.city %></td>
   <td class="<%= klass %>"><%= row.team.state %></td>
