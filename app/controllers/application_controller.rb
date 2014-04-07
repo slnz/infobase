@@ -95,4 +95,12 @@ class ApplicationController < ActionController::Base
     result = Date.parse("#{year}-08-01")
     result
   end
+
+  def _set_current_session
+    # Define an accessor. The session is always in the current controller
+    # instance in @_request.session. So we need a way to access this in
+    # our model
+    accessor = instance_variable_get(:@_request)
+    ActiveRecord::Base.send(:define_method, "session", proc {accessor.session})
+  end
 end
