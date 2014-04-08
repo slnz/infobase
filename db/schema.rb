@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140201193451) do
+ActiveRecord::Schema.define(version: 20140408172811) do
 
   create_table "academic_departments", force: true do |t|
     t.string "name"
@@ -972,71 +972,6 @@ ActiveRecord::Schema.define(version: 20140201193451) do
     t.string  "sortNames",   limit: 1000
   end
 
-  create_table "deleted_people", primary_key: "personID", force: true do |t|
-    t.string   "accountNo",                     limit: 11
-    t.string   "lastName",                      limit: 50
-    t.string   "firstName",                     limit: 50
-    t.string   "middleName",                    limit: 50
-    t.string   "preferredName",                 limit: 50
-    t.string   "gender",                        limit: 1
-    t.string   "region",                        limit: 5
-    t.boolean  "workInUS",                                                                  default: true,  null: false
-    t.boolean  "usCitizen",                                                                 default: true,  null: false
-    t.string   "citizenship",                   limit: 50
-    t.boolean  "isStaff"
-    t.string   "title",                         limit: 5
-    t.string   "campus",                        limit: 128
-    t.string   "universityState",               limit: 5
-    t.string   "yearInSchool",                  limit: 20
-    t.string   "major",                         limit: 70
-    t.string   "minor",                         limit: 70
-    t.string   "greekAffiliation",              limit: 50
-    t.string   "maritalStatus",                 limit: 20
-    t.string   "numberChildren",                limit: 2
-    t.boolean  "isChild",                                                                   default: false, null: false
-    t.text     "bio",                           limit: 2147483647
-    t.string   "image",                         limit: 100
-    t.string   "occupation",                    limit: 50
-    t.string   "blogfeed",                      limit: 200
-    t.datetime "cruCommonsInvite"
-    t.datetime "cruCommonsLastLogin"
-    t.datetime "dateCreated"
-    t.datetime "dateChanged"
-    t.string   "createdBy",                     limit: 50
-    t.string   "changedBy",                     limit: 50
-    t.integer  "fk_ssmUserId"
-    t.integer  "fk_StaffSiteProfileID"
-    t.integer  "fk_spouseID"
-    t.integer  "fk_childOf"
-    t.date     "birth_date"
-    t.date     "date_became_christian"
-    t.date     "graduation_date"
-    t.string   "level_of_school"
-    t.string   "staff_notes"
-    t.string   "donor_number",                  limit: 11
-    t.string   "url",                           limit: 2000
-    t.string   "isSecure",                      limit: 1
-    t.integer  "primary_campus_involvement_id"
-    t.integer  "mentor_id"
-    t.string   "lastAttended",                  limit: 20
-    t.string   "ministry"
-    t.string   "strategy",                      limit: 20
-    t.integer  "fb_uid",                        limit: 8
-    t.datetime "date_attributes_updated"
-    t.decimal  "balance_daily",                                    precision: 10, scale: 2
-    t.string   "siebel_contact_id"
-    t.string   "sp_gcx_site"
-  end
-
-  add_index "deleted_people", ["accountNo"], name: "accountNo_ministry_Person", using: :btree
-  add_index "deleted_people", ["campus"], name: "campus", using: :btree
-  add_index "deleted_people", ["fb_uid"], name: "index_ministry_person_on_fb_uid", using: :btree
-  add_index "deleted_people", ["firstName", "lastName"], name: "firstName_lastName", using: :btree
-  add_index "deleted_people", ["fk_ssmUserId"], name: "fk_ssmUserId", using: :btree
-  add_index "deleted_people", ["lastName"], name: "lastname_ministry_Person", using: :btree
-  add_index "deleted_people", ["region"], name: "region_ministry_Person", using: :btree
-  add_index "deleted_people", ["siebel_contact_id"], name: "index_ministry_person_on_siebel_contact_id", using: :btree
-
   create_table "email_addresses", force: true do |t|
     t.string   "email"
     t.integer  "person_id"
@@ -1394,26 +1329,6 @@ ActiveRecord::Schema.define(version: 20140201193451) do
 
   add_index "hr_si_payment", ["fk_ApplicationID"], name: "fk_ApplicationID", using: :btree
 
-  create_table "hr_si_payment_deprecated", primary_key: "paymentID", force: true do |t|
-    t.datetime "paymentDate"
-    t.float    "debit"
-    t.float    "credit"
-    t.string   "type",             limit: 80
-    t.string   "authCode",         limit: 80
-    t.string   "businessUnit",     limit: 50
-    t.string   "dept",             limit: 50
-    t.string   "region",           limit: 50
-    t.string   "project",          limit: 50
-    t.string   "accountNo",        limit: 80
-    t.string   "comment"
-    t.string   "posted",           limit: 1
-    t.datetime "postedDate"
-    t.integer  "fk_ApplicationID"
-    t.string   "paymentFor",       limit: 50
-  end
-
-  add_index "hr_si_payment_deprecated", ["fk_ApplicationID"], name: "fk_ApplicationID", using: :btree
-
   create_table "hr_si_project", primary_key: "SIProjectID", force: true do |t|
     t.string   "name"
     t.string   "partnershipRegion",             limit: 50
@@ -1647,149 +1562,6 @@ ActiveRecord::Schema.define(version: 20140201193451) do
   add_index "hr_si_reference", ["oldSIApplicationID"], name: "IX_hr_si_Reference_2006", using: :btree
   add_index "hr_si_reference", ["siYear"], name: "siYear", using: :btree
 
-  create_table "hr_si_reference_deprecated", primary_key: "referenceID", force: true do |t|
-    t.integer  "oldReferenceID"
-    t.string   "formWorkflowStatus", limit: 1
-    t.datetime "createDate"
-    t.datetime "lastChangedDate"
-    t.string   "lastChangedBy",      limit: 30
-    t.boolean  "isFormSubmitted"
-    t.datetime "formSubmittedDate"
-    t.string   "referenceType",      limit: 2
-    t.string   "title",              limit: 5
-    t.string   "firstName",          limit: 30
-    t.string   "lastName",           limit: 30
-    t.boolean  "isStaff"
-    t.string   "staffNumber",        limit: 16
-    t.string   "currentAddress1",    limit: 35
-    t.string   "currentAddress2",    limit: 35
-    t.string   "currentCity",        limit: 35
-    t.string   "currentState",       limit: 6
-    t.string   "currentZip",         limit: 10
-    t.string   "cellPhone",          limit: 24
-    t.string   "homePhone",          limit: 24
-    t.string   "workPhone",          limit: 24
-    t.string   "currentEmail",       limit: 50
-    t.string   "howKnown",           limit: 64
-    t.string   "howLongKnown",       limit: 64
-    t.integer  "howWellKnown"
-    t.integer  "howWellComm"
-    t.integer  "_rg1"
-    t.integer  "_rg2"
-    t.integer  "_rg3"
-    t.integer  "_rg4"
-    t.integer  "_rg5"
-    t.string   "_rg1c",              limit: 50
-    t.string   "_rg2c",              limit: 50
-    t.string   "_rg3c",              limit: 50
-    t.string   "_rg4c",              limit: 50
-    t.string   "_rg5c",              limit: 50
-    t.string   "_rg6",               limit: 8000
-    t.boolean  "_rg7"
-    t.text     "_rg8",               limit: 2147483647
-    t.text     "_rg9",               limit: 2147483647
-    t.integer  "_ro1"
-    t.integer  "_ro2"
-    t.integer  "_ro3"
-    t.integer  "_ro4"
-    t.integer  "_ro5"
-    t.integer  "_ro6"
-    t.integer  "_ro7"
-    t.string   "_ro1c",              limit: 50
-    t.string   "_ro2c",              limit: 50
-    t.string   "_ro3c",              limit: 50
-    t.string   "_ro4c",              limit: 50
-    t.string   "_ro5c",              limit: 50
-    t.string   "_ro6c",              limit: 50
-    t.string   "_ro7c",              limit: 50
-    t.text     "_ro8",               limit: 2147483647
-    t.text     "_ro9",               limit: 2147483647
-    t.text     "_ro10",              limit: 2147483647
-    t.integer  "_dd1"
-    t.integer  "_dd2"
-    t.integer  "_dd3"
-    t.integer  "_dd4"
-    t.string   "_dd1c",              limit: 50
-    t.string   "_dd2c",              limit: 50
-    t.string   "_dd3c",              limit: 50
-    t.string   "_dd4c",              limit: 50
-    t.text     "_dd5",               limit: 2147483647
-    t.text     "_dd6",               limit: 2147483647
-    t.integer  "_if1"
-    t.integer  "_if2"
-    t.integer  "_if3"
-    t.integer  "_if4"
-    t.string   "_if1c",              limit: 50
-    t.string   "_if2c",              limit: 50
-    t.string   "_if3c",              limit: 50
-    t.string   "_if4c",              limit: 50
-    t.text     "_if5",               limit: 2147483647
-    t.text     "_if6",               limit: 2147483647
-    t.integer  "_ch1"
-    t.integer  "_ch2"
-    t.integer  "_ch3"
-    t.integer  "_ch4"
-    t.integer  "_ch5"
-    t.string   "_ch1c",              limit: 50
-    t.string   "_ch2c",              limit: 50
-    t.string   "_ch3c",              limit: 50
-    t.string   "_ch4c",              limit: 50
-    t.string   "_ch5c",              limit: 50
-    t.text     "_ch6",               limit: 2147483647
-    t.text     "_ch7",               limit: 2147483647
-    t.text     "_ch8",               limit: 2147483647
-    t.integer  "_ew1"
-    t.integer  "_ew2"
-    t.integer  "_ew3"
-    t.integer  "_ew4"
-    t.integer  "_ew5"
-    t.string   "_ew1c",              limit: 50
-    t.string   "_ew2c",              limit: 50
-    t.string   "_ew3c",              limit: 50
-    t.string   "_ew4c",              limit: 50
-    t.string   "_ew5c",              limit: 50
-    t.text     "_ew6",               limit: 2147483647
-    t.boolean  "_ew7"
-    t.text     "_ew8",               limit: 2147483647
-    t.boolean  "_ew9"
-    t.text     "_ew10",              limit: 2147483647
-    t.integer  "_ms1"
-    t.integer  "_ms2"
-    t.integer  "_ms3"
-    t.integer  "_ms4"
-    t.string   "_ms1c",              limit: 50
-    t.string   "_ms2c",              limit: 50
-    t.string   "_ms3c",              limit: 50
-    t.string   "_ms4c",              limit: 50
-    t.text     "_ms5",               limit: 2147483647
-    t.integer  "_ls1"
-    t.integer  "_ls2"
-    t.integer  "_ls3"
-    t.integer  "_ls4"
-    t.integer  "_ls5"
-    t.string   "_ls1c",              limit: 50
-    t.string   "_ls2c",              limit: 50
-    t.string   "_ls3c",              limit: 50
-    t.string   "_ls4c",              limit: 50
-    t.string   "_ls5c",              limit: 50
-    t.text     "_ls6",               limit: 2147483647
-    t.text     "_ls7",               limit: 2147483647
-    t.text     "_ls8",               limit: 2147483647
-    t.text     "_re1",               limit: 2147483647
-    t.text     "_re2",               limit: 2147483647
-    t.text     "_re3",               limit: 2147483647
-    t.integer  "_re4"
-    t.text     "_re5",               limit: 2147483647
-    t.integer  "oldSIApplicationID"
-    t.integer  "fk_SIApplicationID"
-    t.string   "siYear",             limit: 4
-  end
-
-  add_index "hr_si_reference_deprecated", ["fk_SIApplicationID"], name: "fk_SIApplicationID", using: :btree
-  add_index "hr_si_reference_deprecated", ["oldReferenceID"], name: "oldReferenceID", using: :btree
-  add_index "hr_si_reference_deprecated", ["oldSIApplicationID"], name: "IX_hr_si_Reference_2006", using: :btree
-  add_index "hr_si_reference_deprecated", ["siYear"], name: "siYear", using: :btree
-
   create_table "hr_si_users", primary_key: "siUserID", force: true do |t|
     t.integer  "fk_ssmUserID"
     t.string   "role",           limit: 50
@@ -1938,6 +1710,8 @@ ActiveRecord::Schema.define(version: 20140201193451) do
     t.datetime "updated_at"
     t.integer  "survey_id"
   end
+
+  add_index "mh_answer_sheets", ["person_id", "survey_id"], name: "person_id_survey_id", using: :btree
 
   create_table "mh_answers", force: true do |t|
     t.integer  "answer_sheet_id",         null: false
@@ -2110,8 +1884,8 @@ ActiveRecord::Schema.define(version: 20140201193451) do
     t.datetime "upload_updated_at"
     t.text     "headers"
     t.text     "header_mappings"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
   end
 
   add_index "mh_imports", ["organization_id"], name: "index_mh_imports_on_organization_id", using: :btree
@@ -2211,6 +1985,8 @@ ActiveRecord::Schema.define(version: 20140201193451) do
     t.boolean  "archived",   default: false
   end
 
+  add_index "mh_survey_elements", ["survey_id", "element_id"], name: "survey_id_element_id", using: :btree
+
   create_table "mh_surveys", force: true do |t|
     t.string   "title",                 limit: 100, default: "",       null: false
     t.integer  "organization_id"
@@ -2237,8 +2013,9 @@ ActiveRecord::Schema.define(version: 20140201193451) do
   add_index "mh_surveys", ["organization_id"], name: "index_mh_surveys_on_organization_id", using: :btree
 
   create_table "ministries", force: true do |t|
-    t.string "name"
-    t.string "abbreviation"
+    t.string  "name"
+    t.string  "abbreviation"
+    t.integer "global_registry_id", limit: 8
   end
 
   create_table "ministry_activity", primary_key: "ActivityID", force: true do |t|
@@ -2247,8 +2024,8 @@ ActiveRecord::Schema.define(version: 20140201193451) do
     t.datetime "periodEnd_deprecated"
     t.string   "strategy",                 limit: 2
     t.string   "transUsername",            limit: 50
-    t.integer  "fk_targetAreaID",                     null: false
-    t.integer  "fk_teamID",                           null: false
+    t.integer  "fk_targetAreaID"
+    t.integer  "fk_teamID"
     t.string   "statusHistory_deprecated", limit: 2
     t.string   "url"
     t.string   "facebook"
@@ -2256,10 +2033,10 @@ ActiveRecord::Schema.define(version: 20140201193451) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "gcx_site"
+    t.integer  "global_registry_id",       limit: 8
   end
 
   add_index "ministry_activity", ["fk_targetAreaID", "strategy"], name: "index_ministry_activity_on_fk_targetareaid_and_strategy", unique: true, using: :btree
-  add_index "ministry_activity", ["fk_targetAreaID"], name: "fk_targetAreaID_idx", using: :btree
   add_index "ministry_activity", ["fk_targetAreaID"], name: "index1", using: :btree
   add_index "ministry_activity", ["fk_teamID"], name: "index2", using: :btree
   add_index "ministry_activity", ["periodBegin"], name: "index3", using: :btree
@@ -2528,9 +2305,11 @@ ActiveRecord::Schema.define(version: 20140201193451) do
     t.integer  "fb_uid",                        limit: 8
     t.datetime "date_attributes_updated"
     t.decimal  "balance_daily",                                    precision: 10, scale: 2
+    t.text     "organization_tree_cache"
+    t.text     "org_ids_cache"
     t.string   "siebel_contact_id"
-    t.string   "sp_gcx_site"
     t.integer  "global_registry_id"
+    t.string   "sp_gcx_site"
   end
 
   add_index "ministry_person", ["accountNo"], name: "accountNo_ministry_Person", using: :btree
@@ -2540,6 +2319,7 @@ ActiveRecord::Schema.define(version: 20140201193451) do
   add_index "ministry_person", ["fk_ssmUserId"], name: "fk_ssmUserId", using: :btree
   add_index "ministry_person", ["global_registry_id"], name: "index_ministry_person_on_global_registry_id", using: :btree
   add_index "ministry_person", ["lastName"], name: "lastname_ministry_Person", using: :btree
+  add_index "ministry_person", ["org_ids_cache"], name: "index_ministry_person_on_org_ids_cache", length: {"org_ids_cache"=>255}, using: :btree
   add_index "ministry_person", ["region"], name: "region_ministry_Person", using: :btree
   add_index "ministry_person", ["siebel_contact_id"], name: "index_ministry_person_on_siebel_contact_id", using: :btree
 
@@ -2564,124 +2344,122 @@ ActiveRecord::Schema.define(version: 20140201193451) do
   add_index "ministry_regionalstat", ["fk_regionalTeamID"], name: "fk_regionalTeamID", using: :btree
 
   create_table "ministry_regionalteam", primary_key: "teamID", force: true do |t|
-    t.string   "name",      limit: 100
+    t.string   "name",               limit: 100
     t.string   "note"
-    t.string   "region",    limit: 2
-    t.string   "address1",  limit: 35
-    t.string   "address2",  limit: 35
-    t.string   "city",      limit: 30
-    t.string   "state",     limit: 6
-    t.string   "zip",       limit: 10
-    t.string   "country",   limit: 64
-    t.string   "phone",     limit: 24
-    t.string   "fax",       limit: 24
-    t.string   "email",     limit: 50
+    t.string   "region",             limit: 2
+    t.string   "address1",           limit: 35
+    t.string   "address2",           limit: 35
+    t.string   "city",               limit: 30
+    t.string   "state",              limit: 6
+    t.string   "zip",                limit: 10
+    t.string   "country",            limit: 64
+    t.string   "phone",              limit: 24
+    t.string   "fax",                limit: 24
+    t.string   "email",              limit: 50
     t.string   "url"
-    t.string   "isActive",  limit: 1
+    t.string   "isActive",           limit: 1
     t.datetime "startdate"
     t.datetime "stopdate"
-    t.string   "no",        limit: 80
-    t.string   "abbrv",     limit: 80
-    t.string   "hrd",       limit: 50
-    t.string   "spPhone",   limit: 24
+    t.string   "no",                 limit: 80
+    t.string   "abbrv",              limit: 80
+    t.string   "hrd",                limit: 50
+    t.string   "spPhone",            limit: 24
+    t.integer  "global_registry_id", limit: 8
   end
 
   create_table "ministry_staff", force: true do |t|
-    t.string   "accountNo",                limit: 15,                                         null: false
-    t.string   "firstName",                limit: 30
-    t.string   "middleInitial",            limit: 1
-    t.string   "lastName",                 limit: 30
-    t.string   "isMale",                   limit: 1
-    t.string   "position",                 limit: 30
-    t.string   "countryStatus",            limit: 10
-    t.string   "jobStatus",                limit: 60
-    t.string   "ministry",                 limit: 35
-    t.string   "strategy",                 limit: 20
-    t.string   "isNewStaff",               limit: 1
-    t.string   "primaryEmpLocState",       limit: 6
-    t.string   "primaryEmpLocCountry",     limit: 64
-    t.string   "primaryEmpLocCity",        limit: 35
-    t.string   "primaryEmpLocDesc",        limit: 128
-    t.string   "spouseFirstName",          limit: 22
-    t.string   "spouseMiddleName",         limit: 15
-    t.string   "spouseLastName",           limit: 30
-    t.string   "spouseAccountNo",          limit: 11
-    t.string   "spouseEmail",              limit: 50
-    t.string   "fianceeFirstName",         limit: 15
-    t.string   "fianceeMiddleName",        limit: 15
-    t.string   "fianceeLastName",          limit: 30
-    t.string   "fianceeAccountno",         limit: 11
-    t.string   "isFianceeStaff",           limit: 1
-    t.date     "fianceeJoinStaffDate"
-    t.string   "isFianceeJoiningNS",       limit: 1
-    t.string   "joiningNS",                limit: 1
-    t.string   "homePhone",                limit: 24
-    t.string   "workPhone",                limit: 24
-    t.string   "mobilePhone",              limit: 24
-    t.string   "pager",                    limit: 24
-    t.string   "email",                    limit: 50
-    t.string   "isEmailSecure",            limit: 1
-    t.string   "url"
-    t.date     "newStaffTrainingdate"
-    t.string   "fax",                      limit: 24
-    t.string   "note",                     limit: 2048
-    t.string   "region",                   limit: 10
-    t.string   "countryCode",              limit: 3
-    t.string   "ssn",                      limit: 9
-    t.string   "maritalStatus",            limit: 1
-    t.string   "deptId",                   limit: 10
-    t.string   "jobCode",                  limit: 6
-    t.string   "accountCode",              limit: 25
-    t.string   "compFreq",                 limit: 1
-    t.decimal  "compRate",                              precision: 9, scale: 2
-    t.string   "compChngAmt",              limit: 21
-    t.string   "jobTitle",                 limit: 80
-    t.string   "deptName",                 limit: 30
-    t.string   "coupleTitle",              limit: 12
-    t.string   "otherPhone",               limit: 24
-    t.string   "preferredName",            limit: 50
-    t.string   "namePrefix",               limit: 4
-    t.date     "origHiredate"
-    t.date     "birthDate"
-    t.date     "marriageDate"
-    t.date     "hireDate"
-    t.date     "rehireDate"
-    t.date     "loaStartDate"
-    t.date     "loaEndDate"
-    t.string   "loaReason",                limit: 80
-    t.integer  "severancePayMonthsReq"
-    t.date     "serviceDate"
-    t.date     "lastIncDate"
-    t.date     "jobEntryDate"
-    t.date     "deptEntryDate"
-    t.date     "reportingDate"
-    t.string   "employmentType",           limit: 20
-    t.string   "resignationReason",        limit: 80
-    t.date     "resignationDate"
-    t.string   "contributionsToOtherAcct", limit: 1
-    t.string   "contributionsToAcntName",  limit: 80
-    t.string   "contributionsToAcntNo",    limit: 11
-    t.integer  "fk_primaryAddress"
-    t.integer  "fk_secondaryAddress"
-    t.integer  "fk_teamID"
-    t.string   "isSecure",                 limit: 1
-    t.string   "isSupported",              limit: 1
-    t.string   "removedFromPeopleSoft",    limit: 1,                            default: "N"
-    t.string   "isNonUSStaff",             limit: 1
-    t.integer  "person_id"
-    t.string   "middleName",               limit: 30
-    t.string   "paygroup",                 limit: 3
-    t.string   "idType",                   limit: 2
-    t.string   "statusDescr",              limit: 30
-    t.string   "internationalStatus",      limit: 3
-    t.decimal  "balance",                               precision: 9, scale: 2
-    t.string   "cccHrSendingDept",         limit: 10
-    t.string   "cccHrCaringDept",          limit: 10
-    t.string   "cccCaringMinistry",        limit: 10
-    t.string   "assignmentLength",         limit: 4
-    t.string   "relay_email",              limit: 100
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.string  "accountNo",                limit: 15,                                         null: false
+    t.string  "firstName",                limit: 30
+    t.string  "middleInitial",            limit: 1
+    t.string  "lastName",                 limit: 30
+    t.string  "isMale",                   limit: 1
+    t.string  "position",                 limit: 30
+    t.string  "countryStatus",            limit: 10
+    t.string  "jobStatus",                limit: 60
+    t.string  "ministry",                 limit: 35
+    t.string  "strategy",                 limit: 20
+    t.string  "isNewStaff",               limit: 1
+    t.string  "primaryEmpLocState",       limit: 6
+    t.string  "primaryEmpLocCountry",     limit: 64
+    t.string  "primaryEmpLocCity",        limit: 35
+    t.string  "primaryEmpLocDesc",        limit: 128
+    t.string  "spouseFirstName",          limit: 22
+    t.string  "spouseMiddleName",         limit: 15
+    t.string  "spouseLastName",           limit: 30
+    t.string  "spouseAccountNo",          limit: 11
+    t.string  "spouseEmail",              limit: 50
+    t.string  "fianceeFirstName",         limit: 15
+    t.string  "fianceeMiddleName",        limit: 15
+    t.string  "fianceeLastName",          limit: 30
+    t.string  "fianceeAccountno",         limit: 11
+    t.string  "isFianceeStaff",           limit: 1
+    t.date    "fianceeJoinStaffDate"
+    t.string  "isFianceeJoiningNS",       limit: 1
+    t.string  "joiningNS",                limit: 1
+    t.string  "homePhone",                limit: 24
+    t.string  "workPhone",                limit: 24
+    t.string  "mobilePhone",              limit: 24
+    t.string  "pager",                    limit: 24
+    t.string  "email",                    limit: 50
+    t.string  "isEmailSecure",            limit: 1
+    t.string  "url"
+    t.date    "newStaffTrainingdate"
+    t.string  "fax",                      limit: 24
+    t.string  "note",                     limit: 2048
+    t.string  "region",                   limit: 10
+    t.string  "countryCode",              limit: 3
+    t.string  "ssn",                      limit: 9
+    t.string  "maritalStatus",            limit: 1
+    t.string  "deptId",                   limit: 10
+    t.string  "jobCode",                  limit: 6
+    t.string  "accountCode",              limit: 25
+    t.string  "compFreq",                 limit: 1
+    t.decimal "compRate",                              precision: 9, scale: 2
+    t.string  "compChngAmt",              limit: 21
+    t.string  "jobTitle",                 limit: 80
+    t.string  "deptName",                 limit: 30
+    t.string  "coupleTitle",              limit: 12
+    t.string  "otherPhone",               limit: 24
+    t.string  "preferredName",            limit: 50
+    t.string  "namePrefix",               limit: 4
+    t.date    "origHiredate"
+    t.date    "birthDate"
+    t.date    "marriageDate"
+    t.date    "hireDate"
+    t.date    "rehireDate"
+    t.date    "loaStartDate"
+    t.date    "loaEndDate"
+    t.string  "loaReason",                limit: 80
+    t.integer "severancePayMonthsReq"
+    t.date    "serviceDate"
+    t.date    "lastIncDate"
+    t.date    "jobEntryDate"
+    t.date    "deptEntryDate"
+    t.date    "reportingDate"
+    t.string  "employmentType",           limit: 20
+    t.string  "resignationReason",        limit: 80
+    t.date    "resignationDate"
+    t.string  "contributionsToOtherAcct", limit: 1
+    t.string  "contributionsToAcntName",  limit: 80
+    t.string  "contributionsToAcntNo",    limit: 11
+    t.integer "fk_primaryAddress"
+    t.integer "fk_secondaryAddress"
+    t.integer "fk_teamID"
+    t.string  "isSecure",                 limit: 1
+    t.string  "isSupported",              limit: 1
+    t.string  "removedFromPeopleSoft",    limit: 1,                            default: "N"
+    t.string  "isNonUSStaff",             limit: 1
+    t.integer "person_id"
+    t.string  "middleName",               limit: 30
+    t.string  "paygroup",                 limit: 3
+    t.string  "idType",                   limit: 2
+    t.string  "statusDescr",              limit: 30
+    t.string  "internationalStatus",      limit: 3
+    t.decimal "balance",                               precision: 9, scale: 2
+    t.string  "cccHrSendingDept",         limit: 10
+    t.string  "cccHrCaringDept",          limit: 10
+    t.string  "cccCaringMinistry",        limit: 10
+    t.string  "assignmentLength",         limit: 4
   end
 
   add_index "ministry_staff", ["accountNo"], name: "accountNo", unique: true, using: :btree
@@ -2821,7 +2599,7 @@ ActiveRecord::Schema.define(version: 20140201193451) do
     t.string   "region"
     t.string   "mpta",                   limit: 30
     t.string   "urlToLogo"
-    t.integer  "enrollment"
+    t.string   "enrollment",             limit: 10
     t.string   "monthSchoolStarts",      limit: 10
     t.string   "monthSchoolStops",       limit: 10
     t.string   "isSemester",             limit: 1
@@ -2855,6 +2633,7 @@ ActiveRecord::Schema.define(version: 20140201193451) do
     t.datetime "updated_at"
     t.decimal  "latitude",                           precision: 11, scale: 7
     t.decimal  "longitude",                          precision: 11, scale: 7
+    t.integer  "global_registry_id",     limit: 8
   end
 
   add_index "ministry_targetarea", ["country"], name: "index4", using: :btree
@@ -2972,7 +2751,7 @@ ActiveRecord::Schema.define(version: 20140201193451) do
     t.string  "region"
     t.string  "mpta",              limit: 30
     t.string  "urlToLogo"
-    t.integer "enrollment"
+    t.string  "enrollment",        limit: 10
     t.string  "monthSchoolStarts", limit: 10
     t.string  "monthSchoolStops",  limit: 10
     t.string  "isSemester",        limit: 1
@@ -2992,8 +2771,8 @@ ActiveRecord::Schema.define(version: 20140201193451) do
     t.datetime "periodBegin"
     t.string   "strategy",        limit: 2
     t.string   "transUsername",   limit: 50
-    t.integer  "fk_teamID",                               null: false
-    t.integer  "fk_targetAreaID",                         null: false
+    t.integer  "fk_teamID"
+    t.integer  "fk_targetAreaID"
   end
 
   create_table "ministry_viewstaffdependents", id: false, force: true do |t|
@@ -3172,16 +2951,6 @@ ActiveRecord::Schema.define(version: 20140201193451) do
 
   add_index "mpd_roles_users", ["role_id"], name: "role_id", using: :btree
   add_index "mpd_roles_users", ["user_id"], name: "user_id", using: :btree
-
-  create_table "mpd_sessions", force: true do |t|
-    t.string   "session_id", null: false
-    t.text     "data"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "mpd_sessions", ["session_id"], name: "index_mpd_sessions_on_session_id", using: :btree
-  add_index "mpd_sessions", ["updated_at"], name: "index_mpd_sessions_on_updated_at", using: :btree
 
   create_table "mpd_users", force: true do |t|
     t.integer  "user_id"
@@ -3780,9 +3549,6 @@ ActiveRecord::Schema.define(version: 20140201193451) do
     t.boolean  "force_display",          default: false
   end
 
-  add_index "pr_reviews", ["initiator_id"], name: "initiator_id", using: :btree
-  add_index "pr_reviews", ["subject_id"], name: "subject_id", using: :btree
-
   create_table "pr_sessions", force: true do |t|
     t.text "session_id"
     t.text "data"
@@ -3884,45 +3650,33 @@ ActiveRecord::Schema.define(version: 20140201193451) do
   end
 
   create_table "rideshare_event", force: true do |t|
-    t.integer  "conference_id"
-    t.string   "event_name",    limit: 50
-    t.string   "password",      limit: 50, null: false
-    t.text     "email_content"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.integer "conference_id"
+    t.string  "event_name",    limit: 50
+    t.string  "password",      limit: 50, null: false
+    t.text    "email_content"
   end
 
   create_table "rideshare_ride", force: true do |t|
-    t.integer  "event_id"
-    t.integer  "driver_ride_id"
-    t.integer  "person_id"
-    t.string   "address1",                      null: false
-    t.string   "address2",                      null: false
-    t.string   "address3",                      null: false
-    t.string   "address4",                      null: false
-    t.string   "city",               limit: 50, null: false
-    t.string   "state",              limit: 50, null: false
-    t.string   "zip",                limit: 20, null: false
-    t.string   "country",            limit: 64, null: false
-    t.float    "latitude"
-    t.float    "longitude"
-    t.string   "phone",              limit: 25, null: false
-    t.string   "contact_method",     limit: 5
-    t.integer  "number_passengers",  limit: 1
-    t.integer  "drive_willingness",  limit: 1
-    t.time     "depart_time"
-    t.text     "special_info"
-    t.string   "email",                         null: false
-    t.string   "situation"
-    t.string   "change"
-    t.string   "time_hour"
-    t.string   "time_minute"
-    t.string   "time_am_pm"
-    t.string   "spaces"
-    t.string   "special_info_check"
-    t.string   "spaces_count"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.integer "event_id"
+    t.integer "driver_ride_id"
+    t.integer "person_id"
+    t.string  "address1",                     null: false
+    t.string  "address2",                     null: false
+    t.string  "address3",                     null: false
+    t.string  "address4",                     null: false
+    t.string  "city",              limit: 50, null: false
+    t.string  "state",             limit: 50, null: false
+    t.string  "zip",               limit: 20, null: false
+    t.string  "country",           limit: 64, null: false
+    t.float   "latitude"
+    t.float   "longitude"
+    t.string  "phone",             limit: 25, null: false
+    t.string  "contact_method",    limit: 5
+    t.integer "number_passengers", limit: 1
+    t.integer "drive_willingness", limit: 1
+    t.time    "depart_time"
+    t.text    "special_info"
+    t.string  "email",                        null: false
   end
 
   add_index "rideshare_ride", ["drive_willingness"], name: "drivewillingness", using: :btree
@@ -4025,14 +3779,6 @@ ActiveRecord::Schema.define(version: 20140201193451) do
   end
 
   add_index "si_apply_sheets", ["apply_id"], name: "apply_id", using: :btree
-
-  create_table "si_apply_sheets_deprecated", force: true do |t|
-    t.integer "apply_id",        null: false
-    t.integer "sleeve_sheet_id", null: false
-    t.integer "answer_sheet_id", null: false
-  end
-
-  add_index "si_apply_sheets_deprecated", ["apply_id"], name: "apply_id", using: :btree
 
   create_table "si_conditions", force: true do |t|
     t.integer "question_sheet_id", null: false
@@ -4171,13 +3917,6 @@ ActiveRecord::Schema.define(version: 20140201193451) do
     t.string  "assign_to",         limit: 36, null: false
   end
 
-  create_table "si_sleeve_sheets_deprecated", force: true do |t|
-    t.integer "sleeve_id",                    null: false
-    t.integer "question_sheet_id",            null: false
-    t.string  "title",             limit: 60, null: false
-    t.string  "assign_to",         limit: 36, null: false
-  end
-
   create_table "si_sleeves", force: true do |t|
     t.string  "title",      limit: 60,                                       null: false
     t.string  "slug",       limit: 36
@@ -4185,14 +3924,6 @@ ActiveRecord::Schema.define(version: 20140201193451) do
   end
 
   add_index "si_sleeves", ["slug"], name: "index_si_sleeves_on_slug", unique: true, using: :btree
-
-  create_table "si_sleeves_deprecated", force: true do |t|
-    t.string  "title",      limit: 60,                                       null: false
-    t.string  "slug",       limit: 36
-    t.decimal "fee_amount",            precision: 9, scale: 2, default: 0.0
-  end
-
-  add_index "si_sleeves_deprecated", ["slug"], name: "index_si_sleeves_on_slug", unique: true, using: :btree
 
   create_table "si_users", force: true do |t|
     t.integer  "ssm_id"
@@ -4222,6 +3953,7 @@ ActiveRecord::Schema.define(version: 20140201193451) do
     t.string   "facebook_hash"
     t.string   "facebook_username"
     t.integer  "fb_user_id",                limit: 8
+    t.string   "password_plain"
     t.string   "password_reset_key"
     t.string   "email"
     t.string   "encrypted_password"
@@ -4237,7 +3969,6 @@ ActiveRecord::Schema.define(version: 20140201193451) do
     t.integer  "checked_guid",              limit: 1,   default: 0,     null: false
     t.text     "settings"
     t.string   "needs_merge"
-    t.string   "password_plain"
     t.integer  "global_registry_id",        limit: 8
   end
 
@@ -4468,6 +4199,9 @@ ActiveRecord::Schema.define(version: 20140201193451) do
     t.integer  "send_dept"
     t.string   "regionOfOrigin",        limit: 50
     t.date     "background_check_date"
+    t.string   "ptfs_level"
+    t.string   "supervisor"
+    t.string   "work_location"
   end
 
   add_index "sitrack_tracking", ["application_id"], name: "fk_applicationID", using: :btree
@@ -4533,7 +4267,7 @@ ActiveRecord::Schema.define(version: 20140201193451) do
     t.string   "initial_response",               limit: 145
     t.text     "post_survey_message_deprecated"
     t.string   "event_type"
-    t.string   "gateway",                                    default: "", null: false
+    t.string   "gateway",                                    default: "twilio", null: false
     t.integer  "survey_id"
   end
 
@@ -5053,8 +4787,6 @@ ActiveRecord::Schema.define(version: 20140201193451) do
     t.string   "attachment_content_type"
     t.string   "attachment_file_name"
     t.datetime "attachment_updated_at"
-    t.datetime "created_at"
-    t.datetime "updated_at"
   end
 
   add_index "sp_answers", ["answer_sheet_id"], name: "index_sp_answers_on_answer_sheet_id", using: :btree
@@ -5102,6 +4834,8 @@ ActiveRecord::Schema.define(version: 20140201193451) do
     t.string   "previous_status"
     t.integer  "global_registry_id",       limit: 8
     t.boolean  "rm_liability_signed"
+    t.date     "start_date"
+    t.date     "end_date"
   end
 
   add_index "sp_applications", ["global_registry_id"], name: "index_sp_applications_on_global_registry_id", using: :btree
@@ -5130,7 +4864,7 @@ ActiveRecord::Schema.define(version: 20140201193451) do
   add_index "sp_designation_numbers", ["person_id", "project_id", "designation_number"], name: "person_id", using: :btree
 
   create_table "sp_donations", force: true do |t|
-    t.integer  "designation_number",                          null: false
+    t.string   "designation_number",                          null: false
     t.decimal  "amount",             precision: 10, scale: 2, null: false
     t.string   "people_id"
     t.string   "donor_name"
@@ -5273,9 +5007,10 @@ ActiveRecord::Schema.define(version: 20140201193451) do
   add_index "sp_project_gospel_in_actions", ["gospel_in_action_id"], name: "gospel_in_action_id", using: :btree
   add_index "sp_project_gospel_in_actions", ["project_id"], name: "project_id", using: :btree
 
-  create_table "sp_project_ministry_focuses", force: true do |t|
+  create_table "sp_project_ministry_focuses", id: false, force: true do |t|
     t.integer  "project_id",                   default: 0, null: false
     t.integer  "ministry_focus_id",            default: 0, null: false
+    t.integer  "id",                                       null: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "global_registry_id", limit: 8
@@ -5474,8 +5209,10 @@ ActiveRecord::Schema.define(version: 20140201193451) do
     t.boolean  "background_checks_required",                      default: false
     t.date     "open_application_date",                           default: '2012-11-01'
     t.date     "archive_project_date",                            default: '2012-08-31'
-    t.boolean  "secure"
     t.integer  "global_registry_id"
+    t.boolean  "secure"
+    t.text     "project_summary"
+    t.text     "full_project_description"
   end
 
   add_index "sp_projects", ["global_registry_id"], name: "index_sp_projects_on_global_registry_id", using: :btree
@@ -5657,6 +5394,13 @@ ActiveRecord::Schema.define(version: 20140201193451) do
   end
 
   add_index "teams", ["organization_id"], name: "index_teams_on_organization_id", using: :btree
+
+  create_table "test_coordinates", id: false, force: true do |t|
+    t.integer "id"
+    t.string  "name", limit: 50
+    t.float   "lat"
+    t.float   "lon"
+  end
 
   create_table "versions", force: true do |t|
     t.string   "item_type",  null: false

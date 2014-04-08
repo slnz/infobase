@@ -6,6 +6,8 @@ defaults: &defaults
   geocode_key: 'fake'
   cas_username: 'fake'
   cas_password: 'fake'
+  gr_url: 'http://gr.stage.uscm.org'
+  gr_access_token: 'fake'
 
 development:
   <<: *defaults
