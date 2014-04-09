@@ -2,6 +2,7 @@ class StatsController < ApplicationController
   before_filter :setup
   before_filter :get_date_params, :only => [:index, :movement]  
   before_filter :get_event_params, :only => [:sp, :crs]
+  before_filter :_set_current_session, :only => [:update] # Hackish, but necessary so that model has access to session for user info
   
   def index
     all_movements = current_user.activities
@@ -113,10 +114,11 @@ class StatsController < ApplicationController
     @strategy = params[:strategy]
     @redirect = params[:redirect]
     @stats = []
-    total_leader_involvement = 0
+    movement_status_messages = []
     params[:stat].each_key do |key|
       stats = params[:stat][key]
       @movement = Activity.find(stats[:fk_Activity])
+      movement_orig_status = @movement.status
       @movement.update_attribute(:strategy, @strategy) if @strategy
       if !stats[:sp_year].blank?
         stat = @movement.get_sp_stat_for(stats[:sp_year], Date.parse(stats[:periodBegin]), Date.parse(stats[:periodEnd]), stats[:peopleGroup])
@@ -133,35 +135,15 @@ class StatsController < ApplicationController
         @current_week = Date.parse(stats[:periodBegin])
       end
 
-      total_involvement = params[:stat][key]['invldStudents'].to_i + params[:stat][key]['faculty_involved'].to_i
-      total_leader_involvement = params[:stat][key]['faculty_leaders'].to_i + params[:stat][key]['studentLeaders'].to_i
-      case
-        when total_involvement > Activity::MULITPLYING_INVOLVEMENT_LEVEL && total_leader_involvement > Activity::MULITPLYING_LEADER_INVOLVEMENT_LEVEL
-          total_involvement = "MU"
-        when total_leader_involvement > Activity::LAUNCHED_LEADER_INVOLVEMENT_LEVEL
-          total_involvement = "LA"
-        when total_leader_involvement >= Activity::KEYLEADER_LEADER_INVOLVEMENT_LEVEL
-          total_involvement = "KE"
-        when total_leader_involvement == Activity::PIONEERING_LEADER_INVOLVEMENT_LEVEL
-          total_involvement = "PI"
-        else
-          total_involvement = ""
-      end
-
-      if total_involvement != ""
-        if @movement.status != total_involvement
-          movement_status_message = " Your movement status has been updated to: " + Activity.statuses[total_involvement].to_s
-          @movement.update_attributes_add_history({:status => total_involvement, "periodBegin(1i)" => Time.now.year.to_s, "periodBegin(2i)" => Time.now.month.to_s, "periodBegin(3i)" => Time.now.day.to_s}, @current_user)
-        else
-          movement_status_message = ""
-        end
+      if @movement.reload.status != movement_orig_status
+        movement_status_messages << "<br/>#{@movement.name} status has been updated to: " + Activity.statuses[@movement.status].to_s
       end
     end
     if @stats.empty? && @redirect
       redirect_to @redirect
     elsif @stats.empty?
       date = "?date=" + @requested_week.to_s if @requested_week
-      redirect_to stats_path + date.to_s, :notice => "Your stats have been saved successfully." + movement_status_message
+      redirect_to stats_path + date.to_s, :notice => ("Your stats have been saved successfully." + movement_status_messages.join).html_safe
     else
       if @redirect
         @strategies = {"" => ""}.merge(Activity.event_strategies.invert)

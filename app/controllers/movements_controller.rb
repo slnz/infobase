@@ -29,7 +29,7 @@ class MovementsController < ApplicationController
   end
   
   def update
-    @movement.update_attributes_add_history(activity_params, @current_user)
+    @movement.update_attributes_add_history(activity_params, @current_user.userID)
     if @movement.errors.empty?
       redirect_to location_path(@location), :notice => "#{@location.name}, #{@movement.strategy} was updated successfully."
     else

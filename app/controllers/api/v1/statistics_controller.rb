@@ -1,4 +1,5 @@
 class Api::V1::StatisticsController < Api::V1::BaseController
+  before_filter :_set_current_session, :only => [:create] # Hackish, but necessary so that model has access to session for user info
 
   def activity
     activity = Activity.where("activityid = ?", params[:activity_id]).first
@@ -15,7 +16,19 @@ class Api::V1::StatisticsController < Api::V1::BaseController
   end
 
   def index
-    statistics = StatisticFilter.new(params[:filters]).filter(Statistic.all)
+    statistics = StatisticFilter.new(params[:filters])
+                                .filter(Statistic.all)
+                                #.includes(activity: :target_area)
+
+    if params[:filters] && params[:filters][:period_begin] && params[:filters][:period_end]
+      statistics = case params[:collate_by]
+                     when 'activity'
+                       statistics.group('fk_Activity')
+                     else
+                       statistics.joins(activity: :target_area)
+                                 .group('fk_targetAreaID')
+                   end
+    end
 
     render render_options(statistics)
   end
@@ -98,7 +111,7 @@ class Api::V1::StatisticsController < Api::V1::BaseController
       @movement = Activity.find(stats[:activity_id])
       stat = @movement.get_stat_for(Date.parse(stats[:period_begin]))
       stats[:updated_by] = current_user
-      stat.attributes = stats.except(:id)
+      stat.attributes = stat_params(stats.except(:id))
       stat.save
       if stat.errors.present?
         @stats << stat.attributes.merge({:errors => stat.errors.to_hash})
@@ -121,5 +134,9 @@ class Api::V1::StatisticsController < Api::V1::BaseController
       result = result + interval.weeks
     end
     result
+  end
+
+  def stat_params(stat)
+    stat.permit(:activity_id, :period_begin, :period_end, :students_involved, :faculty_involved, :students_engaged, :faculty_engaged, :student_leaders, :faculty_leaders, :spiritual_conversations, :holy_spirit_presentations, :personal_evangelism, :personal_decisions, :graduating_on_mission, :faculty_on_mission, :group_evangelism, :group_decisions, :media_exposures, :media_decisions, :updated_by)
   end
 end

@@ -1,8 +1,8 @@
 <tr>
   <td <%= "colspan='3'" if type == "movement" %> class="muster_cap"><%= rows.size.to_s + " " + expand_type_footer(type) %></td>
+  <td class="muster_cap"><%= "Status" if type == "movement" %></td>
+  <td class="muster_cap"><%= "Ministry" if type == "movement" %></td>
   <td class="muster_cap">Region</td>
-  <td class="muster_cap">Ministry</td>
-  <td class="muster_cap">Status</td>
   <td class="muster_cap">City</td>
   <td class="muster_cap">State</td>
   <td class="muster_cap">Country</td>

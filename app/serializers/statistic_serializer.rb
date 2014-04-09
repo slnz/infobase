@@ -6,4 +6,6 @@ class StatisticSerializer < ActiveModel::Serializer
     :media_exposures, :media_decisions, :graduating_on_mission, :faculty_on_mission,
     :students_involved, :students_engaged, :student_leaders,
     :faculty_involved, :faculty_engaged, :faculty_leaders
+
+  has_one :target_area
 end

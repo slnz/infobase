@@ -1,23 +1,32 @@
 <% if person %>
-  <strong>Person ID: <%= person.personID %></strong><br/>
-  First Name: <%= person.firstName %><br/>
-  Last Name: <%= person.lastName %><br/>
-  Preferred Name: <%= person.preferredName %><br/>
-  Gender: <%= person.gender %><br/>
-  Campus: <%= person.campus %><br/>
-  Birthday: <%= l(person.birth_date) if person.birth_date %><br/>
-  Preferred Name: <%= person.preferredName %><br/>
-  Person Created: <%= l(person.dateCreated) if person.dateCreated %><br/>
-  Person Updated: <%= l(person.dateChanged) if person.dateChanged %>
-  <% user = person.user %>
-  <% if user %>
-  <hr>
-  User ID: <%= user.userID %><br/>
-  Username: <%= user.username %><br/>
-  Guid: <%= user.globallyUniqueID %><br/>
-  User Created: <%= l(user.createdOn || user.created_at) if user.createdOn || user.created_at %><br/>
-  User Updated: <%= l(user.updated_at) if user.updated_at %><br/>
-  <% end %>
+    <% emails = person.email_addresses.pluck(:email) + person.ministry_newaddresses.pluck(:email)
+       emails = emails.compact.reject(&:empty?).uniq.join(", ")
+       phone_numbers = person.phone_numbers.pluck(:number) + person.ministry_newaddresses.pluck(:homePhone) + person.ministry_newaddresses.pluck(:workPhone) + person.ministry_newaddresses.pluck(:cellPhone)
+       phone_numbers = phone_numbers.compact.reject(&:empty?).uniq.join(", ") %>
+    <strong>Person ID: <%= person.personID %></strong><br/>
+    <strong>First Name:</strong> <%= person.firstName %><br/>
+    <strong>Last Name:</strong> <%= person.lastName %><br/>
+    <strong>Preferred Name:</strong> <%= person.preferredName %><br/>
+    <strong>Gender:</strong> <%= person.gender %><br/>
+    <strong>Account Number:</strong> <%= person.accountNo %><br/>
+    <strong>Email Addresses:</strong> <%= emails %><br/>
+    <strong>Phone Numbers:</strong> <%= phone_numbers %><br/>
+    <strong>Campus:</strong> <%= person.campus %><br/>
+    <strong>Birthday:</strong> <%= l(person.birth_date) if person.birth_date %><br/>
+    <strong>Preferred Name:</strong> <%= person.preferredName %><br/>
+    <strong>Person Created:</strong> <%= l(person.dateCreated) if person.dateCreated %><br/>
+    <strong>Person Updated:</strong> <%= l(person.dateChanged) if person.dateChanged %>
+    <% user = person.user %>
+    <% if user %>
+        <hr>
+        <strong>User ID:</strong> <%= user.userID %><br/>
+        <strong>Username:</strong> <%= user.username %><br/>
+        <strong>Guid:</strong> <%= user.globallyUniqueID %><br/>
+        <strong>User
+          Created:</strong> <%= l(user.createdOn || user.created_at) if user.createdOn || user.created_at %><br/>
+        <strong>User Updated:</strong> <%= l(user.updated_at) if user.updated_at %><br/>
+        <strong>Last Login:</strong> <%= l(user.lastLogin) if user.lastLogin %><br/>
+    <% end %>
 <% else %>
-  No person with ID of <%= params[:id] %>
+    No person with ID of <%= params[:id] %>
 <% end %>

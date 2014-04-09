@@ -22,7 +22,7 @@ gem 'coffee-rails', '~> 4.0.0'
 gem 'jquery-rails'
 
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
-gem 'turbolinks'
+#gem 'turbolinks'
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
@@ -41,7 +41,8 @@ end
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 
-#gem 'common_engine', path: '/home/justin/cmde/work_rails/common_engine'
+# gem 'common_engine', path: '/home/justin/cmde/work_rails/common_engine'
+#gem 'common_engine', path: '/Users/josh/htdocs/common_engine'
 gem 'common_engine', git: 'https://github.com/CruGlobal/common_engine.git'
 gem 'qe', git: 'https://github.com/CruGlobal/qe.git', ref: '4421d63824f2f07fa9050c1971a3bae97844cfd3'
 gem 'mysql2'
@@ -64,6 +65,7 @@ gem 'gcx_api', git: 'https://github.com/CruGlobal/gcx_api.git'
 gem 'oj'
 gem 'will_paginate'
 gem 'geocoder'
+gem 'global_registry', git: 'https://github.com/CruGlobal/global_registry_client.git'
 
 gem 'rack-google_analytics', :require => "rack/google_analytics"
 
@@ -82,8 +84,6 @@ group :development, :test do
 
   gem 'yard'
   gem 'simplecov', :require => false
-
-  gem 'awesome_print'
 
   gem 'better_errors'
   #gem "binding_of_caller"

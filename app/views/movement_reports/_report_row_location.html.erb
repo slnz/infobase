@@ -4,6 +4,8 @@
     <%= link_to row.target_area.name, location_path(row.target_area) %>
     <%= " (sensitive)" if row.target_area.isSecure != "F" %>
   </td>
+  <td></td>
+  <td></td>
   <td class="<%= klass %>"><%= Region.full_name(row.target_area.region) %></td>
   <td class="<%= klass %>"><%= row.target_area.city %></td>
   <td class="<%= klass %>"><%= row.target_area.state %></td>

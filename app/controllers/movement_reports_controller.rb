@@ -11,7 +11,7 @@ class MovementReportsController < ApplicationController
   def do_report
     date = Date.civil(params["date(1i)"].to_i, params["date(2i)"].to_i, params["date(3i)"].to_i)
     date = date.end_of_month
-    redirect_to movement_report_path({:type => params[:type], :date => date, :strategies => params[:strategies], :order => params[:order], :regions => params[:region], :movementstatus => params[:movementstatus],})
+    redirect_to movement_report_path({:type => params[:type], :date => date, :strategies => params[:strategies], :movementstatus => params[:movementstatus], :order => params[:order], :regions => params[:region]})
   end
   
   def movement_report

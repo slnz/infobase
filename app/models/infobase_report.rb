@@ -152,7 +152,7 @@ class InfobaseReport
         stats = sum_event_stats(stats)
       end
 
-      if activity.is_active? || !stats.empty?
+      if (activity.is_active? || !stats.empty?) && status.include?(activity.status)
         row_header = activity.target_area.name.to_s
         row_header += "<br/>(" + activity.target_area.enrollment.to_s + " enrolled)" if !activity.target_area.enrollment.blank?
         row_header += "<br/><i>" + Activity.strategies[activity.strategy].to_s + "</i>"

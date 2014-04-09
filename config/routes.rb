@@ -14,6 +14,7 @@ Infobase::Application.routes.draw do
       resources :target_areas
       resources :users
       resources :activities
+      resources :strategies
       resources :people
 
       resources :statistics do
