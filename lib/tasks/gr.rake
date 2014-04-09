@@ -4,7 +4,7 @@ task :global => :environment do
 
   regions = Region.all
   regions.map do |r|
-    r.async_push_to_global_registry(campus.global_registry_id) unless t.global_registry_id
+    r.async_push_to_global_registry(campus.global_registry_id)
   end
 
   # create teams
