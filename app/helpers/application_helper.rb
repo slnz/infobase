@@ -39,7 +39,7 @@ module ApplicationHelper
   def activity_size(activity)
     result = "N/A"
     if activity.is_active? && activity.statistics.last 
-      result = activity.statistics.last.students_involved
+      result = activity.statistics.last.students_involved.to_i + activity.statistics.last.faculty_involved.to_i
     end
     result
   end
