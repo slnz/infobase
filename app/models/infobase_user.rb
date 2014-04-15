@@ -1,8 +1,8 @@
 class InfobaseUser < ActiveRecord::Base
   belongs_to :user
   
-  def can_add_contacts?()         false; end 
-  def can_delete_contacts?()      false; end
+  def can_add_contacts?()         true; end 
+  def can_delete_contacts?()      true; end
   def can_create_locations?()     false; end
   def can_create_teams?()         false; end
   def can_add_team_members?()     false; end
