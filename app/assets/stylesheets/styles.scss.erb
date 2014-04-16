@@ -205,6 +205,25 @@ a.logo {
 }
 
 
+/* Redesign of Stats Styles */
+div.schoolentry {
+  table.outer_stats_table {
+    border: 0px solid black;
+    margin: 25px;
+    td.weekly_wrapper { width: 600px; }
+    td.ongoing_wrapper { width: 280px; }
+    table.weekly td { width: 275px; }
+    .nopad { padding: 0px; }
+    .nomargin { margin: 0px; }
+  }
+  table.ongoing {
+    td h4 { margin: 3px 5px 3px 5px; }
+    label.semester { padding-bottom: 0px; }
+  }
+  .infobox { margin: 25px; height: 5em; min-height: 5em; }
+}
+.txt_right { text-align: right; }
+
 /* Footer styles */
 
 #footer {
@@ -677,6 +696,9 @@ div.keyitem {
   font-size: 12px;
   font-weight: bold;
   background: #FAF3D4 url(/assets/bulb.png) no-repeat 7px 50%;
+}
+.keyitem_bg {
+  background: #FAF3D4;
 }
 
 span.positive {
