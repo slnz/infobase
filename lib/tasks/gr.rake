@@ -10,32 +10,61 @@ task :global => :environment do
   # create teams
   Team.find_each do |t|
     region = regions.detect {|r| r.abbrv = t.region}
-
-    t.async_push_to_global_registry(region.global_registry_id)
+    begin
+      t.async_push_to_global_registry(region.global_registry_id)
+    rescue RestClient::InternalServerError
+      t.update_column(:global_registry_id, nil)
+      t.async_push_to_global_registry(region.global_registry_id)
+    end
   end
 
   # create target_areas
   TargetArea.find_each.each do |t|
-    t.async_push_to_global_registry
+    begin
+      t.async_push_to_global_registry
+    rescue RestClient::InternalServerError
+      t.update_column(:global_registry_id, nil)
+      t.async_push_to_global_registry
+    end
   end
 
   # create activities
   Activity.find_each.each do |t|
-    t.async_push_to_global_registry
+    begin
+      t.async_push_to_global_registry
+    rescue RestClient::InternalServerError
+      t.update_column(:global_registry_id, nil)
+      t.async_push_to_global_registry
+    end
   end
 
   # create statistics
   Statistic.find_each.each do |t|
-    t.async_push_to_global_registry
+    begin
+      t.async_push_to_global_registry
+    rescue RestClient::InternalServerError
+      t.update_column(:global_registry_id, nil)
+      t.async_push_to_global_registry
+    end
   end
 
   # create team memberships
   Person.find_each do |t|
-    t.async_push_to_global_registry
+    begin
+      t.async_push_to_global_registry
+    rescue RestClient::InternalServerError
+      t.update_column(:global_registry_id, nil)
+      t.async_push_to_global_registry
+    end
   end
 
   # create team memberships
   TeamMember.includes(:person, :team).find_each do |t|
-    t.async_push_to_global_registry
+    begin
+      t.async_push_to_global_registry
+    rescue RestClient::InternalServerError
+      t.update_column(:global_registry_id, nil)
+      t.async_push_to_global_registry
+    end
   end
 end
