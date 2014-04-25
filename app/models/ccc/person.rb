@@ -146,22 +146,38 @@ class Ccc::Person < ActiveRecord::Base
       other.pr_reviewers.update_all(person_id: personID)
 
       Ccc::PrReview.where(["subject_id = ? or initiator_id = ?", other.id, other.id]).each do |ua|
-        ua.update_column(:subject_id, personID) if ua.subject_id == other.id
-        ua.update_column(:initiator_id, personID) if ua.initiator_id == other.id
+        ua.update_column(:subject_id, personID) if ua.subject_id == other.id                        # faster(?) to use: other.pr_reviews.update_all(subject_id: personID)
+        ua.update_column(:initiator_id, personID) if ua.initiator_id == other.id                    #           and     other.pr_review_initiators.update_all(initiator_id: personID)
       end
 
-      Ccc::IndividualAccess.where(["person_id = ? or grant_person_id = ?", other.id, other.id]).each do |ua|
-        ua.update_column(:person_id, personID) if ua.person_id == other.id
-        ua.update_column(:grant_person_id, personID) if ua.grant_person_id == other.id
+      Ccc::IndividualAccess.where(["person_id = ? or grant_person_id = ?", other.id, other.id]).each do |ia|
+        ia.update_column(:person_id, personID) if ia.person_id == other.id
+        ia.update_column(:grant_person_id, personID) if ia.grant_person_id == other.id
+      end
+      # Remove duplicates that could be created when updating IndividualAccess records
+      ia_array = Ccc::IndividualAccess.where(["person_id = ? or grant_person_id = ?", personID, personID]).order(:person_id, :grant_person_id)
+      ia_array.each_with_index do |ia, index|
+        next if index == 0
+        ia.destroy if ia_array[index-1].person_id == ia_array[index].person_id && ia_array[index-1].grant_person_id == ia_array[index].grant_person_id
       end
 
 
-      if other.person_accesses.first && person_accesses.first            #TODO - Tests in rspec for merge process!?!
+      if other.person_accesses.first && person_accesses.first            #TODO - Tests in rspec for merge process...?
         person_accesses.each do |pa|
           other.person_accesses.each { |opa| pa.merge(opa) }
         end
-      elsif other.person_accesses
+      elsif other.person_accesses.first
         other.person_accesses.update_all(person_id: personID)
+      end
+      # Make sure the Person account that survives does not have more than one PersonAccesses
+      if person_accesses.count > 1
+        master = person_accesses.first
+        person_accesses.each_with_index do |pa, index|
+          if index != 0
+            master.merge(pa)
+            pa.destroy
+          end
+        end
       end
 
 
@@ -172,8 +188,9 @@ class Ccc::Person < ActiveRecord::Base
 
       # end Panorama
 
+
       # Summer Project Tool
-      other.sp_applications.each { |ua| ua.update_attribute(:person_id, personID) }
+      other.sp_applications.each { |ua| ua.update_attribute(:person_id, personID) }       # why we not use  other.sp_applications.update_all(person_id: personID)  Callbacks?  update_attribute invokes callbacks, but update_column & update_all do not
 
       Ccc::SpProject.where(["pd_id = ? or apd_id = ? or opd_id = ? or coordinator_id = ?", other.id, other.id, other.id, other.id]).each do |ua|
         ua.update_attribute(:pd_id, personID) if ua.pd_id == other.id
