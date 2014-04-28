@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/CruGlobal/common_engine.git
-  revision: 588f2fbb67c174db377eeaa30934f850067db550
+  revision: 41e70e37c743d8740887c0fa55365b94b6090a50
   specs:
     common_engine (0.0.1)
       aasm (~> 3.0.9)
@@ -8,6 +8,7 @@ GIT
       auto_strip_attributes (~> 2.0)
       geocoder
       global_registry
+      paperclip
       rails (>= 3.0.0)
       rubycas-client
       sidekiq
@@ -167,7 +168,7 @@ GEM
     mime-types (1.25.1)
     mini_portile (0.5.3)
     minitest (4.7.5)
-    multi_json (1.9.2)
+    multi_json (1.9.3)
     mysql2 (0.3.15)
     newrelic_rpm (3.8.0.218)
     nio4r (1.0.0)
