@@ -56,6 +56,15 @@ class Ccc::SimplesecuritymanagerUser < ActiveRecord::Base
         end
       end
 
+      # SI MPD (aka CruMPD)
+      if globallyUniqueID.present? && other.globallyUniqueID.present?
+        crumpd_user = CrumpdUser.find_by(guid: globallyUniqueID)
+        other_crumpd_user = CrumpdUser.find_by(guid: other.globallyUniqueID)
+        if crumpd_user && other_crumpd_user
+          crumpd_user.merge(other_crumpd_user)
+        end
+      end
+
       begin
         other.needs_merge = nil
         other.save(validate: false)
