@@ -58,11 +58,13 @@ class Ccc::SimplesecuritymanagerUser < ActiveRecord::Base
 
       # SI MPD (aka CruMPD)
       if globallyUniqueID.present? && other.globallyUniqueID.present?
-        crumpd_user = CrumpdUser.find_by(guid: globallyUniqueID)
-        other_crumpd_user = CrumpdUser.find_by(guid: other.globallyUniqueID)
+        crumpd_user = Ccc::CrumpdUser.find_by(guid: globallyUniqueID)
+        other_crumpd_user = Ccc::CrumpdUser.find_by(guid: other.globallyUniqueID)
         if crumpd_user && other_crumpd_user
           crumpd_user.merge(other_crumpd_user)
         end
+
+        Ccc::Authentication.create!(user_id: other.id, provider: 'relay', uid: other.globallyUniqueID)
       end
 
       begin
