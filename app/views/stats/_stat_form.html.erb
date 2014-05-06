@@ -84,6 +84,10 @@
                 </div>
               </td>
               <td>
+                <div class="field" data-info="faculty_sent">
+                  <%= text_field_tag "stat[" + unique_name(stat) + "[faculty_sent]]", stat.faculty_sent, :id => "week 1", :class => "totalnumber" %>
+                  <label>Faculty on Mission</label>
+                </div>
               </td>
             </tr>
           </table>
@@ -140,18 +144,6 @@
               <td>
                 <div class="field" data-info="student_leaders">
                   <%= text_field_tag "stat[" + unique_name(stat) + "[faculty_leaders]]", stat.faculty_leaders, :id => "week 1", :class => "totalnumber" %>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td class='txt_right'>
-                <div class="field" data-info="faculty_sent"><label class="semester">On Mission</label></div>
-              </td>
-              <td>
-              </td>
-              <td>
-                <div class="field" data-info="faculty_sent">
-                  <%= text_field_tag "stat[" + unique_name(stat) + "[faculty_sent]]", stat.faculty_sent, :id => "week 1", :class => "totalnumber" %>
                 </div>
               </td>
             </tr>
