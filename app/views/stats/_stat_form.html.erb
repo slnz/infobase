@@ -11,7 +11,6 @@
       <%= link_to "Edit", edit_location_movement_path(stat.activity.target_area, stat.activity), :class => "editicon edittext editbtn" %>
       <%= link_to "Unbookmark", unbookmark_location_movement_path(stat.activity.target_area, stat.activity), {:class => "unbookmark edittext editbtn", :method => :delete} %>
     </h2>
-    New stats design goes here
 
     <table class='outer_stats_table' data-unique_name="<%= unique_name(stat) %>">
       <tr>
