@@ -132,3 +132,25 @@ function setSortOrder(type) {
     document.getElementById('blankLabelCell[1]').style.display="inline";
   }
 }
+
+$(function() {
+  hover_function = function() {
+    $(this).parents(".schoolentry").find(".keyitem_bg").removeClass("keyitem_bg");
+    info_name = $(this).parent().data("info") || $(this).children("div.field").data("info");
+    info_html = $('#'+info_name+'_info_box').html();
+    if (info_html !== undefined && info_html != "") {
+      $(this).parents(".schoolentry").find(".infobox").html(info_html);
+      $(this).addClass("keyitem_bg");
+      $td = $(this).is("td") ? $(this) : $(this).closest("td");
+      $td.addClass("keyitem_bg");
+    }
+  }
+  $("div.schoolentry input").on("focus", hover_function);
+  $("div.schoolentry td").hover(hover_function);
+  $("div.schoolentry").hover(function() {}, function() { 
+    $el = $(this);
+    if ($el.find("input:focus").length == 0) {
+      setTimeout(function() { $el.find(".infobox").html(""); }, 1000);
+    }
+  });
+});
