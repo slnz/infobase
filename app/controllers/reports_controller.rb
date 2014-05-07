@@ -11,12 +11,14 @@ class ReportsController < ApplicationController
   def do_report
     from_date = Date.civil(params["from(1i)"].to_i, params["from(2i)"].to_i, params["from(3i)"].to_i)
     to_date = Date.civil(params["to(1i)"].to_i, params["to(2i)"].to_i, params["to(3i)"].to_i) + 1.month - 1.day
-    redirect_to national_report_path({:from => from_date, :to => to_date, :strategies => params[:strategies], :movementstatus => params[:movementstatus], :event_type => params[:event_type]})
+    format = params[:commit] == "Make Csv Report" ? "csv" : "html"
+    redirect_to national_report_path({:from => from_date, :to => to_date, :strategies => params[:strategies], :movementstatus => params[:movementstatus], :event_type => params[:event_type], :format => format})
   end
   
   def national_report
     @report_type = @type.capitalize + " National"
     @reports = [InfobaseReport.create_national_report(@from_date, @to_date, @strategies_list, @type, @movement_status_list)]
+
     render :report
   end
   
