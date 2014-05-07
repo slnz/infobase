@@ -11,126 +11,153 @@
       <%= link_to "Edit", edit_location_movement_path(stat.activity.target_area, stat.activity), :class => "editicon edittext editbtn" %>
       <%= link_to "Unbookmark", unbookmark_location_movement_path(stat.activity.target_area, stat.activity), {:class => "unbookmark edittext editbtn", :method => :delete} %>
     </h2>
-    <div class="stats_column_left">
-      <h4>Weekly Movement Indicators</h4>
-      <div class="field">
-        <%= text_field_tag "stat[" + unique_name(stat) + "[spiritual_conversations]]", stat.spiritual_conversations, :id => "week 1", :class => "totalnumber", :onfocus => "infoBox('#{unique_name(stat)}','spiritual_conversations',200);" %>
-        <label onMouseOver="infoBox('<%= unique_name(stat) %>','spiritual_conversations',200);" onMouseOut="infoBoxClear('<%= unique_name(stat) %>');" >Spiritual Conversations</label>
-      </div>
-      
-      <br/>
-      
-      <div class="field">
-        <%= text_field_tag "stat[" + unique_name(stat) + "[evangelisticOneOnOne]]", stat.evangelisticOneOnOne, :id => "week 1", :class => "totalnumber", :onfocus => "infoBox('#{unique_name(stat)}','personal_evangelism',200);" %>
-        <label onMouseOver="infoBox('<%= unique_name(stat) %>','personal_evangelism',200);" onMouseOut="infoBoxClear('<%= unique_name(stat) %>');" >Personal Evangelism</label>
-      </div>
-      
-      <div class="field">
-        <%= text_field_tag "stat[" + unique_name(stat) + "[evangelisticGroup]]", stat.evangelisticGroup, :id => "week 1", :class => "totalnumber", :onfocus => "infoBox('#{unique_name(stat)}','group_evangelism',200);" %>
-        <label onMouseOver="infoBox('<%= unique_name(stat) %>','group_evangelism',200);" onMouseOut="infoBoxClear('<%= unique_name(stat) %>');" >Group Evangelism</label>
-      </div>
-      
-      <div class="field">
-        <%= text_field_tag "stat[" + unique_name(stat) + "[exposuresViaMedia]]", stat.exposuresViaMedia, :id => "week 1", :class => "totalnumber", :onfocus => "infoBox('#{unique_name(stat)}','media_exposures',200);" %>
-        <label onMouseOver="infoBox('<%= unique_name(stat) %>','media_exposures',200);" onMouseOut="infoBoxClear('<%= unique_name(stat) %>');" >Media Exposures</label>
-      </div>
 
-      <br/>
-      
-      <div class="field">
-        <%= text_field_tag "stat[" + unique_name(stat) + "[laborersSent]]", stat.laborersSent, :id => "week 1", :class => "totalnumber", :onfocus => "infoBox('#{unique_name(stat)}','laborers_sent',200);" %>
-        <label onMouseOver="infoBox('<%= unique_name(stat) %>','laborers_sent',200);" onMouseOut="infoBoxClear('<%= unique_name(stat) %>');" >Graduating on Mission</label>
-      </div>
-    </div>
+    <table class='outer_stats_table' data-unique_name="<%= unique_name(stat) %>">
+      <tr>
+        <td valign="top" class='weekly_wrapper nopad nomargin'>
+          <table class='weekly nopad nomargin'>
+            <tr>
+              <th class='nopad'><h4>Weekly Movement Indicators</h4></th>
+            </tr>
+            <tr>
+              <td>
+                <div class="field" data-info="spiritual_conversations">
+                  <%= text_field_tag "stat[" + unique_name(stat) + "[spiritual_conversations]]", stat.spiritual_conversations, :id => "week 1", :class => "totalnumber" %>
+                  <label>Spiritual Conversations</label>
+                </div>
+              </td>
+              <td>
+                <div class="field" data-info="holy_spirit_conversations">
+                  <%= text_field_tag "stat[" + unique_name(stat) + "[holySpiritConversations]]", stat.holySpiritConversations, :id => "week 1", :class => "totalnumber" %>
+                  <label>Holy Spirit Presentations</label>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <div class="field" data-info="personal_evangelism">
+                  <%= text_field_tag "stat[" + unique_name(stat) + "[evangelisticOneOnOne]]", stat.evangelisticOneOnOne, :id => "week 1", :class => "totalnumber" %>
+                  <label>Personal Evangelism</label>
+                </div>
+              </td>
+              <td>
+                <div class="field" data-info="decisions_personal">
+                  <%= text_field_tag "stat[" + unique_name(stat) + "[decisionsHelpedByOneOnOne]]", stat.decisionsHelpedByOneOnOne, :id => "week 1", :class => "totalnumber" %>
+                  <label>Personal Evangelism Decisions</label>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <div class="field" data-info="group_evangelism">
+                  <%= text_field_tag "stat[" + unique_name(stat) + "[evangelisticGroup]]", stat.evangelisticGroup, :id => "week 1", :class => "totalnumber" %>
+                  <label>Group Evangelism</label>
+                </div>
+              </td>
+              <td>
+                <div class="field" data-info="decisions_group">
+                  <%= text_field_tag "stat[" + unique_name(stat) + "[decisionsHelpedByGroup]]", stat.decisionsHelpedByGroup, :id => "week 1", :class => "totalnumber" %>
+                  <label>Group Evangelism Decisions</label>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <div class="field" data-info="media_exposures">
+                  <%= text_field_tag "stat[" + unique_name(stat) + "[exposuresViaMedia]]", stat.exposuresViaMedia, :id => "week 1", :class => "totalnumber" %>
+                  <label>Media Exposures</label>
+                </div>
+              </td>
+              <td>
+                <div class="field" data-info="decisions_media">
+                  <%= text_field_tag "stat[" + unique_name(stat) + "[decisionsHelpedByMedia]]", stat.decisionsHelpedByMedia, :id => "week 1", :class => "totalnumber" %>
+                  <label>Media Exposures Decisions</label>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <div class="field" data-info="laborers_sent">
+                  <%= text_field_tag "stat[" + unique_name(stat) + "[laborersSent]]", stat.laborersSent, :id => "week 1", :class => "totalnumber" %>
+                  <label>Graduating on Mission</label>
+                </div>
+              </td>
+              <td>
+                <div class="field" data-info="faculty_sent">
+                  <%= text_field_tag "stat[" + unique_name(stat) + "[faculty_sent]]", stat.faculty_sent, :id => "week 1", :class => "totalnumber" %>
+                  <label>Faculty on Mission</label>
+                </div>
+              </td>
+            </tr>
+          </table>
+        </td>
+        <td valign="top" class='ongoing_wrapper nopad nomargin'>
+          <table class='ongoing nopad nomargin'>
+            <tr>
+              <th class='nopad' colspan='3'><h4>Semester/Quarter Movement Indicators**</h4></th>
+            </tr>
+            <tr>
+              <td class='txt_right'></td>
+              <td><h4>Students</h4></td>
+              <td><h4>Faculty</h4></td>
+            </tr>
+            <tr>
+              <td class='txt_right'>
+                <div class="field" data-info="involved_students"><label class="semester">Involved</label></div>
+              </td>
+              <td>
+                <div class="field" data-info="involved_students">
+                  <%= text_field_tag "stat[" + unique_name(stat) + "[invldStudents]]", stat.invldStudents, :id => "week 1", :class => "totalnumber" %>
+                </div>
+              </td>
+              <td>
+                <div class="field" data-info="involved_students">
+                  <%= text_field_tag "stat[" + unique_name(stat) + "[faculty_involved]]", stat.faculty_involved, :id => "week 1", :class => "totalnumber" %>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td class='txt_right'>
+                <div class="field" data-info="multipliers"><label class="semester">Engaged Disciples</label></div>
+              </td>
+              <td>
+                <div class="field" data-info="multipliers">
+                  <%= text_field_tag "stat[" + unique_name(stat) + "[multipliers]]", stat.multipliers, :id => "week 1", :class => "totalnumber", :onfocus => "infoBox('#{unique_name(stat)}','multipliers',200);" %>
+                </div>
+              </td>
+              <td>
+                <div class="field" data-info="multipliers">
+                  <%= text_field_tag "stat[" + unique_name(stat) + "[faculty_engaged]]", stat.faculty_engaged, :id => "week 1", :class => "totalnumber" %>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td class='txt_right'>
+                <div class="field" data-info="student_leaders"><label class="semester">Leaders</label></div>
+              </td>
+              <td>
+                <div class="field" data-info="student_leaders">
+                  <%= text_field_tag "stat[" + unique_name(stat) + "[studentLeaders]]", stat.studentLeaders, :id => "week 1", :class => "totalnumber" %>
+                </div>
+              </td>
+              <td>
+                <div class="field" data-info="student_leaders">
+                  <%= text_field_tag "stat[" + unique_name(stat) + "[faculty_leaders]]", stat.faculty_leaders, :id => "week 1", :class => "totalnumber" %>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td colspan="3"><p class="semester">**Semester/Quarter Movement Indicators are prefilled with the most recently entered numbers. If these numbers have changed, please update them above.</p>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
     
-    <div class="stats_column">
-      <h4>&nbsp;</h4>
-      <div class="field">
-        <%= text_field_tag "stat[" + unique_name(stat) + "[holySpiritConversations]]", stat.holySpiritConversations, :id => "week 1", :class => "totalnumber", :onfocus => "infoBox('#{unique_name(stat)}','holy_spirit_conversations',200);" %>
-        <label onMouseOver="infoBox('<%= unique_name(stat) %>','holy_spirit_conversations',200);" onMouseOut="infoBoxClear('<%= unique_name(stat) %>');" >Holy Spirit Presentations</label>
-      </div>
-
-      <br/>
-      
-      <div class="field">
-        <%= text_field_tag "stat[" + unique_name(stat) + "[decisionsHelpedByOneOnOne]]", stat.decisionsHelpedByOneOnOne, :id => "week 1", :class => "totalnumber", :onfocus => "infoBox('#{unique_name(stat)}','decisions_personal',200);" %>
-        <label onMouseOver="infoBox('<%= unique_name(stat) %>','decisions_personal',200);" onMouseOut="infoBoxClear('<%= unique_name(stat) %>');" >Personal Evangelism Decisions</label>
-      </div>
-      
-      <div class="field">
-        <%= text_field_tag "stat[" + unique_name(stat) + "[decisionsHelpedByGroup]]", stat.decisionsHelpedByGroup, :id => "week 1", :class => "totalnumber", :onfocus => "infoBox('#{unique_name(stat)}','decisions_group',200);" %>
-        <label onMouseOver="infoBox('<%= unique_name(stat) %>','decisions_group',200);" onMouseOut="infoBoxClear('<%= unique_name(stat) %>');" >Group Evangelism Decisions</label>
-      </div>
-      
-      <div class="field">
-        <%= text_field_tag "stat[" + unique_name(stat) + "[decisionsHelpedByMedia]]", stat.decisionsHelpedByMedia, :id => "week 1", :class => "totalnumber", :onfocus => "infoBox('#{unique_name(stat)}','decisions_media',200);" %>
-        <label onMouseOver="infoBox('<%= unique_name(stat) %>','decisions_media',200);" onMouseOut="infoBoxClear('<%= unique_name(stat) %>');" >Media Exposures Decisions</label>
-      </div>
-      
-      <br/>
-      
-      <div class="field">
-        <%= text_field_tag "stat[" + unique_name(stat) + "[faculty_sent]]", stat.faculty_sent, :id => "week 1", :class => "totalnumber", :onfocus => "infoBox('#{unique_name(stat)}','faculty_sent',200);" %>
-        <label onMouseOver="infoBox('<%= unique_name(stat) %>','faculty_sent',200);" onMouseOut="infoBoxClear('<%= unique_name(stat) %>');" >Faculty on Mission</label>
-      </div>
+    <div class="infobox">
     </div>
 
-    <div class="stats_column_right">
-      <h4 class="semester">Semester/Quarter Movement Indicators**</h4>
-      <!-- columns are in backwards order to achieve right alignment -->
-      <div class="semester_column">
-        <h4 class="semester_title">Faculty</h4>
-        <div class="field">
-          <%= text_field_tag "stat[" + unique_name(stat) + "[faculty_involved]]", stat.faculty_involved, :id => "week 1", :class => "totalnumber", :onfocus => "infoBox('#{unique_name(stat)}','faculty_involved',200);" %>
-        </div>
-
-        <div class="field">
-          <%= text_field_tag "stat[" + unique_name(stat) + "[faculty_engaged]]", stat.faculty_engaged, :id => "week 1", :class => "totalnumber", :onfocus => "infoBox('#{unique_name(stat)}','faculty_engaged',200);" %>
-        </div>
-        
-        <div class="field">
-          <%= text_field_tag "stat[" + unique_name(stat) + "[faculty_leaders]]", stat.faculty_leaders, :id => "week 1", :class => "totalnumber", :onfocus => "infoBox('#{unique_name(stat)}','faculty_leaders',200);" %>
-        </div>
-      </div>
-      
-      <div class="semester_column">
-        <h4 class="semester_title">Students</h4>
-        <div class="field">
-          <%= text_field_tag "stat[" + unique_name(stat) + "[invldStudents]]", stat.invldStudents, :id => "week 1", :class => "totalnumber", :onfocus => "infoBox('#{unique_name(stat)}','involved_students',200);" %>
-        </div>
-
-        <div class="field">
-          <%= text_field_tag "stat[" + unique_name(stat) + "[multipliers]]", stat.multipliers, :id => "week 1", :class => "totalnumber", :onfocus => "infoBox('#{unique_name(stat)}','multipliers',200);" %>
-        </div>
-        
-        <div class="field">
-          <%= text_field_tag "stat[" + unique_name(stat) + "[studentLeaders]]", stat.studentLeaders, :id => "week 1", :class => "totalnumber", :onfocus => "infoBox('#{unique_name(stat)}','student_leaders',200);" %>
-        </div>
-      </div>
-      
-      <div class="semester_column_labels">
-        <div class="field">
-          <label class="semester" onMouseOver="infoBox('<%= unique_name(stat) %>','involved_students',200);" onMouseOut="infoBoxClear('<%= unique_name(stat) %>');" >Involved</label>
-        </div>
-
-        <div class="field">
-          <label class="semester" onMouseOver="infoBox('<%= unique_name(stat) %>','multipliers',200);" onMouseOut="infoBoxClear('<%= unique_name(stat) %>');" >Engaged Disciples</label>
-        </div>
-        
-        <div class="field">
-          <label class="semester" onMouseOver="infoBox('<%= unique_name(stat) %>','student_leaders',200);" onMouseOut="infoBoxClear('<%= unique_name(stat) %>');" >Leaders</label>
-        </div>
-      </div>
-      
-      <% if Statistic.uses_seekers.include?(stat.activity.strategy) %>
-        <div class="field">
-          <label onMouseOver="infoBox('<%= unique_name(stat) %>','seekers',200);" onMouseOut="infoBoxClear('<%= unique_name(stat) %>');" >Seekers</label>
-          <%= text_field_tag "stat[" + unique_name(stat) + "[seekers]]", stat.seekers, :id => "week 1", :class => "totalnumber", :onfocus => "infoBox('#{unique_name(stat)}','seekers',200);" %>
-        </div>
-      <% end %>
-
-      <div style="clear:both"></div>
-      <p class="semester">**Semester/Quarter Movement Indicators are prefilled with the most recently entered numbers.  If these numbers have changed, please update them above.</p>
+    <div style="float: left;">
     </div>
 
     <div style="clear:both"></div>
