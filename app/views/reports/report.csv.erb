@@ -2,12 +2,16 @@
   def header_bar(csv, row_type)
     case @type
     when "campus"
-      csv << [ row_type.html_safe, "Personal Evangelism", "", "Group Evangelism", "", "Media Exposures", "", "Sending", "", "Student Demographics", "", "Faculty Demographics", "" ]
+      csv << [ csv_strip_tags(row_type.html_safe), "Personal Evangelism", "", "Group Evangelism", "", "Media Exposures", "", "Sending", "", "Student Demographics", "", "Faculty Demographics", "" ]
       csv << [ "", "Exp.", "Dec.", "Exp.", "Dec.", "Exp.", "Dec.", "Spiritual Convos", "Holy Spirit", "Grad. on Mission", "Faculty on Mission", "Involved", "Engaged", "Leaders", "involved", "Engaged", "Leaders" ]
     else
-      csv << [ row_type.html_safe, "Personal Evangelism", "", "Group Evangelism", "", "Media Exposures", "", "Sending", "", "", "", "Event", "" ]
+      csv << [ csv_strip_tags(row_type.html_safe), "Personal Evangelism", "", "Group Evangelism", "", "Media Exposures", "", "Sending", "", "", "", "Event", "" ]
       csv << [ "", "Exp.", "Dec.", "Exp.", "Dec.", "Exp.", "Dec.", "Spiritual Conversations", "Holy Spirit Pres.", "Laborers Sent", "Faculty Sent", "Students Involved", "Dollars Raised" ]
     end
+  end
+
+  def csv_strip_tags(s)
+    s.gsub('<br/>', ' - ').gsub('<i/?>', '').gsub(/<font[^>]*>/, ' ').gsub('</font>', ' ').gsub(/ -\s*- /, ' - ').gsub(/\s\s+/, ' ').strip
   end
 
   CSV.generate do |csv|
@@ -45,9 +49,9 @@
       report.rows.each do |row|
         case @type
         when "campus"
-          csv << [ row.name.to_s, (Statistic.weekly_stats + Statistic.semester_stats).collect{ |stat| row.send(stat) } ].flatten
+          csv << [ csv_strip_tags(row.name.to_s), (Statistic.weekly_stats + Statistic.semester_stats).collect{ |stat| row.send(stat) } ].flatten
         else
-          csv << [ row.name.to_s, Statistic.event_stats.collect{ |stat| row.send(stat) } ].flatten
+          csv << [ csv_strip_tags(row.name.to_s), Statistic.event_stats.collect{ |stat| row.send(stat) } ].flatten
         end
       end
 
