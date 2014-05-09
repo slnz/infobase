@@ -22,7 +22,7 @@ class Ccc::Person < ActiveRecord::Base
   has_many :pr_reminders, class_name: 'Ccc::PrReminder', dependent: :destroy
   has_many :pr_personal_forms, class_name: 'Ccc::PrPersonalForm', dependent: :destroy
   has_many :person_accesses, class_name: 'Ccc::PersonAccess', dependent: :destroy
-  has_many :individual_accesses, class_name: 'Ccc::IndividualAccess', foreign_key: :person_id #dependent: :destroy
+  has_many :individual_accesses, class_name: 'Ccc::IndividualAccess', foreign_key: :person_id, dependent: :destroy
 
 
   has_many :sp_applications, class_name: 'Ccc::SpApplication'
@@ -143,11 +143,11 @@ class Ccc::Person < ActiveRecord::Base
 
 
       # Panorama
-      other.pr_reviewers.update_all(person_id: personID)
+      other.pr_reviewers.update_all(person_id: personID)                      #TODO - throughout merge process, it'd be better to use update & update_attribute so that callbacks are invoked (use 'update' if validations need to be invoked)
 
       Ccc::PrReview.where(["subject_id = ? or initiator_id = ?", other.id, other.id]).each do |ua|
-        ua.update_column(:subject_id, personID) if ua.subject_id == other.id                        # faster(?) to use: other.pr_reviews.update_all(subject_id: personID)
-        ua.update_column(:initiator_id, personID) if ua.initiator_id == other.id                    #           and     other.pr_review_initiators.update_all(initiator_id: personID)
+        ua.update_column(:subject_id, personID) if ua.subject_id == other.id
+        ua.update_column(:initiator_id, personID) if ua.initiator_id == other.id
       end
 
       Ccc::IndividualAccess.where(["person_id = ? or grant_person_id = ?", other.id, other.id]).each do |ia|
@@ -190,7 +190,7 @@ class Ccc::Person < ActiveRecord::Base
 
 
       # Summer Project Tool
-      other.sp_applications.each { |ua| ua.update_attribute(:person_id, personID) }       # why we not use  other.sp_applications.update_all(person_id: personID)  Callbacks?  update_attribute invokes callbacks, but update_column & update_all do not
+      other.sp_applications.each { |ua| ua.update_attribute(:person_id, personID) }
 
       Ccc::SpProject.where(["pd_id = ? or apd_id = ? or opd_id = ? or coordinator_id = ?", other.id, other.id, other.id, other.id]).each do |ua|
         ua.update_attribute(:pd_id, personID) if ua.pd_id == other.id
