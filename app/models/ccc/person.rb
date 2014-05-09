@@ -21,7 +21,7 @@ class Ccc::Person < ActiveRecord::Base
   has_many :pr_summary_forms, class_name: 'Ccc::PrSummaryForm', dependent: :destroy
   has_many :pr_reminders, class_name: 'Ccc::PrReminder', dependent: :destroy
   has_many :pr_personal_forms, class_name: 'Ccc::PrPersonalForm', dependent: :destroy
-  has_many :person_accesses, class_name: 'Ccc::PersonAccess', dependent: :destroy
+  has_one :person_access, class_name: 'Ccc::PersonAccess', dependent: :destroy
   has_many :individual_accesses, class_name: 'Ccc::IndividualAccess', foreign_key: :person_id, dependent: :destroy
 
 
@@ -162,22 +162,10 @@ class Ccc::Person < ActiveRecord::Base
       end
 
 
-      if other.person_accesses.first && person_accesses.first            #TODO - Tests in rspec for merge process...?
-        person_accesses.each do |pa|
-          other.person_accesses.each { |opa| pa.merge(opa) }
-        end
-      elsif other.person_accesses.first
-        other.person_accesses.update_all(person_id: personID)
-      end
-      # Make sure the Person account that survives does not have more than one PersonAccesses
-      if person_accesses.count > 1
-        master = person_accesses.first
-        person_accesses.each_with_index do |pa, index|
-          if index != 0
-            master.merge(pa)
-            pa.destroy
-          end
-        end
+      if other.person_access && person_access            #TODO - Tests in rspec for merge process...?
+          person_access.merge(other.person_access)
+      elsif other.person_access
+        other.person_access.update_attribute(person_id: personID)
       end
 
 
