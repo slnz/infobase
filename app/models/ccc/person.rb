@@ -143,7 +143,7 @@ class Ccc::Person < ActiveRecord::Base
 
 
       # Panorama
-      other.pr_reviewers.update_all(person_id: personID)                      #TODO - throughout merge process, it'd be better to use update & update_attribute so that callbacks are invoked (use 'update' if validations need to be invoked)
+      other.pr_reviewers.update_all(person_id: personID)                      #TODO - in merge process, do we want callbacks done & updated_at fields updated? If so, then use update(aka: update_attributes). Otherwise, update_all & update_column are fine (and faster).
 
       Ccc::PrReview.where(["subject_id = ? or initiator_id = ?", other.id, other.id]).each do |ua|
         ua.update_column(:subject_id, personID) if ua.subject_id == other.id
@@ -165,7 +165,7 @@ class Ccc::Person < ActiveRecord::Base
       if other.person_access && person_access            #TODO - Tests in rspec for merge process...?
           person_access.merge(other.person_access)
       elsif other.person_access
-        other.person_access.update_attribute(person_id: personID)
+        other.person_access.update_column(:person_id, personID)
       end
 
 
@@ -178,7 +178,7 @@ class Ccc::Person < ActiveRecord::Base
 
 
       # Summer Project Tool
-      other.sp_applications.each { |ua| ua.update_attribute(:person_id, personID) }
+      other.sp_applications.each { |ua| ua.update_attribute(:person_id, personID) }         # update_all would be faster here, but if want callbacks & update_at field updated, then use use update(aka: update_attributes).
 
       Ccc::SpProject.where(["pd_id = ? or apd_id = ? or opd_id = ? or coordinator_id = ?", other.id, other.id, other.id, other.id]).each do |ua|
         ua.update_attribute(:pd_id, personID) if ua.pd_id == other.id
