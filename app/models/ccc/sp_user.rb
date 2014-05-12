@@ -7,12 +7,12 @@ class Ccc::SpUser < ActiveRecord::Base
 
   def merge(other)
 		roles = %w{SpNationalCoordinator SpDonationServices SpRegionalCoordinator SpDirector SpEvaluator SpProjectStaff SpGeneralStaff}
-		if other.type != nil && roles.index(other.type) < roles.index(type)
-   		self.type = other.type
+		if other.type != nil && type != nil && roles.index(other.type) < roles.index(type)    # this last '(type)' call refers to self
+   		self.type = other.type                                                    # self.type is used explicitly here
 		end	
     other.reload
    	other.destroy
-		save
+		save                                                                  # this call to 'save' refers to self
   end
 
 end

@@ -21,6 +21,9 @@ class Ccc::Person < ActiveRecord::Base
   has_many :pr_summary_forms, class_name: 'Ccc::PrSummaryForm', dependent: :destroy
   has_many :pr_reminders, class_name: 'Ccc::PrReminder', dependent: :destroy
   has_many :pr_personal_forms, class_name: 'Ccc::PrPersonalForm', dependent: :destroy
+  has_one :person_access, class_name: 'Ccc::PersonAccess', dependent: :destroy
+  has_many :individual_accesses, class_name: 'Ccc::IndividualAccess', foreign_key: :person_id, dependent: :destroy
+
 
   has_many :sp_applications, class_name: 'Ccc::SpApplication'
   has_many :summer_projects, -> { where "sp_applications.status IN('accepted_as_participant', 'accepted_as_student_staff')" }, :class_name => "Ccc::SpProject", through: :sp_applications, source: :sp_project
@@ -140,12 +143,31 @@ class Ccc::Person < ActiveRecord::Base
 
 
       # Panorama
-      other.pr_reviewers.update_all(person_id: personID)
+      other.pr_reviewers.update_all(person_id: personID)                      #TODO - in merge process, do we want callbacks done & updated_at fields updated? If so, then use update(aka: update_attributes). Otherwise, update_all & update_column are fine (and faster).
 
       Ccc::PrReview.where(["subject_id = ? or initiator_id = ?", other.id, other.id]).each do |ua|
         ua.update_column(:subject_id, personID) if ua.subject_id == other.id
         ua.update_column(:initiator_id, personID) if ua.initiator_id == other.id
       end
+
+      Ccc::IndividualAccess.where(["person_id = ? or grant_person_id = ?", other.id, other.id]).each do |ia|
+        ia.update_column(:person_id, personID) if ia.person_id == other.id
+        ia.update_column(:grant_person_id, personID) if ia.grant_person_id == other.id
+      end
+      # Remove duplicates that could be created when updating IndividualAccess records
+      ia_array = Ccc::IndividualAccess.where(["person_id = ? or grant_person_id = ?", personID, personID]).order(:person_id, :grant_person_id)
+      ia_array.each_with_index do |ia, index|
+        next if index == 0
+        ia.destroy if ia_array[index-1].person_id == ia_array[index].person_id && ia_array[index-1].grant_person_id == ia_array[index].grant_person_id
+      end
+
+
+      if other.person_access && person_access            #TODO - Tests in rspec for merge process...?
+          person_access.merge(other.person_access)
+      elsif other.person_access
+        other.person_access.update_column(:person_id, personID)
+      end
+
 
       other.pr_admins.update_all(person_id: personID)
       other.pr_summary_forms.update_all(person_id: personID)
@@ -154,8 +176,9 @@ class Ccc::Person < ActiveRecord::Base
 
       # end Panorama
 
+
       # Summer Project Tool
-      other.sp_applications.each { |ua| ua.update_attribute(:person_id, personID) }
+      other.sp_applications.each { |ua| ua.update_attribute(:person_id, personID) }         # update_all would be faster here, but if want callbacks & update_at field updated, then use use update(aka: update_attributes).
 
       Ccc::SpProject.where(["pd_id = ? or apd_id = ? or opd_id = ? or coordinator_id = ?", other.id, other.id, other.id, other.id]).each do |ua|
         ua.update_attribute(:pd_id, personID) if ua.pd_id == other.id
@@ -176,12 +199,21 @@ class Ccc::Person < ActiveRecord::Base
 
       other.sp_staff.each { |ua| ua.update_attribute(:person_id, personID) }
       other.sp_application_moves.each { |ua| ua.update_attribute(:moved_by_person_id, personID) }
+
+      other.sp_designation_numbers.each do |d|
+        begin
+          d.update_attribute(:person_id, personID)
+        rescue ActiveRecord::RecordNotUnique
+        end
+      end
       # end Summer Project Tool
 
-      other.si_applies.each { |ua| ua.update_attribute(:applicant_id, personID) }
 
+      # ministry staff table
       other.ministry_staff.each { |ua| ua.update_attribute(:person_id, personID) }
 
+
+      # STINT/Intern tools
       other.hr_si_applications.each do |ua|
         ua.update_attribute(:fk_personID, personID)
         ua.update_attribute(:fk_ssmUserID, fk_ssmUserId)
@@ -190,16 +222,13 @@ class Ccc::Person < ActiveRecord::Base
       other.si_applies.each { |ua| ua.update_attribute(:applicant_id, personID) }
       other.sitrack_mpd.each { |ua| ua.update_attribute(:person_id, personID) }
       other.sitrack_tracking.each { |ua| ua.update_attribute(:person_id, personID) }
+      # end STINT/Intern tools
+
 
       other.profile_pictures.each { |ua| ua.update_attribute(:person_id, personID) }
       other.ministry_missional_team_members.each { |ua| ua.update_attribute(:personID, personID) }
+
       other.rideshare_rides.each {|ua| ua.update_attribute(:person_id, personID) }
-      other.sp_designation_numbers.each do |d|
-        begin
-          d.update_attribute(:person_id, personID)
-        rescue ActiveRecord::RecordNotUnique
-        end
-      end
 
       Ccc::MergeAudit.create!(mergeable: self, merge_looser: other)
       other.reload

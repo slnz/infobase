@@ -1,4 +1,4 @@
-class Ccc::PrReviewer < AnswerSheet
+class Ccc::PrReviewer < ActiveRecord::Base
 
 
   self.table_name = "pr_reviewers"
