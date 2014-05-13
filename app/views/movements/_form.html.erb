@@ -1,4 +1,7 @@
 <%= f.error_messages %>
+<table class='movement_status'>
+  <tr>
+    <td class='statuses'>
 <b>Use the radio buttons to change the status below:</b><br/>
 <b>This Ministry Location is a(n)...</b><br/>
 <% @statuses.each_key do |status| %>
@@ -8,6 +11,12 @@
   Move your mouse pointer over a<br/>
   capitalized word to see a short explanation.
 </div>
+    </td>
+    <td>
+      <div class="infobox" style="display:none"><div class="keyitem"><br/></div></div>
+    </td>
+  </tr>
+</table>
 <br/>
 <b>What date did this status change take place?</b><br/>
 <%= f.date_select :periodBegin, :default => Time.now.to_date %><br/> <!-- TODO: Datepicker? -->
@@ -19,3 +28,26 @@
 <b>URL:</b><%= f.text_field :url %><br/>
 <b>Facebook:</b><%= f.text_field :facebook %><br/>
 <br/>
+<script>
+  status_text = {
+    "IN": "Inactive – No active Campus Ministry strategy nor potential student leader at this ministry location. No missional team has taken ownership of this location.",
+    "PI": "Pioneering – We are actively doing something to start a ministry at this ministry location—prayer, seeking a key contact, evangelism.",
+    "KE": "Key Leader – We have found a key leader – student, volunteer, or partner – at this ministry location and are beginning to build a movements.",
+    "LA": "Launched – We have  five  people aligned to Win/Build/Send as well as a leader.  These people can be students, faculty, volunteers or a staff member.",
+    "MU": "Multiplying – A Movement of 50 or more students involved, or 1% of the student body"
+  }
+  $("label[for=activity_status]").hover(function() {
+      el = $(this).prev();
+      $(".keyitem").html(status_text[el.attr("value")]);
+      $(".infobox").show();
+      $(this).addClass("keyitem_bg");
+    }, function() {
+      $(this).removeClass("keyitem_bg");
+    }
+  );
+  $("td.statuses").hover(function() {
+    }, function() {
+      $(".infobox").hide();
+    }
+  );
+</script>
