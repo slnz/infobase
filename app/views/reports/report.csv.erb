@@ -1,0 +1,68 @@
+<%=
+  def header_bar(csv, row_type)
+    case @type
+    when "campus"
+      csv << [ csv_strip_tags(row_type.html_safe), "Personal Evangelism", "", "Group Evangelism", "", "Media Exposures", "", "Sending", "", "Student Demographics", "", "Faculty Demographics", "" ]
+      csv << [ "", "Exp.", "Dec.", "Exp.", "Dec.", "Exp.", "Dec.", "Spiritual Convos", "Holy Spirit", "Grad. on Mission", "Faculty on Mission", "Involved", "Engaged", "Leaders", "involved", "Engaged", "Leaders" ]
+    else
+      csv << [ csv_strip_tags(row_type.html_safe), "Personal Evangelism", "", "Group Evangelism", "", "Media Exposures", "", "Sending", "", "", "", "Event", "" ]
+      csv << [ "", "Exp.", "Dec.", "Exp.", "Dec.", "Exp.", "Dec.", "Spiritual Conversations", "Holy Spirit Pres.", "Laborers Sent", "Faculty Sent", "Students Involved", "Dollars Raised" ]
+    end
+  end
+
+  def csv_strip_tags(s)
+    s.gsub('<br/>', ' - ').gsub('<i/?>', '').gsub(/<font[^>]*>/, ' ').gsub('</font>', ' ').gsub(/ -\s*- /, ' - ').gsub(/\s\s+/, ' ').strip
+  end
+
+  CSV.generate do |csv|
+
+    csv << [ "#{@report_type} Report" ]
+    csv << [ "For dates: #{display_date(@from_date)} up to and including #{display_date(@to_date)}" ]
+    csv << [ "(may overlap to some days in the previous month and the next month slightly depending on how the beginning and end of each week falls)" ]
+
+    csv << [ "" ]
+
+    # strategies
+    strategies = ""
+    @strategies_list.each do |strategy|
+      strategies += Activity.strategies[strategy] + ", "
+    end
+    if !strategies.blank?
+      csv << [ "Including strategies: #{strategies.chop.chop}" ]
+    end
+
+    csv << [ "" ]
+
+    # statuses
+    statuses = ""
+    @movement_status_list.each do |status|
+      statuses += Activity.statuses[status] + ", "
+    end
+    if !statuses.blank?
+      csv << [ "Including movement statuses: #{statuses.chop.chop}" ]
+    end
+
+    # render rows
+    @reports.each do |report|
+      header_bar(csv, report.row_type)
+
+      report.rows.each do |row|
+        case @type
+        when "campus"
+          csv << [ csv_strip_tags(row.name.to_s), (Statistic.weekly_stats + Statistic.semester_stats).collect{ |stat| row.send(stat) } ].flatten
+        else
+          csv << [ csv_strip_tags(row.name.to_s), Statistic.event_stats.collect{ |stat| row.send(stat) } ].flatten
+        end
+      end
+
+      header_bar(csv, report.row_type)
+
+      case @type
+      when "campus"
+        csv << [ "Totals", (Statistic.weekly_stats + Statistic.semester_stats).collect{ |stat| report.get_totals.send(stat) } ].flatten
+      else
+        csv << [ "Totals", Statistic.event_stats.collect{ |stat| report.get_totals.send(stat) } ].flatten
+      end
+    end
+  end.html_safe
+%>
