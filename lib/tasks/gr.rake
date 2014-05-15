@@ -1,7 +1,9 @@
 task :global => :environment do
+  Ministry.update_all(global_registry_id: nil)
   campus = Ministry.find_by(name: 'Campus Field Ministry')
   campus.async_push_to_global_registry
 
+  Region.update_all(global_registry_id: nil)
   regions = Region.all
   regions.map do |r|
     r.async_push_to_global_registry(campus.global_registry_id)
@@ -30,7 +32,6 @@ task :global => :environment do
   end
 
   # create statistics
-  Statistic.update_all(global_registry_id: nil)
   Statistic.find_each do |t|
     puts "Statistic: #{t.id}"
     t.async_push_to_global_registry
@@ -39,6 +40,12 @@ task :global => :environment do
   # create team memberships
   Person.update_all(global_registry_id: nil)
   Person.find_each do |t|
+    puts "Person: #{t.id}"
+    t.async_push_to_global_registry
+  end
+
+  EmailAddress.update_all(global_registry_id: nil)
+  EmailAddress.find_each do |t|
     puts "Person: #{t.id}"
     t.async_push_to_global_registry
   end
