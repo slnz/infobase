@@ -1,3 +1,4 @@
+require 'sidekiq/web'
 Infobase::Application.routes.draw do
   get "gcx_site_users/new"
 
@@ -154,6 +155,13 @@ Infobase::Application.routes.draw do
   get 'home/no' => 'home#no'
 
   get 'monitors/lb' => 'monitors#lb'
+
+  constraint = lambda { |request| request.session['user_id'] and
+    User.find(request.session['user_id']).developer? }
+
+  constraints constraint do
+    mount Sidekiq::Web => '/sidekiq'
+  end
 
   root :to => 'home#index'
 

@@ -66,6 +66,8 @@ gem 'oj'
 gem 'will_paginate'
 gem 'geocoder'
 gem 'global_registry', git: 'https://github.com/CruGlobal/global_registry_client.git'
+gem 'sidekiq-pro'
+gem 'sinatra', '>= 1.3.0', :require => nil
 
 gem 'rack-google_analytics', :require => "rack/google_analytics"
 
