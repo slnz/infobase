@@ -2,8 +2,8 @@
   def header_bar(csv, row_type)
     case @type
     when "campus"
-      csv << [ csv_strip_tags(row_type.html_safe), "Personal Evangelism", "", "Group Evangelism", "", "Media Exposures", "", "Sending", "", "Student Demographics", "", "Faculty Demographics", "" ]
-      csv << [ "", "Exp.", "Dec.", "Exp.", "Dec.", "Exp.", "Dec.", "Spiritual Convos", "Holy Spirit", "Grad. on Mission", "Faculty on Mission", "Involved", "Engaged", "Leaders", "involved", "Engaged", "Leaders" ]
+      csv << [ csv_strip_tags(row_type.html_safe), "Personal Evangelism", "", "Group Evangelism", "", "Media Exposures", "", "Sending", "", "", "", "Student Demographics", "", "", "Faculty Demographics", "", "" ]
+      csv << [ "", "Exp.", "Dec.", "Exp.", "Dec.", "Exp.", "Dec.", "Spiritual Convos", "Holy Spirit", "Grad. on Mission", "Faculty on Mission", "Involved", "Engaged", "Leaders", "Involved", "Engaged", "Leaders" ]
     else
       csv << [ csv_strip_tags(row_type.html_safe), "Personal Evangelism", "", "Group Evangelism", "", "Media Exposures", "", "Sending", "", "", "", "Event", "" ]
       csv << [ "", "Exp.", "Dec.", "Exp.", "Dec.", "Exp.", "Dec.", "Spiritual Conversations", "Holy Spirit Pres.", "Laborers Sent", "Faculty Sent", "Students Involved", "Dollars Raised" ]
