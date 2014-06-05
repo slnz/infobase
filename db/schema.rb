@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140410121231) do
+ActiveRecord::Schema.define(version: 20140605162117) do
 
   create_table "academic_departments", force: true do |t|
     t.string "name"
@@ -913,9 +913,10 @@ ActiveRecord::Schema.define(version: 20140410121231) do
   create_table "email_addresses", force: true do |t|
     t.string   "email"
     t.integer  "person_id"
-    t.boolean  "primary",    default: false
+    t.boolean  "primary",            default: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "global_registry_id"
   end
 
   add_index "email_addresses", ["email"], name: "email", using: :btree
@@ -1339,7 +1340,7 @@ ActiveRecord::Schema.define(version: 20140410121231) do
     t.integer  "maxNoStudentPCouples"
     t.integer  "maxNoStudentPFamilies"
     t.integer  "maxNoStudentP"
-    t.integer  "global_registry_id"
+    t.string   "global_registry_id"
   end
 
   add_index "hr_si_project", ["global_registry_id"], name: "index_hr_si_project_on_global_registry_id", using: :btree
@@ -1629,9 +1630,9 @@ ActiveRecord::Schema.define(version: 20140410121231) do
   add_index "merge_audits", ["mergeable_id", "mergeable_type"], name: "mergeable", using: :btree
 
   create_table "ministries", force: true do |t|
-    t.string  "name"
-    t.string  "abbreviation"
-    t.integer "global_registry_id", limit: 8
+    t.string "name"
+    t.string "abbreviation"
+    t.string "global_registry_id"
   end
 
   create_table "ministry_activity", primary_key: "ActivityID", force: true do |t|
@@ -1649,7 +1650,7 @@ ActiveRecord::Schema.define(version: 20140410121231) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "gcx_site"
-    t.integer  "global_registry_id",       limit: 8
+    t.string   "global_registry_id"
   end
 
   add_index "ministry_activity", ["fk_targetAreaID", "strategy"], name: "index_ministry_activity_on_fk_targetareaid_and_strategy", unique: true, using: :btree
@@ -1770,7 +1771,7 @@ ActiveRecord::Schema.define(version: 20140410121231) do
     t.string   "dept_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "global_registry_id"
+    t.string   "global_registry_id"
   end
 
   add_index "ministry_locallevel", ["global_registry_id"], name: "index_ministry_locallevel_on_global_registry_id", using: :btree
@@ -1782,6 +1783,7 @@ ActiveRecord::Schema.define(version: 20140410121231) do
     t.boolean  "is_leader"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "global_registry_id"
   end
 
   add_index "ministry_missional_team_member", ["personID"], name: "personID", using: :btree
@@ -1834,6 +1836,7 @@ ActiveRecord::Schema.define(version: 20140410121231) do
     t.string   "phone1_type",                     default: "cell"
     t.string   "phone2_type",                     default: "home"
     t.string   "phone3_type",                     default: "work"
+    t.string   "global_registry_id",  limit: 40
   end
 
   add_index "ministry_newaddress", ["addressType", "fk_PersonID"], name: "unique_person_addressType", unique: true, using: :btree
@@ -1924,7 +1927,7 @@ ActiveRecord::Schema.define(version: 20140410121231) do
     t.decimal  "balance_daily",                                    precision: 10, scale: 2
     t.string   "siebel_contact_id"
     t.string   "sp_gcx_site"
-    t.integer  "global_registry_id"
+    t.string   "global_registry_id"
   end
 
   add_index "ministry_person", ["accountNo"], name: "accountNo_ministry_Person", using: :btree
@@ -1979,7 +1982,7 @@ ActiveRecord::Schema.define(version: 20140410121231) do
     t.string   "abbrv",              limit: 80
     t.string   "hrd",                limit: 50
     t.string   "spPhone",            limit: 24
-    t.integer  "global_registry_id", limit: 8
+    t.string   "global_registry_id"
   end
 
   create_table "ministry_staff", force: true do |t|
@@ -2251,7 +2254,7 @@ ActiveRecord::Schema.define(version: 20140410121231) do
     t.datetime "updated_at"
     t.decimal  "latitude",                           precision: 11, scale: 7
     t.decimal  "longitude",                          precision: 11, scale: 7
-    t.integer  "global_registry_id",     limit: 8
+    t.string   "global_registry_id"
   end
 
   add_index "ministry_targetarea", ["country"], name: "index4", using: :btree
@@ -2911,13 +2914,14 @@ ActiveRecord::Schema.define(version: 20140410121231) do
     t.string   "number"
     t.string   "extension"
     t.integer  "person_id"
-    t.string   "location",         default: "mobile"
-    t.boolean  "primary",          default: false
+    t.string   "location",           default: "mobile"
+    t.boolean  "primary",            default: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "txt_to_email"
     t.integer  "carrier_id"
     t.datetime "email_updated_at"
+    t.string   "global_registry_id"
   end
 
   add_index "phone_numbers", ["carrier_id"], name: "index_phone_numbers_on_carrier_id", using: :btree
@@ -3808,7 +3812,7 @@ ActiveRecord::Schema.define(version: 20140410121231) do
     t.integer  "account_balance"
     t.datetime "accepted_at"
     t.string   "previous_status"
-    t.integer  "global_registry_id",       limit: 8
+    t.string   "global_registry_id"
     t.boolean  "rm_liability_signed"
     t.date     "start_date"
     t.date     "end_date"
@@ -3932,12 +3936,12 @@ ActiveRecord::Schema.define(version: 20140410121231) do
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "global_registry_id", limit: 8
+    t.string   "global_registry_id"
   end
 
   create_table "sp_ministry_focuses", force: true do |t|
-    t.string  "name"
-    t.integer "global_registry_id", limit: 8
+    t.string "name"
+    t.string "global_registry_id"
   end
 
   create_table "sp_page_elements", force: true do |t|
@@ -3970,6 +3974,7 @@ ActiveRecord::Schema.define(version: 20140410121231) do
     t.string   "auth_code"
     t.string   "status"
     t.datetime "updated_at"
+    t.string   "global_registry_id", limit: 40
   end
 
   create_table "sp_project_gospel_in_actions", force: true do |t|
@@ -3977,18 +3982,18 @@ ActiveRecord::Schema.define(version: 20140410121231) do
     t.integer  "project_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "global_registry_id",  limit: 8
+    t.string   "global_registry_id"
   end
 
   add_index "sp_project_gospel_in_actions", ["gospel_in_action_id"], name: "gospel_in_action_id", using: :btree
   add_index "sp_project_gospel_in_actions", ["project_id"], name: "project_id", using: :btree
 
   create_table "sp_project_ministry_focuses", force: true do |t|
-    t.integer  "project_id",                   default: 0, null: false
-    t.integer  "ministry_focus_id",            default: 0, null: false
+    t.integer  "project_id",         default: 0, null: false
+    t.integer  "ministry_focus_id",  default: 0, null: false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "global_registry_id", limit: 8
+    t.string   "global_registry_id"
   end
 
   create_table "sp_project_versions", force: true do |t|
@@ -4185,7 +4190,7 @@ ActiveRecord::Schema.define(version: 20140410121231) do
     t.date     "open_application_date",                           default: '2012-11-01'
     t.date     "archive_project_date",                            default: '2012-08-31'
     t.boolean  "secure"
-    t.integer  "global_registry_id"
+    t.string   "global_registry_id"
     t.text     "project_summary"
     t.text     "full_project_description"
   end
@@ -4249,7 +4254,7 @@ ActiveRecord::Schema.define(version: 20140410121231) do
     t.integer  "project_id",                                  null: false
     t.string   "type",               limit: 100, default: "", null: false
     t.string   "year"
-    t.integer  "global_registry_id", limit: 8
+    t.string   "global_registry_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -4281,7 +4286,7 @@ ActiveRecord::Schema.define(version: 20140410121231) do
     t.integer  "key_contact_campuses"
     t.integer  "launched_campuses"
     t.integer  "movements_launched"
-    t.integer  "global_registry_id",                limit: 8
+    t.string   "global_registry_id"
   end
 
   create_table "sp_student_quotes", force: true do |t|
@@ -4290,7 +4295,7 @@ ActiveRecord::Schema.define(version: 20140410121231) do
     t.text     "name"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "global_registry_id", limit: 8
+    t.string   "global_registry_id"
   end
 
   add_index "sp_student_quotes", ["project_id"], name: "project_id", using: :btree
@@ -4302,7 +4307,7 @@ ActiveRecord::Schema.define(version: 20140410121231) do
     t.integer  "created_by_id"
     t.string   "type"
     t.integer  "person_id"
-    t.integer  "global_registry_id", limit: 8
+    t.string   "global_registry_id"
   end
 
   add_index "sp_users", ["person_id"], name: "person_id", using: :btree
@@ -4312,7 +4317,7 @@ ActiveRecord::Schema.define(version: 20140410121231) do
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "global_registry_id", limit: 8
+    t.string   "global_registry_id"
   end
 
   create_table "staffsite_staffsitepref", primary_key: "StaffSitePrefID", force: true do |t|
