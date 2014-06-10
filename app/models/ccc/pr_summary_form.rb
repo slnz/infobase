@@ -1,4 +1,4 @@
-class Ccc::PrSummaryForm < AnswerSheet
+class Ccc::PrSummaryForm < ActiveRecord::Base
 
 
   belongs_to :review, class_name: 'Ccc::PrReview'
