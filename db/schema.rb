@@ -913,10 +913,9 @@ ActiveRecord::Schema.define(version: 20140605162117) do
   create_table "email_addresses", force: true do |t|
     t.string   "email"
     t.integer  "person_id"
-    t.boolean  "primary",            default: false
+    t.boolean  "primary",    default: false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "global_registry_id"
   end
 
   add_index "email_addresses", ["email"], name: "email", using: :btree
@@ -1836,7 +1835,6 @@ ActiveRecord::Schema.define(version: 20140605162117) do
     t.string   "phone1_type",                     default: "cell"
     t.string   "phone2_type",                     default: "home"
     t.string   "phone3_type",                     default: "work"
-    t.string   "global_registry_id",  limit: 40
   end
 
   add_index "ministry_newaddress", ["addressType", "fk_PersonID"], name: "unique_person_addressType", unique: true, using: :btree
@@ -1934,7 +1932,6 @@ ActiveRecord::Schema.define(version: 20140605162117) do
   add_index "ministry_person", ["campus"], name: "campus", using: :btree
   add_index "ministry_person", ["fb_uid"], name: "index_ministry_person_on_fb_uid", using: :btree
   add_index "ministry_person", ["firstName", "lastName"], name: "firstName_lastName", using: :btree
-  add_index "ministry_person", ["fk_spouseID"], name: "index_ministry_person_on_fk_spouseid", using: :btree
   add_index "ministry_person", ["fk_ssmUserId"], name: "fk_ssmUserId", using: :btree
   add_index "ministry_person", ["global_registry_id"], name: "index_ministry_person_on_global_registry_id", using: :btree
   add_index "ministry_person", ["lastName"], name: "lastname_ministry_Person", using: :btree
@@ -2220,7 +2217,7 @@ ActiveRecord::Schema.define(version: 20140605162117) do
     t.string   "region"
     t.string   "mpta",                   limit: 30
     t.string   "urlToLogo"
-    t.integer  "enrollment"
+    t.string   "enrollment",             limit: 10
     t.string   "monthSchoolStarts",      limit: 10
     t.string   "monthSchoolStops",       limit: 10
     t.string   "isSemester",             limit: 1
@@ -2372,7 +2369,7 @@ ActiveRecord::Schema.define(version: 20140605162117) do
     t.string  "region"
     t.string  "mpta",              limit: 30
     t.string  "urlToLogo"
-    t.integer "enrollment"
+    t.string  "enrollment",        limit: 10
     t.string  "monthSchoolStarts", limit: 10
     t.string  "monthSchoolStops",  limit: 10
     t.string  "isSemester",        limit: 1
@@ -2914,14 +2911,13 @@ ActiveRecord::Schema.define(version: 20140605162117) do
     t.string   "number"
     t.string   "extension"
     t.integer  "person_id"
-    t.string   "location",           default: "mobile"
-    t.boolean  "primary",            default: false
+    t.string   "location",         default: "mobile"
+    t.boolean  "primary",          default: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "txt_to_email"
     t.integer  "carrier_id"
     t.datetime "email_updated_at"
-    t.string   "global_registry_id"
   end
 
   add_index "phone_numbers", ["carrier_id"], name: "index_phone_numbers_on_carrier_id", using: :btree
@@ -3008,7 +3004,7 @@ ActiveRecord::Schema.define(version: 20140605162117) do
   add_index "pr_elements", ["slug"], name: "index_pr_elements_on_slug", using: :btree
 
   create_table "pr_email_templates", force: true do |t|
-    t.string   "name",       limit: 1000, null: false
+    t.string   "name",       limit: 100, default: "", null: false
     t.text     "content"
     t.boolean  "enabled"
     t.string   "subject"
@@ -3016,7 +3012,7 @@ ActiveRecord::Schema.define(version: 20140605162117) do
     t.datetime "updated_at"
   end
 
-  add_index "pr_email_templates", ["name"], name: "index_pr_email_templates_on_name", length: {"name"=>255}, using: :btree
+  add_index "pr_email_templates", ["name"], name: "index_pr_email_templates_on_name", using: :btree
 
   create_table "pr_page_elements", force: true do |t|
     t.integer  "page_id"
@@ -3173,45 +3169,33 @@ ActiveRecord::Schema.define(version: 20140605162117) do
   end
 
   create_table "rideshare_event", force: true do |t|
-    t.integer  "conference_id"
-    t.string   "event_name",    limit: 50
-    t.string   "password",      limit: 50, null: false
-    t.text     "email_content"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.integer "conference_id"
+    t.string  "event_name",    limit: 50
+    t.string  "password",      limit: 50, null: false
+    t.text    "email_content"
   end
 
   create_table "rideshare_ride", force: true do |t|
-    t.integer  "event_id"
-    t.integer  "driver_ride_id"
-    t.integer  "person_id"
-    t.string   "address1",                                  null: false
-    t.string   "address2",                                  null: false
-    t.string   "address3",                                  null: false
-    t.string   "address4",                                  null: false
-    t.string   "city",               limit: 50,             null: false
-    t.string   "state",              limit: 50,             null: false
-    t.string   "zip",                limit: 20,             null: false
-    t.string   "country",            limit: 64,             null: false
-    t.float    "latitude"
-    t.float    "longitude"
-    t.string   "phone",              limit: 25,             null: false
-    t.string   "contact_method",     limit: 5
-    t.integer  "number_passengers",  limit: 1,  default: 0, null: false
-    t.integer  "drive_willingness",  limit: 1
-    t.time     "depart_time"
-    t.text     "special_info"
-    t.string   "email",                                     null: false
-    t.string   "situation"
-    t.string   "change"
-    t.string   "time_hour"
-    t.string   "time_minute"
-    t.string   "time_am_pm"
-    t.string   "spaces"
-    t.string   "special_info_check"
-    t.string   "spaces_count"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.integer "event_id"
+    t.integer "driver_ride_id"
+    t.integer "person_id"
+    t.string  "address1",                     null: false
+    t.string  "address2",                     null: false
+    t.string  "address3",                     null: false
+    t.string  "address4",                     null: false
+    t.string  "city",              limit: 50, null: false
+    t.string  "state",             limit: 50, null: false
+    t.string  "zip",               limit: 20, null: false
+    t.string  "country",           limit: 64, null: false
+    t.float   "latitude"
+    t.float   "longitude"
+    t.string  "phone",             limit: 25, null: false
+    t.string  "contact_method",    limit: 5
+    t.integer "number_passengers", limit: 1
+    t.integer "drive_willingness", limit: 1
+    t.time    "depart_time"
+    t.text    "special_info"
+    t.string  "email",                        null: false
   end
 
   add_index "rideshare_ride", ["drive_willingness"], name: "drivewillingness", using: :btree
@@ -3291,7 +3275,6 @@ ActiveRecord::Schema.define(version: 20140605162117) do
   add_index "si_conditions", ["trigger_id"], name: "trigger_id", using: :btree
 
   create_table "si_elements", force: true do |t|
-    t.integer  "question_sheet_id",                                    null: false
     t.integer  "page_id"
     t.string   "kind",                      limit: 40,                 null: false
     t.string   "style",                     limit: 40
@@ -3299,7 +3282,6 @@ ActiveRecord::Schema.define(version: 20140605162117) do
     t.text     "content"
     t.boolean  "required"
     t.string   "slug",                      limit: 36
-    t.integer  "position",                                             null: false
     t.boolean  "is_confidential",                      default: false
     t.string   "source"
     t.string   "value_xpath"
@@ -3321,8 +3303,7 @@ ActiveRecord::Schema.define(version: 20140605162117) do
     t.integer  "max_length"
   end
 
-  add_index "si_elements", ["position"], name: "index_si_elements_on_position", using: :btree
-  add_index "si_elements", ["question_sheet_id", "position", "page_id"], name: "index_si_elements_on_question_sheet_id_and_position_and_page_id", using: :btree
+  add_index "si_elements", ["page_id"], name: "index_si_elements_on_question_sheet_id_and_position_and_page_id", using: :btree
   add_index "si_elements", ["slug"], name: "index_si_elements_on_slug", using: :btree
 
   create_table "si_email_templates", force: true do |t|
@@ -3354,7 +3335,7 @@ ActiveRecord::Schema.define(version: 20140605162117) do
   add_index "si_pages", ["question_sheet_id", "number"], name: "page_number", unique: true, using: :btree
 
   create_table "si_payments", force: true do |t|
-    t.integer  "apply_id",           null: false
+    t.integer  "answer_sheet_id",    null: false
     t.string   "payment_type"
     t.string   "amount"
     t.string   "payment_account_no"
@@ -3364,7 +3345,7 @@ ActiveRecord::Schema.define(version: 20140605162117) do
     t.datetime "updated_at"
   end
 
-  add_index "si_payments", ["apply_id"], name: "apply_id", using: :btree
+  add_index "si_payments", ["answer_sheet_id"], name: "apply_id", using: :btree
 
   create_table "si_question_options", force: true do |t|
     t.integer  "question_id"
@@ -3699,9 +3680,6 @@ ActiveRecord::Schema.define(version: 20140605162117) do
     t.integer  "send_dept"
     t.string   "regionOfOrigin",        limit: 50
     t.date     "background_check_date"
-    t.string   "ptfs_level"
-    t.string   "supervisor"
-    t.string   "work_location"
   end
 
   add_index "sitrack_tracking", ["application_id"], name: "fk_applicationID", using: :btree
@@ -3765,8 +3743,6 @@ ActiveRecord::Schema.define(version: 20140605162117) do
     t.string   "attachment_content_type"
     t.string   "attachment_file_name"
     t.datetime "attachment_updated_at"
-    t.datetime "created_at"
-    t.datetime "updated_at"
   end
 
   add_index "sp_answers", ["answer_sheet_id"], name: "index_sp_answers_on_answer_sheet_id", using: :btree
@@ -3814,8 +3790,6 @@ ActiveRecord::Schema.define(version: 20140605162117) do
     t.string   "previous_status"
     t.string   "global_registry_id"
     t.boolean  "rm_liability_signed"
-    t.date     "start_date"
-    t.date     "end_date"
   end
 
   add_index "sp_applications", ["global_registry_id"], name: "index_sp_applications_on_global_registry_id", using: :btree
@@ -3844,7 +3818,7 @@ ActiveRecord::Schema.define(version: 20140605162117) do
   add_index "sp_designation_numbers", ["person_id", "project_id", "designation_number"], name: "person_id", using: :btree
 
   create_table "sp_donations", force: true do |t|
-    t.string   "designation_number",                          null: false
+    t.integer  "designation_number",                          null: false
     t.decimal  "amount",             precision: 10, scale: 2, null: false
     t.string   "people_id"
     t.string   "donor_name"
@@ -3903,7 +3877,7 @@ ActiveRecord::Schema.define(version: 20140605162117) do
   add_index "sp_elements", ["slug"], name: "index_sp_elements_on_slug", using: :btree
 
   create_table "sp_email_templates", force: true do |t|
-    t.string   "name",       limit: 1000, null: false
+    t.string   "name",       limit: 100, default: "", null: false
     t.text     "content"
     t.boolean  "enabled"
     t.string   "subject"
@@ -3911,7 +3885,7 @@ ActiveRecord::Schema.define(version: 20140605162117) do
     t.datetime "updated_at"
   end
 
-  add_index "sp_email_templates", ["name"], name: "index_sp_email_templates_on_name", length: {"name"=>255}, using: :btree
+  add_index "sp_email_templates", ["name"], name: "index_sp_email_templates_on_name", using: :btree
 
   create_table "sp_evaluations", force: true do |t|
     t.integer "application_id",                     null: false
@@ -3974,7 +3948,6 @@ ActiveRecord::Schema.define(version: 20140605162117) do
     t.string   "auth_code"
     t.string   "status"
     t.datetime "updated_at"
-    t.string   "global_registry_id", limit: 40
   end
 
   create_table "sp_project_gospel_in_actions", force: true do |t|

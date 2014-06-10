@@ -5,7 +5,7 @@
   <tbody>
     <% @people.each do |person| %>
       <% options = {:style => "color: black;"} %>
-      <% if person.staff && person.staff.is_active? %>
+      <% if person.isStaff? %>
         <% options = {:style => "color: blue;"} %>
       <% end %>
       <tr>

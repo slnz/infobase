@@ -41,10 +41,8 @@ end
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 
-# gem 'common_engine', path: '/home/justin/cmde/work_rails/common_engine'
-# gem 'common_engine', path: '/Users/josh/htdocs/common_engine'
-gem 'common_engine', git: 'https://github.com/CruGlobal/common_engine.git'
-gem 'qe', git: 'https://github.com/CruGlobal/qe.git', ref: '4421d63824f2f07fa9050c1971a3bae97844cfd3'
+gem 'cru_lib'
+gem 'rubycas-client'
 gem 'mysql2'
 gem 'dynamic_form'
 gem 'dalli'
@@ -68,6 +66,7 @@ gem 'geocoder'
 gem 'global_registry', git: 'https://github.com/CruGlobal/global_registry_client.git'
 gem 'sidekiq-pro'
 gem 'sinatra', '>= 1.3.0', :require => nil
+gem 'auto_strip_attributes'
 
 gem 'rack-google_analytics', :require => "rack/google_analytics"
 
@@ -90,9 +89,3 @@ group :development, :test do
   gem 'better_errors'
   #gem "binding_of_caller"
 end
-
-# Bundle the extra gems:
-# gem 'bj'
-# gem 'nokogiri', '1.4.1'
-# gem 'sqlite3-ruby', :require => 'sqlite3'
-# gem 'aws-s3', :require => 'aws/s3'
