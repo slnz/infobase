@@ -192,6 +192,6 @@ class LocationsController < ApplicationController
     end
 
     def target_area_params
-      params.fetch(:target_area).permit(:region, :name, :altName, :abbrv, :address1, :address2, :city, :state, :zip, :country, :url, :infoUrl, :enrollment, :urlToLogo, :monthSchoolStarts, :monthSchoolStops, :isSecure, :type, :note) if params.has_key?(:target_area)
+      params.fetch(:target_area).permit(:region, :name, :altName, :abbrv, :address1, :address2, :city, :state, :zip, :country, :url, :infoUrl, :enrollment, :urlToLogo, :monthSchoolStarts, :monthSchoolStops, :isSecure, :type, :note, :gate) if params.has_key?(:target_area)
     end
 end

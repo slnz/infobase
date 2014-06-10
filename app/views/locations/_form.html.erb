@@ -4,12 +4,30 @@
 	</tr>
 
 <table id="styled_form_table">
-	<tr>
-		<td id="label_column"><%= f.label :region, "*Region:" %></td>
-		<td id="field_column">
-			<%= f.select :region, options_for_select(@regions.collect {|r| [r.name, r.region]}, @location.region) %>
-		</td>
-	</tr>
+  <tr>
+    <td id="label_column"><%= f.label :type, "*Location Type:" %></td>
+    <td id="field_column">
+      <%= f.select :type, options_for_select(['College','High School','City']) %>
+    </td>
+  </tr>
+  <tr>
+    <td id="label_column"><%= f.label :region, "Region:" %></td>
+    <td id="field_column">
+      <%= f.select :region, options_for_select([['','']] + @regions.collect {|r| [r.name, r.region]}, @location.region) %>
+    </td>
+  </tr>
+  <tr>
+    <td id="label_column"><%= f.label :gate, "Gate:" %></td>
+    <td id="field_column">
+      <%= f.select :gate, options_for_select([''] +
+          %w(Conveners
+            Influentials
+            Inner City
+            Millennials
+            Neighbors)
+      ) %>
+    </td>
+  </tr>
 	<tr>
 		<td><%= f.label :name, "*Location Name:" %></td>
 		<td>
@@ -116,13 +134,6 @@
 		<td>
 			<%= f.radio_button :isSecure, "T" %>Yes
       <%= f.radio_button :isSecure, "F" %>No
-		</td>
-	</tr>
-	<tr>
-		<td><%= f.label :type, "*Is this a High School?" %></td>
-		<td>
-			<%= f.radio_button :type, "HighSchool" %>Yes
-      <%= f.radio_button :type, "College" %>No
 		</td>
 	</tr>
 	<tr>
