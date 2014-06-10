@@ -9,6 +9,7 @@ class ApplicationController < ActionController::Base
   include AuthenticatedSystem
   before_filter :cas_filter, :authentication_filter, :check_user, :current_user, :except => ['no', 'destroy', 'logout', 'expire', 'lb']
   before_filter :log_user, :except => [:destroy]
+  around_filter :do_with_current_user
 
   def self.application_name
     "Infobase"
@@ -21,7 +22,7 @@ class ApplicationController < ActionController::Base
   protected
   
   def cas_filter
-    CASClient::Frameworks::Rails::Filter.filter(self)
+    CASClient::Frameworks::Rails::Filter.filter(self) unless session[:cas_user]
   end
 
   def authentication_filter
@@ -35,7 +36,7 @@ class ApplicationController < ActionController::Base
       elsif session[:info_user_type]
         @info_user = Kernel.const_get(session[:info_user_type]).new
       else
-        @info_user = InfobaseUser.determine_infobase_user(current_user(), session[:cas_emplid])
+        @info_user = InfobaseUser.determine_infobase_user(current_user, session[:cas_emplid])
         if @info_user && @info_user.id
           session[:info_user_id] = @info_user.id
         elsif @info_user
@@ -95,11 +96,12 @@ class ApplicationController < ActionController::Base
     result
   end
 
-  def _set_current_session
-    # Define an accessor. The session is always in the current controller
-    # instance in @_request.session. So we need a way to access this in
-    # our model
-    accessor = instance_variable_get(:@_request)
-    ActiveRecord::Base.send(:define_method, "session", proc {accessor.session})
+  def do_with_current_user
+    Thread.current[:user] = current_user
+    begin
+      yield
+    ensure
+      Thread.current[:user] = nil
+    end
   end
 end

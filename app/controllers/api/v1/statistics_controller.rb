@@ -1,5 +1,4 @@
 class Api::V1::StatisticsController < Api::V1::BaseController
-  before_filter :_set_current_session, :only => [:create] # Hackish, but necessary so that model has access to session for user info
 
   def activity
     activity = Activity.where("activityid = ?", params[:activity_id]).first

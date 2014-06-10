@@ -16,7 +16,7 @@ class Api::V1::BaseController < ApplicationController
       return false
     end
     @current_user = api_key.user
-    session[:api_user] = @current_user
+    Thread.current[:user] = session[:api_user] = @current_user
     true
   end
 

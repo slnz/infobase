@@ -320,9 +320,8 @@ class Statistic < ActiveRecord::Base
         new_status = nil
       end
       if new_status != activity.status
-        user = User.find(session[:user_id]).userID if session[:user_id].present?
-        user ||= session[:api_user] if session[:api_user].present?
-        activity.update_attributes_add_history({status: new_status, periodBegin: Time.now}, user)
+        user_id = Thread.current[:user].try(:id)
+        activity.update_attributes_add_history({status: new_status, periodBegin: Time.now}, user_id)
       end
     end
   end

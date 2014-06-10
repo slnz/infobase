@@ -39,6 +39,7 @@ Spork.prefork do
     end
     config.before(:each) do
       DatabaseCleaner.start
+      create(:country)
     end
     config.after(:each) do
       DatabaseCleaner.clean
