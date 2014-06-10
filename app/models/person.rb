@@ -13,6 +13,7 @@ class Person < ActiveRecord::Base
   belongs_to              :user, :foreign_key => "fk_ssmUserId"  #Link it to SSM
 
   has_one                 :staff
+  has_one                 :spouse, :foreign_key => "fk_spouseID", class_name: 'Person'
   has_many                :team_members, :foreign_key => "personID", dependent: :destroy
   has_many                :teams, :through => :team_members
   has_and_belongs_to_many :activities, -> { order(TargetArea.table_name + ".name").includes(:target_area) }, :join_table => "ministry_movement_contact", :association_foreign_key => "ActivityID", :foreign_key => "personID"
