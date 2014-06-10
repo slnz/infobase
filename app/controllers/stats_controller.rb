@@ -2,7 +2,6 @@ class StatsController < ApplicationController
   before_filter :setup
   before_filter :get_date_params, :only => [:index, :movement]  
   before_filter :get_event_params, :only => [:sp, :crs]
-  before_filter :_set_current_session, :only => [:update] # Hackish, but necessary so that model has access to session for user info
   
   def index
     all_movements = current_user.activities
