@@ -14,7 +14,9 @@ class EmailAddress < ActiveRecord::Base
 
   def self.columns_to_push
     super
-    @columns_to_push + [{ name: 'email', type: 'email' }]
+    @columns_to_push.each do |column|
+      column[:type] = 'email' if column[:name] == 'email'
+    end
   end
 
   def self.push_structure_to_global_registry
@@ -25,6 +27,6 @@ class EmailAddress < ActiveRecord::Base
   end
 
   def self.skip_fields_for_gr
-    %w[id email created_at updated_at global_registry_id]
+    %w[id created_at updated_at global_registry_id person_id]
   end
 end
