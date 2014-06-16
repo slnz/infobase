@@ -54,6 +54,8 @@ class Address < ActiveRecord::Base
   end
 
   def async_push_to_global_registry(parent_id = nil, parent_type = 'person')
+    return unless person
+    
     person.async_push_to_global_registry unless person.global_registry_id.present?
     parent_id = person.global_registry_id unless parent_id
 
