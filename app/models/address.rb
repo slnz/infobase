@@ -57,6 +57,10 @@ class Address < ActiveRecord::Base
     person.async_push_to_global_registry unless person.global_registry_id.present?
     parent_id = person.global_registry_id unless parent_id
 
+    attributes_to_push['line1'] = address1
+    attributes_to_push['line2'] = address2
+    attributes_to_push['line3'] = address3
+    attributes_to_push['line4'] = address4
     super(parent_id, parent_type)
   end
 
