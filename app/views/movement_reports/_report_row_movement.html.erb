@@ -10,5 +10,7 @@
   <td class="<%= klass %>"><%= row.target_area.city %></td>
   <td class="<%= klass %>"><%= row.target_area.state %></td>
   <td class="<%= klass %>"><%= row.target_area.country %></td>
-  <td class="<%= klass %>"><%= link_to row.team.name, team_path(row.team) %></td>
+  <% if row.team %>
+    <td class="<%= klass %>"><%= link_to row.team.name, team_path(row.team) %></td>
+  <% end %>
 </tr>
