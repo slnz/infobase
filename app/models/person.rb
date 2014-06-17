@@ -387,15 +387,6 @@ class Person < ActiveRecord::Base
     if user
       attributes_to_push['authentication']['relay_guid'] = user.globallyUniqueID if user.globallyUniqueID.present?
       attributes_to_push['authentication']['facebook_uid'] = user.fb_user_id if user.fb_user_id.present?
-
-      user.authentications.each do |authentication|
-        case authentication.provider
-        when 'facebook'
-          attributes_to_push['authentication']['facebook_uid'] = authentication.uid
-        when 'google_apps'
-          attributes_to_push['authentication']['google_apps_uid'] = authentication.uid
-        end
-      end
     end
 
     super

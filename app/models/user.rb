@@ -7,7 +7,6 @@ class User < ActiveRecord::Base
 
   # Relationships
   has_one :person, :foreign_key => 'fk_ssmUserId'
-  has_many :authentications
   has_many :activity_bookmarks, -> { where(Bookmark.table_name + ".name = 'activity'") }, :class_name => 'Bookmark'
   has_many :activities, -> { order(TargetArea.table_name + ".name").includes(:target_area) }, :through => :activity_bookmarks
   has_one :balance_bookmark, -> { where(Bookmark.table_name + ".name = 'balance'") }, :class_name => 'Bookmark'
