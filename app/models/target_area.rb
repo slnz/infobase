@@ -14,8 +14,6 @@ class TargetArea < ActiveRecord::Base
   has_many :all_activities, :class_name => "Activity", :foreign_key => "fk_targetAreaID", :primary_key => "targetAreaID"
   has_many :teams, :through => :activities
 
-  belongs_to :sp_project, :primary_key => :eventKeyID
-
   validates_uniqueness_of :name
   validates_presence_of :name, :isSecure, :type
   validates_presence_of :city, :unless => :is_event?
@@ -128,10 +126,13 @@ class TargetArea < ActiveRecord::Base
     attributes_to_push['is_secure'] = isSecure == 'T'
     case eventType
     when 'SP'
-      project = SpProject.find(eventKeyID)
-      if  project
-        project.async_push_to_global_registry unless project.global_registry_id
-        attributes_to_push['event_id'] = project.global_registry_id
+      sp_system = GlobalRegistry::System.get('filters[name]' => 'US Summer Project Tool')['systems'].first
+      project = GlobalRegistry::Entity.get(
+        'filters[client_integration_id]' => eventKeyID,
+        'entity_type' => 'summer_project',
+        'filters[owned_by]' => sp_system['id'])['entities'].first
+      if project
+        attributes_to_push['event_id'] = project['summer_project']['id']
       end
     end
 

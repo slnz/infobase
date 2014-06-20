@@ -41,7 +41,8 @@ end
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 
-gem 'cru_lib'
+# gem 'cru_lib', path: '/Users/josh/htdocs/cru_lib'
+gem 'cru_lib', git: 'https://github.com/CruGlobal/cru_lib.git'
 gem 'rubycas-client'
 gem 'mysql2'
 gem 'dynamic_form'

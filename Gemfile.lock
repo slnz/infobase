@@ -8,13 +8,18 @@ GIT
 
 GIT
   remote: https://github.com/CruGlobal/global_registry_client.git
-  revision: 75e6a9c1e51777d05c7f7232290c70781aaa5f10
+  revision: 5e3aab9c49cddb1aedece02af39dc695219308df
   specs:
-    global_registry (1.0.2)
+    global_registry (1.0.3)
       activesupport
       oj (~> 2.1.0)
       rest-client (~> 1.6.7)
       retryable-rb (~> 1.1.0)
+
+PATH
+  remote: /Users/josh/htdocs/cru_lib
+  specs:
+    cru_lib (0.0.1)
 
 GEM
   remote: http://rubygems.org/
@@ -84,7 +89,6 @@ GEM
       execjs
     coffee-script-source (1.7.0)
     connection_pool (2.0.0)
-    cru_lib (0.0.1)
     dalli (2.7.1)
     database_cleaner (1.2.0)
     diff-lcs (1.2.5)
@@ -279,7 +283,7 @@ DEPENDENCIES
   choices
   coffee-rails (~> 4.0.0)
   coffee-script
-  cru_lib
+  cru_lib!
   dalli
   database_cleaner
   dynamic_form
