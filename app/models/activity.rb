@@ -311,6 +311,10 @@ class Activity < ActiveRecord::Base
     Bookmark.get_activity_bookmark_for(user, self)
   end
 
+  def check_for_activity_since(date)
+    !statistics.where("periodEnd > ?", date).empty?
+  end
+
   def async_push_to_global_registry
     return unless target_area && team
 
@@ -337,6 +341,15 @@ class Activity < ActiveRecord::Base
 
   def self.skip_fields_for_gr
     super + %w(activity_id period_end_deprecated trans_username fk_target_area_id fk_team_id status_history_deprecated url facebook sent_team_id gcx_site)
+  end
+
+  def self.inactivate_activites_without_recent_stats
+    Activity.active.each do |activity|
+      unless activity.check_for_activity_since(1.year.ago)
+        activity.status = "IN"
+        activity.save(validate: false)
+      end
+    end
   end
 
   private
