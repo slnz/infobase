@@ -16,7 +16,7 @@
       <%= f.select :region, options_for_select([['','']] + @regions.collect {|r| [r.name, r.region]}, @location.region) %>
     </td>
   </tr>
-  <tr>
+<!--  <tr>
     <td id="label_column"><%= f.label :gate, "Gate:" %></td>
     <td id="field_column">
       <%= f.select :gate, options_for_select([''] +
@@ -27,7 +27,7 @@
             Neighbors)
       ) %>
     </td>
-  </tr>
+  </tr> -->
 	<tr>
 		<td><%= f.label :name, "*Location Name:" %></td>
 		<td>
