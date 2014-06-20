@@ -22,11 +22,18 @@
           <%= @team.country %><br>
         </div>
       </div>
-                        
-      <div class="field">
-        <label>Region:</label>
-        <%= Region.full_name(@team.region) %>
-      </div>
+
+      <% if @team.gate %>
+        <div class="field">
+          <label>Gate:</label>
+          <%= @team.gate.name %>
+        </div>
+      <% else %>
+        <div class="field">
+          <label>Region:</label>
+          <%= Region.full_name(@team.region) %>
+        </div>
+      <% end %>
       <br/>
       
       <div class="field">

@@ -25,3 +25,15 @@
     <% end %>
   </tbody>
 </table>
+<br/>
+<b>Or search by City Gate:</b>
+<br/>
+<table>
+  <tbody>
+    <% Activity.city_strategies.each do |abbv, strategy| %>
+      <tr>
+        <td><%= link_to(strategy, team_ministry_path(abbv)) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

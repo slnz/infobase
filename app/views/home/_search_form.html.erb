@@ -47,6 +47,18 @@
         </div>
       <% end %>
     </fieldset>
+
+    <fieldset id="fieldset_region">
+      <legend>City Gates</legend>
+      <% Activity.city_strategies.each do |abbrv, strategy| %>
+        <div class="field">
+          <label>
+            <%= check_box_tag("strategies[]", abbrv) %>
+            <%= strategy %>
+          </label>
+        </div>
+      <% end %>
+    </fieldset>
     <%= submit_tag "Search Infobase" %>
   <% end %>
 </div>

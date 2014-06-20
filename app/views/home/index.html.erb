@@ -57,6 +57,16 @@
         <% end %>
       </div><!-- end formText -->
     </div><!-- end region -->
+    <div id="gate">
+      <h3 class="body-header">City Gate:</h3>
+      <div class="formText">
+        <% Activity.city_strategies.each do |abbrv, strategy| %>
+          <%= check_box_tag("strategies[]", abbrv) %>
+          <%= strategy %>
+          <br/>
+        <% end %>
+      </div><!-- end formText -->
+    </div><!-- end gate -->
   <% end %>
 </div><!-- end search -->
 

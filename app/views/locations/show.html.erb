@@ -23,11 +23,13 @@
         </div>
       </div>
 
-      <div class="field">
-        <label>Region:</label>
-        <%= Region.full_name(@location.region) %>
-      </div>
-      <br/>
+      <% unless @location.city? %>
+        <div class="field">
+          <label>Region:</label>
+          <%= Region.full_name(@location.region) %>
+        </div>
+        <br/>
+      <% end %>
 
       <div class="field">
         <label>Phone:</label>
@@ -79,7 +81,7 @@
 <% @location.activities.each do |activity| %>
   <div class="strategy">
     <h3>
-      <%= Activity.strategies[activity.strategy] %>&nbsp;&nbsp;
+      <%= Activity.all_strategies[activity.strategy] %>&nbsp;&nbsp;
       <%= link_to "", edit_location_movement_path(@location, activity), :class => "editfield" %>
       <%= link_to "(edit)", edit_location_movement_path(@location, activity), :class => "edittext" %>
     </h3>
@@ -166,6 +168,12 @@
   </div><!-- end strategy -->
 <% end %>
 
-<% @open_strategies.each do |strategy| %>
-  <%= link_to "Add " + Activity.strategies[strategy], location_new_strategy_path(@location, strategy) %><br/>
+<% if @location.city? %>
+  <% Activity.city_strategies.each do |abbv, strategy| %>
+    <%= link_to "Add " + strategy, location_new_strategy_path(@location, abbv) %><br/>
+  <% end %>
+<% else %>
+  <% @open_strategies.each do |strategy| %>
+    <%= link_to "Add " + Activity.strategies[strategy], location_new_strategy_path(@location, strategy) %><br/>
+  <% end %>
 <% end %>

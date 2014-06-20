@@ -1,4 +1,4 @@
-require_dependency 'cru_lib/global_registry_methods'
+require 'cru_lib/global_registry_methods'
 
 class TargetArea < ActiveRecord::Base
   include Sidekiq::Worker
@@ -35,6 +35,10 @@ class TargetArea < ActiveRecord::Base
   @@website = "DI"
   @@other = "OT"
   cattr_reader :summer_project, :crs_conference, :other_conference, :website, :other
+
+  def city?
+    type == 'City'
+  end
 
   def is_semester?
     isSemester ? "Yes" : "No"

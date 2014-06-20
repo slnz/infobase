@@ -13,13 +13,13 @@
 	<tr>
 		<td>*Ministry:</td>
 		<td>
-			<%= f.select :lane, options_for_select(@strategies.invert, @team.lane) %>
+			<%= f.select :lane, grouped_options_for_select({"Ministries" => @strategies.invert, "City Gates" => Activity.city_strategies.invert }, @team.lane) %>
 		</td>
 	</tr>
 	<tr>
-		<td>*Region:</td>
+		<td>Region:</td>
 		<td>
-			<%= f.select :region, options_for_select(@regions.collect {|r| [r.name, r.region]}, @team.region) %>
+			<%= f.select :region, options_for_select([''] + @regions.collect {|r| [r.name, r.region]}, @team.region) %>
 		</td>
 	</tr>
 	<tr>

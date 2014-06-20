@@ -14,7 +14,7 @@
   </tbody>
 </table>
 <br/>
-<b>Or search by Ministry:</b>
+<b>Or search by Strategy:</b>
 <br/>
 <table>
   <tbody>
@@ -23,5 +23,19 @@
         <td><%= link_to @strategies[strategy], location_ministry_path(strategy) %></td>
       </tr>
     <% end %>
+  </tbody>
+</table>
+<br/>
+<b>Or search by City Gate:</b>
+<table>
+  <tbody>
+  <tr>
+    <td><%= link_to 'All Cities', search_results_locations_path(cru_city: true) %></td>
+  </tr>
+  <% @city_strategies.each_key do |strategy| %>
+    <tr>
+      <td><%= link_to @city_strategies[strategy], location_ministry_path(strategy) %></td>
+    </tr>
+  <% end %>
   </tbody>
 </table>

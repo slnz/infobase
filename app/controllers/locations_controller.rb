@@ -7,6 +7,7 @@ class LocationsController < ApplicationController
   def index
     @regions = Region.standard_regions
     @strategies = Activity.visible_strategies
+    @city_strategies = Activity.city_strategies
   end
   
   def show
@@ -20,14 +21,12 @@ class LocationsController < ApplicationController
   end
   
   def new
-    @location = TargetArea.new
-    @location.attributes = target_area_params
+    @location = TargetArea.new(target_area_params)
     @title = "Infobase - Propose New Location"
   end
   
   def create
-    @location = TargetArea.new
-    @location.attributes = target_area_params
+    @location = TargetArea.new(target_area_params)
     if @location.valid?
       if @info_user.can_create_locations?
         @location.save!
@@ -125,7 +124,7 @@ class LocationsController < ApplicationController
   end
   
   def search_results
-    if params[:namecity].blank? && params[:name].blank? && params[:city].blank? && params[:state].blank? && params[:country].blank? && params[:regions].blank? && params[:strategies].blank?
+    if params[:cru_city].blank? && params[:namecity].blank? && params[:name].blank? && params[:city].blank? && params[:state].blank? && params[:country].blank? && params[:regions].blank? && params[:strategies].blank?
       redirect_to search_locations_path, :notice => "You must fill in at least one search option."
     end
     if (!params[:name].blank? && params[:name].size < 2) || (!params[:namecity].blank? && params[:namecity].size < 2)
@@ -150,6 +149,9 @@ class LocationsController < ApplicationController
     end
     if !params[:regions].blank?
       @locations = @locations.where("region IN (?)", params[:regions])
+    end
+    if !params[:cru_city].blank?
+      @locations = @locations.where("type = 'City'")
     end
     if !params[:strategies].blank?
       @locations = @locations.where(Activity.table_name + ".strategy IN (?)", params[:strategies]).references(:activities)

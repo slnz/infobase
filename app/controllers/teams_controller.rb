@@ -14,8 +14,7 @@ class TeamsController < ApplicationController
   end
   
   def new
-    @team = Team.new
-    @team.attributes = team_params
+    @team = Team.new(team_params)
     @strategies = Activity.strategies
     @title = "Infobase - Propose New Team"
   end

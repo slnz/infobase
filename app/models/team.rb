@@ -15,11 +15,16 @@ class Team < ActiveRecord::Base
   scope :from_region, lambda {|region| active.where("region = ? or hasMultiRegionalAccess = 'T'", region).order(:name)}
 
   validates_uniqueness_of :name
-  validates_presence_of :name, :lane, :region, :country
+  validates_presence_of :name, :lane, :country
+  validates_presence_of :region, :unless => proc { |t| Activity.city_strategies.keys.include?(t.lane) }
 
   before_save :ensure_url_http
 
   def to_s() name; end
+
+  def gate
+    Strategy.find_by(abreviation: lane)
+  end
 
   def team_members_ordered
     team_members.includes(:person).order(Person.table_name + ".lastName")

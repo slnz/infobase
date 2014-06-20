@@ -33,30 +33,11 @@ class Activity < ActiveRecord::Base
   PIONEERING_LEADER_INVOLVEMENT_LEVEL = 0
 
   def self.strategies
-    {
-      "FS" => "Campus Field Ministry",
-      "AA" => "Athletes In Action",
-      "BR" => "Bridges",
-      "SV" => "Cru High School",
-      "ID" => "Destino",
-      "SA" => "Design",
-      "IC" => "Ethnic Field Ministry",
-      "IE" => "Epic",
-      "EV" => "Events",
-      "FC" => "Faculty Commons",
-      "FD" => "Fund Development",
-      "WS" => "Global Missions",
-      "GK" => "Greek",
-      "II" => "Impact",
-      "KN" => "Keynote",
-      "KC" => "Korea CCC",
-      "HR" => "Leadership Development",
-      "ND" => "National",
-      "IN" => "Nations",
-      "OP" => "Operations",
-      "VL" => "Valor",
-      "OT" => "Other"
-    }
+    Hash[Strategy.where(city: false).collect { |s| [s.abreviation, s.name] }]
+  end
+
+  def self.all_strategies
+    Hash[Strategy.all.collect { |s| [s.abreviation, s.name] }]
   end
 
   def self.bridges
@@ -85,13 +66,7 @@ class Activity < ActiveRecord::Base
   end
 
   def self.event_strategies
-    result = strategies.clone
-    result.delete("IC")
-    result.delete("FD")
-    result.delete("HR")
-    result.delete("OP")
-    result.delete("ND")
-    result
+    Hash[Strategy.where(event: true).collect { |s| [s.abreviation, s.name] }]
   end
 
   def self.visible_strategies
@@ -104,6 +79,10 @@ class Activity < ActiveRecord::Base
     result = strategies.clone
     result.delete("EV")
     result
+  end
+
+  def self.city_strategies
+    Hash[Strategy.where(city: true).collect { |s| [s.abreviation, s.name] }]
   end
 
   def self.crs_strategies
