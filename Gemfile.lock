@@ -1,4 +1,10 @@
 GIT
+  remote: https://github.com/CruGlobal/cru_lib.git
+  revision: 4c703c7a0a943384fc6976176cc76418f0da6e60
+  specs:
+    cru_lib (0.0.1)
+
+GIT
   remote: https://github.com/CruGlobal/gcx_api.git
   revision: 2cec4a58cd133871cc36b28f4bc071d5c55a4269
   specs:
@@ -15,11 +21,6 @@ GIT
       oj (~> 2.1.0)
       rest-client (~> 1.6.7)
       retryable-rb (~> 1.1.0)
-
-PATH
-  remote: /Users/josh/htdocs/cru_lib
-  specs:
-    cru_lib (0.0.1)
 
 GEM
   remote: http://rubygems.org/
