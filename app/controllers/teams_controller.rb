@@ -220,7 +220,7 @@ class TeamsController < ApplicationController
   end
   
   def search_results
-    if params[:namecity].blank? && params[:name].blank? && params[:city].blank? && params[:state].blank? && params[:country].blank? && params[:regions].blank? && params[:strategies].blank?
+    if params[:cru_city].blank? && params[:namecity].blank? && params[:name].blank? && params[:city].blank? && params[:state].blank? && params[:country].blank? && params[:regions].blank? && params[:strategies].blank?
       redirect_to search_teams_path, :notice => "You must fill in at least one search option."
     end
     if (!params[:name].blank? && params[:name].size < 3) || (!params[:namecity].blank? && params[:namecity].size < 3)
@@ -248,6 +248,9 @@ class TeamsController < ApplicationController
     end
     if !params[:strategies].blank?
       @teams = @teams.where("lane IN (?)", params[:strategies])
+    end
+    if !params[:cru_city].blank?
+      @teams = @teams.where(lane: 'CV')
     end
     @title = "Infobase - Search Results"
   end

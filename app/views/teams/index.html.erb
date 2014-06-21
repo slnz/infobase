@@ -30,6 +30,9 @@
 <br/>
 <table>
   <tbody>
+    <tr>
+      <td><%= link_to 'All Cities', search_results_teams_path(cru_city: true) %></td>
+    </tr>
     <% Activity.city_strategies.each do |abbv, strategy| %>
       <tr>
         <td><%= link_to(strategy, team_ministry_path(abbv)) %></td>

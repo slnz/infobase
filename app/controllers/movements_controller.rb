@@ -146,7 +146,11 @@ class MovementsController < ApplicationController
     else
       @statuses = Activity.visible_statuses
     end
-    @teams = Team.from_region(@location.region)
+    if @location.city?
+      @teams = Team.where(lane: 'CV')
+    else
+      @teams = Team.from_region(@location.region)
+    end
     @team_id = @movement.team.id if @movement.team
   end
 
