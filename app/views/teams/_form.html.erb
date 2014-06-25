@@ -82,7 +82,7 @@
 			<%= f.text_field :url %>
 		</td>
 	</tr>
-	<% if @team.can_deactivate? %>
+	<% if @team.can_deactivate? && !@team.new_record? %>
 		<tr>
 			<td>Is this Team Active?</td>
 			<td>

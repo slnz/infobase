@@ -147,7 +147,7 @@ class MovementsController < ApplicationController
       @statuses = Activity.visible_statuses
     end
     if @location.city?
-      @teams = Team.where(lane: 'CV')
+      @teams = Team.where(lane: Strategy.where(city: true).pluck(:abreviation))
     else
       @teams = Team.from_region(@location.region)
     end
