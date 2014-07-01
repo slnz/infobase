@@ -324,8 +324,10 @@ class Activity < ActiveRecord::Base
 
   def self.inactivate_activites_without_recent_stats
     user = User.where(username: "Patty.McCain@cru.org").first
-    Activity.active.where("strategy <> 'SV'").each do |activity| # In 2014, Cru HS opted out
-      unless activity.check_for_activity_since(1.year.ago)
+    cutoff_date = 1.year.ago
+
+    Activity.active.where("created_at < ?", cutoff_date).where("strategy <> 'SV'").each do |activity| # In 2014, Cru HS opted out
+      unless activity.check_for_activity_since(cutoff_date)
         activity.status = "IN"
         activity.transUsername = user.userID
         activity.periodBegin = Date.today
