@@ -77,6 +77,13 @@ class User < ActiveRecord::Base
     u
   end
 
+  # Encrypts some data with the salt.
+  def self.encrypt(plain_password)
+    md5_password = Digest::MD5.digest(plain_password)
+    base64_password = Base64.encode64(md5_password).chomp
+    base64_password
+    end
+
   def stamp_last_login
     self.lastLogin = Time.now
     save!
