@@ -326,7 +326,7 @@ class Activity < ActiveRecord::Base
     user = User.where(username: "Patty.McCain@cru.org").first
     cutoff_date = 1.year.ago
 
-    Activity.active.where("created_at < ?", cutoff_date).where("strategy <> 'SV'").each do |activity| # In 2014, Cru HS opted out
+    Activity.active.where("created_at < ? or created_at is null", cutoff_date).where("strategy <> 'SV'").each do |activity| # In 2014, Cru HS opted out
       unless activity.check_for_activity_since(cutoff_date)
         activity.status = "IN"
         activity.transUsername = user.userID
