@@ -199,10 +199,10 @@ class Activity < ActiveRecord::Base
     update_attributes(attributes)
   end
 
-  def save_create_history(user)
+  def save_create_history(user, validate = true)
     ActivityHistory.create(:activity => self, :status => status, :period_begin => periodBegin, :trans_username => user.userID)
     transUsername = user.userID
-    save(attributes)
+    save(validate: validate)
   end
 
   def get_stat_for(date, people_group = nil)
@@ -323,10 +323,13 @@ class Activity < ActiveRecord::Base
   end
 
   def self.inactivate_activites_without_recent_stats
-    Activity.active.each do |activity|
+    user = User.where(username: "Patty.McCain@cru.org").first
+    Activity.active.where("strategy <> 'SV'").each do |activity| # In 2014, Cru HS opted out
       unless activity.check_for_activity_since(1.year.ago)
         activity.status = "IN"
-        activity.save(validate: false)
+        activity.transUsername = user.userID
+        activity.periodBegin = Date.today
+        activity.save_create_history(user, validate: false)
       end
     end
   end
