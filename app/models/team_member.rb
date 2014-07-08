@@ -17,13 +17,13 @@ class TeamMember < ActiveRecord::Base
     super
   end
 
-  def attributes_to_push
+  def attributes_to_push(*args)
     if global_registry_id
       attributes_to_push = super
       attributes_to_push['role'] = is_leader? ? 'Leader' : 'Member'
       attributes_to_push
     else
-      super('ministry', 'ministry', team)
+      super(relationship_name: 'ministry', related_name: 'ministry', related_object: team, base_object: person)
     end
   end
 
