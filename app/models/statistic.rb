@@ -207,7 +207,7 @@ class Statistic < ActiveRecord::Base
       GlobalRegistry::EntityType.get(
         {'filters[name]' => '_relationship'}
       )['entity_types'].first['fields'].detect {
-        |f| f['name'] == 'target_area_activity_ministry_activity'
+        |f| f['name'] == 'movement'
       }
     end
     activity_entity_type['id']
