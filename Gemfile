@@ -64,7 +64,7 @@ gem 'gcx_api', git: 'https://github.com/CruGlobal/gcx_api.git'
 gem 'oj'
 gem 'will_paginate'
 gem 'geocoder'
-gem 'global_registry', git: 'https://github.com/CruGlobal/global_registry_client.git'
+gem 'global_registry'
 gem 'sidekiq-pro'
 gem 'sinatra', '>= 1.3.0', :require => nil
 gem 'auto_strip_attributes'
