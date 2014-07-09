@@ -20,7 +20,13 @@ module Infobase
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     # config.i18n.default_locale = :de
 
-    config.cache_store = :dalli_store, '127.0.0.1'
+    if File.exist?(Rails.root.join('config','memcached.yml'))
+      cache_server = YAML.load_file(Rails.root.join('config','memcached.yml'))[Rails.env]['host']
+    else
+      cache_server = '127.0.0.1'
+    end
+
+    config.cache_store = :dalli_store, cache_server
 
     config.from_file 'settings.yml'
   end
