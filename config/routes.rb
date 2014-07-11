@@ -163,6 +163,8 @@ Infobase::Application.routes.draw do
     mount Sidekiq::Web => '/sidekiq'
   end
 
+  match '/logout' => "application#logout", :as => :logout, via: [:get, :post, :delete]
+
   root :to => 'home#index'
 
 end

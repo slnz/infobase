@@ -19,6 +19,16 @@ class ApplicationController < ActionController::Base
     ApplicationController.application_name
   end
 
+  def logout
+    logout_keeping_session!
+    if session[:cas_user]
+      session[:event_id] = nil
+      CASClient::Frameworks::Rails::Filter.logout(self)
+    else
+      redirect_to root_path
+    end
+  end
+
   protected
   
   def cas_filter
