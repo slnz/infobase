@@ -302,15 +302,15 @@ class Activity < ActiveRecord::Base
     super
   end
 
-  def attributes_to_push
+  def attributes_to_push(*args)
     if global_registry_id
       super
     else
-      super('activity', 'target_area', target_area)
+      super(relationship_name: 'activity', related_name: 'target_area', related_object: target_area, base_object: team)
     end
   end
 
-  def create_in_global_registry(base_object = nil, relationship_name = nil)
+  def create_in_global_registry(*args)
     super(team, 'activity')
   end
 
