@@ -5,7 +5,7 @@ class Api::V1::PeopleController < Api::V1::BaseController
 
     filtered_people = Person.where("firstName is not null and firstName <> ''")
     unless params[:include_secure] == 'true'
-      filtered_people = filtered_people.not_secure
+      filtered_people = filtered_people.public
     end
 
     filtered_people = PersonFilter.new(params[:filters]).filter(filtered_people)
