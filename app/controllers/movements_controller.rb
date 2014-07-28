@@ -39,7 +39,7 @@ class MovementsController < ApplicationController
   end
   
   def add_contact
-    @contact = Person.not_secure.find(params[:person_id])
+    @contact = Person.public.find(params[:person_id])
     if @info_user.can_add_contacts? || @current_user.person == @contact
       if !@movement.contacts.include?(@contact)
         @movement.contacts << @contact
@@ -66,7 +66,7 @@ class MovementsController < ApplicationController
   def search_contacts_results
     @last_name = params[:last_name]
     if !@last_name.blank? && @last_name.size > 1
-      @results = Person.not_secure.where("lastName like ?", @last_name + '%').
+      @results = Person.public.where("lastName like ?", @last_name + '%').
         includes(:current_address).where(Address.table_name + ".email is not null").references(:current_address).
         order(:lastName).order(:firstName)
       @results = @results - @movement.contacts

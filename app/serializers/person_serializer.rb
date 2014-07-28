@@ -20,6 +20,6 @@ class PersonSerializer < ActiveModel::Serializer
   end
 
   def is_secure
-    object.isSecure == 'T'
+    %w(T I).include?(object.isSecure)
   end
 end

@@ -37,7 +37,8 @@ class Person < ActiveRecord::Base
   before_save :check_region, :stamp_changed
   before_create :stamp_created
 
-  scope :not_secure, -> { where("isSecure != 'T' or isSecure IS NULL") }
+  scope :not_secure, -> { where("isSecure != 'T' or isSecure IS NULL") } # NOT secure
+  scope :public, -> { where("isSecure NOT IN('T', 'I') or isSecure IS NULL") } # NOT Secure or Semi-Secure
 
   alias_attribute :account_no, :accountNo
   alias_attribute :preferred_name, :preferredName
@@ -291,11 +292,7 @@ class Person < ActiveRecord::Base
 
   # This method shouldn't be needed because nightly updater should fill this in
   def is_secure?
-    if staff
-      (staff.isSecure == 'T' ? true : false)
-    else
-      false
-    end
+    isSecure == 'T'
   end
 
   # Find an exact match by email
