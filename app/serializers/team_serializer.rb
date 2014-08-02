@@ -1,7 +1,7 @@
 require_dependency 'cru_enhancements'
 
 class TeamSerializer < ActiveModel::Serializer
-  INCLUDES = [:people, :activities]
+  HAS_MANY = [:people, :activities]
   include CruEnhancements
 
   attributes :id, :name, :lane, :note, :region, :address1, :address2, :city, :state, :zip, :country, :phone, :fax, :email, :url,
