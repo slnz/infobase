@@ -9,7 +9,7 @@
 <h1>Movement Tracker Report</h1>
 <div id="muster_report">
   <p>
-    <b><%= @report_title %></b><br/> 
+    <b><%= @report_title %></b><br/>
     <% strategies = "" %>
     <% @strategies_list.each do |strategy| %>
       <% strategies += Activity.strategies[strategy] + ", " %>
@@ -38,7 +38,7 @@
       <% when "location" %>
         <%= render :partial => 'report_row_location', :locals => {:type => @type, :row => row} %>
       <% else %>
-        <%= render :partial => 'report_row_team', :locals => {:type => @type, :row => row} %>
+        <%= render :partial => 'report_row_team', :locals => {:type => @type, :row => row} if row.team %>
       <% end %>
     <% end %>
     <%= render :partial => 'report_footer', :locals => {:type => @type, :rows => @rows, :enrollment => @enrollment_total} %>
