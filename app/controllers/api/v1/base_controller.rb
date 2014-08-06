@@ -57,32 +57,8 @@ class Api::V1::BaseController < ApplicationController
     @includes ||= params[:include].to_s.split(',').map(&:to_sym)
   end
 
-  def included_relationships(keys = available_includes, values = [])
-    ret_val = []
-    keys.each_with_index do |key, index|
-      if key.is_a?(Hash)
-        ret_val << included_relationships(key.keys, key.values)
-      else
-        next unless includes.include?(key)
-
-        unless values[index]
-          ret_val << key
-          next
-        end
-
-        if values[index].is_a?(Hash)
-          ret_val << { key => included_relationships(values[index]) }
-        else
-          keep_values = includes & Array.wrap(values[index])
-          if keep_values.present?
-            ret_val << { key => keep_values }
-          else
-            ret_val << key
-          end
-        end
-      end
-    end
-    ret_val
+  def included_relationships
+    DeepIntersect.new(available_includes) & includes
   end
 
   # Each controller should override this method
