@@ -6,7 +6,7 @@ class Api::V1::BaseController < ApplicationController
   rescue_from ActiveRecord::RecordNotFound, with: :render_404
 
   protected
-  
+
   def restrict_access
     api_key = ApiKey.find_by(access_token: oauth_access_token)
     unless api_key
@@ -44,7 +44,7 @@ class Api::V1::BaseController < ApplicationController
     options[:order] ||= params[:order]
     # eager loading is a waste of time if the 'since' parameter is passed
     unless params[:since]
-      resource = resource.includes(available_includes) if available_includes.present?
+      resource = resource.includes(included_relationships) if included_relationships.present?
     end
     resource = resource.where("#{resource.table.name}.updated_at > ?", Time.at(params[:since].to_i)) if params[:since].to_i > 0
     resource = resource.paginate(:page => params[:page] || 1, per_page: params[:per_page] || 100)
@@ -54,7 +54,11 @@ class Api::V1::BaseController < ApplicationController
 
   # let the api use add additional relationships to this call
   def includes
-    @includes ||= params[:include].to_s.split(',')
+    @includes ||= params[:include].to_s.split(',').map(&:to_sym)
+  end
+
+  def included_relationships
+    DeepIntersect.new(available_includes) & includes
   end
 
   # Each controller should override this method

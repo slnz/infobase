@@ -2,13 +2,18 @@ module CruEnhancements
   extend ActiveSupport::Concern
 
   included do |c|
-    if defined?(c::INCLUDES)
-      has_many *c::INCLUDES
-
-      c::INCLUDES.each do |relationship|
-        define_method(relationship) do
-          add_since(object.send(relationship))
-        end
+    includes = []
+    if defined?(c::HAS_MANY)
+      has_many *c::HAS_MANY
+      includes += c::HAS_MANY
+    end
+    if defined?(c::HAS_ONE)
+      has_one *c::HAS_ONE
+      includes += c::HAS_ONE
+    end
+    includes.each do |relationship|
+      define_method(relationship) do
+        add_since(object.send(relationship))
       end
     end
   end
@@ -23,9 +28,12 @@ module CruEnhancements
 
   def include_associations!
     includes = scope[:include] if scope.is_a? Hash
-    if includes && defined?(self.class::INCLUDES)
+    rels = []
+    rels += self.class::HAS_MANY if defined?(self.class::HAS_MANY)
+    rels += self.class::HAS_ONE if defined?(self.class::HAS_ONE)
+    if includes && rels.present?
       includes.each do |rel|
-        include!(rel.to_sym) if self.class::INCLUDES.include?(rel.to_sym)
+        include!(rel.to_sym) if rels.include?(rel.to_sym)
       end
     else
       super
