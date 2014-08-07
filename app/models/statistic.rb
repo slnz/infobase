@@ -306,11 +306,12 @@ class Statistic < ActiveRecord::Base
     # Check to make sure this is the last stat record
     if activity.statistics.order(:periodBegin).last == self
       total_involvement = self.students_involved.to_i + self.faculty_involved.to_i
+      total_engaged_disciple_involvement = self.students_engaged.to_i + self.faculty_engaged.to_i
       total_leader_involvement = self.student_leaders.to_i + self.faculty_leaders.to_i
       case
-      when total_involvement > Activity::MULITPLYING_INVOLVEMENT_LEVEL && total_leader_involvement > Activity::MULITPLYING_LEADER_INVOLVEMENT_LEVEL
+      when total_involvement >= Activity::MULITPLYING_INVOLVEMENT_LEVEL && total_engaged_disciple_involvement >= Activity::MULTIPLYING_ENGAGED_DISCIPLE_LEVEL && total_leader_involvement >= Activity::MULITPLYING_LEADER_INVOLVEMENT_LEVEL
         new_status = "MU"
-      when total_leader_involvement > Activity::LAUNCHED_LEADER_INVOLVEMENT_LEVEL
+      when total_engaged_disciple_involvement >= Activity::LAUNCHED_ENGAGED_DISCIPLE_LEVEL && total_leader_involvement >= Activity::LAUNCHED_LEADER_INVOLVEMENT_LEVEL
         new_status = "LA"
       when total_leader_involvement >= Activity::KEYLEADER_LEADER_INVOLVEMENT_LEVEL
         new_status = "KE"
