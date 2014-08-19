@@ -17,26 +17,29 @@ class Statistic < ActiveRecord::Base
   after_commit :push_to_global_registry
   after_destroy :delete_from_global_registry
 
-  alias_attribute :activity_id, :fk_Activity
-  alias_attribute :period_begin, :periodBegin
-  alias_attribute :period_end, :periodEnd
-  #alias_attribute :spiritual_conversations, :spiritual_conversations
-  alias_attribute :personal_exposures, :evangelisticOneOnOne
-  alias_attribute :personal_evangelism, :evangelisticOneOnOne
-  alias_attribute :group_exposures, :evangelisticGroup
-  alias_attribute :group_evangelism, :evangelisticGroup
-  alias_attribute :media_exposures, :exposuresViaMedia
-  alias_attribute :holy_spirit_presentations, :holySpiritConversations
-  alias_attribute :personal_decisions, :decisionsHelpedByOneOnOne
-  alias_attribute :group_decisions, :decisionsHelpedByGroup
-  alias_attribute :media_decisions, :decisionsHelpedByMedia
-  alias_attribute :graduating_on_mission, :laborersSent
-  alias_attribute :faculty_on_mission, :faculty_sent
-  alias_attribute :laborers_sent, :laborersSent
-  alias_attribute :students_involved, :invldStudents
-  alias_attribute :students_engaged, :multipliers
-  alias_attribute :student_leaders, :studentLeaders
-  alias_attribute :seekers, :ongoingEvangReln
+  ATTRIBUTE_ALIASES = {
+    exposuresViaMedia: :media_exposures,
+    evangelisticOneOnOne: :personal_evangelism,
+    evangelisticGroup: :group_evangelism,
+    decisionsHelpedByMedia: :media_decisions,
+    decisionsHelpedByOneOnOne: :personal_decisions,
+    decisionsHelpedByGroup: :group_decisions,
+    decisionsHelpedByOngoingReln: :relational_decisions,
+    holySpiritConversations: :holy_spirit_presentations,
+    invldStudents: :students_involved,
+    ongoingEvangReln: :seekers,
+    studentLeaders: :student_leaders,
+    multipliers: :students_engaged,
+    laborersSent: :graduating_on_mission,
+    faculty_sent: :faculty_on_mission,
+    periodEnd: :period_end,
+    periodBegin: :period_begin,
+    fk_Activity: :activity_id
+  }
+
+  ATTRIBUTE_ALIASES.each do |k, v|
+    alias_attribute v, k
+  end
 
   #Scopes
   def self.before_date(date)

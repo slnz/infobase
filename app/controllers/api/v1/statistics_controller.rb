@@ -45,6 +45,27 @@ class Api::V1::StatisticsController < Api::V1::BaseController
     respond_with [@stat], :root => "statistics"
   end
 
+  def sp_evangelism_combined
+    columns_we_care_about = %w[exposuresViaMedia evangelisticOneOnOne evangelisticGroup decisions decisionsHelpedByMedia decisionsHelpedByOneOnOne
+                                 decisionsHelpedByGroup decisionsHelpedByOngoingReln holySpiritConversations invldNewBlvrs invldStudents
+                                 dollars_raised].map(&:to_sym)
+
+    sum_columns = Statistic::ATTRIBUTE_ALIASES.slice(*columns_we_care_about)
+    # raise Statistic::ATTRIBUTE_ALIASES.inspect
+    partners = ActiveRecord::Base.connection.quote(params[:partner])
+
+    statistics = Statistic.connection.select_all(
+      "select sp_year, #{sum_columns.collect { |cn, ca| "sum(ministry_statistic.#{cn}) as #{ca}" }.join(',')} from sp_projects
+       left join ministry_targetarea on sp_projects.id = ministry_targetarea.eventKeyID and eventType = 'SP'
+       left join ministry_activity on ministry_activity.fk_targetAreaID = ministry_targetarea.`targetAreaID`
+       left join ministry_statistic on ministry_statistic.`fk_Activity` = ministry_activity.`ActivityID`
+       where sp_projects.primary_partner IN (#{partners})
+       AND sp_year is not null group by sp_year order by sp_year desc"
+    )
+
+    render render_options(statistics)
+  end
+
   def collate_stats
     begin_date = Date.parse(params[:begin_date])
     end_date = Date.parse(params[:end_date])

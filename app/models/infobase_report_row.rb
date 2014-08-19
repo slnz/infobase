@@ -24,7 +24,6 @@ class InfobaseReportRow
         :media_decisions => decisionsHelpedByMedia,
         :graduating_on_mission => laborersSent,
         :faculty_on_mission => faculty_sent,
-        :laborers_sent => laborersSent,
         :students_involved => invldStudents,
         :students_engaged => multipliers,
         :student_leaders => studentLeaders,

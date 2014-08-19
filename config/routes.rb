@@ -21,6 +21,7 @@ Infobase::Application.routes.draw do
       resources :statistics do
         collection do
           get :activity
+          get :sp_evangelism_combined
           post :collate_stats
           post :collate_stats_intervals
           post :movement_stages

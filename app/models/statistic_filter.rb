@@ -38,6 +38,14 @@ class StatisticFilter
       filtered_statistics = filtered_statistics.joins(:activity).where("#{Activity.table_name}.strategy IN(?)", @filters[:ministry].split(','))
     end
 
+    if @filters[:event_id].present?
+      filtered_statistics = filtered_statistics.joins(activity: :target_area).where(TargetArea.table_name + '.eventKeyID IN(?)', @filters[:event_id].split(','))
+    end
+
+    if @filters[:sp_year].present?
+      filtered_statistics = filtered_statistics.where("#{Statistic.table_name}.sp_year" => @filters[:sp_year].split(','))
+    end
+
     if @filters[:activity_type].present?
       filtered_statistics = case @filters[:activity_type]
         when "campus"
@@ -46,7 +54,8 @@ class StatisticFilter
           filtered_statistics.where(TargetArea.table_name + ".type = 'Event'").where(TargetArea.table_name + ".eventType = 'SP'")
         when "conference"
           filtered_statistics.where(TargetArea.table_name + ".type = 'Event'").where(TargetArea.table_name + ".eventType = 'C2' OR " + TargetArea.table_name + ".eventType = 'CS'")
-      end
+        end
+      filtered_statistics = filtered_statistics.joins(activity: :target_area)
     end
 
     filtered_statistics
