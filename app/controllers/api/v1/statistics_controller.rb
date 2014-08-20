@@ -17,7 +17,6 @@ class Api::V1::StatisticsController < Api::V1::BaseController
   def index
     statistics = StatisticFilter.new(params[:filters])
                                 .filter(Statistic.all)
-                                #.includes(activity: :target_area)
 
     if params[:filters] && params[:filters][:period_begin] && params[:filters][:period_end]
       statistics = case params[:collate_by]
@@ -51,7 +50,7 @@ class Api::V1::StatisticsController < Api::V1::BaseController
                                  dollars_raised].map(&:to_sym)
 
     sum_columns = Statistic::ATTRIBUTE_ALIASES.slice(*columns_we_care_about)
-    # raise Statistic::ATTRIBUTE_ALIASES.inspect
+
     partners = ActiveRecord::Base.connection.quote(params[:partner])
 
     statistics = Statistic.connection.select_all(
