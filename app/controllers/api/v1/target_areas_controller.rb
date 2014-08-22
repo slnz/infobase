@@ -1,7 +1,7 @@
 class Api::V1::TargetAreasController < Api::V1::BaseController
 
   def index
-    target_areas = TargetAreaFilter.new(params[:filters]).filter(TargetArea.all)
+    target_areas = TargetAreaFilter.new(params[:filters]).filter(TargetArea.where("isClosed <> 'T'"))
 
     render render_options(target_areas)
   end
