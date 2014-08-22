@@ -52,7 +52,7 @@ class Api::V1::StatisticsController < Api::V1::BaseController
 
     sum_columns = Statistic::ATTRIBUTE_ALIASES.slice(*columns_we_care_about)
     # raise Statistic::ATTRIBUTE_ALIASES.inspect
-    partners = ActiveRecord::Base.connection.quote(params[:partner])
+    partners = params[:partner].split(',').map { |p| ActiveRecord::Base.connection.quote(p) }
 
     statistics = Statistic.connection.select_all(
       "select sp_year, #{sum_columns.collect { |cn, ca| "sum(ministry_statistic.#{cn}) as #{ca}" }.join(',')} from sp_projects
