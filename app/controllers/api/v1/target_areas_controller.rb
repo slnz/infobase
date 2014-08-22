@@ -9,6 +9,6 @@ class Api::V1::TargetAreasController < Api::V1::BaseController
   private
 
   def available_includes
-    []
+    [:teams]
   end
 end
