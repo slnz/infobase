@@ -11,7 +11,11 @@ Infobase::Application.routes.draw do
     api_version(module: 'V1', header: {name: 'API-VERSION', value: 'v1'}, parameter: {name: "version", value: 'v1'}, path: {value: 'v1'}) do
       resources :ministries
       resources :regions
-      resources :teams
+      resources :teams do
+        collection do
+          post :search # This is needed for searches with lots of parameters
+        end
+      end
       resources :target_areas
       resources :users
       resources :activities

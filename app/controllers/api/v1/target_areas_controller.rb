@@ -6,6 +6,12 @@ class Api::V1::TargetAreasController < Api::V1::BaseController
     render render_options(target_areas)
   end
 
+  def show
+    target_area = TargetArea.find(params[:id])
+
+    render render_options(target_area)
+  end
+
   private
 
   def available_includes

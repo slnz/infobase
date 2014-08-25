@@ -27,6 +27,10 @@ class TargetAreaFilter
       filtered_target_areas = filtered_target_areas.where("#{TargetArea.table_name}.country = ?", "#{@filters[:country]}")
     end
 
+    if @filters[:team_id]
+      filtered_target_areas = filtered_target_areas.joins(:activities).where("#{Activity.table_name}.fk_teamID = ?", "#{@filters[:team_id]}")
+    end
+
     if @filters[:latitude].present? && @filters[:longitude].present? && @filters[:radius].present?
       filtered_target_areas = filtered_target_areas.where("(3963 * ACOS(COS(RADIANS(:lat)) * COS(RADIANS(latitude)) * COS(RADIANS(longitude) - RADIANS(:lon)) + SIN(RADIANS(:lat)) * SIN(RADIANS(latitude)))) < :radius",
                                             {lat: @filters[:latitude], lon: @filters[:longitude], radius: @filters[:radius]})

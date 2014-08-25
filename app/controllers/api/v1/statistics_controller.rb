@@ -27,7 +27,6 @@ class Api::V1::StatisticsController < Api::V1::BaseController
                                  .group('fk_targetAreaID')
                    end
     end
-
     render render_options(statistics)
   end
 
@@ -62,7 +61,7 @@ class Api::V1::StatisticsController < Api::V1::BaseController
        AND sp_year is not null group by sp_year order by sp_year desc"
     )
 
-    render render_options(statistics)
+    render render_options(statistics: statistics)
   end
 
   def collate_stats
