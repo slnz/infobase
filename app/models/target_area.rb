@@ -28,6 +28,8 @@ class TargetArea < ActiveRecord::Base
   before_save :ensure_urls_http
   before_update :set_coordinates
 
+  alias_attribute :event_id, :eventKeyID
+
   #Event Types
   @@summer_project = "SP"
   @@crs_conference = "C2"
