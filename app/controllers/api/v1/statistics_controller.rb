@@ -27,7 +27,7 @@ class Api::V1::StatisticsController < Api::V1::BaseController
                                  .group('fk_targetAreaID')
                    end
     end
-    params[:order] = "#{Statistic.table_name}.#{params[:order]}"
+    params[:order] = "#{Statistic.table_name}.#{params[:order]}" if params[:order].present?
     render render_options(statistics)
   end
 
